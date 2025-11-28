@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devocionais - Instituto Tanigawa</title>
+    <meta name="description" content="Devocionais diários para transformar sua jornada espiritual. Reflexões profundas sobre propósito, fé e vida.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #3b82f6;
+            --primary-gold: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --text-light: #e2e8f0;
+            --text-gray: #94a3b8;
+            
+            /* Sistema de Espaçamento Simétrico */
+            --section-spacing: 6rem;
+            --container-padding: 2rem;
+            --header-spacing: 8rem;
+            --footer-spacing: 6rem;
+        }
+
+        /* Espaçamento Simétrico Global */
+        section {
+            margin-bottom: var(--section-spacing);
+            padding-left: var(--container-padding);
+            padding-right: var(--container-padding);
+        }
+
+        section:last-of-type {
+            margin-bottom: var(--footer-spacing);
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --section-spacing: 4rem;
+                --container-padding: 1.5rem;
+                --header-spacing: 6rem;
+                --footer-spacing: 4rem;
+            }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.5;
+        }
+
+        p {
+            line-height: 1.7;
+        }
+
+        /* Particles */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-40px) translateX(-10px); }
+            75% { transform: translateY(-20px) translateX(5px); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 1rem 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-light);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-light);
+            transition: 0.3s;
+        }
+
+        /* Main */
+        main {
+            position: relative;
+            z-index: 2;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding-top: var(--header-spacing);
+            padding-bottom: var(--section-spacing);
+            margin-bottom: 0 !important;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Benefits */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .benefit-card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        /* Filter */
+        .filter-section {
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 50px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9375rem;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+
+        /* Devocionais Grid */
+        .devocionais-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .devocional-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .devocional-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .devocional-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .devocional-icon {
+            font-size: 2rem;
+        }
+
+        .devocional-meta {
+            flex: 1;
+        }
+
+        .devocional-category {
+            display: inline-block;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .devocional-date {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        .devocional-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .devocional-verse {
+            font-style: italic;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            font-size: 0.9375rem;
+            line-height: 1.7;
+        }
+
+        .devocional-excerpt {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .devocional-author {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-gray);
+        }
+
+        /* Newsletter */
+        .newsletter-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .newsletter-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .newsletter-section p {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .newsletter-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.875rem 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+
+        .newsletter-form button {
+            padding: 0.875rem 2rem;
+            background: linear-gradient(135deg, var(--primary-blue), #2563eb);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(245, 158, 11, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .cta-section p {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), #2563eb);
+            color: white;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--text-light);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--primary-blue);
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 2;
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            padding: var(--footer-spacing) var(--container-padding) 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            line-height: 1.7;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--text-gray);
+        }
+
+        .crp-info {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            color: var(--text-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(15, 23, 42, 0.95);
+                width: 100%;
+                padding: 2rem;
+                gap: 1rem;
+                transition: left 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .benefits {
+                grid-template-columns: 1fr;
+            }
+
+            .devocionais-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            main {
+                padding: 6rem 1.5rem 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="mentoria.html">Mentorias</a></li>
+                <li><a href="devocionais.html">Devocionais</a></li>
+                <li><a href="nr-1.html">NR-1</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero -->
+            <div class="hero">
+                <h1>
+                    <span class="highlight">Devocionais</span> Diários
+                </h1>
+                <p>
+                    Reflexões profundas para transformar sua jornada espiritual. Alimento diário para sua alma.
+                </p>
+            </div>
+
+            <!-- Benefits -->
+            <div class="benefits">
+                <div class="benefit-card">
+                    <div class="benefit-icon">📖</div>
+                    <h3>Conteúdo Profundo</h3>
+                    <p>Reflexões baseadas em princípios bíblicos aplicados à vida real</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Direcionamento Prático</h3>
+                    <p>Insights que transformam sua rotina e decisões diárias</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💡</div>
+                    <h3>Crescimento Contínuo</h3>
+                    <p>Novos devocionais regularmente para sua jornada</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h3>Mentores Experientes</h3>
+                    <p>Escritos por Sergio e Wanessa Tanigawa</p>
+                </div>
+            </div>
+
+            <!-- Filter -->
+            <div class="filter-section">
+                <div class="filter-buttons">
+                    <button class="filter-btn active" data-category="all">Todos</button>
+                    <button class="filter-btn" data-category="lideranca">Liderança Espiritual</button>
+                    <button class="filter-btn" data-category="proposito">Propósito e Chamado</button>
+                    <button class="filter-btn" data-category="cura">Cura Emocional</button>
+                    <button class="filter-btn" data-category="fe">Fé e Jornada</button>
+                    <button class="filter-btn" data-category="familia">Família e Relacionamentos</button>
+                    <button class="filter-btn" data-category="adoracao">Adoração e Intimidade</button>
+                </div>
+            </div>
+
+            <!-- Devocionais Grid -->
+            <div class="devocionais-grid" id="devocionaisGrid">
+                <!-- Devocionais serão carregados aqui via JavaScript -->
+            </div>
+
+            <!-- Newsletter -->
+            <div class="newsletter-section">
+                <h2>Receba devocionais por email</h2>
+                <p>Inscreva-se para receber reflexões semanais diretamente na sua caixa de entrada</p>
+                <form name="newsletter" method="POST" data-netlify="true" class="newsletter-form" id="newsletterForm">
+                    <input type="hidden" name="form-name" value="newsletter">
+                    <input type="email" name="email" placeholder="seu@email.com" required>
+                    <button type="submit">Inscrever-se</button>
+                </form>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h2>Pronto para sua transformação?</h2>
+                <p>Descubra qual mentoria é ideal para você através do nosso diagnóstico PEAD</p>
+                <div class="cta-buttons">
+                    <a href="diagnostico-tanigawa-pead.html" class="btn btn-primary">
+                        🧭 Fazer diagnóstico PEAD
+                    </a>
+                    <a href="mentoria.html" class="btn btn-secondary">
+                        Ver mentorias
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contato">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Instituto Tanigawa</h3>
+                    <p>Transformando vidas através de mentoria espiritual, cura emocional e desenvolvimento pessoal.</p>
+                    <p style="margin-top: 1rem;">
+                        <strong>VIDA • ESPÍRITO • PROPÓSITO</strong>
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h3>Mentorias</h3>
+                    <a href="mentoria.html#espiritual">Mentoria Espiritual</a>
+                    <a href="mentoria.html#lev">Mentoria LEV</a>
+                    <a href="mentoria.html#tcc">Psicoterapia TCC</a>
+                    <a href="diagnostico-tanigawa-pead.html">Diagnóstico PEAD</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <a href="devocionais.html">Devocionais</a>
+                    <a href="nr-1.html">NR-1 Empresas</a>
+                    <a href="#sobre">Sobre Nós</a>
+                    <a href="#contato">Contato</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><strong>Sergio Tanigawa</strong><br>Diretor e Mentor Espiritual<br>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="07746275606e68476e6974736e737273687366696e606670662964686a296575">[email&#160;protected]</a><br>📱 (11) 99999-9999</p>
+                    <p style="margin-top: 1rem;"><strong>Wanessa Tanigawa</strong><br>Diretora Técnica e Psicóloga<br>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="83f4e2ede6f0f0e2c3eaedf0f7eaf7f6f7ecf7e2edeae4e2f4e2ade0eceeade1f1">[email&#160;protected]</a><br>📱 (11) 98888-8888</p>
+                    <p class="crp-info">CRP: 06/128917</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados.</p>
+                <p style="margin-top: 0.5rem;">Desenvolvido com 💙 para transformar vidas</p>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Devocionais data
+        const devocionais = [
+            {
+                title: "O Peso da Liderança Espiritual",
+                date: "20 de Novembro, 2024",
+                author: "Sergio Tanigawa",
+                category: "lideranca",
+                categoryName: "Liderança Espiritual",
+                verse: "1 Timóteo 3:1",
+                verseText: "Se alguém deseja ser bispo, deseja uma função nobre",
+                excerpt: "Liderar no Reino não é sobre poder, mas sobre servir. É sobre transformação, responsabilidade e um chamado que exige tudo de nós.",
+                icon: "⚔️"
+            },
+            {
+                title: "Transformando Dor em Amor",
+                date: "22 de Novembro, 2024",
+                author: "Wanessa Tanigawa",
+                category: "cura",
+                categoryName: "Cura Emocional",
+                verse: "Salmos 147:3",
+                verseText: "Ele sara os quebrantados de coração e cuida das suas feridas",
+                excerpt: "O caminho da cura não é linear. É feito de pequenos passos, de escolhas diárias de deixar a graça de Deus trabalhar em nós.",
+                icon: "💜"
+            },
+            {
+                title: "A Jornada de Abraão: Quando Deus Chama",
+                date: "25 de Novembro, 2024",
+                author: "Sergio Tanigawa",
+                category: "proposito",
+                categoryName: "Propósito e Chamado",
+                verse: "Hebreus 11:8",
+                verseText: "Pela fé, Abraão obedeceu e partiu para um lugar que havia de receber por herança; e partiu sem saber para onde ia",
+                excerpt: "Às vezes, a fé não vem com um mapa detalhado. Vem com um convite: 'Anda comigo'. E isso precisa ser suficiente.",
+                icon: "🎯"
+            }
+        ];
+
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Toggle mobile menu
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Render devocionais
+        function renderDevocionais(filter = 'all') {
+            const grid = document.getElementById('devocionaisGrid');
+            const filtered = filter === 'all' 
+                ? devocionais 
+                : devocionais.filter(d => d.category === filter);
+
+            grid.innerHTML = filtered.map(dev => `
+                <div class="devocional-card" data-category="${dev.category}">
+                    <div class="devocional-header">
+                        <div class="devocional-icon">${dev.icon}</div>
+                        <div class="devocional-meta">
+                            <span class="devocional-category">${dev.categoryName}</span>
+                            <div class="devocional-date">${dev.date}</div>
+                        </div>
+                    </div>
+                    <h3>${dev.title}</h3>
+                    <p class="devocional-verse">"${dev.verseText}" - ${dev.verse}</p>
+                    <p class="devocional-excerpt">${dev.excerpt}</p>
+                    <div class="devocional-author">
+                        <span>✍️</span>
+                        <span>${dev.author}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter functionality
+        function setupFilters() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderDevocionais(btn.dataset.category);
+                });
+            });
+        }
+
+        // Newsletter form
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                alert('✅ Inscrição realizada com sucesso! Verifique seu email.');
+                this.reset();
+            })
+            .catch(() => {
+                alert('❌ Erro ao inscrever. Tente novamente.');
+            });
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            renderDevocionais();
+            setupFilters();
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+       

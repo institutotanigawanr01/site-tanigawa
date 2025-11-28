@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentorias - Instituto Tanigawa</title>
+    <meta name="description" content="Conheça nossas mentorias: Espiritual, LEV e Psicoterapia TCC. Transformação espiritual, cura emocional e desenvolvimento pessoal.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #3b82f6;
+            --primary-gold: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --text-light: #e2e8f0;
+            --text-gray: #94a3b8;
+            
+            /* Sistema de Espaçamento Simétrico */
+            --section-spacing: 6rem;
+            --container-padding: 2rem;
+            --header-spacing: 8rem;
+            --footer-spacing: 6rem;
+        }
+
+        /* Espaçamento Simétrico Global */
+        section {
+            margin-bottom: var(--section-spacing);
+            padding-left: var(--container-padding);
+            padding-right: var(--container-padding);
+        }
+
+        section:last-of-type {
+            margin-bottom: var(--footer-spacing);
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --section-spacing: 4rem;
+                --container-padding: 1.5rem;
+                --header-spacing: 6rem;
+                --footer-spacing: 4rem;
+            }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.5;
+        }
+
+        p {
+            line-height: 1.7;
+        }
+
+        /* Particles */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-40px) translateX(-10px); }
+            75% { transform: translateY(-20px) translateX(5px); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 1rem 0;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-light);
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-light);
+            transition: 0.3s;
+        }
+
+        /* Main */
+        main {
+            position: relative;
+            z-index: 2;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding-top: var(--header-spacing);
+            padding-bottom: var(--section-spacing);
+            margin-bottom: 0 !important;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-gray);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* Mentoria Section */
+        .mentoria-section {
+            margin-bottom: 6rem;
+            scroll-margin-top: 100px;
+        }
+
+        .mentoria-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 3rem;
+        }
+
+        .mentoria-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .mentoria-intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .mentoria-subtitle {
+            font-size: 1.25rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .mentoria-description {
+            font-size: 1.125rem;
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        .mentor-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .mentor-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .mentor-details h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.25rem;
+            line-height: 1.5;
+        }
+
+        .mentor-details p {
+            font-size: 0.875rem;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+        }
+
+        .content-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .content-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .content-card li {
+            padding: 0.75rem 0;
+            color: var(--text-gray);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            line-height: 1.7;
+        }
+
+        .content-card li::before {
+            content: "✓";
+            color: var(--primary-gold);
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        /* CTA Box */
+        .cta-box {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(245, 158, 11, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .cta-box h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .cta-box p {
+            font-size: 1.125rem;
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), #2563eb);
+            color: white;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--text-light);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--primary-blue);
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            margin: 6rem 0;
+        }
+
+        .comparison-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            line-height: 1.5;
+        }
+
+        .comparison-table {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1.25rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+            line-height: 1.7;
+        }
+
+        th {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        td {
+            color: var(--text-gray);
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 2;
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            padding: var(--footer-spacing) var(--container-padding) 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--text-gray);
+            text-decoration: none;
+            line-height: 1.7;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--text-gray);
+        }
+
+        .crp-info {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            color: var(--text-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(15, 23, 42, 0.95);
+                width: 100%;
+                padding: 2rem;
+                gap: 1rem;
+                transition: left 0.3s;
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .mentoria-header {
+                flex-direction: column;
+                padding: 2rem;
+            }
+
+            .mentoria-intro h2 {
+                font-size: 2rem;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-box {
+                padding: 2rem;
+            }
+
+            .cta-box h3 {
+                font-size: 1.5rem;
+            }
+
+            main {
+                padding: 6rem 1.5rem 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <a href="index.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="mentoria.html">Mentorias</a></li>
+                <li><a href="devocionais.html">Devocionais</a></li>
+                <li><a href="nr-1.html">NR-1</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <!-- Hero -->
+            <div class="hero">
+                <h1>Nossas <span class="highlight">Mentorias</span></h1>
+                <p>
+                    Caminhos personalizados para sua transformação espiritual, emocional e profissional. Escolha a jornada ideal para este momento da sua vida.
+                </p>
+            </div>
+
+            <!-- Mentoria Espiritual - Sergio -->
+            <section class="mentoria-section" id="espiritual">
+                <div class="mentoria-header">
+                    <div class="mentoria-icon">⚔️</div>
+                    <div class="mentoria-intro">
+                        <h2>Mentoria Espiritual</h2>
+                        <p class="mentoria-subtitle">Liderança • Propósito • Transformação</p>
+                        <p class="mentoria-description">
+                            Descubra seu chamado divino e desenvolva liderança espiritual autêntica. Uma jornada profunda de discernimento, propósito e transformação radical guiada por princípios bíblicos.
+                        </p>
+                        <div class="mentor-info">
+                            <div class="mentor-avatar">👤</div>
+                            <div class="mentor-details">
+                                <h4>Sergio Tanigawa</h4>
+                                <p>Diretor e Mentor Espiritual • 15+ anos de experiência</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h3>Para quem é ideal</h3>
+                        <ul>
+                            <li>Líderes que buscam direcionamento espiritual</li>
+                            <li>Pessoas em busca de propósito e chamado</li>
+                            <li>Quem enfrenta crises existenciais profundas</li>
+                            <li>Profissionais em transição de carreira</li>
+                            <li>Líderes cristãos buscando crescimento</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>O que você vai alcançar</h3>
+                        <ul>
+                            <li>Clareza sobre seu propósito divino</li>
+                            <li>Desenvolvimento de liderança espiritual</li>
+                            <li>Discernimento para decisões importantes</li>
+                            <li>Superação de crises de identidade</li>
+                            <li>Alinhamento entre fé e vida prática</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>Metodologia</h3>
+                        <ul>
+                            <li>Diagnóstico PEAD personalizado</li>
+                            <li>Sessões individuais semanais</li>
+                            <li>Material de estudo bíblico direcionado</li>
+                            <li>Plano de ação personalizado</li>
+                            <li>Acompanhamento contínuo via WhatsApp</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="cta-box">
+                    <h3>Pronto para descobrir seu propósito?</h3>
+                    <p>Comece sua jornada de transformação espiritual hoje</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="diagnostico-tanigawa-pead.html" class="btn btn-primary">
+                            🧭 Fazer diagnóstico PEAD
+                        </a>
+                        <a href="https://wa.me/5511999999999?text=Olá!%20Quero%20saber%20mais%20sobre%20a%20Mentoria%20Espiritual" class="btn btn-secondary">
+                            💬 Falar com Sergio
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mentoria LEV - Wanessa -->
+            <section class="mentoria-section" id="lev">
+                <div class="mentoria-header">
+                    <div class="mentoria-icon">💜</div>
+                    <div class="mentoria-intro">
+                        <h2>Mentoria LEV</h2>
+                        <p class="mentoria-subtitle">Luz • Esperança • Vida</p>
+                        <p class="mentoria-description">
+                            Cura emocional integrada com espiritualidade. Um processo transformador que une fé e saúde emocional para restauração profunda do ser através do método LEV (Luz, Esperança e Vida).
+                        </p>
+                        <div class="mentor-info">
+                            <div class="mentor-avatar">👤</div>
+                            <div class="mentor-details">
+                                <h4>Wanessa Tanigawa</h4>
+                                <p>Diretora Técnica e Psicóloga • CRP 06/128917</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h3>Para quem é ideal</h3>
+                        <ul>
+                            <li>Pessoas com feridas emocionais profundas</li>
+                            <li>Quem busca cura espiritual e emocional integrada</li>
+                            <li>Mulheres em processo de restauração</li>
+                            <li>Pessoas enfrentando perdas e lutos</li>
+                            <li>Quem deseja unir fé e cura emocional</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>O que você vai alcançar</h3>
+                        <ul>
+                            <li>Cura de traumas e feridas emocionais</li>
+                            <li>Restauração da autoestima e autoconfiança</li>
+                            <li>Ressignificação de experiências dolorosas</li>
+                            <li>Paz interior e equilíbrio emocional</li>
+                            <li>Integração entre fé e saúde emocional</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>Método LEV</h3>
+                        <ul>
+                            <li>Luz: Iluminação de padrões emocionais</li>
+                            <li>Esperança: Renovação da perspectiva de vida</li>
+                            <li>Vida: Transformação prática e duradoura</li>
+                            <li>Abordagem espiritual e emocional integrada</li>
+                            <li>Acompanhamento personalizado</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="cta-box">
+                    <h3>Pronta para sua restauração?</h3>
+                    <p>Inicie sua jornada de cura emocional e espiritual</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="diagnostico-tanigawa-pead.html" class="btn btn-primary">
+                            🧭 Fazer diagnóstico PEAD
+                        </a>
+                        <a href="https://wa.me/5511988888888?text=Olá!%20Quero%20saber%20mais%20sobre%20a%20Mentoria%20LEV" class="btn btn-secondary">
+                            💬 Falar com Wanessa
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Psicoterapia TCC - Wanessa -->
+            <section class="mentoria-section" id="tcc">
+                <div class="mentoria-header">
+                    <div class="mentoria-icon">🧠</div>
+                    <div class="mentoria-intro">
+                        <h2>Psicoterapia TCC</h2>
+                        <p class="mentoria-subtitle">Terapia Cognitivo-Comportamental</p>
+                        <p class="mentoria-description">
+                            Atendimento psicológico profissional baseado em evidências científicas. Abordagem estruturada e eficaz para ansiedade, depressão, relacionamentos e desenvolvimento pessoal, mantendo estrita separação entre psicologia clínica e espiritualidade.
+                        </p>
+                        <div class="mentor-info">
+                            <div class="mentor-avatar">👤</div>
+                            <div class="mentor-details">
+                                <h4>Wanessa Tanigawa</h4>
+                                <p>Psicóloga Clínica • CRP 06/128917 • Especialista em TCC</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="content-card">
+                        <h3>Para quem é ideal</h3>
+                        <ul>
+                            <li>Pessoas com ansiedade e/ou depressão</li>
+                            <li>Quem busca tratamento psicológico baseado em ciência</li>
+                            <li>Dificuldades em relacionamentos</li>
+                            <li>Problemas de autoestima e autoconfiança</li>
+                            <li>Gestão de emoções e comportamentos</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>O que você vai alcançar</h3>
+                        <ul>
+                            <li>Redução de sintomas de ansiedade e depressão</li>
+                            <li>Melhora em relacionamentos interpessoais</li>
+                            <li>Desenvolvimento de habilidades emocionais</li>
+                            <li>Mudança de padrões de pensamento negativos</li>
+                            <li>Ferramentas práticas para o dia a dia</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-card">
+                        <h3>Abordagem TCC</h3>
+                        <ul>
+                            <li>Método científico validado internacionalmente</li>
+                            <li>Sessões estruturadas e focadas em objetivos</li>
+                            <li>Técnicas cognitivas e comportamentais</li>
+                            <li>Ética profissional e sigilo garantidos</li>
+                            <li>Sem integração de elementos espirituais</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="cta-box">
+                    <h3>Pronto para cuidar da sua saúde mental?</h3>
+                    <p>Agende sua primeira sessão de psicoterapia</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <a href="diagnostico-tanigawa-pead.html" class="btn btn-primary">
+                            🧭 Fazer diagnóstico PEAD
+                        </a>
+                        <a href="https://wa.me/5511988888888?text=Olá!%20Quero%20agendar%20uma%20sessão%20de%20Psicoterapia%20TCC" class="btn btn-secondary">
+                            💬 Falar com Wanessa
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comparison Section -->
+            <section class="comparison-section">
+                <h2>Qual mentoria é ideal para você?</h2>
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Característica</th>
+                                <th>Mentoria Espiritual</th>
+                                <th>Mentoria LEV</th>
+                                <th>Psicoterapia TCC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Foco Principal</strong></td>
+                                <td>Propósito e liderança espiritual</td>
+                                <td>Cura emocional com espiritualidade</td>
+                                <td>Saúde mental e bem-estar psicológico</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Abordagem</strong></td>
+                                <td>Bíblica e espiritual</td>
+                                <td>Integrada (fé + emoção)</td>
+                                <td>Científica (TCC)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Ideal para</strong></td>
+                                <td>Líderes e buscadores de propósito</td>
+                                <td>Cura de traumas com fé</td>
+                                <td>Tratamento psicológico clínico</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mentor(a)</strong></td>
+                                <td>Sergio Tanigawa</td>
+                                <td>Wanessa Tanigawa</td>
+                                <td>Wanessa Tanigawa (CRP 06/128917)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Elementos Espirituais</strong></td>
+                                <td>Sim, central</td>
+                                <td>Sim, integrado</td>
+                                <td>Não, separação total</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="diagnostico-tanigawa-pead.html" class="btn btn-primary">
+                        🧭 Fazer diagnóstico PEAD e descobrir
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contato">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Instituto Tanigawa</h3>
+                    <p>Transformando vidas através de mentoria espiritual, cura emocional e desenvolvimento pessoal.</p>
+                    <p style="margin-top: 1rem;">
+                        <strong>VIDA • ESPÍRITO • PROPÓSITO</strong>
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h3>Mentorias</h3>
+                    <a href="#espiritual">Mentoria Espiritual</a>
+                    <a href="#lev">Mentoria LEV</a>
+                    <a href="#tcc">Psicoterapia TCC</a>
+                    <a href="diagnostico-tanigawa-pead.html">Diagnóstico PEAD</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <a href="devocionais.html">Devocionais</a>
+                    <a href="nr-1.html">NR-1 Empresas</a>
+                    <a href="#sobre">Sobre Nós</a>
+                    <a href="#contato">Contato</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><strong>Sergio Tanigawa</strong><br>Diretor e Mentor Espiritual<br>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ef9c8a9d888680af86819c9b869b9a9b809b8e8186888e988ec18c8082c18d9d">[email&#160;protected]</a><br>📱 (11) 99999-9999</p>
+                    <p style="margin-top: 1rem;"><strong>Wanessa Tanigawa</strong><br>Diretora Técnica e Psicóloga<br>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7700161912040416371e1904031e030203180316191e101600165914181a591505">[email&#160;protected]</a><br>📱 (11) 98888-8888</p>
+                    <p class="crp-info">CRP: 06/128917</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados.</p>
+                <p style="margin-top: 0.5rem;">Desenvolvido com 💙 para transformar vidas</p>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                
+                container.appendChild(particle);
+            }
+        }
+
+        // Toggle mobile menu
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e)
