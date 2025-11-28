@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Instituto Tanigawa</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #3b82f6;
+            --primary-gold: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --text-light: #e2e8f0;
+            --text-gray: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.25rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.875rem;
+        }
+
+        .btn-logout {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-logout:hover {
+            background: rgba(239, 68, 68, 0.3);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-subtitle {
+            color: var(--text-gray);
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .actions-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 0.75rem 1rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+            color: white;
+            padding: 0.875rem 1.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .table-container {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 1rem;
+            border-top: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        tbody tr {
+            transition: background 0.3s;
+        }
+
+        tbody tr:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-pix {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .badge-cartao {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary-blue);
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.75rem;
+            border-radius: 6px;
+        }
+
+        .btn-view {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary-blue);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-contract {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--primary-gold);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-delete {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .empty-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            color: var(--text-gray);
+            margin-bottom: 1.5rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--dark-bg);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            cursor: pointer;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            background: var(--card-bg);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.875rem;
+            }
+
+            th, td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .action-btns {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">IT</div>
+            <div>
+                <h2 style="font-size: 1.25rem;">Instituto Tanigawa</h2>
+                <p style="font-size: 0.75rem; color: var(--text-gray);">Painel Administrativo</p>
+            </div>
+        </div>
+        <div class="user-info">
+            <span id="userEmail" style="font-size: 0.875rem; color: var(--text-gray);"></span>
+            <button class="btn btn-logout" onclick="logout()">Sair</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="page-title">Dashboard de Mentorados</h1>
+        <p class="page-subtitle">Gerencie todos os cadastros de mentoria</p>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">Total de Mentorados</div>
+                <div class="stat-value" id="totalMentorados">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">SYNESIS</div>
+                <div class="stat-value" id="totalSynesis">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">LEV</div>
+                <div class="stat-value" id="totalLev">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">TCC</div>
+                <div class="stat-value" id="totalTcc">0</div>
+            </div>
+        </div>
+
+        <!-- Actions Bar -->
+        <div class="actions-bar">
+            <div class="filters">
+                <select class="filter-select" id="filterMentoria" onchange="filterTable()">
+                    <option value="">Todas as Mentorias</option>
+                    <option value="SYNESIS">SYNESIS</option>
+                    <option value="LEV">LEV</option>
+                    <option value="TCC">TCC</option>
+                </select>
+                <select class="filter-select" id="filterPagamento" onchange="filterTable()">
+                    <option value="">Todas Formas de Pagamento</option>
+                    <option value="PIX">PIX</option>
+                    <option value="Cartão de Crédito">Cartão</option>
+                </select>
+            </div>
+            <button class="btn btn-primary" onclick="openAddModal()">+ Adicionar Mentorado</button>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>WhatsApp</th>
+                        <th>Mentoria</th>
+                        <th>Pagamento</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                    <!-- Preenchido via JS -->
+                </tbody>
+            </table>
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <div class="empty-icon">📋</div>
+                <p class="empty-text">Nenhum mentorado cadastrado ainda.</p>
+                <button class="btn btn-primary" onclick="openAddModal()">Adicionar Primeiro Mentorado</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Adicionar/Editar -->
+    <div class="modal" id="modalAdd">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Adicionar Mentorado</h3>
+                <button class="close-modal" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="formAdd" onsubmit="saveMentorado(event)">
+                <div class="form-group">
+                    <label>Nome Completo *</label>
+                    <input type="text" id="inputNome" required>
+                </div>
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" id="inputEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>WhatsApp *</label>
+                    <input type="text" id="inputWhatsapp" placeholder="(11) 99999-9999" required>
+                </div>
+                <div class="form-group">
+                    <label>CPF *</label>
+                    <input type="text" id="inputCpf" placeholder="000.000.000-00" required>
+                </div>
+                <div class="form-group">
+                    <label>Mentoria *</label>
+                    <select id="inputMentoria" required>
+                        <option value="">Selecione...</option>
+                        <option value="SYNESIS">SYNESIS - R$ 2.997</option>
+                        <option value="LEV">LEV - R$ 2.497</option>
+                        <option value="TCC">TCC - R$ 350/sessão</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Forma de Pagamento *</label>
+                    <select id="inputPagamento" required>
+                        <option value="">Selecione...</option>
+                        <option value="PIX">PIX</option>
+                        <option value="Cartão de Crédito">Cartão de Crédito</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Observações</label>
+                    <textarea id="inputObs" placeholder="Informações adicionais..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        
+        // Data storage
+        let mentorados = JSON.parse(localStorage.getItem('mentorados') || '[]');
+
+        // Render table
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const emptyState = document.getElementById('emptyState');
+            
+            if (mentorados.length === 0) {
+                tbody.style.display = 'none';
+                emptyState.style.display = 'block';
+            } else {
+                tbody.style.display = '';
+                emptyState.style.display = 'none';
+                
+                tbody.innerHTML = mentorados.map((m, index) => `
+                    <tr>
+                        <td>${m.nome}</td>
+                        <td>${m.email}</td>
+                        <td>${m.whatsapp}</td>
+                        <td>${m.mentoria}</td>
+                        <td><span class="badge ${m.pagamento === 'PIX' ? 'badge-pix' : 'badge-cartao'}">${m.pagamento}</span></td>
+                        <td>${m.data}</td>
+                        <td>
+                            <div class="action-btns">
+                                <button class="btn btn-small btn-contract" onclick="goToContract(${index})">📄 Contrato</button>
+                                <button class="btn btn-small btn-delete" onclick="deleteMentorado(${index})">🗑️</button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+            
+            updateStats();
+        }
+
+        // Update stats
+        function updateStats() {
+            document.getElementById('totalMentorados').textContent = mentorados.length;
+            document.getElementById('totalSynesis').textContent = mentorados.filter(m => m.mentoria === 'SYNESIS').length;
+            document.getElementById('totalLev').textContent = mentorados.filter(m => m.mentoria === 'LEV').length;
+            document.getElementById('totalTcc').textContent = mentorados.filter(m => m.mentoria === 'TCC').length;
+        }
+
+        // Filter table
+        function filterTable() {
+            const mentoriaFilter = document.getElementById('filterMentoria').value;
+            const pagamentoFilter = document.getElementById('filterPagamento').value;
+            
+            const tbody = document.getElementById('tableBody');
+            const rows = tbody.getElementsByTagName('tr');
+            
+            for (let row of rows) {
+                const mentoria = row.children[3].textContent;
+                const pagamento = row.children[4].textContent;
+                
+                const matchMentoria = !mentoriaFilter || mentoria === mentoriaFilter;
+                const matchPagamento = !pagamentoFilter || pagamento === pagamentoFilter;
+                
+                row.style.display = (matchMentoria && matchPagamento) ? '' : 'none';
+            }
+        }
+
+        // Open modal
+        function openAddModal() {
+            document.getElementById('modalAdd').classList.add('active');
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('modalAdd').classList.remove('active');
+            document.getElementById('formAdd').reset();
+        }
+
+        // Save mentorado
+        function saveMentorado(e) {
+            e.preventDefault();
+            
+            const mentorado = {
+                nome: document.getElementById('inputNome').value,
+                email: document.getElementById('inputEmail').value,
+                whatsapp: document.getElementById('inputWhatsapp').value,
+                cpf: document.getElementById('inputCpf').value,
+                mentoria: document.getElementById('inputMentoria').value,
+                pagamento: document.getElementById('inputPagamento').value,
+                obs: document.getElementById('inputObs').value,
+                data: new Date().toLocaleDateString('pt-BR')
+            };
+            
+            mentorados.push(mentorado);
+            localStorage.setItem('mentorados', JSON.stringify(mentorados));
+            
+            closeModal();
+            renderTable();
+            
+            alert('Mentorado adicionado com sucesso!');
+        }
+
+        // Delete mentorado
+        function deleteMentorado(index) {
+            if (confirm('Tem certeza que deseja excluir este mentorado?')) {
+                mentorados.splice(index, 1);
+                localStorage.setItem('mentorados', JSON.stringify(mentorados));
+                renderTable();
+            }
+        }
+
+        // Go to contract
+        function goToContract(index) {
+            localStorage.setItem('currentMentorado', JSON.stringify(mentorados[index]));
+            window.location.href = 'gerar-contrato.html';
+        }
+
+        // Init
+        renderTable();
+    </script>
+<body>
+    <script>
+        // Check auth on page load
+        const user = netlifyIdentity.currentUser();
+        
+        if (!user) {
+            // Se não estiver logado, abrir modal
+            netlifyIdentity.open();
+        } else {
+            // Se já estiver logado, mostrar email
+            document.getElementById('userEmail').textContent = user.email;
+        }
+
+        // Listen for login events
+        netlifyIdentity.on('login', user => {
+            // Fechar modal e recarregar página
+            netlifyIdentity.close();
+            document.location.href = '/dashboard/';
+        });
+
+        // Listen for logout
+        netlifyIdentity.on('logout', () => {
+            document.location.href = '/index.html';
+        });
+
+        // Logout function
+        function logout() {
+            netlifyIdentity.logout();
+        }
+    </script>
+
+    <!-- Header -->
+    <div class="header">
+</html>
