@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - Instituto Tanigawa</title>
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e2e8f0;
+        }
+
+        .login-container {
+            background: rgba(30, 41, 59, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3b82f6, #f59e0b);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 auto 2rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #3b82f6, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            font-size: 0.875rem;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #3b82f6, #f59e0b);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .status {
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-top: 1.5rem;
+            display: none;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        .status.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .status.success {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: rgba(16, 185, 129, 0.3);
+            color: #10b981;
+        }
+
+        .info-box {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            text-align: left;
+        }
+
+        .info-box strong {
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">IT</div>
+        <h1>Instituto Tanigawa</h1>
+        <p class="subtitle">Área Administrativa</p>
+
+        <button class="btn-login" onclick="openLogin()">🔐 Fazer Login</button>
+        
+        <div id="status" class="status"></div>
+
+        <div class="info-box">
+            <strong>📌 Instruções:</strong><br><br>
+            
+            <strong>1ª VEZ (Criar Conta):</strong><br>
+            • Clique em "Fazer Login"<br>
+            • Clique em "Sign up"<br>
+            • Digite seu email<br>
+            • Crie uma senha forte<br>
+            • Confirme<br><br>
+
+            <strong>PRÓXIMAS VEZES:</strong><br>
+            • Clique em "Fazer Login"<br>
+            • Digite email e senha<br>
+            • Clique em "Log in"<br><br>
+
+            <strong>ESQUECEU A SENHA?</strong><br>
+            • Clique em "Fazer Login"<br>
+            • Clique em "Forgot password?"<br>
+            • Digite seu email<br>
+            • Verifique SPAM do email<br>
+        </div>
+    </div>
+
+    <script>
+        // Verificar se já está logado
+        const user = netlifyIdentity.currentUser();
+        
+        if (user) {
+            showStatus('✅ Você já está logado! Redirecionando...', 'success');
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        }
+
+        // Abrir widget de login
+        function openLogin() {
+            netlifyIdentity.open();
+        }
+
+        // Mostrar status
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = 'status show ' + type;
+        }
+
+        // Eventos do Netlify Identity
+        netlifyIdentity.on('init', user => {
+            if (user) {
+                showStatus('✅ Login realizado! Redirecionando...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+            }
+        });
+
+        netlifyIdentity.on('login', () => {
+            showStatus('✅ Login realizado! Redirecionando...', 'success');
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+        });
+
+        netlifyIdentity.on('logout', () => {
+            showStatus('Você foi desconectado.', 'error');
+        });
+
+        netlifyIdentity.on('error', err => {
+            showStatus('❌ Erro: ' + err.message, 'error');
+        });
+
+        netlifyIdentity.on('close', () => {
+            const user = netlifyIdentity.currentUser();
+            if (!user) {
+                showStatus('Login cancelado.', 'error');
+            }
+        });
+    </script>
+</body>
+</html>
