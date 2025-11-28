@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instituto Tanigawa</title>
+    
+    <!-- Netlify Identity Widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -41,7 +47,7 @@
 
         /* ANO 2026 */
         .splash-year {
-            font-size: 1.8rem;
+            font-size: 3rem;
             font-weight: 300;
             color: rgba(59, 130, 246, 0.6);
             letter-spacing: 10px;
@@ -110,6 +116,10 @@
 
         /* RESPONSIVO */
         @media (max-width: 1024px) {
+            .splash-year {
+                font-size: 2.5rem;
+            }
+            
             .splash-question {
                 font-size: 3.5rem;
             }
@@ -117,7 +127,7 @@
 
         @media (max-width: 768px) {
             .splash-year {
-                font-size: 1.4rem;
+                font-size: 2rem;
                 letter-spacing: 6px;
                 margin-bottom: 1rem;
             }
@@ -131,7 +141,7 @@
 
         @media (max-width: 480px) {
             .splash-year {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
                 letter-spacing: 5px;
             }
 
@@ -154,8 +164,8 @@
         </h1>
     </div>
 
+    <!-- AUTO-FECHAR SPLASH APÓS 3 SEGUNDOS E REDIRECIONAR PARA HOME -->
     <script>
-        // AUTO-FECHAR SPLASH APÓS 3 SEGUNDOS E REDIRECIONAR PARA HOME
         setTimeout(function() {
             const splash = document.getElementById('splash');
             
@@ -168,42 +178,23 @@
             }, 800);
         }, 3000); // 3 segundos
     </script>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instituto Tanigawa - Vida • Espírito • Propósito</title>
-    
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-<script>
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.on("init", user => {
-      if (!user) {
-        window.netlifyIdentity.on("login", () => {
-          document.location.href = "/admin/";
-        });
-      }
-    });
-  }
-  
-  window.netlifyIdentity?.on("logout", () => {
-    document.location.href = "/";
-  });
-</script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<script>
-        // Redirect to dashboard after login/recovery
+
+    <!-- Netlify Identity - Inicialização -->
+    <script>
         if (window.netlifyIdentity) {
             window.netlifyIdentity.on("init", user => {
                 if (!user) {
                     window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/dashboard/";
+                        document.location.href = "/admin/";
                     });
                 }
             });
         }
+        
+        window.netlifyIdentity?.on("logout", () => {
+            document.location.href = "/";
+        });
     </script>
+
 </body>
 </html>
