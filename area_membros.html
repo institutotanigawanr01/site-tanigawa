@@ -201,7 +201,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="logo">
             <div class="logo-icon">IT</div>
@@ -216,9 +215,7 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <div class="container">
-        <!-- Welcome Section -->
         <div class="welcome-section">
             <h1 class="welcome-title" id="welcomeNome"></h1>
             <p class="welcome-subtitle" id="welcomeMentoria"></p>
@@ -227,7 +224,6 @@
             </p>
         </div>
 
-        <!-- Info Box -->
         <div class="info-box">
             <h4>ℹ️ Em Desenvolvimento</h4>
             <p>
@@ -236,7 +232,6 @@
             </p>
         </div>
 
-        <!-- Content Grid -->
         <div class="content-grid">
             <div class="content-card">
                 <div class="card-icon">📹</div>
@@ -263,7 +258,6 @@
             </div>
         </div>
 
-        <!-- Contact Section -->
         <div class="welcome-section">
             <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-gold);">
                 📞 Precisa de Ajuda?
@@ -285,7 +279,7 @@
         const memberData = JSON.parse(sessionStorage.getItem('memberData') || '{}');
 
         if (!isLoggedIn || userType !== 'member') {
-            window.location.href = 'login.html';
+            window.location.href = 'auth_system.html';
         }
 
         // Preencher dados do membro
@@ -297,7 +291,7 @@
         // Logout
         function logout() {
             sessionStorage.clear();
-            window.location.href = 'login.html';
+            window.location.href = 'auth_system.html';
         }
     </script>
 </body>

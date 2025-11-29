@@ -369,7 +369,6 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
     <header>
         <div class="logo">
             <div class="logo-icon">IT</div>
@@ -384,12 +383,10 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <div class="container">
         <h1 class="page-title">Dashboard de Mentorados</h1>
         <p class="page-subtitle">Gerencie cadastros e gere contratos</p>
 
-        <!-- Stats -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-label">Total de Mentorados</div>
@@ -409,7 +406,6 @@
             </div>
         </div>
 
-        <!-- Actions Bar -->
         <div class="actions-bar">
             <div class="filters">
                 <select class="filter-select" id="filterMentoria" onchange="filterTable()">
@@ -422,7 +418,6 @@
             <button class="btn btn-primary" onclick="openAddModal()">+ Adicionar Mentorado</button>
         </div>
 
-        <!-- Table -->
         <div class="table-container">
             <table>
                 <thead>
@@ -436,8 +431,7 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- Preenchido via JS -->
-                </tbody>
+                    </tbody>
             </table>
             <div id="emptyState" class="empty-state" style="display: none;">
                 <div class="empty-icon">📋</div>
@@ -447,7 +441,6 @@
         </div>
     </div>
 
-    <!-- Modal Adicionar -->
     <div class="modal" id="modalAdd">
         <div class="modal-content">
             <div class="modal-header">
@@ -491,7 +484,7 @@
         const userType = sessionStorage.getItem('userType');
 
         if (!isLoggedIn || userType !== 'admin') {
-            window.location.href = 'login.html';
+            window.location.href = 'auth_system.html';
         }
 
         // Data storage
@@ -594,13 +587,13 @@
         // Go to contract
         function goToContract(index) {
             localStorage.setItem('currentMentorado', JSON.stringify(mentorados[index]));
-            window.location.href = 'gerar-contrato.html';
+            window.location.href = 'gerar-contrato.html'; 
         }
 
         // Logout
         function logout() {
             sessionStorage.clear();
-            window.location.href = 'login.html';
+            window.location.href = 'auth_system.html';
         }
 
         // Init

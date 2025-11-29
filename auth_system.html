@@ -253,12 +253,9 @@
     </style>
 </head>
 <body>
-    <!-- Particles -->
     <div id="particles"></div>
 
-    <!-- Login Container -->
     <div class="login-container">
-        <!-- Header -->
         <div class="login-header">
             <div class="logo">
                 <div class="logo-icon">IT</div>
@@ -268,9 +265,7 @@
             <p>Escolha seu tipo de acesso</p>
         </div>
 
-        <!-- Login Grid -->
         <div class="login-grid">
-            <!-- Admin Login -->
             <div class="login-card">
                 <div class="card-icon">🔐</div>
                 <h2>Administrador</h2>
@@ -296,7 +291,6 @@
                 </div>
             </div>
 
-            <!-- Member Login -->
             <div class="login-card">
                 <div class="card-icon">👤</div>
                 <h2>Área de Membros</h2>
@@ -329,7 +323,6 @@
             </div>
         </div>
 
-        <!-- Back Link -->
         <div class="back-link">
             <a href="home.html">← Voltar para o site</a>
         </div>
@@ -381,7 +374,7 @@
                 sessionStorage.setItem('isLoggedIn', 'true');
 
                 // Redirecionar
-                window.location.href = 'admin-dashboard.html';
+                window.location.href = 'admin_dashboard.html';
             } else {
                 errorDiv.textContent = '❌ Senha incorreta';
                 errorDiv.classList.add('show');
@@ -409,7 +402,7 @@
                 sessionStorage.setItem('memberUsername', username);
 
                 // Redirecionar
-                window.location.href = 'area-membros.html';
+                window.location.href = 'area_membros.html';
             } else {
                 errorDiv.textContent = '❌ Usuário ou senha incorretos';
                 errorDiv.classList.add('show');
