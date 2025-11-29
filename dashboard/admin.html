@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Instituto Tanigawa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #3b82f6;
+            --primary-gold: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --text-light: #e2e8f0;
+            --text-gray: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Particles */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-40px) translateX(-10px); }
+            75% { transform: translateY(-20px) translateX(5px); }
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .login-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: var(--text-gray);
+        }
+
+        .login-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .login-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2.5rem;
+            transition: all 0.3s;
+        }
+
+        .login-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .login-card h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-card .subtitle {
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem;
+            background: rgba(15, 23, 42, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-blue), #2563eb);
+            color: white;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .info-box {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            font-size: 0.75rem;
+            color: var(--text-gray);
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .back-link a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .back-link a:hover {
+            color: var(--primary-gold);
+        }
+
+        @media (max-width: 768px) {
+            .login-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .login-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .login-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles -->
+    <div id="particles"></div>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <!-- Header -->
+        <div class="login-header">
+            <div class="logo">
+                <div class="logo-icon">IT</div>
+                <span style="font-size: 1.5rem; font-weight: 700;">INSTITUTO TANIGAWA</span>
+            </div>
+            <h1>Área de Login</h1>
+            <p>Escolha seu tipo de acesso</p>
+        </div>
+
+        <!-- Login Grid -->
+        <div class="login-grid">
+            <!-- Admin Login -->
+            <div class="login-card">
+                <div class="card-icon">🔐</div>
+                <h2>Administrador</h2>
+                <p class="subtitle">Acesso completo ao sistema</p>
+
+                <div class="error-message" id="adminError"></div>
+
+                <form id="adminForm" onsubmit="loginAdmin(event)">
+                    <div class="form-group">
+                        <label>Senha de Administrador</label>
+                        <input type="password" id="adminPassword" placeholder="Digite a senha admin" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Entrar como Admin
+                    </button>
+                </form>
+
+                <div class="info-box">
+                    <strong>💡 Senha padrão:</strong><br>
+                    <code>tanigawa2026admin</code><br>
+                    <small>(Você pode alterar no código)</small>
+                </div>
+            </div>
+
+            <!-- Member Login -->
+            <div class="login-card">
+                <div class="card-icon">👤</div>
+                <h2>Área de Membros</h2>
+                <p class="subtitle">Acesso exclusivo para mentorados</p>
+
+                <div class="error-message" id="memberError"></div>
+
+                <form id="memberForm" onsubmit="loginMember(event)">
+                    <div class="form-group">
+                        <label>Usuário</label>
+                        <input type="text" id="memberUsername" placeholder="seu.usuario" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Senha</label>
+                        <input type="password" id="memberPassword" placeholder="Digite sua senha" required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Entrar como Membro
+                    </button>
+                </form>
+
+                <div class="info-box">
+                    <strong>🧪 Usuários de teste:</strong><br>
+                    <code>joao.silva / synesis2024</code><br>
+                    <code>maria.santos / lev2024</code><br>
+                    <code>pedro.costa / tcc2024</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back Link -->
+        <div class="back-link">
+            <a href="home.html">← Voltar para o site</a>
+        </div>
+    </div>
+
+    <script>
+        // ===========================================
+        // CONFIGURAÇÕES DO SISTEMA
+        // ===========================================
+
+        // Senha do admin (VOCÊ PODE ALTERAR AQUI)
+        const ADMIN_PASSWORD = 'tanigawa2026admin';
+
+        // Usuários membros (VOCÊ ADICIONA AQUI)
+        const MEMBERS = {
+            'joao.silva': {
+                password: 'synesis2024',
+                nome: 'João Silva',
+                mentoria: 'SYNESIS',
+                email: 'joao@email.com'
+            },
+            'maria.santos': {
+                password: 'lev2024',
+                nome: 'Maria Santos',
+                mentoria: 'LEV',
+                email: 'maria@email.com'
+            },
+            'pedro.costa': {
+                password: 'tcc2024',
+                nome: 'Pedro Costa',
+                mentoria: 'TCC',
+                email: 'pedro@email.com'
+            }
+        };
+
+        // ===========================================
+        // FUNÇÕES DE LOGIN
+        // ===========================================
+
+        function loginAdmin(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('adminPassword').value;
+            const errorDiv = document.getElementById('adminError');
+
+            if (password === ADMIN_PASSWORD) {
+                // Salvar sessão
+                sessionStorage.setItem('userType', 'admin');
+                sessionStorage.setItem('isLoggedIn', 'true');
+
+                // Redirecionar
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                errorDiv.textContent = '❌ Senha incorreta';
+                errorDiv.classList.add('show');
+
+                setTimeout(() => {
+                    errorDiv.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        function loginMember(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('memberUsername').value;
+            const password = document.getElementById('memberPassword').value;
+            const errorDiv = document.getElementById('memberError');
+
+            const member = MEMBERS[username];
+
+            if (member && member.password === password) {
+                // Salvar sessão
+                sessionStorage.setItem('userType', 'member');
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('memberData', JSON.stringify(member));
+                sessionStorage.setItem('memberUsername', username);
+
+                // Redirecionar
+                window.location.href = 'area-membros.html';
+            } else {
+                errorDiv.textContent = '❌ Usuário ou senha incorretos';
+                errorDiv.classList.add('show');
+
+                setTimeout(() => {
+                    errorDiv.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // ===========================================
+        // PARTICLES
+        // ===========================================
+
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 40; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(particle);
+            }
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', createParticles);
+    </script>
+</body>
+</html>
