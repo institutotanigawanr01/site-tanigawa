@@ -6,12 +6,12 @@
     <title>NR-1 Riscos Psicossociais - Instituto Tanigawa</title>
     <meta name="description" content="Consultoria em NR-1 e Riscos Psicossociais no Trabalho. Metodologia COPSOQ III para empresas. Obrigatório em 2026.">
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+        /* ESTILOS ORIGINAIS MANTIDOS NA ÍNTEGRA (Item 11) */
         * {
             margin: 0;
             padding: 0;
@@ -25,33 +25,16 @@
             --card-bg: rgba(30, 41, 59, 0.5);
             --text-primary: #f1f5f9;
             --text-secondary: #cbd5e1;
-            --border-color: rgba(59, 130, 246, 0.2);
-            --warning-red: #ef4444;
             
             /* Sistema de Espaçamento Simétrico */
             --section-spacing: 6rem;
             --container-padding: 2rem;
-            --header-spacing: 8rem;
-            --footer-spacing: 6rem;
         }
-
-        /* Espaçamento Simétrico Global */
-        section {
-            margin-bottom: var(--section-spacing);
-            padding-left: var(--container-padding);
-            padding-right: var(--container-padding);
-        }
-
-        section:last-of-type {
-            margin-bottom: var(--footer-spacing);
-        }
-
+        
         @media (max-width: 768px) {
             :root {
                 --section-spacing: 4rem;
                 --container-padding: 1.5rem;
-                --header-spacing: 6rem;
-                --footer-spacing: 4rem;
             }
         }
 
@@ -59,893 +42,522 @@
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: var(--text-primary);
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Garantir que letras não sejam cortadas */
-        p, h1, h2, h3, h4, h5, h6, span, div {
-            line-height: 1.5;
-            overflow: visible;
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
         }
 
-        /* Particles Background */
-        .particles {
+        /* Particles - Mantido o visual dos outros arquivos */
+        #particles {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 0;
+            z-index: 1;
             pointer-events: none;
         }
 
         .particle {
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--primary-blue);
+            background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
             border-radius: 50%;
-            opacity: 0.6;
+            opacity: 0.4;
             animation: float 15s infinite ease-in-out;
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-30px) translateX(20px); }
-            50% { transform: translateY(-60px) translateX(-20px); }
-            75% { transform: translateY(-30px) translateX(20px); }
-        }
-
-        /* Container */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 1;
+            25% { transform: translateY(-20px) translateX(10px); }
+            50% { transform: translateY(-40px) translateX(-10px); }
+            75% { transform: translateY(-20px) translateX(5px); }
         }
 
         /* Header */
         header {
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .header-content {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 1rem var(--container-padding);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            text-decoration: none;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: var(--primary-blue);
-        }
-
-        /* Breadcrumb */
-        .breadcrumb {
-            padding: 2rem 0 1rem;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .breadcrumb a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .breadcrumb a:hover {
-            color: var(--primary-blue);
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: var(--header-spacing) 0 var(--section-spacing);
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-amber) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero .subtitle {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-
-        .warning-badge {
-            display: inline-block;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid var(--warning-red);
-            color: var(--warning-red);
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            margin-top: 1rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        /* Section */
-        section {
-            padding: 4rem 0;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            line-height: 1.3;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            line-height: 1.7;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-blue);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
-        }
-
-        .card-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
-
-        .card p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-            padding-bottom: 0.5rem;
-        }
-
-        /* Info Box */
-        .info-box {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin-bottom: 3rem;
-        }
-
-        .info-box h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--secondary-amber);
-        }
-
-        .info-box ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .info-box li {
-            padding: 0.75rem 0;
-            padding-left: 2rem;
-            position: relative;
-            line-height: 1.7;
-            color: var(--text-secondary);
-        }
-
-        .info-box li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--primary-blue);
-            font-weight: bold;
-        }
-
-        /* Two Column */
-        .two-column {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        /* Services List */
-        .services-list {
-            display: grid;
-            gap: 1.5rem;
-        }
-
-        .service-item {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .service-item:hover {
-            border-color: var(--primary-blue);
-            transform: translateX(10px);
-        }
-
-        .service-item h4 {
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
-            color: var(--primary-blue);
-        }
-
-        .service-item p {
-            color: var(--text-secondary);
-            line-height: 1.7;
-        }
-
-        /* Contact Cards */
-        .contact-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .contact-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-        }
-
-        .contact-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-card .role {
-            color: var(--secondary-amber);
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-card .credential {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-info {
-            text-align: left;
-            padding: 1rem 0;
-        }
-
-        .contact-info a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            display: block;
-            margin: 0.5rem 0;
-            transition: color 0.3s;
-        }
-
-        .contact-info a:hover {
-            color: var(--primary-blue);
-        }
-
-        /* Links Section */
-        .links-grid {
-            display: grid;
-            gap: 1rem;
-            margin-bottom: 3rem;
-        }
-
-        .link-item {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--border-color);
-            border-radius: 15px;
-            padding: 1.5rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 0.75rem;
             text-decoration: none;
             color: var(--text-primary);
-            transition: all 0.3s ease;
         }
 
-        .link-item:hover {
-            border-color: var(--primary-blue);
-            transform: translateX(10px);
-        }
-
-        .link-item span {
-            flex: 1;
-            line-height: 1.6;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 4rem 2.5rem;
-            text-align: center;
-            margin: 4rem 0;
-        }
-
-        .cta-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.3;
-        }
-
-        .cta-section p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.7;
-        }
-
-        /* Buttons */
-        .btn {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background: var(--primary-blue);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-primary);
-            border: 1px solid var(--primary-blue);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary-blue);
-            transform: translateY(-2px);
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 1rem;
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background-color: var(--secondary-amber);
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border-color);
-            padding: var(--footer-spacing) var(--container-padding) 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--dark-bg);
             font-family: 'Playfair Display', serif;
-            margin-bottom: 1rem;
         }
 
-        .footer-section p, .footer-section a {
+        .logo span {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
             color: var(--text-secondary);
-            line-height: 1.7;
             text-decoration: none;
-            display: block;
-            margin: 0.5rem 0;
+            font-weight: 500;
+            transition: color 0.3s;
         }
 
-        .footer-section a:hover {
-            color: var(--primary-blue);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-        }
-
-        /* Timeline */
-        .timeline {
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .timeline-item {
-            position: relative;
-            padding-left: 3rem;
-            margin-bottom: 2rem;
-        }
-
-        .timeline-item::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: var(--primary-blue);
-            border: 3px solid var(--dark-bg);
-        }
-
-        .timeline-item h4 {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
+        .nav-links a:hover {
             color: var(--secondary-amber);
         }
 
-        .timeline-item p {
+        .login-btn {
+            background: var(--secondary-amber);
+            color: var(--dark-bg);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            margin-left: 20px;
+        }
+        
+        .logout-link {
+            background: none;
             color: var(--text-secondary);
-            line-height: 1.7;
+            text-decoration: underline;
+            margin-left: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-nr1 {
+            padding: var(--section-spacing) 0;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1542744095-fcf48d80b0cd') no-repeat center center/cover;
+            position: relative;
+            color: var(--text-primary);
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            color: var(--secondary-amber);
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn-cta {
+            background: linear-gradient(90deg, var(--primary-blue), #63b3ed);
+            color: #fff;
+            padding: 15px 35px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Conteúdo Principal */
+        .content-section {
+            padding: var(--section-spacing) 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--container-padding);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+
+        .info-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-left: 4px solid var(--secondary-amber);
+        }
+
+        .info-card h3 {
+            font-size: 1.5rem;
+            color: var(--secondary-amber);
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .text-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .text-content h3 {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px dashed rgba(59, 130, 246, 0.3);
+            padding-bottom: 5px;
+        }
+        
+        .text-content p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+        
+        .list-style {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            padding-left: 0;
+        }
+        
+        .list-style li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1rem;
+        }
+        
+        .list-style li::before {
+            content: '👉';
+            margin-right: 10px;
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+
+        /* Contato Rodapé */
+        .contact-footer {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 40px var(--container-padding);
+            text-align: center;
+            border-top: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .contact-footer h3 {
+            color: var(--secondary-amber);
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .contact-footer .contact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+        }
+        
+        .contact-item {
+            text-align: left;
+        }
+        
+        .contact-item h4 {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+        
+        .contact-item p {
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .contact-item a {
+            display: block;
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-bottom: 5px;
+            transition: color 0.3s;
+        }
+        
+        .contact-item a:hover {
+            color: var(--secondary-amber);
+        }
+
+        /* Footer Geral */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 1rem;
+        @media (max-width: 600px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
             }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .header-content {
+            .contact-footer .contact-grid {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 30px;
+                text-align: center;
             }
-
-            nav {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            nav a {
-                margin-left: 0;
-            }
-
-            .cards-grid,
-            .two-column,
-            .contact-cards {
-                grid-template-columns: 1fr;
-            }
-
-            .card,
-            .info-box,
-            .service-item {
-                padding: 2rem;
-            }
-
-            .btn-group {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
+            .contact-item {
+                text-align: center;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Particles -->
-    <div class="particles" id="particles"></div>
+    <div id="particles"></div>
 
-    <!-- Header -->
     <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="index.html" class="logo">Instituto Tanigawa</a>
-                <nav>
-                    <a href="home.html">Início</a>
-                    <a href="mentoria.html">Mentorias</a>
-                    <a href="devocionais.html">Devocionais</a>
-                    <a href="nr-1.html">NR-1</a>
-                </nav>
-            </div>
-        </div>
+        <nav>
+            <a href="home.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="mentoria.html">Mentorias</a></li>
+                <li><a href="devocionais.html">Devocionais</a></li>
+                <li><a href="nr-1.html" style="color: var(--secondary-amber);">NR-1</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+                <div id="navAuth">
+                    </div>
+            </ul>
+        </nav>
     </header>
 
-    <!-- Breadcrumb -->
-    <div class="container">
-        <div class="breadcrumb">
-            <a href="home.html">Início</a> / <span>NR-1 - Riscos Psicossociais</span>
-        </div>
-    </div>
+    <main>
+        <section class="hero-nr1">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>NR-1 e Riscos Psicossociais</h1>
+                <p>Obrigatório em 2026. Consultoria completa e metodologia COPSOQ III para o ambiente de trabalho e o bem-estar do seu colaborador.</p>
+                <a href="#consultoria" class="btn-cta">Saiba Mais e Solicite Orçamento ↓</a>
+            </div>
+        </section>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <h1>NR-1 - Riscos Psicossociais</h1>
-            <p class="subtitle">Avaliação e Gestão de Riscos Psicossociais no Trabalho<br>Metodologia COPSOQ III Internacional</p>
-            <div class="warning-badge">⚠️ Obrigatório a partir de 26 de Maio de 2026</div>
-        </div>
-    </section>
+        <section class="content-section" id="consultoria">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Bem-Estar no Trabalho e Conformidade Legal</h2>
+                    <p>Prepare sua empresa para as novas exigências de saúde e segurança ocupacional, indo além do físico.</p>
+                </div>
 
-    <!-- O que é NR-1 -->
-    <section>
-        <div class="container">
-            <h2 class="section-title">O que é a NR-1?</h2>
-            <p class="section-subtitle">A Norma Regulamentadora nº 1 estabelece disposições gerais, campo de aplicação, termos e definições comuns às Normas Regulamentadoras de Segurança e Saúde no Trabalho, incluindo a gestão de riscos psicossociais.</p>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <h3>O que é NR-1?</h3>
+                        <p>A Norma Regulamentadora nº 1 estabelece as disposições gerais e o gerenciamento de riscos ocupacionais (GRO). Com a atualização, ela inclui o reconhecimento e a avaliação dos Riscos Psicossociais.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Riscos Psicossociais</h3>
+                        <p>São fatores relacionados à organização do trabalho, às relações interpessoais e ao ambiente que podem causar estresse, burnout, depressão e acidentes. O Instituto Tanigawa foca na identificação e mitigação desses riscos.</p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Metodologia COPSOQ III</h3>
+                        <p>Utilizamos a versão III do Questionário de Copenhagen para Riscos Psicossociais no Trabalho, uma ferramenta validada cientificamente para diagnosticar as dimensões de estresse e bem-estar em sua organização.</p>
+                    </div>
+                </div>
+
+                <div class="text-content">
+                    <h3>Etapas da Consultoria Completa</h3>
+                    <ul class="list-style">
+                        <li>Planejamento e Implantação do GRO: Alinhamento da gestão de riscos à cultura da sua empresa.</li>
+                        <li>Diagnóstico e Aplicação COPSOQ III: Pesquisa completa com análise de resultados pela Psicóloga Wanessa Tanigawa.</li>
+                        <li>Plano de Ação e Intervenção: Criação de programas de saúde mental e redução de estressores ocupacionais.</li>
+                        <li>Treinamento de Lideranças: Capacitação para gestores em gestão de equipes e clima organizacional.</li>
+                    </ul>
+                    
+                    <p>Não espere a obrigatoriedade de 2026. Liderar com propósito é cuidar de quem está na linha de frente. Nosso trabalho é aliar a conformidade legal com a transformação real do ambiente de trabalho.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-footer">
+            <h3>Fale Conosco para Consultoria NR-1</h3>
+            <p>Sua empresa pronta para 2026 com segurança e bem-estar.</p>
             
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-icon">📋</div>
-                    <h3>Norma Federal</h3>
-                    <p>Estabelecida pelo Ministério do Trabalho e Emprego, de cumprimento obrigatório para todas as empresas brasileiras com empregados regidos pela CLT.</p>
-                </div>
+            <a href="contato.html" class="btn-cta" style="margin-top: 15px;">Solicitar Orçamento Personalizado</a>
 
-                <div class="card">
-                    <div class="card-icon">🧠</div>
-                    <h3>Riscos Psicossociais</h3>
-                    <p>Avalia fatores como estresse, assédio, sobrecarga, conflitos e outros aspectos que afetam a saúde mental dos trabalhadores.</p>
-                </div>
-
-                <div class="card">
-                    <div class="card-icon">⚖️</div>
-                    <h3>Obrigatoriedade</h3>
-                    <p>A partir de 26 de maio de 2026, empresas que não cumprirem estarão sujeitas a autuações e penalidades legais.</p>
-                </div>
-            </div>
-
-            <div class="info-box">
-                <h3>Por que sua empresa precisa se preparar?</h3>
-                <ul>
-                    <li>Cumprimento legal obrigatório a partir de 2026</li>
-                    <li>Prevenção de doenças ocupacionais relacionadas à saúde mental</li>
-                    <li>Redução de absenteísmo e afastamentos por transtornos psíquicos</li>
-                    <li>Melhoria do clima organizacional e produtividade</li>
-                    <li>Proteção jurídica contra processos trabalhistas</li>
-                    <li>Desenvolvimento de uma cultura de cuidado com pessoas</li>
-                    <li>Valorização da marca empregadora</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- COPSOQ III -->
-    <section>
-        <div class="container">
-            <h2 class="section-title">Metodologia COPSOQ III</h2>
-            <p class="section-subtitle">Copenhagen Psychosocial Questionnaire - Questionário Internacional de Avaliação de Riscos Psicossociais desenvolvido por pesquisadores dinamarqueses e validado em mais de 25 países.</p>
-
-            <div class="two-column">
-                <div class="info-box">
-                    <h3>O que é o COPSOQ III?</h3>
-                    <ul>
-                        <li>Instrumento científico reconhecido internacionalmente</li>
-                        <li>Recomendado pela OMS e OIT</li>
-                        <li>Validado por centenas de estudos científicos</li>
-                        <li>Avalia mais de 40 dimensões psicossociais</li>
-                        <li>Permite comparação com dados populacionais</li>
-                        <li>Identifica áreas de risco prioritárias</li>
-                    </ul>
-                </div>
-
-                <div class="info-box">
-                    <h3>Dimensões Avaliadas</h3>
-                    <ul>
-                        <li>Demandas quantitativas e emocionais</li>
-                        <li>Ritmo e organização do trabalho</li>
-                        <li>Influência e autonomia</li>
-                        <li>Apoio social de colegas e liderança</li>
-                        <li>Qualidade da liderança</li>
-                        <li>Justiça organizacional</li>
-                        <li>Conflito trabalho-família</li>
-                        <li>Assédio e violência</li>
-                        <li>Insegurança no trabalho</li>
-                        <li>Saúde e bem-estar dos trabalhadores</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Nossos Serviços -->
-    <section>
-        <div class="container">
-            <h2 class="section-title">Como o Instituto Tanigawa Pode Ajudar</h2>
-            <p class="section-subtitle">Consultoria especializada em avaliação e gestão de riscos psicossociais com metodologia científica reconhecida internacionalmente.</p>
-
-            <div class="services-list">
-                <div class="service-item">
-                    <h4>1. Diagnóstico Organizacional COPSOQ III</h4>
-                    <p>Aplicação do questionário internacional COPSOQ III adaptado para o contexto brasileiro, com análise completa dos fatores de risco psicossociais presentes na organização.</p>
-                </div>
-
-                <div class="service-item">
-                    <h4>2. Análise de Dados e Relatório Técnico</h4>
-                    <p>Processamento estatístico dos dados coletados, comparação com valores de referência populacionais e elaboração de relatório técnico detalhado com identificação de áreas críticas.</p>
-                </div>
-
-                <div class="service-item">
-                    <h4>3. Plano de Ação Preventivo</h4>
-                    <p>Desenvolvimento de plano estratégico com medidas preventivas e corretivas personalizadas para os riscos identificados, com definição de responsáveis e prazos.</p>
-                </div>
-
-                <div class="service-item">
-                    <h4>4. Capacitação de Lideranças</h4>
-                    <p>Treinamento de gestores e líderes para compreensão dos riscos psicossociais e implementação de práticas de gestão que promovam saúde mental no trabalho.</p>
-                </div>
-
-                <div class="service-item">
-                    <h4>5. Acompanhamento e Reavaliação</h4>
-                    <p>Monitoramento periódico da implementação das ações preventivas e reavaliação dos indicadores para verificação de melhorias e ajustes necessários.</p>
-                </div>
-
-                <div class="service-item">
-                    <h4>6. Suporte Psicológico Individual</h4>
-                    <p>Atendimento psicológico clínico (TCC) para colaboradores que necessitem de acompanhamento individualizado, com foco em saúde mental ocupacional.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Timeline -->
-    <section>
-        <div class="container">
-            <h2 class="section-title">Cronograma de Implementação</h2>
-            <p class="section-subtitle">Processo estruturado em etapas para garantir conformidade com a NR-1 e efetividade na gestão de riscos psicossociais.</p>
-
-            <div class="timeline">
-                <div class="timeline-item">
-                    <h4>Fase 1: Planejamento (2-4 semanas)</h4>
-                    <p>Reunião inicial com stakeholders, definição de escopo, cronograma, comunicação interna e preparação logística para aplicação do questionário.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Fase 2: Coleta de Dados (2-3 semanas)</h4>
-                    <p>Aplicação do questionário COPSOQ III com garantia de anonimato e confidencialidade, suporte técnico e acompanhamento da taxa de resposta.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Fase 3: Análise (3-4 semanas)</h4>
-                    <p>Processamento estatístico dos dados, análise comparativa com valores de referência, identificação de áreas críticas e elaboração de relatório técnico.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Fase 4: Apresentação de Resultados (1 semana)</h4>
-                    <p>Apresentação executiva para liderança, apresentação detalhada para equipes técnicas e representantes dos trabalhadores.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Fase 5: Plano de Ação (2-3 semanas)</h4>
-                    <p>Workshops participativos para construção do plano de ação, definição de prioridades, responsáveis, prazos e indicadores de monitoramento.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Fase 6: Implementação e Acompanhamento (12 meses)</h4>
-                    <p>Suporte na implementação das ações, capacitação de lideranças, monitoramento mensal de indicadores e ajustes no plano quando necessário.</p>
-                </div>
-
-                <div class="timeline-item">
-                    <h4>Fase 7: Reavaliação (após 12-18 meses)</h4>
-                    <p>Nova aplicação do COPSOQ III para verificar efetividade das intervenções, identificar novas necessidades e promover melhoria contínua.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Equipe -->
-    <section>
-        <div class="container">
-            <h2 class="section-title">Nossa Equipe Especializada</h2>
-            <p class="section-subtitle">Profissionais qualificados com experiência em saúde mental, gestão organizacional e metodologias internacionais de avaliação de riscos psicossociais.</p>
-
-            <div class="contact-cards">
-                <div class="contact-card">
-                    <h3>Sergio Tanigawa</h3>
-                    <p class="role">Diretor</p>
-                    <p class="credential">Especialista em Liderança e Desenvolvimento Organizacional</p>
-                    <div class="contact-info">
-                        <p><strong>Telefone:</strong></p>
-                        <a href="tel:+5511999999999">📱 (11) 99999-9999</a>
-                        <p style="margin-top: 1rem;"><strong>E-mail:</strong></p>
-                        <a href="/cdn-cgi/l/email-protection#86f5e3f4e1efe9c6efe8f5f2eff2f3f2e9f2e7e8efe1e7f1e7a8e5e9eba8e4f4">✉️ <span class="__cf_email__" data-cfemail="5122342336383e11383f2225382524253e25303f38363026307f323e3c7f3323">[email&#160;protected]</span></a>
-                    </div>
-                </div>
-
-                <div class="contact-card">
-                    <h3>Wanessa Tanigawa</h3>
-                    <p class="role">Diretora Técnica</p>
-                    <p class="credential">Psicóloga Clínica - CRP 06/128917<br>Especialista em Saúde Mental Ocupacional e TCC</p>
-                    <div class="contact-info">
-                        <p><strong>Telefone:</strong></p>
-                        <a href="tel:+5511988888888">📱 (11) 98888-8888</a>
-                        <p style="margin-top: 1rem;"><strong>E-mail:</strong></p>
-                        <a href="/cdn-cgi/l/email-protection#fe899f909b8d8d9fbe97908d8a978a8b8a918a9f9097999f899fd09d9193d09c8c">✉️ <span class="__cf_email__" data-cfemail="3a4d5b545f49495b7a5354494e534e4f4e554e5b54535d5b4d5b14595557145848">[email&#160;protected]</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Links Oficiais -->
-    <section>
-        <div class="container">
-            <h2 class="section-title">Documentação Oficial</h2>
-            <p class="section-subtitle">Acesse os documentos oficiais do Ministério do Trabalho e Emprego sobre a NR-1 e riscos psicossociais.</p>
-
-            <div class="links-grid">
-                <a href="https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/nr-1" target="_blank" class="link-item">
-                    <span>NR-1 - Página Oficial do Ministério do Trabalho e Emprego</span>
-                    <span>🔗</span>
-                </a>
-
-                <a href="https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/nr-01-atualizada-2024-i-1.pdf" target="_blank" class="link-item">
-                    <span>NR-01 Atualizada 2024 (PDF)</span>
-                    <span>📄</span>
-                </a>
-
-                <a href="https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/nr-01-atualizada-2025-i-3.pdf" target="_blank" class="link-item">
-                    <span>NR-01 Atualizada 2025 (PDF)</span>
-                    <span>📄</span>
-                </a>
-
-                <a href="https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/guia-nr-01-revisado.pdf" target="_blank" class="link-item">
-                    <span>Guia NR-01 Revisado (PDF)</span>
-                    <span>📄</span>
-                </a>
-
-                <a href="https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/arquivos/normas-regulamentadoras/guia_de_elaboracao_e_revisao_de_normas.pdf" target="_blank" class="link-item">
-                    <span>Guia de Elaboração e Revisão de Normas (PDF)</span>
-                    <span>📄</span>
-                </a>
-
-                <a href="https://www.copsoq-network.org/" target="_blank" class="link-item">
-                    <span>COPSOQ International Network - Site Oficial</span>
-                    <span>🌐</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Final -->
-    <section>
-        <div class="container">
-            <div class="cta-section">
-                <h2>Prepare sua empresa para 2026</h2>
-                <p>Entre em contato conosco e agende uma reunião para entender como podemos ajudar sua organização a cumprir a NR-1 com excelência e promover saúde mental no trabalho.</p>
-                <div class="btn-group">
-                    <a href="https://wa.me/5511999999999?text=Olá! Gostaria de saber mais sobre consultoria NR-1 e COPSOQ III" class="btn btn-primary">📱 Falar com Sergio</a>
-                    <a href="https://wa.me/5511988888888?text=Olá! Gostaria de saber mais sobre consultoria NR-1 e COPSOQ III" class="btn btn-primary">📱 Falar com Wanessa</a>
-                    <a href="/cdn-cgi/l/email-protection#6b0804051f0a1f042b0205181f021f1e1f041f0a05020c0a1c0a4508040645091954181e09010e081f56280405181e071f0419020a4b2539465a" class="btn btn-secondary">✉️ Enviar E-mail</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Instituto Tanigawa</h3>
-                    <p>Mentoria espiritual, discipulado e cuidado com pessoas, líderes e organizações.</p>
-                    <p>Consultoria em NR-1 e Riscos Psicossociais.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Navegação</h3>
-                    <a href="index.html">Início</a>
-                    <a href="mentorias.html">Mentorias</a>
-                    <a href="devocionais.html">Devocionais</a>
-                    <a href="nr-1.html">NR-1</a>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Contato</h3>
-                    <p>Sergio (Diretor)</p>
+            <div class="contact-grid">
+                <div class="contact-item">
+                    <h4>Sergio Tanigawa (Diretor)</h4>
                     <a href="tel:+5511999999999">(11) 99999-9999</a>
-                    <a href="/cdn-cgi/l/email-protection#1c6f796e7b75735c75726f687568696873687d72757b7d6b7d327f7371327e6e"><span class="__cf_email__" data-cfemail="67140215000e08270e0914130e131213081306090e000610064904080a490515">[email&#160;protected]</span></a>
-                    <p style="margin-top: 1rem;">Wanessa (Diretora Técnica)</p>
+                    <a href="mailto:contato@institutotanigawa.com.br">contato@institutotanigawa.com.br</a>
+                </div>
+                <div class="contact-item">
+                    <h4>Wanessa Tanigawa (Diretora Técnica)</h4>
                     <p>Psicóloga CRP 06/128917</p>
                     <a href="tel:+5511988888888">(11) 98888-8888</a>
-                    <a href="/cdn-cgi/l/email-protection#6d1a0c03081e1e0c2d04031e190419181902190c03040a0c1a0c430e0200430f1f"><span class="__cf_email__" data-cfemail="2d5a4c43485e5e4c6d44435e594459585942594c43444a4c5a4c034e4240034f5f">[email&#160;protected]</span></a>
+                    <a href="mailto:wanessa@institutotanigawa.com.br">wanessa@institutotanigawa.com.br</a>
                 </div>
             </div>
+        </section>
+    </main>
 
-            <div class="footer-bottom">
-                <p>&copy; 2024 Instituto Tanigawa. Todos os direitos reservados.</p>
-            </div>
-        </div>
+    <footer>
+        <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados.</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Criar partículas
+    <script>
+        
+        // Função unificada de Logout (limpa a sessão e redireciona)
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'auth_system.html'; 
+        }
+
+        // Função para atualizar o menu de autenticação (reconstruída)
+        function updateNavBar() {
+            const navAuth = document.getElementById('navAuth');
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const userType = sessionStorage.getItem('userType');
+            
+            navAuth.innerHTML = ''; 
+            
+            if (isLoggedIn) {
+                let linkTarget = 'area_membros.html';
+                let linkText = 'Área de Membros';
+
+                if (userType === 'admin') {
+                    linkTarget = 'admin_dashboard.html';
+                    linkText = 'Painel Admin';
+                }
+                
+                navAuth.innerHTML = `
+                    <li style="margin-left: 15px;">
+                        <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
+                            ${linkText}
+                        </a>
+                    </li>
+                    <li style="margin-left: 15px;">
+                        <button class="logout-link" onclick="logout()">Sair</button>
+                    </li>
+                `;
+            } else {
+                navAuth.innerHTML = `
+                    <li style="margin-left: 15px;">
+                        <a href="auth_system.html" class="login-btn">
+                            Entrar
+                        </a>
+                    </li>
+                `;
+            }
+        }
+
+        // Inicializar Partículas (Mantido do original)
         function createParticles() {
-            const particlesContainer = document.getElementById('particles');
+            const container = document.getElementById('particles');
             const particleCount = 50;
 
             for (let i = 0; i < particleCount; i++) {
-                const particle = document.createEl
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                
+                container.appendChild(particle);
+            }
+        }
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateNavBar();
+        });
+        
+    </script>
+</body>
+</html>

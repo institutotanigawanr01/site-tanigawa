@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerar Contrato - Instituto Tanigawa</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* Variáveis de Estilo (MANTIDAS) */
         :root {
             --primary-blue: #3b82f6;
             --primary-gold: #f59e0b;
@@ -24,280 +21,367 @@
             --danger: #ef4444;
         }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(135deg, #0f0f1c 0%, #090915 100%);
             color: var(--text-light);
-            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 50px;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Header (Replicado do Admin Dashboard) */
+        /* HEADER & ACTIONS */
         header {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             position: sticky;
             top: 0;
             z-index: 100;
-        }
-
-        .logo {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 15px 30px;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
+        .header-title {
+            font-size: 1.2rem;
+            color: var(--primary-gold);
         }
 
-        .btn {
-            padding: 0.75rem 1.5rem;
+        .actions button {
+            padding: 10px 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.875rem;
-            text-decoration: none;
-            display: inline-block;
+            transition: opacity 0.2s;
+            margin-left: 10px;
         }
 
-        .btn-logout {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+        .btn-print {
+            background-color: var(--primary-blue);
+            color: #fff;
         }
 
-        .btn-logout:hover {
-            background: rgba(239, 68, 68, 0.3);
+        .btn-back {
+            background-color: var(--text-gray);
+            color: #000;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            color: white;
-            margin-right: 1rem;
-        }
+        .btn-print:hover { opacity: 0.8; }
+        .btn-back:hover { opacity: 0.8; }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-secondary {
-            background: var(--card-bg);
-            color: var(--text-light);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(30, 41, 59, 0.8);
-        }
-
-        /* Container */
-        .container {
+        /* MAIN CONTENT - CONTRATO */
+        .contract-container {
             max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 2rem;
+            margin: 40px auto;
+            background: #fff; /* Contrato branco para impressão */
+            color: #111;
+            padding: 60px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
         }
 
-        .page-title {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .loading-message {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2rem;
+            color: var(--text-light);
         }
 
-        .page-subtitle {
-            color: var(--text-gray);
-            margin-bottom: 2rem;
+        /* TÍTULO E SUBTÍTULO */
+        .contract-header {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        /* Contract Box */
-        .contract-box {
-            background: #ffffff; /* Fundo claro para o contrato parecer um documento */
-            color: #1f2937;
-            padding: 3rem;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        .contract-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #0f172a;
+            border-bottom: 3px solid #3b82f6;
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .contract-header p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        /* CLÁUSULAS */
+        .clausula {
+            margin-bottom: 20px;
             line-height: 1.8;
             font-size: 1rem;
         }
 
-        .contract-box h2 {
-            font-family: 'Playfair Display', serif;
-            text-align: center;
+        .clausula h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 2rem;
-            color: #0f172a;
+            color: #3b82f6;
+            margin-bottom: 5px;
         }
 
-        .contract-section {
-            margin-bottom: 1.5rem;
+        .clausula strong {
+            color: #000;
         }
 
-        .contract-section strong {
-            color: var(--primary-blue);
+        .termos-especificos {
+            background: #f0f8ff;
+            border-left: 5px solid #3b82f6;
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
         }
 
-        .footer-actions {
-            margin-top: 2rem;
+        /* PARTES */
+        .partes-container {
+            margin: 40px 0;
+            padding: 20px;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+        
+        .parte-info {
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .parte-info span {
+            font-weight: 700;
+            color: #333;
+        }
+
+
+        /* ASSINATURAS */
+        .assinaturas {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
             display: flex;
-            justify-content: flex-start;
+            justify-content: space-around;
+            text-align: center;
         }
 
-        /* Print Styles */
+        .assinatura-box {
+            width: 40%;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+        }
+
+        .assinatura-box p {
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* MEDIA PRINT (CRÍTICO: Garantir boa impressão) */
         @media print {
+            header, .actions {
+                display: none !important;
+            }
             body {
-                background: none;
-                color: #000;
+                background: #fff !important;
+                color: #000 !important;
             }
-            header, .footer-actions, .page-title, .page-subtitle {
-                display: none;
-            }
-            .container {
+            .contract-container {
                 margin: 0;
-                padding: 0;
-                max-width: 100%;
-            }
-            .contract-box {
                 box-shadow: none;
                 border: none;
-                padding: 0;
+                padding: 10px;
+                max-width: 100%;
+            }
+            .clausula {
+                line-height: 1.6;
+                font-size: 10pt;
+            }
+            /* Oculta o fundo escuro da tela */
+            .loading-message {
+                display: none;
             }
         }
     </style>
 </head>
 <body>
+    
     <header>
-        <div class="logo">
-            <div class="logo-icon">IT</div>
-            <div>
-                <h2 style="font-size: 1.25rem;">Instituto Tanigawa</h2>
-                <p style="font-size: 0.75rem; color: var(--text-gray);">Gerar Contrato</p>
-            </div>
+        <div class="header-title" id="mentoradoInfo">
+            Gerador de Contrato
         </div>
-        <div class="user-info">
-            <span style="font-size: 0.875rem; color: var(--text-gray);">👤 Admin</span>
-            <button class="btn btn-logout" onclick="logout()">Sair</button>
+        <div class="actions">
+            <button class="btn-back" onclick="goBack()">Voltar ao Admin</button>
+            <button class="btn-print" onclick="printContract()">Imprimir / Salvar PDF</button>
         </div>
     </header>
 
-    <div class="container">
-        <h1 class="page-title">Contrato de Mentoria</h1>
-        <p class="page-subtitle" id="mentoradoInfo"></p>
+    <div id="loading" class="loading-message">
+        ⏳ Carregando dados do mentorado...
+    </div>
 
-        <div class="contract-box">
+    <div class="contract-container" id="contractContent" style="display: none;">
+        <div class="contract-header">
             <h2>CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE MENTORIA</h2>
-
-            <div class="contract-section">
-                <strong>IDENTIFICAÇÃO DAS PARTES:</strong>
-                <p>
-                    <strong>CONTRATANTE:</strong> <span id="contratanteNome">[NOME DO MENTORADO]</span>,
-                    inscrito no CPF sob o nº <span id="contratanteCpf">[CPF DO MENTORADO]</span>.
-                </p>
-                <p>
-                    <strong>CONTRATADA:</strong> INSTITUTO TANIGAWA.
-                </p>
-            </div>
-
-            <div class="contract-section">
-                <strong>CLÁUSULA PRIMEIRA - OBJETO:</strong>
-                <p>
-                    O objeto do presente contrato é a prestação de serviços de mentoria na modalidade
-                    <strong><span id="contratoMentoria">[NOME DA MENTORIA]</span></strong>, conforme as diretrizes e
-                    cronograma estabelecidos pelo Instituto Tanigawa.
-                </p>
-            </div>
-
-            <div class="contract-section">
-                <strong>CLÁUSULA SEGUNDA - VIGÊNCIA E VALOR:</strong>
-                <p>
-                    O presente contrato tem vigência a partir de <span id="contratoData">[DATA DE CADASTRO]</span>.
-                    O valor da mentoria e as condições de pagamento foram acordados previamente e aceitos pelo Contratante.
-                </p>
-            </div>
-
-            <div class="contract-section">
-                <strong>CLÁUSULA TERCEIRA - OBRIGAÇÕES:</strong>
-                <p>
-                    O Contratante concorda em participar ativamente das sessões e utilizar os materiais
-                    fornecidos. A Contratada se obriga a prestar o serviço de mentoria com excelência.
-                </p>
-            </div>
-
-            <div class="contract-section" style="margin-top: 3rem; text-align: center;">
-                <p>
-                    E por estarem justos e contratados, assinam o presente em duas vias de igual teor.
-                </p>
-            </div>
-
-            <div class="contract-section" style="display: flex; justify-content: space-around; margin-top: 5rem;">
-                <div style="text-align: center; border-top: 1px solid #1f2937; padding-top: 0.5rem; width: 40%;">
-                    <span id="assinaturaNome">[NOME DO MENTORADO]</span> (Contratante)
-                </div>
-                <div style="text-align: center; border-top: 1px solid #1f2937; padding-top: 0.5rem; width: 40%;">
-                    INSTITUTO TANIGAWA (Contratada)
-                </div>
-            </div>
-
+            <p>INSTITUTO TANIGAWA</p>
         </div>
 
-        <div class="footer-actions">
-            <button class="btn btn-primary" onclick="printContract()">🖨️ Imprimir / PDF</button>
-            <button class="btn btn-secondary" onclick="goBack()">← Voltar ao Dashboard</button>
+        <div class="partes-container">
+            <p style="font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #ddd;">PARTES:</p>
+
+            <div class="parte-info">
+                <span>CONTRATADA:</span> INSTITUTO TANIGAWA LTDA, CNPJ: 47.462.197/0001-44, com sede em São Paulo/SP.
+            </div>
+
+            <div class="parte-info">
+                <span>CONTRATANTE:</span> <span id="contratanteNome">[NOME DO CONTRATANTE]</span>, portador(a) do CPF <span id="contratanteCpf">[CPF DO CONTRATANTE]</span>, residente e domiciliado(a) no endereço informado no cadastro.
+            </div>
+        </div>
+
+        <div class="clausula">
+            <h3>CLÁUSULA PRIMEIRA - OBJETO</h3>
+            O objeto do presente contrato é a prestação de serviços de mentoria na área de <strong id="contratoMentoria">[TIPO DE MENTORIA]</strong>, a ser conduzida por Sergio ou Wanessa Tanigawa, conforme a área de especialidade, com início previsto na data de <strong id="contratoData">[DATA DE INÍCIO]</strong>.
+        </div>
+        
+        <div class="clausula">
+            <h3>CLÁUSULA SEGUNDA - FORMATO E DURAÇÃO</h3>
+            Os serviços serão prestados no formato online, através de vídeo chamadas, com a duração e periodicidade a serem acordadas entre as partes, conforme o cronograma da mentoria <strong id="contratoMentoria2">[TIPO DE MENTORIA]</strong>.
+        </div>
+
+        <div class="clausula">
+            <h3>CLÁUSULA TERCEIRA - VALOR E PAGAMENTO</h3>
+            O valor total do serviço é de <strong id="contratoValor">[VALOR TOTAL]</strong>, a ser pago pelo(a) CONTRATANTE na forma e condições acordadas no formulário de cadastro, através do link de pagamento enviado por e-mail.
+        </div>
+        
+        <div class="clausula">
+            <h3>CLÁUSULA QUARTA - CONFIDENCIALIDADE E GRAVAÇÃO</h3>
+            <p>O CONTRATADO garante a confidencialidade das informações pessoais e emocionais compartilhadas pelo CONTRATANTE, exceto em casos legalmente exigidos.</p>
+            <div class="termos-especificos">
+                **Termo Específico de Gravação:** O CONTRATANTE está ciente e concorda que todas as sessões de mentoria serão **gravadas em áudio e vídeo** e ficarão disponíveis exclusivamente para o CONTRATANTE e o CONTRATADO por um período de **6 (seis) meses** a contar da data de início.
+            </div>
+        </div>
+
+        <div class="clausula">
+            <h3>CLÁUSULA QUINTA - DISPOSIÇÕES GERAIS</h3>
+            O presente contrato é firmado sob as leis brasileiras e, por estarem de acordo, as partes assinam o presente.
+        </div>
+
+        <p style="text-align: center; margin-top: 40px; font-size: 1.1rem;">
+            São Paulo, <span id="dataAtual"></span>.
+        </p>
+
+        <div class="assinaturas">
+            <div class="assinatura-box">
+                <span id="assinaturaNome">[NOME DO CONTRATANTE]</span>
+                <p>CONTRATANTE</p>
+            </div>
+            <div class="assinatura-box">
+                INSTITUTO TANIGAWA LTDA
+                <p>CONTRATADA</p>
+            </div>
         </div>
     </div>
 
     <script>
-        // Verificar autenticação
-        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
-        const userType = sessionStorage.getItem('userType');
-
-        if (!isLoggedIn || userType !== 'admin') {
-            // Redirecionar para o login se não for admin
-            window.location.href = 'auth_system.html';
+        // Função para obter o hash da URL (CRÍTICO)
+        function getQueryVariable(variable) {
+            const query = window.location.search.substring(1);
+            const vars = query.split('&');
+            for (let i = 0; i < vars.length; i++) {
+                const pair = vars[i].split('=');
+                if (decodeURIComponent(pair[0]) === variable) {
+                    return decodeURIComponent(pair[1]);
+                }
+            }
+            return null;
         }
 
-        // Carregar dados do mentorado
-        const mentoradoJson = localStorage.getItem('currentMentorado');
-        let mentorado = null;
-
-        if (mentoradoJson) {
-            mentorado = JSON.parse(mentoradoJson);
-            
-            // Preencher a página
-            document.getElementById('mentoradoInfo').textContent = `Documento gerado para: ${mentorado.nome} (${mentorado.mentoria})`;
-            
-            // Preencher campos do contrato
-            document.getElementById('contratanteNome').textContent = mentorado.nome;
-            document.getElementById('contratanteCpf').textContent = mentorado.cpf;
-            document.getElementById('contratoMentoria').textContent = mentorado.mentoria;
-            document.getElementById('contratoData').textContent = mentorado.data;
-            document.getElementById('assinaturaNome').textContent = mentorado.nome;
-
-        } else {
-            document.getElementById('mentoradoInfo').textContent = '⚠️ Erro: Nenhum mentorado selecionado. Voltando ao Dashboard...';
-            setTimeout(goBack, 3000);
+        // Função para formatar a data
+        function formatDate(date) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(date).toLocaleDateString('pt-BR', options);
         }
         
-        // Funções de Ação
+        // Data atual para assinatura
+        document.getElementById('dataAtual').textContent = new Date().toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' });
+
+        // CRÍTICO: Carregar dados do mentorado
+        async function loadMentoradoData() {
+            const hash = getQueryVariable('hash');
+            const loading = document.getElementById('loading');
+            const contractContent = document.getElementById('contractContent');
+            const infoBox = document.getElementById('mentoradoInfo');
+
+            // 1. Verificar Autenticação Admin (Segurança)
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const userType = sessionStorage.getItem('userType');
+
+            if (!isLoggedIn || userType !== 'admin') {
+                infoBox.textContent = 'Acesso negado. Redirecionando para login...';
+                setTimeout(() => window.location.replace('auth_system.html'), 3000);
+                return;
+            }
+
+            if (!hash) {
+                infoBox.textContent = '⚠️ Erro: Hash do mentorado não encontrado. Voltando ao Dashboard...';
+                setTimeout(goBack, 3000);
+                return;
+            }
+            
+            // 2. Buscar no keys.json
+            try {
+                const res = await fetch(`keys.json?t=${new Date().getTime()}`); // Cache-busting
+                if (!res.ok) throw new Error("Falha ao carregar chaves.");
+                
+                const keys = await res.json();
+                const mentorado = keys[hash];
+
+                if (!mentorado) {
+                    infoBox.textContent = `⚠️ Erro: Chave ${hash.slice(-6)} inválida ou revogada. Voltando ao Dashboard...`;
+                    setTimeout(goBack, 3000);
+                    return;
+                }
+
+                // 3. Preencher o Contrato
+                loading.style.display = 'none';
+                contractContent.style.display = 'block';
+
+                const mentoriaNome = mentorado.mentoria || 'Geral (Consultar o Admin)';
+                const dataInicial = mentorado.dataInicial || formatDate(new Date()); // Data atual como fallback
+                const valor = mentorado.valor || 'Não Definido';
+
+                infoBox.textContent = `Contrato para: ${mentorado.nome} (${mentoriaNome}) - Hash: ${hash.slice(-6)}`;
+                
+                document.getElementById('contratanteNome').textContent = mentorado.nome;
+                document.getElementById('contratanteCpf').textContent = mentorado.cpf || 'Não Informado';
+                
+                document.getElementById('contratoMentoria').textContent = mentoriaNome;
+                document.getElementById('contratoMentoria2').textContent = mentoriaNome;
+                document.getElementById('contratoData').textContent = dataInicial;
+                
+                document.getElementById('contratoValor').textContent = valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                
+                document.getElementById('assinaturaNome').textContent = mentorado.nome;
+
+            } catch (e) {
+                console.error("Erro ao carregar dados do contrato:", e);
+                loading.innerHTML = `<div style="color: var(--danger);">❌ Erro fatal ao carregar o contrato. Verifique o console.</div>`;
+            }
+        }
+
+        // Carregar dados na inicialização
+        window.onload = loadMentoradoData;
+        
+        // Funções de Ação (Mantidas no escopo global para o onclick no header)
         function printContract() {
             window.print();
         }
@@ -306,12 +390,7 @@
             // Voltar para o Dashboard Admin
             window.location.href = 'admin_dashboard.html';
         }
-
-        function logout() {
-            sessionStorage.clear();
-            // Redirecionar para o login
-            window.location.href = 'auth_system.html';
-        }
+        
     </script>
 </body>
 </html>

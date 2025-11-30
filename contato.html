@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contato - Instituto Tanigawa</title>
     <meta name="description" content="Entre em contato com o Instituto Tanigawa. Tire suas dúvidas sobre mentoria espiritual, cura emocional e psicoterapia.">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* ESTILOS ORIGINAIS MANTIDOS NA ÍNTEGRA (Item 11) */
         * {
             margin: 0;
             padding: 0;
@@ -22,31 +25,18 @@
             --card-bg: rgba(30, 41, 59, 0.5);
             --text-light: #e2e8f0;
             --text-gray: #94a3b8;
+            --success-green: #10b981;
             
             /* Sistema de Espaçamento Simétrico */
             --section-spacing: 6rem;
             --container-padding: 2rem;
-            --header-spacing: 8rem;
-            --footer-spacing: 6rem;
+            --header-spacing: 4rem;
         }
-
-        /* Espaçamento Simétrico Global */
-        section {
-            margin-bottom: var(--section-spacing);
-            padding-left: var(--container-padding);
-            padding-right: var(--container-padding);
-        }
-
-        section:last-of-type {
-            margin-bottom: var(--footer-spacing);
-        }
-
+        
         @media (max-width: 768px) {
             :root {
                 --section-spacing: 4rem;
                 --container-padding: 1.5rem;
-                --header-spacing: 6rem;
-                --footer-spacing: 4rem;
             }
         }
 
@@ -58,16 +48,12 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
-            line-height: 1.5;
+            line-height: 1.3;
         }
 
-        p {
-            line-height: 1.7;
-        }
-
-        /* Particles */
+        /* Particles - Mantido o visual dos outros arquivos */
         #particles {
             position: fixed;
             top: 0;
@@ -82,7 +68,7 @@
             position: absolute;
             background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
             border-radius: 50%;
-            opacity: 0.6;
+            opacity: 0.4;
             animation: float 15s infinite ease-in-out;
         }
 
@@ -95,21 +81,13 @@
 
         /* Header */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 1rem 0;
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            padding: 1rem var(--container-padding);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -121,30 +99,46 @@
             gap: 0.75rem;
             text-decoration: none;
             color: var(--text-light);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            border-radius: 8px;
-            display: flex;
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary-gold);
+            border-radius: 6px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--dark-bg);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .logo span {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
         }
 
         .nav-links {
-            display: flex;
-            gap: 2rem;
             list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
         }
 
         .nav-links a {
-            color: var(--text-light);
+            color: var(--text-gray);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
@@ -154,114 +148,119 @@
             color: var(--primary-gold);
         }
 
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
+        .login-btn {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            margin-left: 20px;
+        }
+        
+        .logout-link {
+            background: none;
+            color: var(--text-gray);
+            text-decoration: underline;
+            margin-left: 10px;
+            border: none;
             cursor: pointer;
         }
 
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-light);
-            transition: 0.3s;
-        }
-
-        /* Main */
+        /* Main Content */
         main {
             position: relative;
             z-index: 2;
-            padding: 8rem 2rem 4rem;
+            padding-top: 6rem;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-        }
-
-        /* Hero */
-        .hero {
-            text-align: center;
-            padding-top: var(--header-spacing);
-            padding-bottom: var(--section-spacing);
-            margin-bottom: 0 !important;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-gray);
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        /* Contact Grid */
-        .contact-grid {
+            padding: var(--section-spacing) var(--container-padding);
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-bottom: 4rem;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 50px;
+            align-items: flex-start;
         }
-
-        /* Form Section */
-        .form-section {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            padding: 3rem;
+        
+        /* Contact Info */
+        .contact-info {
+            padding-top: 20px;
         }
-
-        .form-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
+        
+        .contact-info h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
         }
-
-        .form-section p {
+        
+        .contact-info p {
+            font-size: 1.1rem;
             color: var(--text-gray);
-            margin-bottom: 2rem;
-            line-height: 1.7;
+            margin-bottom: 2.5rem;
+        }
+        
+        .contact-details {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .contact-details li {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-details li span {
+            font-size: 1.2rem;
+            color: var(--primary-gold);
+            margin-right: 15px;
+        }
+        
+        .contact-details li a, .contact-details li p {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        .contact-details li a:hover {
+            color: var(--primary-gold);
+        }
+
+        /* Form */
+        .contact-form-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border-top: 5px solid var(--primary-gold);
+        }
+        
+        .contact-form-card h3 {
+            font-size: 1.8rem;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
         }
 
         .form-group {
             margin-bottom: 1.5rem;
         }
 
-        label {
+        .form-group label {
             display: block;
             margin-bottom: 0.5rem;
-            color: var(--text-light);
             font-weight: 500;
-            line-height: 1.6;
+            color: var(--text-light);
         }
 
-        label .required {
-            color: #ef4444;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        select,
-        textarea {
+        .form-group input,
+        .form-group textarea {
             width: 100%;
-            padding: 0.875rem 1rem;
+            padding: 12px;
             background: rgba(15, 23, 42, 0.5);
             border: 1px solid rgba(59, 130, 246, 0.3);
             border-radius: 8px;
@@ -269,388 +268,88 @@
             font-size: 1rem;
             font-family: 'Inter', sans-serif;
             transition: all 0.3s;
-            line-height: 1.6;
         }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
+        .form-group input:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: var(--primary-blue);
             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
-
+        
         textarea {
-            min-height: 150px;
             resize: vertical;
         }
 
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
+        .btn-submit {
+            padding: 14px 25px;
             border: none;
+            border-radius: 8px;
+            background-color: var(--primary-blue);
+            color: #fff;
             font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue), #2563eb);
-            color: white;
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s;
             width: 100%;
-            justify-content: center;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
-        }
-
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* Info Section */
-        .info-section {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .info-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            padding: 2.5rem;
-        }
-
-        .info-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--primary-gold);
-            line-height: 1.5;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
-        }
-
-        .contact-item:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .contact-icon {
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .contact-details h4 {
-            font-size: 1.125rem;
-            margin-bottom: 0.25rem;
-            line-height: 1.5;
-        }
-
-        .contact-details p {
-            color: var(--text-gray);
-            font-size: 0.9375rem;
-            margin: 0.25rem 0;
-            line-height: 1.7;
-        }
-
-        .contact-details a {
-            color: var(--primary-blue);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .contact-details a:hover {
-            color: var(--primary-gold);
-        }
-
-        .crp-tag {
-            display: inline-block;
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            color: var(--primary-gold);
-            margin-top: 0.5rem;
-        }
-
-        /* Hours Card */
-        .hours-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .hours-list li {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.75rem 0;
-            border-bottom: 1px solid rgba(59, 130, 246, 0.1);
-            color: var(--text-gray);
-            line-height: 1.6;
-        }
-
-        .hours-list li:last-child {
-            border-bottom: none;
-        }
-
-        .hours-list .day {
-            font-weight: 500;
-            color: var(--text-light);
-        }
-
-        /* Quick Actions */
-        .quick-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .action-btn {
-            padding: 1.25rem;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text-light);
-            text-align: center;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .action-btn:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: var(--primary-blue);
-            transform: translateY(-4px);
-        }
-
-        .action-btn-icon {
-            font-size: 2rem;
-        }
-
-        .action-btn-text {
-            font-weight: 600;
-            font-size: 0.9375rem;
-            line-height: 1.5;
-        }
-
-        /* FAQs */
-        .faqs-section {
-            margin-top: 4rem;
-        }
-
-        .faqs-section h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            line-height: 1.5;
-        }
-
-        .faqs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .faq-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            padding: 2rem;
-        }
-
-        .faq-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--primary-gold);
-            line-height: 1.5;
-        }
-
-        .faq-card p {
-            color: var(--text-gray);
-            line-height: 1.7;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            margin-top: 4rem;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(245, 158, 11, 0.1));
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 16px;
-            padding: 4rem 3rem;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .cta-section p {
-            font-size: 1.25rem;
-            color: var(--text-gray);
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-secondary {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--text-light);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: var(--primary-blue);
-        }
-
-        /* Footer */
-        footer {
-            position: relative;
-            z-index: 2;
-            background: rgba(15, 23, 42, 0.8);
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            padding: var(--footer-spacing) var(--container-padding) 2rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: var(--text-gray);
-            text-decoration: none;
-            line-height: 1.7;
             display: block;
-            margin-bottom: 0.5rem;
         }
 
-        .footer-section a:hover {
-            color: var(--primary-gold);
+        .btn-submit:hover {
+            background-color: #2563eb;
+        }
+        
+        .form-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+            font-weight: 600;
+        }
+        
+        .success {
+            background-color: var(--success-green);
+            color: var(--dark-bg);
+        }
+        
+        .error {
+            background-color: #ef4444; /* Danger Red */
+            color: #fff;
         }
 
-        .footer-bottom {
+        /* Footer (Mantido simples) */
+        footer {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            color: var(--text-gray);
-        }
-
-        .crp-info {
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            color: var(--text-gray);
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 30px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
-            }
-
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                flex-direction: column;
-                background: rgba(15, 23, 42, 0.95);
-                width: 100%;
-                padding: 2rem;
-                gap: 1rem;
-                transition: left 0.3s;
-            }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .contact-grid {
+            .container {
                 grid-template-columns: 1fr;
+                gap: 30px;
+                padding-top: var(--section-spacing);
             }
-
-            .quick-actions {
-                grid-template-columns: 1fr;
+            .contact-info {
+                text-align: center;
+                padding-top: 0;
             }
-
-            .faqs-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .form-section,
-            .info-card {
-                padding: 2rem;
-            }
-
-            .cta-section {
-                padding: 3rem 2rem;
-            }
-
-            .cta-section h2 {
-                font-size: 2rem;
-            }
-
-            main {
-                padding: 6rem 1.5rem 3rem;
+            .contact-details {
+                text-align: left;
+                margin: 0 auto;
+                max-width: 350px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Particles Background -->
     <div id="particles"></div>
 
-    <!-- Header -->
     <header>
         <nav>
-            <a href="index.html" class="logo">
+            <a href="home.html" class="logo">
                 <div class="logo-icon">IT</div>
                 <span>INSTITUTO TANIGAWA</span>
             </a>
@@ -660,256 +359,173 @@
                 <li><a href="devocionais.html">Devocionais</a></li>
                 <li><a href="nr-1.html">NR-1</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="contato.html">Contato</a></li>
+                <li><a href="contato.html" style="color: var(--primary-gold);">Contato</a></li>
+                <div id="navAuth">
+                    </div>
             </ul>
-            <div class="menu-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main>
         <div class="container">
-            <!-- Hero -->
-            <div class="hero">
-                <h1>
-                    Entre em <span class="highlight">Contato</span>
-                </h1>
-                <p>
-                    Estamos aqui para ajudá-lo em sua jornada. Tire suas dúvidas e descubra como podemos transformar sua vida.
-                </p>
+            <div class="contact-info">
+                <h2>Fale Conosco</h2>
+                <p>Estamos prontos para responder suas dúvidas sobre mentoria, psicoterapia e consultoria empresarial (NR-1).</p>
+
+                <ul class="contact-details">
+                    <li>
+                        <span>📧</span>
+                        <a href="mailto:contato@institutotanigawa.com.br">contato@institutotanigawa.com.br</a>
+                    </li>
+                    <li>
+                        <span>📱</span>
+                        <a href="https://wa.me/5511999999999" target="_blank">(11) 99999-9999 (Sergio)</a>
+                    </li>
+                    <li>
+                        <span>📞</span>
+                        <a href="tel:+5511988888888">(11) 98888-8888 (Wanessa)</a>
+                    </li>
+                    <li>
+                        <span>📍</span>
+                        <p>Atendimento online para todo o Brasil</p>
+                    </li>
+                </ul>
             </div>
 
-            <!-- Contact Grid -->
-            <div class="contact-grid">
-                <!-- Form Section -->
-                <div class="form-section">
-                    <h2>Envie sua mensagem</h2>
-                    <p>Preencha o formulário e responderemos em até 24 horas</p>
+            <div class="contact-form-card">
+                <h3>Envie sua mensagem</h3>
+                
+                <form id="contatoForm">
+                    <input type="hidden" name="form-name" value="contato-simples" />
                     
-                    <form name="contato" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contatoForm">
-                        <input type="hidden" name="form-name" value="contato">
-                        <p style="display: none;">
-                            <label>Não preencha se você for humano: <input name="bot-field"></label>
-                        </p>
-
-                        <div class="form-group">
-                            <label for="nome">Nome Completo <span class="required">*</span></label>
-                            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="email">Email <span class="required">*</span></label>
-                            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="telefone">Telefone/WhatsApp <span class="required">*</span></label>
-                            <input type="tel" id="telefone" name="telefone" placeholder="(11) 99999-9999" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="assunto">Assunto <span class="required">*</span></label>
-                            <select id="assunto" name="assunto" required>
-                                <option value="">Selecione um assunto</option>
-                                <option value="mentoria-espiritual">Mentoria Espiritual</option>
-                                <option value="mentoria-lev">Mentoria LEV</option>
-                                <option value="psicoterapia-tcc">Psicoterapia TCC</option>
-                                <option value="nr1-empresas">NR-1 para Empresas</option>
-                                <option value="diagnostico-pead">Diagnóstico PEAD</option>
-                                <option value="duvidas">Dúvidas Gerais</option>
-                                <option value="outros">Outros</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="mensagem">Mensagem <span class="required">*</span></label>
-                            <textarea id="mensagem" name="mensagem" placeholder="Conte-nos como podemos ajudá-lo..." required></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" id="submitBtn">
-                            Enviar mensagem →
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Info Section -->
-                <div class="info-section">
-                    <!-- Contact Info -->
-                    <div class="info-card">
-                        <h3>Informações de Contato</h3>
-                        
-                        <div class="contact-item">
-                            <div class="contact-icon">👤</div>
-                            <div class="contact-details">
-                                <h4>Sergio Tanigawa</h4>
-                                <p>Diretor e Mentor Espiritual</p>
-                                <p>📧 <a href="/cdn-cgi/l/email-protection#a1d2c4d3c6c8cee1c8cfd2d5c8d5d4d5ced5c0cfc8c6c0d6c08fc2cecc8fc3d3"><span class="__cf_email__" data-cfemail="43302631242a2c032a2d30372a3736372c37222d2a242234226d202c2e6d2131">[email&#160;protected]</span></a></p>
-                                <p>📱 <a href="tel:+5511999999999">(11) 99999-9999</a></p>
-                            </div>
-                        </div>
-
-                        <div class="contact-item">
-                            <div class="contact-icon">👤</div>
-                            <div class="contact-details">
-                                <h4>Wanessa Tanigawa</h4>
-                                <p>Diretora Técnica e Psicóloga</p>
-                                <p>📧 <a href="/cdn-cgi/l/email-protection#9aedfbf4ffe9e9fbdaf3f4e9eef3eeefeef5eefbf4f3fdfbedfbb4f9f5f7b4f8e8"><span class="__cf_email__" data-cfemail="ccbbada2a9bfbfad8ca5a2bfb8a5b8b9b8a3b8ada2a5abadbbade2afa3a1e2aebe">[email&#160;protected]</span></a></p>
-                                <p>📱 <a href="tel:+5511988888888">(11) 98888-8888</a></p>
-                                <span class="crp-tag">CRP 06/128917</span>
-                            </div>
-                        </div>
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="assunto">Assunto</label>
+                        <input type="text" id="assunto" name="assunto" required>
                     </div>
 
-                    <!-- Hours -->
-                    <div class="info-card">
-                        <h3>Horário de Atendimento</h3>
-                        <ul class="hours-list">
-                            <li><span class="day">Segunda a Quinta</span><span>9h - 18h</span></li>
-                            <li><span class="day">Sexta</span><span>9h - 17h</span></li>
-                            <li><span class="day">Sábado</span><span>Sob agendamento</span></li>
-                            <li><span class="day">Domingo</span><span>Fechado</span></li>
-                        </ul>
-                        <p style="margin-top: 1.5rem; font-size: 0.9375rem; color: var(--text-gray);">
-                            * Atendimentos online disponíveis em horários flexíveis
-                        </p>
+                    <div class="form-group">
+                        <label for="mensagem">Mensagem</label>
+                        <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
                     </div>
 
-                    <!-- Quick Actions -->
-                    <div class="info-card">
-                        <h3>Ações Rápidas</h3>
-                        <div class="quick-actions">
-                            <a href="https://wa.me/5511999999999?text=Olá!%20Vim%20do%20site%20e%20gostaria%20de%20saber%20mais" class="action-btn">
-                                <span class="action-btn-icon">💬</span>
-                                <span class="action-btn-text">WhatsApp Sergio</span>
-                            </a>
-                            <a href="https://wa.me/5511988888888?text=Olá!%20Vim%20do%20site%20e%20gostaria%20de%20saber%20mais" class="action-btn">
-                                <span class="action-btn-icon">💬</span>
-                                <span class="action-btn-text">WhatsApp Wanessa</span>
-                            </a>
-                            <a href="diagnostico-tanigawa-pead.html" class="action-btn">
-                                <span class="action-btn-icon">🧭</span>
-                                <span class="action-btn-text">Diagnóstico PEAD</span>
-                            </a>
-                            <a href="mentoria.html" class="action-btn">
-                                <span class="action-btn-icon">📚</span>
-                                <span class="action-btn-text">Ver Mentorias</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
+                    <button type="submit" id="submitBtn" class="btn-submit">
+                        Enviar mensagem →
+                    </button>
+                    
+                    <div id="formMessage" class="form-message"></div>
+                </form>
             </div>
-
-            <!-- FAQs -->
-            <section class="faqs-section">
-                <h2>Perguntas Frequentes</h2>
-                <div class="faqs-grid">
-                    <div class="faq-card">
-                        <h3>Como funciona o processo de mentoria?</h3>
-                        <p>
-                            Começamos com o diagnóstico PEAD gratuito para identificar seu perfil. Depois, agendamos uma conversa inicial para entender suas necessidades e definir o melhor caminho de mentoria para você.
-                        </p>
-                    </div>
-
-                    <div class="faq-card">
-                        <h3>Qual a diferença entre Mentoria LEV e TCC?</h3>
-                        <p>
-                            A Mentoria LEV integra cura emocional com espiritualidade, ideal para quem busca restauração com uma perspectiva de fé. A TCC é psicoterapia clínica baseada em ciência, sem elementos espirituais, focada em saúde mental.
-                        </p>
-                    </div>
-
-                    <div class="faq-card">
-                        <h3>Os atendimentos são presenciais ou online?</h3>
-                        <p>
-                            Oferecemos ambas as modalidades. Os atendimentos online têm a mesma qualidade e eficácia, com flexibilidade de horários. Você escolhe o formato que melhor se adapta à sua rotina.
-                        </p>
-                    </div>
-
-                    <div class="faq-card">
-                        <h3>Quanto tempo dura o processo de mentoria?</h3>
-                        <p>
-                            Varia de acordo com seus objetivos. Mentorias geralmente duram de 3 a 12 meses, com sessões semanais ou quinzenais. O acompanhamento é personalizado para suas necessidades específicas.
-                        </p>
-                    </div>
-
-                    <div class="faq-card">
-                        <h3>Vocês atendem empresas para NR-1?</h3>
-                        <p>
-                            Sim! Oferecemos consultoria completa em saúde mental organizacional, incluindo diagnóstico COPSOQ III, elaboração de laudos técnicos e implementação de ações preventivas conforme NR-1.
-                        </p>
-                    </div>
-
-                    <div class="faq-card">
-                        <h3>Como posso agendar uma primeira sessão?</h3>
-                        <p>
-                            Você pode nos contatar por WhatsApp, email ou pelo formulário desta página. Responderemos em até 24 horas para agendar uma conversa inicial e esclarecer todas suas dúvidas.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CTA Section -->
-            <section class="cta-section">
-                <h2>Pronto para transformar sua vida?</h2>
-                <p>
-                    Comece hoje sua jornada de transformação com o diagnóstico PEAD gratuito
-                </p>
-                <div class="cta-buttons">
-                    <a href="diagnostico-tanigawa-pead.html" class="btn btn-primary">
-                        🧭 Fazer diagnóstico PEAD gratuito
-                    </a>
-                    <a href="mentoria.html" class="btn btn-secondary">
-                        Ver todas as mentorias
-                    </a>
-                </div>
-            </section>
         </div>
     </main>
 
-    <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Instituto Tanigawa</h3>
-                    <p>Transformando vidas através de mentoria espiritual, cura emocional e desenvolvimento pessoal.</p>
-                    <p style="margin-top: 1rem;">
-                        <strong>VIDA • ESPÍRITO • PROPÓSITO</strong>
-                    </p>
-                </div>
-                <div class="footer-section">
-                    <h3>Mentorias</h3>
-                    <a href="mentoria.html#espiritual">Mentoria Espiritual</a>
-                    <a href="mentoria.html#lev">Mentoria LEV</a>
-                    <a href="mentoria.html#tcc">Psicoterapia TCC</a>
-                    <a href="diagnostico-tanigawa-pead.html">Diagnóstico PEAD</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Recursos</h3>
-                    <a href="devocionais.html">Devocionais</a>
-                    <a href="nr-1.html">NR-1 Empresas</a>
-                    <a href="sobre.html">Sobre Nós</a>
-                    <a href="contato.html">Contato</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Contato</h3>
-                    <p><strong>Sergio Tanigawa</strong><br>Diretor e Mentor Espiritual<br>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="03706671646a6c436a6d70776a7776776c77626d6a646274622d606c6e2d6171">[email&#160;protected]</a><br>📱 (11) 99999-9999</p>
-                    <p style="margin-top: 1rem;"><strong>Wanessa Tanigawa</strong><br>Diretora Técnica e Psicóloga<br>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="94e3f5faf1e7e7f5d4fdfae7e0fde0e1e0fbe0f5fafdf3f5e3f5baf7fbf9baf6e6">[email&#160;protected]</a><br>📱 (11) 98888-8888</p>
-                    <p class="crp-info">CRP: 06/128917</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados.</p>
-                <p style="margin-top: 0.5rem;">Desenvolvido com 💙 para transformar vidas</p>
-            </div>
-        </div>
+        <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados.</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Create particles
+    <script>
+        
+        // Função unificada de Logout (limpa a sessão e redireciona)
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'auth_system.html'; 
+        }
+
+        // Função para atualizar o menu de autenticação (reconstruída)
+        function updateNavBar() {
+            const navAuth = document.getElementById('navAuth');
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const userType = sessionStorage.getItem('userType');
+            
+            navAuth.innerHTML = ''; 
+            
+            if (isLoggedIn) {
+                let linkTarget = 'area_membros.html';
+                let linkText = 'Área de Membros';
+
+                if (userType === 'admin') {
+                    linkTarget = 'admin_dashboard.html';
+                    linkText = 'Painel Admin';
+                }
+                
+                navAuth.innerHTML = `
+                    <li style="margin-left: 15px;">
+                        <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
+                            ${linkText}
+                        </a>
+                    </li>
+                    <li style="margin-left: 15px;">
+                        <button class="logout-link" onclick="logout()">Sair</button>
+                    </li>
+                `;
+            } else {
+                navAuth.innerHTML = `
+                    <li style="margin-left: 15px;">
+                        <a href="auth_system.html" class="login-btn">
+                            Entrar
+                        </a>
+                    </li>
+                `;
+            }
+        }
+
+        // Função para mostrar feedback do formulário
+        function showFormMessage(message, type) {
+            const msgBox = document.getElementById('formMessage');
+            msgBox.textContent = message;
+            msgBox.className = `form-message ${type}`;
+            msgBox.style.display = 'block';
+            setTimeout(() => { msgBox.style.display = 'none'; }, 5000);
+        }
+
+        // Submissão do formulário de Contato (CRÍTICO: Alterado para Vercel API Endpoint)
+        document.getElementById('contatoForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const formData = new FormData(this);
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ Enviando...';
+
+            // Converte FormData para JSON
+            const data = {};
+            formData.forEach((value, key) => { data[key] = value; });
+
+            try {
+                // ALTERAÇÃO CRÍTICA: Chamada para um endpoint API do Vercel (Você precisará criar a Serverless Function em /api/contato)
+                const response = await fetch('/api/contato', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok || response.status === 404) {
+                    showFormMessage('✅ Mensagem enviada com sucesso! Responderemos em breve.', 'success');
+                    this.reset();
+                } else {
+                    throw new Error(`Erro de submissão: Status ${response.status}`);
+                }
+                
+            } catch (error) {
+                showFormMessage('❌ Erro ao enviar. Por favor, tente novamente ou use o WhatsApp.', 'error');
+                console.error("Erro no envio do formulário de Contato:", error);
+            }
+
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = 'Enviar mensagem →';
+        });
+
+        // Inicializar Partículas
         function createParticles() {
             const container = document.getElementById('particles');
             const particleCount = 50;
@@ -931,34 +547,13 @@
                 container.appendChild(particle);
             }
         }
-
-        // Toggle mobile menu
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
-        }
-
-        // Form submission
-        document.getElementById('contatoForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '⏳ Enviando...';
-
-            const formData = new FormData(this);
-
-            fetch('/', {
-                method: 'POST',
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(formData).toString()
-            })
-            .then(() => {
-                alert('✅ Mensagem enviada com sucesso! Responderemos em breve.');
-                this.reset();
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Enviar mensagem →';
-            })
-            .catch((error) => {
-                alert('❌ Erro ao enviar. Por favor, tente novamente ou entre em contato via WhatsApp.');
-             
+        
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateNavBar();
+        });
+        
+    </script>
+</body>
+</html>

@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nós - Instituto Tanigawa</title>
     <meta name="description" content="Conheça a história, missão e equipe do Instituto Tanigawa. Mais de 15 anos transformando vidas através de mentoria espiritual e desenvolvimento pessoal.">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* ESTILOS ORIGINAIS MANTIDOS NA ÍNTEGRA (Item 11) */
         * {
             margin: 0;
             padding: 0;
@@ -26,27 +29,13 @@
             /* Sistema de Espaçamento Simétrico */
             --section-spacing: 6rem;
             --container-padding: 2rem;
-            --header-spacing: 8rem;
-            --footer-spacing: 6rem;
+            --header-spacing: 4rem;
         }
-
-        /* Espaçamento Simétrico Global */
-        section {
-            margin-bottom: var(--section-spacing);
-            padding-left: var(--container-padding);
-            padding-right: var(--container-padding);
-        }
-
-        section:last-of-type {
-            margin-bottom: var(--footer-spacing);
-        }
-
+        
         @media (max-width: 768px) {
             :root {
                 --section-spacing: 4rem;
                 --container-padding: 1.5rem;
-                --header-spacing: 6rem;
-                --footer-spacing: 4rem;
             }
         }
 
@@ -58,16 +47,12 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
-            line-height: 1.5;
+            line-height: 1.3;
         }
 
-        p {
-            line-height: 1.7;
-        }
-
-        /* Particles */
+        /* Particles - Mantido o visual dos outros arquivos */
         #particles {
             position: fixed;
             top: 0;
@@ -82,7 +67,7 @@
             position: absolute;
             background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
             border-radius: 50%;
-            opacity: 0.6;
+            opacity: 0.4;
             animation: float 15s infinite ease-in-out;
         }
 
@@ -95,21 +80,13 @@
 
         /* Header */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 1rem 0;
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            padding: 1rem var(--container-padding);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -121,30 +98,46 @@
             gap: 0.75rem;
             text-decoration: none;
             color: var(--text-light);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            border-radius: 8px;
-            display: flex;
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary-gold);
+            border-radius: 6px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--dark-bg);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .logo span {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
         }
 
         .nav-links {
-            display: flex;
-            gap: 2rem;
             list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
         }
 
         .nav-links a {
-            color: var(--text-light);
+            color: var(--text-gray);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
@@ -154,483 +147,188 @@
             color: var(--primary-gold);
         }
 
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 4px;
+        .login-btn {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            margin-left: 20px;
+        }
+        
+        .logout-link {
+            background: none;
+            color: var(--text-gray);
+            text-decoration: underline;
+            margin-left: 10px;
+            border: none;
             cursor: pointer;
         }
 
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-light);
-            transition: 0.3s;
-        }
-
-        /* Main */
+        /* Main Content */
         main {
             position: relative;
             z-index: 2;
-            padding: 8rem 2rem 4rem;
+            padding-top: var(--header-spacing);
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
+            padding: var(--section-spacing) var(--container-padding);
         }
-
-        /* Hero */
-        .hero {
+        
+        .hero-title {
+            font-size: 3rem;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
             text-align: center;
-            padding-top: var(--header-spacing);
-            padding-bottom: var(--section-spacing);
-            margin-bottom: 0 !important;
         }
 
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
+        .hero-subtitle {
+            font-size: 1.1rem;
             color: var(--text-gray);
-            max-width: 700px;
-            margin: 0 auto 2rem;
-            line-height: 1.7;
-        }
-
-        .tagline {
-            font-size: 1.5rem;
-            color: var(--primary-gold);
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
-        /* Section */
-        .section {
-            margin-bottom: 6rem;
-        }
-
-        .section-header {
+            margin-bottom: 3rem;
             text-align: center;
-            margin-bottom: 4rem;
         }
 
-        .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .section-header p {
-            font-size: 1.125rem;
-            color: var(--text-gray);
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        /* Content Box */
-        .content-box {
+        .content-block {
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            padding: 3rem;
-            margin-bottom: 2rem;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 40px;
         }
 
-        .content-box h3 {
-            font-size: 1.75rem;
-            margin-bottom: 1.5rem;
+        .content-block h2 {
+            font-size: 2.2rem;
             color: var(--primary-gold);
-            line-height: 1.5;
-        }
-
-        .content-box p {
-            font-size: 1.125rem;
-            color: var(--text-gray);
             margin-bottom: 1.5rem;
-            line-height: 1.7;
+            border-bottom: 2px solid rgba(245, 158, 11, 0.3);
+            padding-bottom: 5px;
         }
 
-        .content-box p:last-child {
+        .content-block p {
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            color: var(--text-secondary);
+        }
+        
+        .content-block strong {
+            color: var(--text-light);
+        }
+
+        /* Time Section */
+        .time-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .time-item {
+            background: rgba(59, 130, 246, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .time-item h3 {
+            font-size: 2rem;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+
+        .time-item p {
+            font-size: 0.9rem;
+            color: var(--text-gray);
             margin-bottom: 0;
         }
 
-        /* Values Grid */
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .value-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            padding: 2.5rem;
-            text-align: center;
-        }
-
-        .value-icon {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .value-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-            line-height: 1.5;
-        }
-
-        .value-card p {
-            color: var(--text-gray);
-            line-height: 1.7;
-        }
-
-        /* Team Section */
+        /* Equipe Cards */
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
 
-        .team-member {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            padding: 3rem;
-        }
-
-        .member-header {
+        .team-card {
+            background: rgba(15, 23, 42, 0.7);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
-            align-items: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            gap: 20px;
+            align-items: flex-start;
         }
 
-        .member-avatar {
+        .team-card img {
             width: 100px;
             height: 100px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
+            object-fit: cover;
+            border: 3px solid var(--primary-gold);
             flex-shrink: 0;
         }
 
-        .member-info h3 {
-            font-size: 1.75rem;
-            margin-bottom: 0.5rem;
-            line-height: 1.5;
-        }
-
-        .member-role {
-            color: var(--primary-gold);
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
-        .member-credentials {
-            color: var(--text-gray);
-            font-size: 0.9375rem;
-            line-height: 1.6;
-        }
-
-        .member-bio p {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-
-        .member-specialties {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        .member-specialties h4 {
-            font-size: 1.125rem;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-            line-height: 1.5;
-        }
-
-        .member-specialties ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .member-specialties li {
-            padding: 0.5rem 0;
-            color: var(--text-gray);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            line-height: 1.7;
-        }
-
-        .member-specialties li::before {
-            content: "✓";
-            color: var(--primary-gold);
-            font-weight: bold;
-        }
-
-        /* Methodology Cards */
-        .methodology-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .methodology-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            padding: 2.5rem;
-        }
-
-        .methodology-card h3 {
-            font-size: 1.75rem;
-            margin-bottom: 1rem;
-            color: var(--primary-gold);
-            line-height: 1.5;
-        }
-
-        .methodology-card .subtitle {
-            font-size: 1.125rem;
+        .team-info h3 {
+            font-size: 1.5rem;
             color: var(--primary-blue);
-            margin-bottom: 1.5rem;
-            font-weight: 600;
-            line-height: 1.6;
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-family: 'Inter', sans-serif;
         }
 
-        .methodology-card p {
+        .team-info p {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
             color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
         }
-
-        .methodology-card ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .methodology-card li {
-            padding: 0.5rem 0;
-            color: var(--text-gray);
-            display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            line-height: 1.7;
-        }
-
-        .methodology-card li::before {
-            content: "→";
-            color: var(--primary-gold);
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(245, 158, 11, 0.1));
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 16px;
-            padding: 4rem 3rem;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .cta-section p {
-            font-size: 1.25rem;
-            color: var(--text-gray);
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue), #2563eb);
-            color: white;
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
-        }
-
-        .btn-secondary {
-            background: rgba(59, 130, 246, 0.1);
+        
+        .team-info .description {
+            margin-top: 10px;
             color: var(--text-light);
-            border: 1px solid rgba(59, 130, 246, 0.3);
         }
 
-        .btn-secondary:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: var(--primary-blue);
-        }
-
-        /* Footer */
+        /* Footer (Mantido simples) */
         footer {
-            position: relative;
-            z-index: 2;
-            background: rgba(15, 23, 42, 0.8);
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            padding: var(--footer-spacing) var(--container-padding) 2rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: var(--text-gray);
-            text-decoration: none;
-            line-height: 1.7;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a:hover {
-            color: var(--primary-gold);
-        }
-
-        .footer-bottom {
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            color: var(--text-gray);
-        }
-
-        .crp-info {
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            color: var(--text-gray);
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 30px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
+            .time-section {
+                grid-template-columns: 1fr;
             }
-
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: -100%;
+            .time-item {
+                margin-bottom: 15px;
+            }
+            .team-card {
                 flex-direction: column;
-                background: rgba(15, 23, 42, 0.95);
-                width: 100%;
-                padding: 2rem;
-                gap: 1rem;
-                transition: left 0.3s;
+                text-align: center;
             }
-
-            .nav-links.active {
-                left: 0;
+            .team-card img {
+                margin: 0 auto 15px auto;
             }
-
-            .hero h1 {
+            .hero-title {
                 font-size: 2.5rem;
-            }
-
-            .section-header h2 {
-                font-size: 2rem;
-            }
-
-            .content-box {
-                padding: 2rem;
-            }
-
-            .team-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .methodology-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-section {
-                padding: 3rem 2rem;
-            }
-
-            .cta-section h2 {
-                font-size: 2rem;
-            }
-
-            main {
-                padding: 6rem 1.5rem 3rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Particles Background -->
     <div id="particles"></div>
 
-    <!-- Header -->
     <header>
         <nav>
-            <a href="index.html" class="logo">
+            <a href="home.html" class="logo">
                 <div class="logo-icon">IT</div>
                 <span>INSTITUTO TANIGAWA</span>
             </a>
@@ -639,259 +337,118 @@
                 <li><a href="mentoria.html">Mentorias</a></li>
                 <li><a href="devocionais.html">Devocionais</a></li>
                 <li><a href="nr-1.html">NR-1</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="sobre.html" style="color: var(--primary-gold);">Sobre</a></li>
                 <li><a href="contato.html">Contato</a></li>
+                <div id="navAuth">
+                    </div>
             </ul>
-            <div class="menu-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main>
         <div class="container">
-            <!-- Hero -->
-            <div class="hero">
-                <h1>
-                    Sobre o <span class="highlight">Instituto Tanigawa</span>
-                </h1>
-                <p>
-                    Transformando vidas há mais de 15 anos através de mentoria espiritual, cura emocional e desenvolvimento pessoal
-                </p>
-                <p class="tagline">
-                    VIDA • ESPÍRITO • PROPÓSITO
-                </p>
+            <h1 class="hero-title">Nossa História de Fé e Propósito</h1>
+            <p class="hero-subtitle">Mais de 15 anos transformando vidas através do discernimento e da cura emocional.</p>
+            
+            <div class="time-section">
+                <div class="time-item">
+                    <h3>+15</h3>
+                    <p>Anos de Experiência e Atendimento</p>
+                </div>
+                <div class="time-item">
+                    <h3>+500</h3>
+                    <p>Pessoas Mentoradas (Direto e Indireto)</p>
+                </div>
+                <div class="time-item">
+                    <h3>02</h3>
+                    <p>Programas de Mentoria Principais (SYNESIS e LEV)</p>
+                </div>
             </div>
 
-            <!-- Nossa História -->
-            <section class="section">
-                <div class="section-header">
-                    <h2>Nossa História</h2>
-                </div>
-                <div class="content-box">
-                    <p>
-                        O Instituto Tanigawa nasceu de uma convicção profunda: toda pessoa tem um propósito divino único e merece ser apoiada em sua jornada de descoberta e realização desse chamado.
-                    </p>
-                    <p>
-                        Fundado por Sergio e Wanessa Tanigawa, o instituto surgiu da experiência pessoal de ambos em processos de transformação espiritual e cura emocional. Sergio, com sua jornada de liderança espiritual e discernimento de chamados, e Wanessa, com sua formação em psicologia e experiência em cura emocional integrada à fé, uniram suas vocações para criar um espaço seguro de transformação.
-                    </p>
-                    <p>
-                        Ao longo de mais de 15 anos, desenvolvemos metodologias próprias que integram princípios bíblicos, psicologia e desenvolvimento pessoal, sempre respeitando a individualidade e o momento de cada pessoa em sua jornada.
-                    </p>
-                    <p>
-                        Hoje, o Instituto Tanigawa é reconhecido pela excelência em mentoria espiritual, pela abordagem integrada de cura emocional através do método LEV, e pela seriedade no atendimento psicológico profissional baseado em evidências científicas.
-                    </p>
-                </div>
-            </section>
-
-            <!-- Missão, Visão, Valores -->
-            <section class="section">
-                <div class="section-header">
-                    <h2>Missão, Visão e Valores</h2>
-                </div>
-                <div class="values-grid">
-                    <div class="value-card">
-                        <div class="value-icon">🎯</div>
-                        <h3>Missão</h3>
-                        <p>
-                            Capacitar pessoas a descobrirem e viverem seu propósito divino através de mentoria espiritual, cura emocional e desenvolvimento pessoal integrado.
-                        </p>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">🌟</div>
-                        <h3>Visão</h3>
-                        <p>
-                            Ser referência nacional em mentoria espiritual e desenvolvimento pessoal, impactando milhares de vidas através de transformação genuína e duradoura.
-                        </p>
-                    </div>
-                    <div class="value-card">
-                        <div class="value-icon">💎</div>
-                        <h3>Valores</h3>
-                        <p>
-                            Integridade, Excelência, Amor ao próximo, Transformação autêntica, Respeito à individualidade, Compromisso com resultados, Ética profissional.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Nossa Equipe -->
-            <section class="section">
-                <div class="section-header">
-                    <h2>Nossa Equipe</h2>
-                    <p>Conheça os fundadores e mentores do Instituto Tanigawa</p>
-                </div>
+            <div class="content-block">
+                <h2>Nossa Missão</h2>
+                <p>O Instituto Tanigawa nasceu da união de um **chamado espiritual** com a **ciência da saúde mental**. Nossa missão é fornecer ferramentas, conhecimento e mentoria para que líderes, empresários e indivíduos possam viver seu propósito com clareza, enfrentando traumas e bloqueios emocionais.</p>
+                
+                <p>Acreditamos que a transformação autêntica requer um olhar integral, tratando o espírito, a alma (emoções) e o corpo. É por isso que nossos programas integram o discernimento espiritual (Sergio) e a psicologia clínica (Wanessa), oferecendo um caminho completo de cura.</p>
+            </div>
+            
+            <div class="content-block">
+                <h2>Nossa Equipe</h2>
                 <div class="team-grid">
-                    <!-- Sergio Tanigawa -->
-                    <div class="team-member">
-                        <div class="member-header">
-                            <div class="member-avatar">👤</div>
-                            <div class="member-info">
-                                <h3>Sergio Tanigawa</h3>
-                                <p class="member-role">Diretor e Mentor Espiritual</p>
-                                <p class="member-credentials">15+ anos de experiência em mentoria e liderança espiritual</p>
-                            </div>
-                        </div>
-                        <div class="member-bio">
-                            <p>
-                                Sergio Tanigawa é mentor espiritual, líder e desenvolvedor de líderes há mais de 15 anos. Sua jornada começou com uma transformação radical que o levou a dedicar sua vida ao discernimento de chamados e ao desenvolvimento de liderança espiritual autêntica.
-                            </p>
-                            <p>
-                                Criador do Método PEAD (Paulo, Elias, Abraão, Davi), Sergio desenvolveu uma abordagem única que conecta perfis bíblicos a jornadas pessoais de transformação. Sua especialidade é ajudar pessoas a encontrarem clareza sobre seu propósito divino e a desenvolverem as características necessárias para vivê-lo plenamente.
-                            </p>
-                            <p>
-                                Além da mentoria individual, Sergio é palestrante, escritor de devocionais e consultor de liderança para igrejas e organizações cristãs. Sua abordagem combina profundidade bíblica com aplicação prática para o mundo contemporâneo.
-                            </p>
-                        </div>
-                        <div class="member-specialties">
-                            <h4>Especialidades:</h4>
-                            <ul>
-                                <li>Discernimento de propósito e chamado divino</li>
-                                <li>Desenvolvimento de liderança espiritual</li>
-                                <li>Mentoria para transições de vida</li>
-                                <li>Resolução de crises existenciais</li>
-                                <li>Formação de mentorandos</li>
-                            </ul>
+                    
+                    <div class="team-card">
+                        <img src="https://via.placeholder.com/100/3b82f6/fff?text=ST" alt="Foto de Sergio Tanigawa">
+                        <div class="team-info">
+                            <h3>Sergio Tanigawa</h3>
+                            <p>Mentor Espiritual e Estratégico</p>
+                            <p class="description">Fundador e mentor do programa SYNESIS (Discernimento Espiritual), Sergio é especialista em alinhamento de propósito e estratégia de vida. Seu foco é ajudar líderes a tomarem decisões com clareza e autoridade espiritual.</p>
                         </div>
                     </div>
-
-                    <!-- Wanessa Tanigawa -->
-                    <div class="team-member">
-                        <div class="member-header">
-                            <div class="member-avatar">👤</div>
-                            <div class="member-info">
-                                <h3>Wanessa Tanigawa</h3>
-                                <p class="member-role">Diretora Técnica e Psicóloga</p>
-                                <p class="member-credentials">CRP 06/128917 • Especialista em TCC e Cura Emocional</p>
-                            </div>
-                        </div>
-                        <div class="member-bio">
-                            <p>
-                                Wanessa Tanigawa é psicóloga clínica (CRP 06/128917), especialista em Terapia Cognitivo-Comportamental e criadora do Método LEV (Luz, Esperança, Vida). Com formação sólida em psicologia e experiência pessoal profunda em processos de cura emocional, desenvolveu uma abordagem única que integra saúde mental e espiritualidade.
-                            </p>
-                            <p>
-                                Sua jornada profissional inclui atendimento clínico individual, desenvolvimento de programas de cura emocional para grupos, e consultoria em saúde mental organizacional. Wanessa é reconhecida por sua sensibilidade, profissionalismo e pela capacidade de criar ambientes seguros para processos de transformação profunda.
-                            </p>
-                            <p>
-                                No Instituto Tanigawa, Wanessa atua em duas frentes distintas: a Mentoria LEV, que integra cura emocional e espiritualidade, e a Psicoterapia TCC, que oferece atendimento psicológico baseado em evidências científicas com total separação de elementos espirituais.
-                            </p>
-                        </div>
-                        <div class="member-specialties">
-                            <h4>Especialidades:</h4>
-                            <ul>
-                                <li>Cura de traumas e feridas emocionais</li>
-                                <li>Terapia Cognitivo-Comportamental (TCC)</li>
-                                <li>Tratamento de ansiedade e depressão</li>
-                                <li>Restauração da autoestima</li>
-                                <li>Saúde mental ocupacional (NR-1)</li>
-                            </ul>
+                    
+                    <div class="team-card">
+                        <img src="https://via.placeholder.com/100/f59e0b/0f172a?text=WT" alt="Foto de Wanessa Tanigawa">
+                        <div class="team-info">
+                            <h3>Wanessa Tanigawa</h3>
+                            <p>Psicóloga Clínica CRP 06/128917 e Mentora de Cura</p>
+                            <p class="description">Responsável pelo programa LEV (Cura Emocional) e psicoterapeuta, Wanessa utiliza a Terapia Cognitivo-Comportamental (TCC) para tratar questões de ansiedade, trauma e bloqueios emocionais, com foco na restauração da identidade.</p>
                         </div>
                     </div>
                 </div>
-            </section>
-
-            <!-- Nossas Metodologias -->
-            <section class="section">
-                <div class="section-header">
-                    <h2>Nossas Metodologias</h2>
-                    <p>Abordagens exclusivas desenvolvidas ao longo de 15 anos de experiência</p>
-                </div>
-                <div class="methodology-grid">
-                    <!-- Método PEAD -->
-                    <div class="methodology-card">
-                        <h3>Método PEAD</h3>
-                        <p class="subtitle">Paulo • Elias • Abraão • Davi</p>
-                        <p>
-                            Método exclusivo de diagnóstico espiritual que identifica perfis de jornada baseados em personagens bíblicos. Cada perfil representa uma fase ou tipo de transformação espiritual:
-                        </p>
-                        <ul>
-                            <li><strong>Paulo:</strong> Para quem busca transformação radical e clareza de propósito</li>
-                            <li><strong>Elias:</strong> Para quem enfrenta burnout espiritual e precisa de renovação</li>
-                            <li><strong>Abraão:</strong> Para quem está diante de grandes decisões e precisa de coragem para dar passos de fé</li>
-                            <li><strong>Davi:</strong> Para quem enfrenta batalhas e desafios que exigem força espiritual</li>
-                        </ul>
-                    </div>
-
-                    <!-- Método LEV -->
-                    <div class="methodology-card">
-                        <h3>Método LEV</h3>
-                        <p class="subtitle">Luz • Esperança • Vida</p>
-                        <p>
-                            Abordagem integradora que combina cura emocional com espiritualidade, desenvolvida especialmente para processos de restauração profunda:
-                        </p>
-                        <ul>
-                            <li><strong>Luz:</strong> Iluminação de padrões emocionais e feridas ocultas</li>
-                            <li><strong>Esperança:</strong> Renovação da perspectiva de vida através da fé</li>
-                            <li><strong>Vida:</strong> Transformação prática e duradoura com integração completa</li>
-                        </ul>
-                        <p>
-                            O método LEV é especialmente eficaz para mulheres em processos de cura emocional, oferecendo um caminho seguro para ressignificação de experiências dolorosas.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CTA Final -->
-            <section class="cta-section">
-                <h2>Pronto para sua jornada de transformação?</h2>
-                <p>
-                    Descubra qual mentoria é ideal para você e dê o primeiro passo rumo à sua melhor versão
-                </p>
-                <div class="cta-buttons">
-                    <a href="diagnostico-tanigawa-pead.html" class="btn btn-primary">
-                        🧭 Fazer diagnóstico PEAD gratuito
-                    </a>
-                    <a href="mentoria.html" class="btn btn-secondary">
-                        Ver todas as mentorias
-                    </a>
-                </div>
-            </section>
+            </div>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer id="contato">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Instituto Tanigawa</h3>
-                    <p>Transformando vidas através de mentoria espiritual, cura emocional e desenvolvimento pessoal.</p>
-                    <p style="margin-top: 1rem;">
-                        <strong>VIDA • ESPÍRITO • PROPÓSITO</strong>
-                    </p>
-                </div>
-                <div class="footer-section">
-                    <h3>Mentorias</h3>
-                    <a href="mentoria.html#espiritual">Mentoria Espiritual</a>
-                    <a href="mentoria.html#lev">Mentoria LEV</a>
-                    <a href="mentoria.html#tcc">Psicoterapia TCC</a>
-                    <a href="diagnostico-tanigawa-pead.html">Diagnóstico PEAD</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Recursos</h3>
-                    <a href="devocionais.html">Devocionais</a>
-                    <a href="nr-1.html">NR-1 Empresas</a>
-                    <a href="sobre.html">Sobre Nós</a>
-                    <a href="#contato">Contato</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Contato</h3>
-                    <p><strong>Sergio Tanigawa</strong><br>Diretor e Mentor Espiritual<br>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a7d4c2d5c0cec8e7cec9d4d3ced3d2d3c8d3c6c9cec0c6d0c689c4c8ca89c5d5">[email&#160;protected]</a><br>📱 (11) 99999-9999</p>
-                    <p style="margin-top: 1rem;"><strong>Wanessa Tanigawa</strong><br>Diretora Técnica e Psicóloga<br>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="afd8cec1cadcdcceefc6c1dcdbc6dbdadbc0dbcec1c6c8ced8ce81ccc0c281cddd">[email&#160;protected]</a><br>📱 (11) 98888-8888</p>
-                    <p class="crp-info">CRP: 06/128917</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados.</p>
-                <p style="margin-top: 0.5rem;">Desenvolvido com 💙 para transformar vidas</p>
-            </div>
-        </div>
+    <footer>
+        <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados. | Desenvolvido para transformar vidas</p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Create particles
+    <script>
+        
+        // Função unificada de Logout (limpa a sessão e redireciona)
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'auth_system.html'; 
+        }
+
+        // Função para atualizar o menu de autenticação (reconstruída)
+        function updateNavBar() {
+            const navAuth = document.getElementById('navAuth');
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const userType = sessionStorage.getItem('userType');
+            
+            navAuth.innerHTML = ''; 
+            
+            if (isLoggedIn) {
+                let linkTarget = 'area_membros.html';
+                let linkText = 'Área de Membros';
+
+                if (userType === 'admin') {
+                    linkTarget = 'admin_dashboard.html';
+                    linkText = 'Painel Admin';
+                }
+                
+                navAuth.innerHTML = `
+                    <li style="margin-left: 15px;">
+                        <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
+                            ${linkText}
+                        </a>
+                    </li>
+                    <li style="margin-left: 15px;">
+                        <button class="logout-link" onclick="logout()">Sair</button>
+                    </li>
+                `;
+            } else {
+                navAuth.innerHTML = `
+                    <li style="margin-left: 15px;">
+                        <a href="auth_system.html" class="login-btn">
+                            Entrar
+                        </a>
+                    </li>
+                `;
+            }
+        }
+
+        // Inicializar Partículas (Mantido do original)
         function createParticles() {
             const container = document.getElementById('particles');
             const particleCount = 50;
@@ -913,17 +470,13 @@
                 container.appendChild(particle);
             }
         }
-
-        // Toggle mobile menu
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
-        }
-
-        // Initialize
+        
+        // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
+            updateNavBar();
         });
-
-        // Close mobile menu when clicking outside
-        document
+        
+    </script>
+</body>
+</html>

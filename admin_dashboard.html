@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin - Instituto Tanigawa</title>
+    <title>Painel Administrativo - Instituto Tanigawa</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
+    <style>
+        /* Variáveis de Estilo (MANTIDAS) */
         :root {
             --primary-blue: #3b82f6;
             --primary-gold: #f59e0b;
@@ -21,583 +18,396 @@
             --card-bg: rgba(30, 41, 59, 0.5);
             --text-light: #e2e8f0;
             --text-gray: #94a3b8;
-            --success: #10b981;
-            --danger: #ef4444;
+            --danger-red: #ef4444;
+            --success-green: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(135deg, #0f0f1c 0%, #090915 100%);
             color: var(--text-light);
-            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-        }
-
-        /* Header */
         header {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 1.5rem 2rem;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            padding: 18px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.18);
+            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
         }
 
-        .logo {
+        h1 {
+            margin: 0;
+            font-size: 1.35rem;
+            letter-spacing: 1px;
+        }
+
+        .header-info {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+        }
+        
+        #adminName {
+            color: var(--primary-gold);
+            font-weight: 600;
+            margin-right: 20px;
+            font-size: 1.1rem;
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
+        .logout-btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--danger-red);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .logout-btn:hover {
+            background-color: #c93030;
+        }
+
+        /* Conteúdo Principal */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 25px;
+            color: var(--primary-blue);
+            border-bottom: 2px solid rgba(59, 130, 246, 0.3);
+            padding-bottom: 10px;
+        }
+
+        /* Dashboards e Ações */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            color: var(--primary-gold);
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+            padding-bottom: 5px;
+        }
+
+        .card-action-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 6px;
+            background-color: var(--primary-blue);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .card-action-btn:hover {
+            background-color: #2563eb;
+        }
+
+        /* Tabela de Membros */
+        #memberList table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+
+        #memberList th, #memberList td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        #memberList th {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--primary-gold);
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        #memberList td {
+            color: var(--text-light);
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .empty-box {
+            padding: 30px;
+            text-align: center;
+            background: var(--card-bg);
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+            color: var(--text-gray);
+            margin-top: 20px;
         }
 
         .btn {
-            padding: 0.75rem 1.5rem;
+            padding: 6px 12px;
             border: none;
-            border-radius: 8px;
-            font-weight: 600;
+            border-radius: 4px;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.3s;
-            font-size: 0.875rem;
-            text-decoration: none;
-            display: inline-block;
+            margin-right: 5px;
+            transition: opacity 0.2s;
+        }
+        
+        .btn-copy {
+            background-color: var(--primary-blue);
+            color: #fff;
         }
 
-        .btn-logout {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+        .btn-revoke {
+            background-color: var(--danger-red);
+            color: #fff;
         }
 
-        .btn-logout:hover {
-            background: rgba(239, 68, 68, 0.3);
+        .btn:hover {
+            opacity: 0.8;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
-        }
-
-        /* Container */
-        .container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .page-title {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .page-subtitle {
-            color: var(--text-gray);
-            margin-bottom: 2rem;
-        }
-
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .stat-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 12px;
-            padding: 1.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-gray);
-            font-size: 0.875rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-        }
-
-        /* Actions Bar */
-        .actions-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .filters {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .filter-select {
-            padding: 0.75rem 1rem;
-            background: var(--card-bg);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 8px;
-            color: var(--text-light);
-            font-size: 0.875rem;
-            cursor: pointer;
-        }
-
-        /* Table */
-        .table-container {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        thead {
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        th {
-            padding: 1rem;
-            text-align: left;
-            font-weight: 600;
-            color: var(--primary-blue);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-        }
-
-        td {
-            padding: 1rem;
-            border-top: 1px solid rgba(59, 130, 246, 0.1);
-        }
-
-        tbody tr {
-            transition: background 0.3s;
-        }
-
-        tbody tr:hover {
-            background: rgba(59, 130, 246, 0.05);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .badge-synesis {
-            background: rgba(139, 92, 246, 0.2);
-            color: #a78bfa;
-        }
-
-        .badge-lev {
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--primary-blue);
-        }
-
-        .badge-tcc {
-            background: rgba(16, 185, 129, 0.2);
-            color: var(--success);
-        }
-
-        .action-btns {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
-            border-radius: 6px;
-        }
-
-        .btn-contract {
-            background: rgba(245, 158, 11, 0.2);
-            color: var(--primary-gold);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-        }
-
-        .btn-delete {
-            background: rgba(239, 68, 68, 0.2);
-            color: var(--danger);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
-        }
-
-        .empty-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        /* Modal */
-        .modal {
-            display: none;
+        /* Notificações */
+        .notice-box {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--dark-bg);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 16px;
-            padding: 2rem;
-            max-width: 600px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            color: var(--primary-blue);
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-gray);
-            cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.875rem;
-            background: var(--card-bg);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
             border-radius: 8px;
-            color: var(--text-light);
-            font-family: 'Inter', sans-serif;
+            color: #fff;
+            display: none;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        #copyNotice {
+            background-color: var(--primary-blue);
+        }
+        
+        #successBox {
+            background-color: var(--success-green);
         }
 
+        /* Responsivo */
         @media (max-width: 768px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            table {
-                font-size: 0.875rem;
-            }
-
-            th, td {
-                padding: 0.75rem 0.5rem;
-            }
-
-            .action-btns {
+            header {
                 flex-direction: column;
+                padding: 15px 20px;
+            }
+            .header-info {
+                margin-top: 10px;
+                width: 100%;
+                justify-content: space-between;
+            }
+            #adminName {
+                margin-right: 0;
+            }
+            .section-title {
+                font-size: 1.8rem;
+            }
+            #memberList th, #memberList td {
+                padding: 10px;
+                font-size: 0.8rem;
+            }
+            .btn {
+                padding: 4px 8px;
+                font-size: 0.75rem;
             }
         }
     </style>
 </head>
 <body>
+    
     <header>
-        <div class="logo">
-            <div class="logo-icon">IT</div>
-            <div>
-                <h2 style="font-size: 1.25rem;">Instituto Tanigawa</h2>
-                <p style="font-size: 0.75rem; color: var(--text-gray);">Painel Administrativo</p>
-            </div>
-        </div>
-        <div class="user-info">
-            <span style="font-size: 0.875rem; color: var(--text-gray);">👤 Admin</span>
-            <button class="btn btn-logout" onclick="logout()">Sair</button>
+        <h1>💎 Painel Admin Tanigawa</h1>
+        <div class="header-info">
+            <span id="adminName"></span>
+            <button class="logout-btn" onclick="logout()">Sair</button>
         </div>
     </header>
 
     <div class="container">
-        <h1 class="page-title">Dashboard de Mentorados</h1>
-        <p class="page-subtitle">Gerencie cadastros e gere contratos</p>
+        <h2 class="section-title">Visão Geral dos Membros</h2>
+        
+        <div class="dashboard-grid">
+            
+            <div class="card">
+                <h3>Ações de Gestão</h3>
+                <p style="color: var(--text-gray);">Gerencie chaves, adicione e revogue acessos de mentorados.</p>
+                <a href="#" class="card-action-btn">Criar Nova Chave</a>
+            </div>
+            
+            <div class="card">
+                <h3>Relatórios Rápidos</h3>
+                <p style="color: var(--text-gray);">Visualize estatísticas de acesso, devocionais mais lidos, etc.</p>
+                <a href="#" class="card-action-btn">Ver Analytics</a>
+            </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">Total de Mentorados</div>
-                <div class="stat-value" id="totalMentorados">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">SYNESIS</div>
-                <div class="stat-value" id="totalSynesis">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">LEV</div>
-                <div class="stat-value" id="totalLev">0</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">TCC</div>
-                <div class="stat-value" id="totalTcc">0</div>
+            <div class="card">
+                <h3>Conteúdo</h3>
+                <p style="color: var(--text-gray);">Acesso rápido à área de criação e edição de devocionais (CMS).</p>
+                <a href="/devocionais" class="card-action-btn">Gerenciar Devocionais</a>
             </div>
         </div>
 
-        <div class="actions-bar">
-            <div class="filters">
-                <select class="filter-select" id="filterMentoria" onchange="filterTable()">
-                    <option value="">Todas as Mentorias</option>
-                    <option value="SYNESIS">SYNESIS</option>
-                    <option value="LEV">LEV</option>
-                    <option value="TCC">TCC</option>
-                </select>
-            </div>
-            <button class="btn btn-primary" onclick="openAddModal()">+ Adicionar Mentorado</button>
-        </div>
-
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Email</th>
-                        <th>WhatsApp</th>
-                        <th>Mentoria</th>
-                        <th>Data</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody id="tableBody">
-                    </tbody>
-            </table>
-            <div id="emptyState" class="empty-state" style="display: none;">
-                <div class="empty-icon">📋</div>
-                <p style="color: var(--text-gray); margin-bottom: 1.5rem;">Nenhum mentorado cadastrado ainda.</p>
-                <button class="btn btn-primary" onclick="openAddModal()">Adicionar Primeiro Mentorado</button>
-            </div>
+        <h2 class="section-title">Lista de Acessos Ativos</h2>
+        <div id="memberList" class="card" style="padding: 0;">
+            <div class='empty-box'>Carregando dados...</div>
         </div>
     </div>
-
-    <div class="modal" id="modalAdd">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Adicionar Mentorado</h3>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
-            </div>
-            <form id="formAdd" onsubmit="saveMentorado(event)">
-                <div class="form-group">
-                    <label>Nome Completo *</label>
-                    <input type="text" id="inputNome" required>
-                </div>
-                <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" id="inputEmail" required>
-                </div>
-                <div class="form-group">
-                    <label>WhatsApp *</label>
-                    <input type="text" id="inputWhatsapp" placeholder="(11) 99999-9999" required>
-                </div>
-                <div class="form-group">
-                    <label>CPF *</label>
-                    <input type="text" id="inputCpf" placeholder="000.000.000-00" required>
-                </div>
-                <div class="form-group">
-                    <label>Mentoria *</label>
-                    <select id="inputMentoria" required>
-                        <option value="">Selecione...</option>
-                        <option value="SYNESIS">SYNESIS</option>
-                        <option value="LEV">LEV</option>
-                        <option value="TCC">TCC</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Salvar</button>
-            </form>
-        </div>
+    
+    <div id="copyNotice" class="notice-box">
+        ✅ Hash copiado para a área de transferência!
     </div>
+    <div id="successBox" class="notice-box">
+        ✅ Ação realizada com sucesso!
+    </div>
+
 
     <script>
-        // Verificar autenticação
-        const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+        
+        /* ---------------- FUNÇÕES DE SESSÃO E SEGURANÇA ---------------- */
+        
+        const memberData = JSON.parse(sessionStorage.getItem('memberData') || '{}');
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
         const userType = sessionStorage.getItem('userType');
 
+        // CRÍTICO: Verificar se o usuário está logado E se é Admin
         if (!isLoggedIn || userType !== 'admin') {
-            window.location.href = 'auth_system.html';
-        }
-
-        // Data storage
-        let mentorados = JSON.parse(localStorage.getItem('mentorados') || '[]');
-
-        // Render table
-        function renderTable() {
-            const tbody = document.getElementById('tableBody');
-            const emptyState = document.getElementById('emptyState');
-            
-            if (mentorados.length === 0) {
-                tbody.style.display = 'none';
-                emptyState.style.display = 'block';
-            } else {
-                tbody.style.display = '';
-                emptyState.style.display = 'none';
-                
-                tbody.innerHTML = mentorados.map((m, index) => `
-                    <tr>
-                        <td>${m.nome}</td>
-                        <td>${m.email}</td>
-                        <td>${m.whatsapp}</td>
-                        <td><span class="badge badge-${m.mentoria.toLowerCase()}">${m.mentoria}</span></td>
-                        <td>${m.data}</td>
-                        <td>
-                            <div class="action-btns">
-                                <button class="btn btn-small btn-contract" onclick="goToContract(${index})">📄 Contrato</button>
-                                <button class="btn btn-small btn-delete" onclick="deleteMentorado(${index})">🗑️</button>
-                            </div>
-                        </td>
-                    </tr>
-                `).join('');
-            }
-            
-            updateStats();
-        }
-
-        // Update stats
-        function updateStats() {
-            document.getElementById('totalMentorados').textContent = mentorados.length;
-            document.getElementById('totalSynesis').textContent = mentorados.filter(m => m.mentoria === 'SYNESIS').length;
-            document.getElementById('totalLev').textContent = mentorados.filter(m => m.mentoria === 'LEV').length;
-            document.getElementById('totalTcc').textContent = mentorados.filter(m => m.mentoria === 'TCC').length;
-        }
-
-        // Filter table
-        function filterTable() {
-            const mentoriaFilter = document.getElementById('filterMentoria').value;
-            const tbody = document.getElementById('tableBody');
-            const rows = tbody.getElementsByTagName('tr');
-            
-            for (let row of rows) {
-                const mentoria = row.children[3].textContent;
-                const match = !mentoriaFilter || mentoria.includes(mentoriaFilter);
-                row.style.display = match ? '' : 'none';
-            }
-        }
-
-        // Modal functions
-        function openAddModal() {
-            document.getElementById('modalAdd').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('modalAdd').classList.remove('active');
-            document.getElementById('formAdd').reset();
-        }
-
-        // Save mentorado
-        function saveMentorado(e) {
-            e.preventDefault();
-            
-            const mentorado = {
-                nome: document.getElementById('inputNome').value,
-                email: document.getElementById('inputEmail').value,
-                whatsapp: document.getElementById('inputWhatsapp').value,
-                cpf: document.getElementById('inputCpf').value,
-                mentoria: document.getElementById('inputMentoria').value,
-                data: new Date().toLocaleDateString('pt-BR')
-            };
-            
-            mentorados.push(mentorado);
-            localStorage.setItem('mentorados', JSON.stringify(mentorados));
-            
-            closeModal();
-            renderTable();
-            
-            alert('✅ Mentorado adicionado com sucesso!');
-        }
-
-        // Delete mentorado
-        function deleteMentorado(index) {
-            if (confirm('Tem certeza que deseja excluir este mentorado?')) {
-                mentorados.splice(index, 1);
-                localStorage.setItem('mentorados', JSON.stringify(mentorados));
-                renderTable();
-            }
-        }
-
-        // Go to contract
-        function goToContract(index) {
-            localStorage.setItem('currentMentorado', JSON.stringify(mentorados[index]));
-            window.location.href = 'gerar-contrato.html'; 
+            alert('Acesso negado. Por favor, faça login com uma conta de Administrador.');
+            // Redireciona para o login
+            window.location.replace('auth_system.html'); 
         }
 
         // Logout
         function logout() {
-            sessionStorage.clear();
-            window.location.href = 'auth_system.html';
+            sessionStorage.clear(); // Limpa todas as informações de sessão
+            // Redireciona para a tela de login
+            window.location.href = 'auth_system.html'; 
         }
 
-        // Init
-        renderTable();
+        // Carregar Nome do Admin
+        document.getElementById('adminName').textContent = 'Admin: ' + (memberData.nome || 'Usuário');
+
+
+        /* ---------------- FUNÇÕES DE DASHBOARD ---------------- */
+
+        // CRÍTICO: Carregar dados do keys.json e renderizar a tabela
+        async function carregarChaves() {
+            const memberListDiv = document.getElementById("memberList");
+            memberListDiv.innerHTML = "<div class='empty-box'>Buscando chaves...</div>";
+
+            try {
+                // Fetch com cache-busting para garantir a versão mais recente
+                const res = await fetch(`keys.json?t=${new Date().getTime()}`); 
+                if (!res.ok) {
+                    memberListDiv.innerHTML = `<div class='empty-box' style='background-color: var(--danger-red);'>⚠️ Erro: Não foi possível carregar o keys.json. Status ${res.status}</div>`;
+                    return;
+                }
+                
+                const keys = await res.json();
+                
+                // Filtra para remover a chave de configuração e listar apenas membros
+                const validEntries = Object.entries(keys).filter(([hash, data]) => hash !== '__config' && data.type !== 'admin');
+                
+                if (validEntries.length === 0) {
+                    memberListDiv.innerHTML = `<div class='empty-box'>Nenhum mentorado ativo encontrado.</div>`;
+                    return;
+                }
+
+                let html = `
+                    <table>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Mentoria</th>
+                            <th>Hash (Últimos 6)</th>
+                            <th>Ações</th>
+                        </tr>
+                `;
+
+                for (const [hash, data] of validEntries) {
+                    // Exibe apenas o final do hash para evitar exposição acidental na tela
+                    const partialHash = hash.slice(-6); 
+                    html += `
+                        <tr>
+                            <td>${data.nome}</td>
+                            <td>${data.mentoria || 'N/A'}</td>
+                            <td>${partialHash}</td>
+                            <td>
+                                <button class="btn btn-copy" onclick="copiarChave('${hash}')">Copiar Hash Completo</button>
+                                <button class="btn btn-revoke" onclick="revogarChave('${data.nome}')">Revogar</button>
+                                <a href="gerar-contrato.html?hash=${hash}" class="btn" style="background-color: var(--primary-gold); color: #000; text-decoration: none;">Gerar Contrato</a>
+                            </td>
+                        </tr>
+                    `;
+                }
+
+                html += "</table>";
+                memberListDiv.innerHTML = html;
+
+            } catch (e) {
+                console.error("Erro no carregamento de chaves:", e);
+                memberListDiv.innerHTML = `<div class='empty-box' style='background-color: var(--danger-red);'>Erro ao processar dados.</div>`;
+            }
+        }
+
+        carregarChaves();
+
+        /* -------- Copiar Hash da Chave -------- */
+        function copiarChave(hash) {
+            navigator.clipboard.writeText(hash);
+            const box = document.getElementById("copyNotice");
+            box.style.display = "block";
+            setTimeout(() => { box.style.display = "none"; }, 2500);
+        }
+
+        /* -------- Revogar Chave (somente aviso visual / instrução) -------- */
+        function revogarChave(nome) {
+            const box = document.getElementById("successBox");
+            box.innerHTML = `⚠️ ATENÇÃO: Para revogar ${nome}, remova a linha do hash correspondente no arquivo **keys.json** e faça um novo deploy.`;
+            box.style.backgroundColor = var(--danger-red);
+            box.style.display = "block";
+            
+            // Reverte a cor e some
+            setTimeout(() => { 
+                box.style.display = "none"; 
+                box.style.backgroundColor = var(--success-green);
+            }, 6000); 
+        }
+        
     </script>
 </body>
 </html>

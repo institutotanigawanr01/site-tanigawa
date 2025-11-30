@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instituto Tanigawa - Mentoria Espiritual e Desenvolvimento Pessoal</title>
-    <meta name="description" content="Transforme sua vida através de mentoria espiritual personalizada. Descubra seu propósito e alcance sua melhor versão com o Instituto Tanigawa.">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instituto Tanigawa - Home</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -19,560 +20,240 @@
             --primary-blue: #3b82f6;
             --primary-gold: #f59e0b;
             --dark-bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --text-light: #e2e8f0;
+            --text-light: #f8fafc;
             --text-gray: #94a3b8;
-            
-            /* Sistema de Espaçamento Simétrico */
-            --section-spacing: 6rem;
-            --container-padding: 2rem;
-            --header-spacing: 8rem;
-            --footer-spacing: 6rem;
-        }
-
-        /* Espaçamento Simétrico Global */
-        section {
-            margin-bottom: var(--section-spacing);
-            padding-left: var(--container-padding);
-            padding-right: var(--container-padding);
-        }
-
-        section:last-of-type {
-            margin-bottom: var(--footer-spacing);
-        }
-
-        @media (max-width: 768px) {
-            :root {
-                --section-spacing: 4rem;
-                --container-padding: 1.5rem;
-                --header-spacing: 6rem;
-                --footer-spacing: 4rem;
-            }
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            /* Fundo escuro profundo para alinhamento com a imagem fornecida */
+            background: linear-gradient(135deg, #0e0e1a 0%, #070712 100%);
             color: var(--text-light);
-            line-height: 1.6;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        h1, h2, h3, h4, h5, h6 {
-            font-family: 'Playfair Display', serif;
-            line-height: 1.3;
-        }
-
-        p {
-            line-height: 1.7;
-        }
-
-        /* Particles */
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.6;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-20px) translateX(10px); }
-            50% { transform: translateY(-40px) translateX(-10px); }
-            75% { transform: translateY(-20px) translateX(5px); }
-        }
-
-        /* Header */
         header {
             position: fixed;
+            width: 100%;
             top: 0;
             left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 1rem 0;
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            /* Efeito de vidro escuro, como na imagem */
+            background: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(8px);
+            z-index: 999;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: var(--text-light);
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            font-weight: 700;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            border-radius: 8px;
-            display: flex;
+            width: 32px;
+            height: 32px;
+            background-color: var(--primary-gold);
+            border-radius: 6px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--dark-bg);
+            margin-right: 8px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
         }
 
         .nav-links {
-            display: flex;
-            gap: 2rem;
             list-style: none;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            padding: 0;
         }
 
-        .nav-links a {
-            color: var(--text-light);
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a, .nav-links button {
+            color: var(--text-gray);
             text-decoration: none;
             font-weight: 500;
+            font-size: 1rem;
             transition: color 0.3s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
         }
 
-        .nav-links a:hover {
+        .nav-links a:hover, .nav-links button:hover {
             color: var(--primary-gold);
         }
 
-        .menu-toggle {
-            display: none;
+        /* Hero Section (Alinhamento com a imagem) */
+        .hero-section {
+            display: flex;
             flex-direction: column;
-            gap: 4px;
-            cursor: pointer;
-        }
-
-        .menu-toggle span {
-            width: 25px;
-            height: 3px;
-            background: var(--text-light);
-            transition: 0.3s;
-        }
-
-        /* Hero Section */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: var(--header-spacing) var(--container-padding) var(--section-spacing);
-            z-index: 2;
-            margin-bottom: 0 !important;
+            min-height: 100vh;
+            padding: 0 20px;
         }
 
-        .hero-content {
-            max-width: 900px;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-size: 0.875rem;
+        .tag-vagas {
+            background-color: rgba(59, 130, 246, 0.2); /* Azul Primário com transparência */
             color: var(--primary-blue);
-            margin-bottom: 2rem;
-            animation: pulse 2s infinite;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background: #10b981;
-            border-radius: 50%;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-        }
-
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-gray);
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 8px;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
             font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            border: none;
-            font-size: 1rem;
+            margin-bottom: 25px;
+            display: inline-block;
+            border: 1px solid var(--primary-blue);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+
+        .hero-title strong {
+            color: var(--primary-gold); /* Destaque em Laranja/Ouro */
+            font-weight: 800;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        /* CTAs */
+        .cta-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--primary-blue), #2563eb);
-            color: white;
-            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(90deg, #3b82f6, #63b3ed);
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            border: none;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(59, 130, 246, 0.6);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
         }
 
         .btn-secondary {
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             color: var(--text-light);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 15px 30px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-secondary:hover {
-            background: rgba(59, 130, 246, 0.2);
-            border-color: var(--primary-blue);
+            background: rgba(255, 255, 255, 0.2);
         }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Services Section */
-        .services {
-            position: relative;
-            z-index: 2;
-            padding: 6rem 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .section-header h2 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            font-size: 1.125rem;
-            color: var(--text-gray);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            padding: 2.5rem;
-            transition: all 0.3s;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--primary-blue);
-            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.3);
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary-blue), var(--primary-gold));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.75rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-        }
-
-        .service-card p {
-            color: var(--text-gray);
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-
-        .service-features {
-            list-style: none;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-features li {
-            padding: 0.5rem 0;
-            color: var(--text-gray);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            line-height: 1.6;
-        }
-
-        .service-features li::before {
-            content: "✓";
-            color: var(--primary-gold);
-            font-weight: bold;
-        }
-
-        .mentor-tag {
-            display: inline-block;
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px solid rgba(245, 158, 11, 0.3);
-            padding: 0.25rem 0.75rem;
-            border-radius: 50px;
-            font-size: 0.875rem;
-            color: var(--primary-gold);
-            margin-top: 1rem;
-        }
-
-        /* Benefits Section */
-        .benefits {
-            position: relative;
-            z-index: 2;
-            padding: 6rem 2rem;
-            background: rgba(30, 41, 59, 0.3);
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .benefit-card {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .benefit-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .benefit-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-light);
-        }
-
-        .benefit-card p {
-            color: var(--text-gray);
-            line-height: 1.7;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            position: relative;
-            z-index: 2;
-            padding: 6rem 2rem;
-            text-align: center;
-        }
-
-        .cta-box {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 16px;
-            padding: 4rem 3rem;
-        }
-
-        .cta-box h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .cta-box p {
-            font-size: 1.125rem;
-            color: var(--text-gray);
-            margin-bottom: 2rem;
-            line-height: 1.7;
-        }
-
-        /* Footer */
-        footer {
-            position: relative;
-            z-index: 2;
-            background: rgba(15, 23, 42, 0.8);
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 4rem 2rem 2rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
-        }
-
-        .footer-section h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: var(--text-gray);
-            text-decoration: none;
-            line-height: 1.7;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section a:hover {
-            color: var(--primary-gold);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            color: var(--text-gray);
-        }
-
-        .crp-info {
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-            color: var(--text-gray);
-        }
-
-        /* Responsive */
+        
+        /* Responsivo */
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
+            header {
+                padding: 15px 20px;
             }
-
             .nav-links {
-                position: fixed;
-                top: 70px;
-                left: -100%;
-                flex-direction: column;
-                background: rgba(15, 23, 42, 0.95);
-                width: 100%;
-                padding: 2rem;
-                gap: 1rem;
-                transition: left 0.3s;
+                display: none; /* Mobile menu hidden by default, will be controlled by JS if needed */
             }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .hero h1 {
+            .hero-title {
                 font-size: 2.5rem;
             }
-
-            .hero p {
-                font-size: 1.125rem;
+            .hero-subtitle {
+                font-size: 1rem;
             }
-
-            .section-header h2 {
-                font-size: 2rem;
-            }
-
-            .cta-buttons {
+            .cta-container {
                 flex-direction: column;
-            }
-
-            .services-grid,
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .cta-box {
-                padding: 2.5rem 2rem;
-            }
-
-            .cta-box h2 {
-                font-size: 2rem;
+                gap: 15px;
             }
         }
+        
+        /* Estilo para o botão de Login/Logout dinâmico */
+        .login-btn {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: opacity 0.3s;
+            margin-left: 20px;
+        }
+        
+        .login-btn:hover {
+            opacity: 0.9;
+            color: var(--dark-bg); /* Garante que o texto não mude de cor no hover */
+        }
+        
+        .logout-link {
+            background: none;
+            color: var(--text-gray);
+            text-decoration: underline;
+            margin-left: 10px;
+        }
+        
+        .logout-link:hover {
+            color: var(--primary-gold);
+        }
+
     </style>
 </head>
 <body>
-    <!-- Particles Background -->
-    <div id="particles"></div>
-
-    <!-- Header -->
+    
     <header>
+        <a href="home.html" class="logo">
+            <div class="logo-icon">IT</div>
+            INSTITUTO TANIGAWA
+        </a>
         <nav>
-            <a href="/" class="logo">
-                <div class="logo-icon">IT</div>
-                <span>INSTITUTO TANIGAWA</span>
-            </a>
             <ul class="nav-links">
                 <li><a href="home.html">Home</a></li>
                 <li><a href="mentoria.html">Mentorias</a></li>
@@ -580,268 +261,100 @@
                 <li><a href="nr-1.html">NR-1</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="contato.html">Contato</a></li>
+                <div id="navAuth">
+                    </div>
             </ul>
-            <div class="menu-toggle" onclick="toggleMenu()">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
         </nav>
     </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <div class="badge">
-                <span class="pulse-dot"></span>
-                Vagas limitadas para 2025
-            </div>
-            <h1>
-                Quando Deus mexe<br>
-                na sua <span class="highlight">zona de conforto</span>
-            </h1>
-            <p>
-                Não é porque te abandonou, é porque preparou algo maior.<br>
-                Descubra seu propósito e transforme sua vida através de mentoria espiritual personalizada.
-            </p>
-            <div class="cta-buttons">
-                <a href="diagnostico-tanigawa-pead.html" class="btn btn-primary">
-                    🧭 Descobrir minha jornada
-                    <span>→</span>
-                </a>
-                <a href="devocionais.html" class="btn btn-secondary">
-                    📖 Ver devocionais grátis
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services">
-        <div class="container">
-            <div class="section-header">
-                <h2>Nossas Mentorias</h2>
-                <p>Caminhos personalizados para sua transformação espiritual, emocional e profissional</p>
-            </div>
-            <div class="services-grid">
-                <!-- Mentoria Espiritual - Sergio -->
-                <div class="service-card">
-                    <div class="service-icon">⚔️</div>
-                    <h3>Mentoria Espiritual</h3>
-                    <p>Descubra seu propósito divino e desenvolva liderança espiritual autêntica através de um processo transformador.</p>
-                    <ul class="service-features">
-                        <li>Discernimento de chamado e propósito</li>
-                        <li>Desenvolvimento de liderança espiritual</li>
-                        <li>Superação de crises existenciais</li>
-                        <li>Método PEAD personalizado</li>
-                    </ul>
-                    <span class="mentor-tag">👤 Com Sergio Tanigawa</span>
-                    <br><br>
-                    <a href="mentoria.html#espiritual" class="btn btn-secondary" style="width: 100%;">Saiba mais</a>
-                </div>
-
-                <!-- Mentoria LEV - Wanessa -->
-                <div class="service-card">
-                    <div class="service-icon">💜</div>
-                    <h3>Mentoria LEV</h3>
-                    <p>Luz, Esperança e Vida: Cura emocional integrada com espiritualidade para transformação profunda do ser.</p>
-                    <ul class="service-features">
-                        <li>Cura de feridas emocionais</li>
-                        <li>Ressignificação de traumas</li>
-                        <li>Restauração da autoestima</li>
-                        <li>Integração fé e emoção</li>
-                    </ul>
-                    <span class="mentor-tag">👤 Com Wanessa Tanigawa</span>
-                    <br><br>
-                    <a href="mentoria.html#lev" class="btn btn-secondary" style="width: 100%;">Saiba mais</a>
-                </div>
-
-                <!-- Terapia TCC - Wanessa -->
-                <div class="service-card">
-                    <div class="service-icon">🧠</div>
-                    <h3>Psicoterapia TCC</h3>
-                    <p>Atendimento psicológico profissional baseado em Terapia Cognitivo-Comportamental com abordagem científica.</p>
-                    <ul class="service-features">
-                        <li>Ansiedade e depressão</li>
-                        <li>Relacionamentos e autoestima</li>
-                        <li>Gestão emocional</li>
-                        <li>Evidências científicas</li>
-                    </ul>
-                    <span class="mentor-tag">👤 Com Wanessa Tanigawa - CRP 06/128917</span>
-                    <br><br>
-                    <a href="mentoria.html#tcc" class="btn btn-secondary" style="width: 100%;">Saiba mais</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section class="benefits">
-        <div class="container">
-            <div class="section-header">
-                <h2>Por que escolher o Instituto Tanigawa?</h2>
-                <p>Mais de 15 anos transformando vidas através de mentoria personalizada</p>
-            </div>
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">🎯</div>
-                    <h3>Método Exclusivo PEAD</h3>
-                    <p>Diagnóstico personalizado baseado em perfis bíblicos para identificar sua jornada única</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">💎</div>
-                    <h3>Abordagem Integrada</h3>
-                    <p>Combinação de espiritualidade, psicologia e desenvolvimento pessoal</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">🤝</div>
-                    <h3>Acompanhamento Individual</h3>
-                    <p>Mentoria personalizada com profissionais experientes e dedicados</p>
-                </div>
-                <div class="benefit-card">
-                    <div class="benefit-icon">📈</div>
-                    <h3>Resultados Transformadores</h3>
-                    <p>Centenas de vidas transformadas através de processos comprovados</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-box">
-                <h2>Pronto para transformar sua vida?</h2>
-                <p>Comece hoje sua jornada de transformação. Faça nosso diagnóstico gratuito e descubra qual mentoria é perfeita para você.</p>
-                <div class="cta-buttons">
-                    <a href="diagnostico-tanigawa-pead.html" class="btn btn-primary">
-                        🧭 Fazer diagnóstico PEAD gratuito
-                        <span>→</span>
-                    </a>
-                    <a href="mentoria.html" class="btn btn-secondary">
-                        Ver todas as mentorias
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contato">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Instituto Tanigawa</h3>
-                    <p>Transformando vidas através de mentoria espiritual, cura emocional e desenvolvimento pessoal.</p>
-                    <p style="margin-top: 1rem;">
-                        <strong>VIDA • ESPÍRITO • PROPÓSITO</strong>
-                    </p>
-                </div>
-                <div class="footer-section">
-                    <h3>Mentorias</h3>
-                    <a href="mentoria.html#espiritual">Mentoria Espiritual</a>
-                    <a href="mentoria.html#lev">Mentoria LEV</a>
-                    <a href="mentoria.html#tcc">Psicoterapia TCC</a>
-                    <a href="diagnostico-tanigawa-pead.html">Diagnóstico PEAD</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Recursos</h3>
-                    <a href="devocionais.html">Devocionais</a>
-                    <a href="nr-1.html">NR-1 Empresas</a>
-                    <a href="#sobre">Sobre Nós</a>
-                    <a href="#contato">Contato</a>
-                </div>
-                <div class="footer-section">
-                    <h3>Contato</h3>
-                    <p><strong>Sergio Tanigawa</strong><br>Diretor e Mentor Espiritual<br>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="790a1c0b1e10163910170a0d100d0c0d160d1817101e180e18571a1614571b0b">[email&#160;protected]</a><br>📱 (11) 99999-9999</p>
-                    <p style="margin-top: 1rem;"><strong>Wanessa Tanigawa</strong><br>Diretora Técnica e Psicóloga<br>📧 <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c4b5d52594f4f5d7c55524f485548494853485d52555b5d4b5d125f5351125e4e">[email&#160;protected]</a><br>📱 (11) 98888-8888</p>
-                    <p class="crp-info">CRP: 06/128917</p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados.</p>
-                <p style="margin-top: 0.5rem;">Desenvolvido com 💙 para transformar vidas</p>
-            </div>
-        </div>
-    </footer>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Create particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 4 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-                
-                container.appendChild(particle);
-            }
-        }
-
-        // Toggle mobile menu
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.classList.toggle('active');
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const nav = document.querySelector('nav');
-            const navLinks = document.querySelector('.nav-links');
-            const menuToggle = document.querySelector('.menu-toggle');
-            
-            if (!nav.contains(event.target) && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-            }
-        });
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e)E
-e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-    </script>
-
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    
-    <!-- Netlify Identity - Inicialização -->
-    <script>
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/admin/";
-                    });
-                }
-            });
-        }
+    <div class="hero-section">
+        <span class="tag-vagas">Vagas limitadas para 2025</span>
         
-        window.netlifyIdentity?.on("logout", () => {
-            document.location.href = "/";
-        });
-    </script>
+        <h1 class="hero-title">
+            Quando Deus mexe <br>
+            na sua **zona de conforto**
+        </h1>
+        
+        <p class="hero-subtitle">
+            Não é porque te abandonou, é porque preparou algo maior. Descubra seu propósito e transforme sua vida através de mentoria espiritual personalizada.
+        </p>
+        
+        <div class="cta-container">
+            <a href="cadastro-completo.html" class="btn-primary">
+                Descobrir minha jornada →
+            </a>
+            <a href="devocionais.html" class="btn-secondary">
+                Ver devocionais grátis
+            </a>
+        </div>
+    </div>
 
+    <script>
+        
+        // Função unificada de Logout (limpa a sessão e redireciona)
+        function logout() {
+            sessionStorage.clear();
+            // Redireciona para o login (ou recarrega a home para atualizar o menu)
+            window.location.href = 'auth_system.html'; 
+        }
+
+        // Função para atualizar o menu de autenticação
+        function updateNavBar() {
+            const navAuth = document.getElementById('navAuth');
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const userType = sessionStorage.getItem('userType');
+            const userName = sessionStorage.getItem('userName');
+            
+            navAuth.innerHTML = ''; // Limpa o conteúdo
+            
+            if (isLoggedIn) {
+                // Usuário Logado: Mostra link para a área correta + Logout
+                let linkTarget = 'area_membros.html';
+                let linkText = 'Área de Membros';
+
+                if (userType === 'admin') {
+                    linkTarget = 'admin_dashboard.html';
+                    linkText = 'Painel Admin';
+                }
+                
+                navAuth.innerHTML = `
+                    <li style="margin-left: 15px;">
+                        <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
+                            ${linkText}
+                        </a>
+                    </li>
+                    <li style="margin-left: 15px;">
+                        <button class="logout-link" onclick="logout()">Sair</button>
+                    </li>
+                `;
+                
+                // Remove a tag de cadastro se já estiver logado (pode ser ajustado se o usuário puder se cadastrar em outra mentoria)
+                document.querySelector('.cta-container a:first-child').style.display = 'none';
+
+            } else {
+                // Usuário Deslogado: Mostra link para o Login
+                navAuth.innerHTML = `
+                    <li style="margin-left: 15px;">
+                        <a href="auth_system.html" class="login-btn">
+                            Entrar
+                        </a>
+                    </li>
+                `;
+            }
+        }
+
+        // Inicia a verificação do menu ao carregar a página
+        document.addEventListener('DOMContentLoaded', updateNavBar);
+        
+        // Fallback para estilos responsivos do menu (se não houver um menu mobile mais complexo)
+        // NOTE: Mantido simples pois a prioridade é a funcionalidade de login/logout.
+        const menuItems = document.querySelectorAll('.nav-links li:not(:last-child)');
+        menuItems.forEach(item => {
+            if (item.querySelector('a')) {
+                item.querySelector('a').addEventListener('click', updateNavBar); // Reexecuta para garantir estado correto
+            }
+        });
+        
+    </script>
 </body>
 </html>

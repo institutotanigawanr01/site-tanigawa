@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin_dashboard.html" },
+    { "source": "/membros", "destination": "/area_membros.html" },
+    { "source": "/login", "destination": "/auth_system.html" },
+    { "source": "/cadastro", "destination": "/cadastro-completo.html" },
+    { "source": "/devocionais/:path*", "destination": "/devocionais.html" },
+    { "source": "/diagnostico", "destination": "/diagnostico-tanigawa-pead.html" },
+    { "source": "/:path((?!.*\\.html$)(?!_next).*)", "destination": "/home.html" }
+  ]
+}

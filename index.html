@@ -1,200 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Instituto Tanigawa</title>
-    
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;700;800;900&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <title>Instituto Tanigawa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Instituto Tanigawa – diagnósticos profundos, mentorias estratégicas e direção espiritual para líderes e igrejas.">
+  <meta name="robots" content="index,follow" />
 
-        body {
-            font-family: 'Playfair Display', serif;
-            overflow: hidden;
-        }
+  <meta http-equiv="refresh" content="0; url=home.html" />
+  <link rel="canonical" href="home.html" />
 
-        /* SPLASH SCREEN */
-        #splash {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            animation: fadeIn 0.6s ease-in;
-        }
-
-        #splash.fade-out {
-            animation: fadeOut 0.8s ease-out forwards;
-        }
-
-        /* ANO 2026 */
-        .splash-year {
-            font-size: 3rem;
-            font-weight: 300;
-            color: rgba(59, 130, 246, 0.6);
-            letter-spacing: 10px;
-            margin-bottom: 1.5rem;
-            animation: fadeInDown 0.8s ease-out 0.2s both;
-        }
-
-        /* PERGUNTA PRINCIPAL */
-        .splash-question {
-            font-size: 4.5rem;
-            font-weight: 900;
-            color: #ffffff;
-            text-align: center;
-            letter-spacing: 3px;
-            line-height: 1.3;
-            animation: scaleIn 1s ease-out 0.5s both;
-            text-transform: uppercase;
-            max-width: 95%;
-            padding: 0 2rem;
-        }
-
-        .splash-question .line1 {
-            display: block;
-        }
-
-        .splash-question .line2 {
-            display: block;
-            color: #f59e0b;
-            text-shadow: 0 0 30px rgba(245, 158, 11, 0.5);
-        }
-
-        /* ANIMAÇÕES */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeOut {
-            to { 
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.85);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        /* RESPONSIVO */
-        @media (max-width: 1024px) {
-            .splash-year {
-                font-size: 2.5rem;
-            }
-            
-            .splash-question {
-                font-size: 3.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .splash-year {
-                font-size: 2rem;
-                letter-spacing: 6px;
-                margin-bottom: 1rem;
-            }
-
-            .splash-question {
-                font-size: 2.5rem;
-                letter-spacing: 2px;
-                padding: 0 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .splash-year {
-                font-size: 1.5rem;
-                letter-spacing: 5px;
-            }
-
-            .splash-question {
-                font-size: 1.8rem;
-                letter-spacing: 1px;
-            }
-        }
-    </style>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      text-align: center;
+      margin-top: 40px;
+      background-color: #f0f0f0;
+      color: #333;
+    }
+    a {
+      color: #3b82f6;
+      text-decoration: none;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
+  <script>
+    // Fallback em JS: se o meta refresh falhar, o script garante o redirecionamento
+    window.location.replace("home.html");
+  </script>
 
-    <!-- SPLASH SCREEN -->
-    <div id="splash">
-        <div class="splash-year">2026</div>
-        
-        <h1 class="splash-question">
-            <span class="line1">VOCÊ GOVERNA</span>
-            <span class="line2">OU É GOVERNADO?</span>
-        </h1>
-    </div>
-
-    <!-- AUTO-FECHAR SPLASH APÓS 3 SEGUNDOS E REDIRECIONAR PARA HOME -->
-    <script>
-        setTimeout(function() {
-            const splash = document.getElementById('splash');
-            
-            // Inicia fade out
-            splash.classList.add('fade-out');
-            
-            // Redireciona para home.html
-            setTimeout(function() {
-                window.location.href = 'home.html';
-            }, 800);
-        }, 3000); // 3 segundos
-    </script>
-
-    <!-- Netlify Identity - Inicialização -->
-    <script>
-        if (window.netlifyIdentity) {
-            window.netlifyIdentity.on("init", user => {
-                if (!user) {
-                    window.netlifyIdentity.on("login", () => {
-                        document.location.href = "/admin/";
-                    });
-                }
-            });
-        }
-        
-        window.netlifyIdentity?.on("logout", () => {
-            document.location.href = "/";
-        });
-    </script>
-
+  <p>
+    Se você não for redirecionado automaticamente,
+    <a href="home.html">clique aqui para acessar o Instituto Tanigawa</a>.
+  </p>
 </body>
 </html>

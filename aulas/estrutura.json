@@ -1,0 +1,46 @@
+{
+  "SYNESIS": {
+    "title": "Mentoria SYNESIS - Discernimento Espiritual",
+    "description": "Programa de 12 semanas focado em propósito, chamado e estratégia de vida.",
+    "modules": [
+      {
+        "module_id": "SYNESIS-M1",
+        "title": "Módulo 1: O Chamado e o Vazio",
+        "lessons": [
+          {"id": "L1", "title": "Aula 1: O Início da Jornada (35 min)", "slug": "sy-m1-l1-inicio", "video_id": "VRSY0101", "duration": "35:12"},
+          {"id": "L2", "title": "Aula 2: Saindo da Zona de Conforto (50 min)", "slug": "sy-m1-l2-conforto", "video_id": "VRSY0102", "duration": "50:05"},
+          {"id": "L3", "title": "Aula 3: O Perigo da Ambição vs. Propósito (45 min)", "slug": "sy-m1-l3-ambicao", "video_id": "VRSY0103", "duration": "45:30"}
+        ]
+      },
+      {
+        "module_id": "SYNESIS-M2",
+        "title": "Módulo 2: Alinhamento Estratégico",
+        "lessons": [
+          {"id": "L4", "title": "Aula 4: Decisões Sob Pressão (40 min)", "slug": "sy-m2-l4-decisoes", "video_id": "VRSY0204", "duration": "40:00"},
+          {"id": "L5", "title": "Aula 5: O Guia dos 5 Pilares (60 min)", "slug": "sy-m2-l5-pilares", "video_id": "VRSY0205", "duration": "60:00"}
+        ]
+      }
+    ]
+  },
+  "LEV": {
+    "title": "Mentoria LEV - Luz, Esperança e Vida (Cura Emocional)",
+    "description": "Jornada de cura interior e emocional, focada em traumas e identidade.",
+    "modules": [
+      {
+        "module_id": "LEV-M1",
+        "title": "Módulo 1: A Descoberta da Ferida",
+        "lessons": [
+          {"id": "L1", "title": "Aula 1: A Raiz do Trauma (40 min)", "slug": "lev-m1-l1-trauma", "video_id": "VRLE0101", "duration": "40:00"},
+          {"id": "L2", "title": "Aula 2: Quebrando o Ciclo da Culpa (38 min)", "slug": "lev-m1-l2-culpa", "video_id": "VRLE0102", "duration": "38:00"}
+        ]
+      },
+      {
+        "module_id": "LEV-M2",
+        "title": "Módulo 2: Restaurando a Identidade",
+        "lessons": [
+          {"id": "L3", "title": "Aula 3: O Eu Verdadeiro vs. o Eu Ferido (55 min)", "slug": "lev-m2-l3-eu", "video_id": "VRLE0203", "duration": "55:00"}
+        ]
+      }
+    ]
+  }
+}
