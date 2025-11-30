@@ -7,9 +7,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        /* RESTAURAÇÃO: Todas as variáveis de cor e espaçamento são mantidas */
         * {
             margin: 0;
             padding: 0;
@@ -27,15 +28,16 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif; /* FONTE CORRIGIDA */
+            font-family: 'Inter', sans-serif; /* FIDELIDADE: Inter é a fonte base */
             background: linear-gradient(135deg, #0a0f2d 0%, #1b1038 50%, #0f0a26 100%);
             color: var(--text-light);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
+        /* CORREÇÃO: Removida a aplicação de Playfair Display em h1, h2, h3 */
         h1, h2, h3 {
-            font-family: 'Playfair Display', serif; /* FONTE CORRIGIDA */
+            font-family: 'Inter', sans-serif; /* Agora herda ou usa Inter */
             font-weight: 700;
         }
 
@@ -62,7 +64,8 @@
         
         nav {
             display: flex;
-            gap: 30px;
+            /* CORREÇÃO: Removido 'gap' e restaurado 'margin' nos links (Revisão 2) */
+            align-items: center;
         }
 
         nav a {
@@ -70,6 +73,7 @@
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
+            margin-left: 30px; /* RESTAURADO: Espaçamento original do menu */
         }
 
         nav a:hover {
@@ -318,10 +322,12 @@
                 let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
                 navAuth.innerHTML = `
-                    <a href="${linkTarget}" class="cta-btn login-btn" style="background-color: var(--primary-blue); color: #fff; margin-right: 10px;">
-                        ${linkText}
-                    </a>
-                    <button class="logout-btn" onclick="logout()" style="background: none; color: var(--text-gray); border: none; cursor: pointer;">Sair</button>
+                    <div style="margin-left: 20px;">
+                        <a href="${linkTarget}" class="cta-btn login-btn" style="background-color: var(--primary-blue); color: #fff; margin-right: 10px;">
+                            ${linkText}
+                        </a>
+                        <button class="logout-btn" onclick="logout()" style="background: none; color: var(--text-gray); border: none; cursor: pointer;">Sair</button>
+                    </div>
                 `;
             } else {
                 navAuth.innerHTML = `
@@ -384,7 +390,10 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute("href"));
                 if (target) {
-                    target.scrollIntoView({
+                    // Ajuste para o header fixo
+                    const offset = document.querySelector('header').offsetHeight; 
+                    window.scrollTo({
+                        top: target.offsetTop - offset,
                         behavior: "smooth"
                     });
                 }
