@@ -5,17 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área Restrita - Instituto Tanigawa</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* ESTILOS MANTIDOS NA ÍNTEGRA (Item 11) */
+        /* DEFINIÇÃO DAS CORES (RESTAURO DE SIMETRIA) */
+        :root {
+            --primary-blue: #3b82f6;
+            --primary-gold: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.08); /* Fundo do glass-card */
+            --text-light: #e2e8f0;
+            --danger: #ef4444;
+        }
+
+        /* ESTILOS RESTAURADOS - BODY, BACKGROUND E FONTES */
         body {
             margin: 0;
             padding: 0;
             background: radial-gradient(circle at top, #0e0e1a 0%, #070712 100%);
-            font-family: Arial, sans-serif;
+            font-family: 'Inter', sans-serif, Arial; /* Corrigido para priorizar Inter/Playfair */
             overflow: hidden;
             color: #fff;
         }
 
+        /* RESTAURADO - PARTÍCULAS DO BACKGROUND */
         .particles {
             position: fixed;
             width: 100%;
@@ -25,176 +40,179 @@
             pointer-events: none;
         }
 
+        /* RESTAURADO - GLASSMORPHISM CARD */
         .glass-card {
             width: 380px;
             max-width: 90%;
             padding: 30px;
             margin: 130px auto 0 auto;
-            background: rgba(255,255,255,0.08);
+            background: var(--card-bg);
             backdrop-filter: blur(12px);
             border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
         h2 {
+            font-family: 'Playfair Display', serif; /* Fonte de impacto restaurada */
+            text-align: center;
+            color: var(--primary-gold);
+            margin-bottom: 25px;
             font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #f59e0b; /* Primary Gold */
         }
 
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .input-group label {
+        label {
             display: block;
             margin-bottom: 8px;
-            font-size: 0.9rem;
-            font-weight: bold;
+            font-weight: 500;
+            color: var(--text-light);
         }
 
-        .input-group input {
+        input[type="password"] {
             width: 100%;
             padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.2);
             color: #fff;
+            border-radius: 8px;
+            box-sizing: border-box;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: border-color 0.3s;
         }
 
-        .input-group input:focus {
+        input[type="password"]:focus {
             outline: none;
-            box-shadow: 0 0 0 2px #3b82f6; /* Primary Blue */
-            background: rgba(255, 255, 255, 0.25);
+            border-color: var(--primary-blue);
         }
 
-        .btn-login {
+        button {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            background: var(--primary-blue);
+            color: #fff;
             border: none;
             border-radius: 8px;
-            background-color: #3b82f6; /* Primary Blue */
-            color: #fff;
             font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .btn-login:hover {
-            background-color: #2563eb;
-        }
-
-        #errorBox {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #ef4444; /* Danger Red */
-            color: #fff;
-            border-radius: 8px;
-            display: none;
             font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
         }
 
-        /* Responsive */
+        button:hover {
+            background: #2563eb;
+        }
+
+        button:disabled {
+            background: #5b6478;
+            cursor: not-allowed;
+        }
+
+        /* RESTAURADO - BOX DE ERRO */
+        #errorBox {
+            background: var(--danger);
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+            display: none;
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+
+        /* RESTAURADO - TEXTO INFERIOR */
+        .info-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* RESTAURADO - MEDIA QUERIES */
         @media (max-width: 480px) {
             .glass-card {
-                margin-top: 80px;
                 padding: 20px;
+                margin-top: 50px;
             }
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+
 </head>
 <body>
+
     <div class="particles"></div>
 
     <div class="glass-card">
-        <h2>Acesso Exclusivo</h2>
+        <h2>Área de Acesso Restrita</h2>
+        
         <form id="loginForm">
-            <div class="input-group">
-                <label for="chave">Chave de Acesso (Hash)</label>
-                <input type="text" id="chave" placeholder="Insira sua chave única" required>
-            </div>
-            
-            <button type="submit" class="btn-login" id="loginBtn">Entrar na Área Restrita</button>
+            <label for="key">Chave de Acesso:</label>
+            <input type="password" id="key" required>
+            <button type="submit" id="submitBtn">Acessar →</button>
+            <div id="errorBox"></div>
         </form>
-
-        <div id="errorBox"></div>
     </div>
 
+    <p class="info-text">
+        🔒 Acesso exclusivo para Membros e Administradores.
+    </p>
+
+
     <script>
-        const loginBtn = document.getElementById('loginBtn');
-        
-        // CRÍTICO: Função SHA-256 (mantida no front-end para anonimizar a chave antes de enviar)
-        async function sha256(message) {
-            const msgUint8 = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
-            const hashArray = Array.from(new Uint8Array(hashBuffer));
-            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-            return hashHex;
+        /* ---------------- FUNÇÃO SHA-256 ---------------- */
+        async function sha256(str) {
+            // Função wrapper para usar o sha256.js
+            return sha256.hex(str);
         }
 
-        // Função para mostrar erro de forma estilosa
-        function mostrarErro(msg) {
-            const box = document.getElementById("errorBox");
-            box.innerHTML = msg;
-            box.style.display = "block";
-            loginBtn.disabled = false;
-            loginBtn.textContent = 'Entrar na Área Restrita';
-            setTimeout(() => { box.style.display = "none"; }, 3500);
-        }
-
-        // Função principal de Login
+        /* ---------------- LÓGICA DE LOGIN (CORRIGIDA PARA VERCEL) ---------------- */
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Verificando Chave...';
-
-            const key = document.getElementById('chave').value.trim();
+            const keyInput = document.getElementById('key');
+            const submitBtn = document.getElementById('submitBtn');
+            const key = keyInput.value.trim();
 
             if (!key) {
                 mostrarErro("Por favor, insira sua chave de acesso.");
                 return;
             }
 
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ Verificando...';
+
             try {
-                // 1. Geração do Hash da Chave (Client-Side)
+                // 1. Gera o hash da chave inserida
                 const hash = await sha256(key);
                 
-                // 2. Chamada à nova API de autenticação do Vercel (Server-Side)
-                const res = await fetch('/api/auth', { 
+                // 2. CORRIGIDO: Chama a API segura no Vercel (Item 9)
+                const res = await fetch('/api/auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ keyHash: hash })
                 });
 
-                if (!res.ok) {
-                     mostrarErro("Erro de rede. Tente novamente.");
-                     return;
-                }
-                
                 const data = await res.json();
                 
-                if (data.status === 'falha' || !data.user) {
-                    mostrarErro(data.message || "Chave inválida ou não cadastrada.");
+                if (res.status !== 200) {
+                    // O erro pode ser chave inválida (401) ou erro do servidor (500)
+                    mostrarErro(data.message || "Erro ao tentar acessar. Tente novamente.");
                     return;
                 }
 
                 const user = data.user;
 
-                /* 3. Salva sessão (Agora seguro, pois os dados vieram do servidor) */
+                // Salva sessão (Item 9)
                 sessionStorage.setItem("isLoggedIn", "true");
                 sessionStorage.setItem("userType", user.type);
                 sessionStorage.setItem("userName", user.nome);
-                sessionStorage.setItem("userMentoria", user.mentoria || "");
-                sessionStorage.setItem('memberData', JSON.stringify(user)); // Guarda o objeto completo
+                sessionStorage.setItem("userMentoria", user.mentoria || "Geral");
+                sessionStorage.setItem("userKeyHash", hash);
+                sessionStorage.setItem("memberData", JSON.stringify(user)); // Guarda dados completos
 
-                /* 4. Redireciona com base no tipo de usuário */
+                // Redireciona
                 if (user.type === "admin") {
                     window.location.href = "admin_dashboard.html";
                 } else {
@@ -202,23 +220,35 @@
                 }
 
             } catch (e) {
-                console.error("Erro no processo de login:", e);
-                mostrarErro("Erro interno no sistema de acesso. Tente novamente.");
+                console.error(e);
+                mostrarErro("❌ Erro de conexão com o sistema de acesso.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Acessar →';
             }
         });
 
-        // Checagem se o usuário já está logado
-        window.onload = function() {
-            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-            const userType = sessionStorage.getItem('userType');
+        /* ------------ MOSTRAR ERRO ESTILOSO --------------- */
+        function mostrarErro(msg) {
+            const box = document.getElementById("errorBox");
+            box.innerHTML = msg;
+            box.style.display = "block";
+            setTimeout(() => { box.style.display = "none"; }, 3500);
+        }
 
-            if (isLoggedIn) {
-                if (userType === "admin") {
+        /* ------------ SE JÁ ESTIVER LOGADO (MELHORADO) --------------- */
+        window.onload = function() {
+            const tipo = sessionStorage.getItem('userType');
+            if (tipo) {
+                // Redirecionamento instantâneo se a sessão for encontrada
+                if (tipo === "admin") {
                     window.location.replace("admin_dashboard.html");
                 } else {
                     window.location.replace("area_membros.html");
                 }
             }
+            // Limpa o campo de senha após carregamento
+            document.getElementById('key').value = '';
         };
 
     </script>

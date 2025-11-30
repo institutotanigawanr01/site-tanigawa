@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ESTILOS ORIGINAIS MANTIDOS NA ÍNTEGRA (Item 11) */
+        /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
         * {
             margin: 0;
             padding: 0;
@@ -24,98 +24,42 @@
             --dark-bg: #0f172a;
             --card-bg: rgba(30, 41, 59, 0.5);
             --text-primary: #f1f5f9;
-            --text-secondary: #cbd5e1;
-            
-            /* Sistema de Espaçamento Simétrico */
+            --text-secondary: #94a3b8;
             --section-spacing: 6rem;
-            --container-padding: 2rem;
         }
         
-        @media (max-width: 768px) {
-            :root {
-                --section-spacing: 4rem;
-                --container-padding: 1.5rem;
-            }
-        }
-
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: var(--dark-bg);
             color: var(--text-primary);
-            line-height: 1.6;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        h1, h2, h3, h4 {
+        h1, h2, h3 {
             font-family: 'Playfair Display', serif;
-            line-height: 1.3;
+            font-weight: 700;
         }
 
-        /* Particles - Mantido o visual dos outros arquivos */
-        #particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.4;
-            animation: float 15s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-20px) translateX(10px); }
-            50% { transform: translateY(-40px) translateX(-10px); }
-            75% { transform: translateY(-20px) translateX(5px); }
-        }
-
-        /* Header */
+        /* HEADER (FIDELIDADE RESTAURADA) */
         header {
             background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 1rem var(--container-padding);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            backdrop-filter: blur(8px);
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
         .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: var(--text-primary);
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background-color: var(--secondary-amber);
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--dark-bg);
-            font-family: 'Playfair Display', serif;
-        }
-
-        .logo span {
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             font-weight: 700;
+            color: var(--secondary-amber);
+            text-decoration: none;
         }
 
         nav {
@@ -123,32 +67,21 @@
             align-items: center;
         }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding: 0;
-            align-items: center;
-        }
-
-        .nav-links li {
-            margin-left: 1.5rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
+        nav a {
+            color: var(--text-primary);
             text-decoration: none;
+            margin-left: 30px;
             font-weight: 500;
             transition: color 0.3s;
         }
 
-        .nav-links a:hover {
+        nav a:hover {
             color: var(--secondary-amber);
         }
 
         .login-btn {
-            background: var(--secondary-amber);
-            color: var(--dark-bg);
+            background: var(--primary-blue);
+            color: #fff;
             padding: 8px 15px;
             border-radius: 6px;
             font-weight: 700;
@@ -166,398 +99,233 @@
             cursor: pointer;
         }
 
-        /* Main Content */
-        main {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-nr1 {
-            padding: var(--section-spacing) 0;
+        /* HERO SECTION (SIMETRIA RESTAURADA) */
+        .hero-section {
+            padding: var(--section-spacing) 10% 8rem 10%;
             text-align: center;
-            background: url('https://images.unsplash.com/photo-1542744095-fcf48d80b0cd') no-repeat center center/cover;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             position: relative;
-            color: var(--text-primary);
-        }
-        
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
         }
 
         .hero-content {
             position: relative;
-            z-index: 3;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 var(--container-padding);
+            z-index: 2;
         }
 
-        .hero-content h1 {
-            font-size: 3.2rem;
+        .hero-title {
+            font-size: 3.5rem;
             color: var(--secondary-amber);
-            margin-bottom: 1rem;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            font-weight: 800;
         }
 
-        .hero-content p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .btn-cta {
-            background: linear-gradient(90deg, var(--primary-blue), #63b3ed);
-            color: #fff;
-            padding: 15px 35px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        /* Conteúdo Principal */
-        .content-section {
-            padding: var(--section-spacing) 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 var(--container-padding);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: var(--primary-blue);
-            margin-bottom: 0.75rem;
-        }
-
-        .section-header p {
+        .hero-subtitle {
+            font-size: 1.3rem;
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            margin-bottom: 30px;
         }
 
-        .info-cards {
+        .cta-btn {
+            background-color: var(--primary-blue);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+
+        .cta-btn:hover {
+            background-color: #2563eb;
+        }
+        
+        .section {
+            padding: var(--section-spacing) 10%;
+            text-align: center;
+        }
+
+        /* FEATURE GRID (SIMETRIA RESTAURADA) */
+        .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 3rem;
+            gap: 40px;
+            margin-top: 40px;
         }
 
-        .info-card {
+        .feature-card {
             background: var(--card-bg);
             padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            text-align: left;
             border-left: 4px solid var(--secondary-amber);
         }
+        
+        .feature-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
 
-        .info-card h3 {
-            font-size: 1.5rem;
+        .contact-box {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: left;
+            margin: 40px auto 0 auto;
+            max-width: 600px;
+        }
+
+        .contact-box h3 {
             color: var(--secondary-amber);
             margin-bottom: 15px;
         }
 
-        .info-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        .text-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .text-content h3 {
-            font-size: 1.8rem;
-            color: var(--primary-blue);
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-            border-bottom: 1px dashed rgba(59, 130, 246, 0.3);
-            padding-bottom: 5px;
-        }
-        
-        .text-content p {
-            margin-bottom: 1.5rem;
-            text-align: justify;
-        }
-        
-        .list-style {
-            list-style: none;
-            margin-bottom: 1.5rem;
-            padding-left: 0;
-        }
-        
-        .list-style li {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: flex-start;
-            font-size: 1rem;
-        }
-        
-        .list-style li::before {
-            content: '👉';
-            margin-right: 10px;
-            font-size: 1.2rem;
-            line-height: 1.5;
-        }
-
-        /* Contato Rodapé */
-        .contact-footer {
-            background: rgba(15, 23, 42, 0.95);
-            padding: 40px var(--container-padding);
-            text-align: center;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-        }
-
-        .contact-footer h3 {
-            color: var(--secondary-amber);
-            margin-bottom: 20px;
-            font-size: 2rem;
-        }
-        
-        .contact-footer .contact-grid {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-top: 30px;
-        }
-        
-        .contact-item {
-            text-align: left;
-        }
-        
-        .contact-item h4 {
-            font-size: 1.2rem;
-            color: var(--primary-blue);
-            margin-bottom: 5px;
-        }
-        
-        .contact-item p {
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-        }
-        
-        .contact-item a {
-            display: block;
+        .contact-box a {
             color: var(--text-primary);
             text-decoration: none;
+            display: block;
             margin-bottom: 5px;
-            transition: color 0.3s;
-        }
-        
-        .contact-item a:hover {
-            color: var(--secondary-amber);
         }
 
-        /* Footer Geral */
         footer {
+            background: #070712;
+            padding: 30px 10%;
             text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: var(--section-spacing);
         }
 
         /* Responsive */
-        @media (max-width: 600px) {
-            .hero-content h1 {
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+            }
+            .hero-title {
                 font-size: 2.5rem;
             }
-            .contact-footer .contact-grid {
-                flex-direction: column;
-                gap: 30px;
-                text-align: center;
-            }
-            .contact-item {
-                text-align: center;
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div id="particles"></div>
-
     <header>
-        <nav>
-            <a href="home.html" class="logo">
-                <div class="logo-icon">IT</div>
-                <span>INSTITUTO TANIGAWA</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="home.html">Home</a></li>
-                <li><a href="mentoria.html">Mentorias</a></li>
-                <li><a href="devocionais.html">Devocionais</a></li>
-                <li><a href="nr-1.html" style="color: var(--secondary-amber);">NR-1</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="contato.html">Contato</a></li>
-                <div id="navAuth">
-                    </div>
-            </ul>
+        <a href="home.html" class="logo">INSTITUTO TANIGAWA</a>
+        <nav id="mainNav">
+            <a href="home.html">Home</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="mentoria.html">Mentorias</a>
+            <a href="contato.html">Contato</a>
+             <div id="navAuth">
+                 <a href="auth_system.html" class="cta-btn login-btn">Área de Membros</a>
+            </div>
         </nav>
     </header>
 
     <main>
-        <section class="hero-nr1">
-            <div class="hero-overlay"></div>
+        <section class="hero-section">
             <div class="hero-content">
-                <h1>NR-1 e Riscos Psicossociais</h1>
-                <p>Obrigatório em 2026. Consultoria completa e metodologia COPSOQ III para o ambiente de trabalho e o bem-estar do seu colaborador.</p>
-                <a href="#consultoria" class="btn-cta">Saiba Mais e Solicite Orçamento ↓</a>
+                <h1 class="hero-title">2026: Você Vai Governar ou Ser Governado?</h1>
+                <p class="hero-subtitle">
+                    A NR-1 exige que sua empresa proteja a saúde mental. Evite multas e processos, transformando a Conformidade em Crescimento.
+                </p>
+                <a href="#solucao" class="cta-btn">Saiba Como se Preparar →</a>
             </div>
         </section>
 
-        <section class="content-section" id="consultoria">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Bem-Estar no Trabalho e Conformidade Legal</h2>
-                    <p>Prepare sua empresa para as novas exigências de saúde e segurança ocupacional, indo além do físico.</p>
+        <section id="solucao" class="section">
+            <h2 style="margin-bottom: 40px; color: var(--primary-blue);">Solução COPSOQ III e NR-1</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>✅ Conformidade Legal</h3>
+                    <p>Atendemos integralmente à Norma Regulamentadora 1 (NR-1) e ao Anexo IV da Portaria 677/2022.</p>
                 </div>
-
-                <div class="info-cards">
-                    <div class="info-card">
-                        <h3>O que é NR-1?</h3>
-                        <p>A Norma Regulamentadora nº 1 estabelece as disposições gerais e o gerenciamento de riscos ocupacionais (GRO). Com a atualização, ela inclui o reconhecimento e a avaliação dos Riscos Psicossociais.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3>Riscos Psicossociais</h3>
-                        <p>São fatores relacionados à organização do trabalho, às relações interpessoais e ao ambiente que podem causar estresse, burnout, depressão e acidentes. O Instituto Tanigawa foca na identificação e mitigação desses riscos.</p>
-                    </div>
-                    <div class="info-card">
-                        <h3>Metodologia COPSOQ III</h3>
-                        <p>Utilizamos a versão III do Questionário de Copenhagen para Riscos Psicossociais no Trabalho, uma ferramenta validada cientificamente para diagnosticar as dimensões de estresse e bem-estar em sua organização.</p>
-                    </div>
+                <div class="feature-card">
+                    <h3>🛡️ Metodologia Validada</h3>
+                    <p>Utilizamos o COPSOQ III (Copenhagen Psychosocial Questionnaire), o padrão ouro global para riscos psicossociais.</p>
                 </div>
-
-                <div class="text-content">
-                    <h3>Etapas da Consultoria Completa</h3>
-                    <ul class="list-style">
-                        <li>Planejamento e Implantação do GRO: Alinhamento da gestão de riscos à cultura da sua empresa.</li>
-                        <li>Diagnóstico e Aplicação COPSOQ III: Pesquisa completa com análise de resultados pela Psicóloga Wanessa Tanigawa.</li>
-                        <li>Plano de Ação e Intervenção: Criação de programas de saúde mental e redução de estressores ocupacionais.</li>
-                        <li>Treinamento de Lideranças: Capacitação para gestores em gestão de equipes e clima organizacional.</li>
-                    </ul>
-                    
-                    <p>Não espere a obrigatoriedade de 2026. Liderar com propósito é cuidar de quem está na linha de frente. Nosso trabalho é aliar a conformidade legal com a transformação real do ambiente de trabalho.</p>
+                <div class="feature-card">
+                    <h3>🚀 Estratégia de Crescimento</h3>
+                    <p>Transformamos a obrigatoriedade legal em um plano de bem-estar que aumenta a produtividade e reduz o turnover.</p>
                 </div>
             </div>
         </section>
 
-        <section class="contact-footer">
-            <h3>Fale Conosco para Consultoria NR-1</h3>
-            <p>Sua empresa pronta para 2026 com segurança e bem-estar.</p>
-            
-            <a href="contato.html" class="btn-cta" style="margin-top: 15px;">Solicitar Orçamento Personalizado</a>
-
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <h4>Sergio Tanigawa (Diretor)</h4>
-                    <a href="tel:+5511999999999">(11) 99999-9999</a>
-                    <a href="mailto:contato@institutotanigawa.com.br">contato@institutotanigawa.com.br</a>
-                </div>
-                <div class="contact-item">
-                    <h4>Wanessa Tanigawa (Diretora Técnica)</h4>
-                    <p>Psicóloga CRP 06/128917</p>
-                    <a href="tel:+5511988888888">(11) 98888-8888</a>
-                    <a href="mailto:wanessa@institutotanigawa.com.br">wanessa@institutotanigawa.com.br</a>
-                </div>
+        <section class="section">
+            <h2 style="margin-bottom: 40px; color: var(--secondary-amber);">Agende Sua Consultoria NR-1</h2>
+            <p style="font-size: 1.1rem; color: var(--text-secondary);">
+                Não espere 2026 chegar. Nossa equipe está pronta para integrar o compliance psicossocial em sua cultura empresarial.
+            </p>
+            <div class="contact-box">
+                <h3>Entre em Contato Agora</h3>
+                <p style="margin-bottom: 15px; color: var(--text-primary);">Fale diretamente com nossa consultoria especializada em saúde mental corporativa.</p>
+                <a href="https://wa.me/5511999999999" target="_blank">📱 WhatsApp: (11) 99999-9999 (Sergio)</a>
+                <a href="mailto:contato@institutotanigawa.com.br">📧 Email: contato@institutotanigawa.com.br</a>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados.</p>
+        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
     </footer>
 
     <script>
-        
-        // Função unificada de Logout (limpa a sessão e redireciona)
+        // Função unificada de Logout (necessária para o header dinâmico)
         function logout() {
             sessionStorage.clear();
             window.location.href = 'auth_system.html'; 
         }
 
-        // Função para atualizar o menu de autenticação (reconstruída)
+        // Função para atualizar o menu de autenticação (Item 13)
         function updateNavBar() {
             const navAuth = document.getElementById('navAuth');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
             const userType = sessionStorage.getItem('userType');
             
+            if (!navAuth) return; 
             navAuth.innerHTML = ''; 
             
             if (isLoggedIn) {
-                let linkTarget = 'area_membros.html';
-                let linkText = 'Área de Membros';
-
-                if (userType === 'admin') {
-                    linkTarget = 'admin_dashboard.html';
-                    linkText = 'Painel Admin';
-                }
+                let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
+                let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
                 navAuth.innerHTML = `
-                    <li style="margin-left: 15px;">
+                    <div style="margin-left: 20px;">
                         <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
                             ${linkText}
                         </a>
-                    </li>
-                    <li style="margin-left: 15px;">
                         <button class="logout-link" onclick="logout()">Sair</button>
-                    </li>
+                    </div>
                 `;
             } else {
                 navAuth.innerHTML = `
-                    <li style="margin-left: 15px;">
-                        <a href="auth_system.html" class="login-btn">
-                            Entrar
-                        </a>
-                    </li>
+                    <a href="auth_system.html" class="login-btn">
+                        Entrar
+                    </a>
                 `;
             }
         }
-
-        // Inicializar Partículas (Mantido do original)
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 4 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-                
-                container.appendChild(particle);
-            }
-        }
         
-        // Inicialização
+        // Inicializa a navegação dinâmica
         document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
             updateNavBar();
         });
-        
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80, // Ajuste para o header fixo
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>

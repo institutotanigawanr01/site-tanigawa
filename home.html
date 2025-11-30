@@ -20,19 +20,26 @@
             --primary-blue: #3b82f6;
             --primary-gold: #f59e0b;
             --dark-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.5);
             --text-light: #f8fafc;
             --text-gray: #94a3b8;
+            --section-spacing: 6rem;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            /* Fundo escuro profundo para alinhamento com a imagem fornecida */
-            background: linear-gradient(135deg, #0e0e1a 0%, #070712 100%);
+            font-family: 'Inter', sans-serif; /* FONTE CORRIGIDA */
+            background: linear-gradient(135deg, #0a0f2d 0%, #1b1038 50%, #0f0a26 100%);
             color: var(--text-light);
             overflow-x: hidden;
-            min-height: 100vh;
+            line-height: 1.6;
         }
 
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif; /* FONTE CORRIGIDA */
+            font-weight: 700;
+        }
+
+        /* HEADER (FIDELIDADE RESTAURADA) */
         header {
             position: fixed;
             width: 100%;
@@ -42,319 +49,388 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            /* Efeito de vidro escuro, como na imagem */
-            background: rgba(15, 23, 42, 0.5);
             backdrop-filter: blur(8px);
             z-index: 999;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .logo {
             font-size: 1.4rem;
             font-weight: 700;
-            color: var(--text-light);
+            color: var(--primary-gold);
             text-decoration: none;
-            display: flex;
-            align-items: center;
         }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            background-color: var(--primary-gold);
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: var(--dark-bg);
-            margin-right: 8px;
-            font-family: 'Playfair Display', serif;
-        }
-
+        
         nav {
             display: flex;
-            align-items: center;
+            gap: 30px;
         }
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            align-items: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        .nav-links li {
-            margin: 0 15px;
-        }
-
-        .nav-links a, .nav-links button {
-            color: var(--text-gray);
+        nav a {
+            color: var(--text-light);
             text-decoration: none;
             font-weight: 500;
-            font-size: 1rem;
             transition: color 0.3s;
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 0;
         }
 
-        .nav-links a:hover, .nav-links button:hover {
+        nav a:hover {
             color: var(--primary-gold);
         }
-
-        /* Hero Section (Alinhamento com a imagem) */
-        .hero-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            min-height: 100vh;
-            padding: 0 20px;
+        
+        .login-btn {
+            background-color: var(--primary-blue);
+            padding: 8px 15px; 
+            border-radius: 6px; 
+            font-size: 1rem;
+            font-weight: 500;
         }
 
-        .tag-vagas {
-            background-color: rgba(59, 130, 246, 0.2); /* Azul Primário com transparência */
-            color: var(--primary-blue);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 25px;
-            display: inline-block;
-            border: 1px solid var(--primary-blue);
+        /* Hero Section (SIMETRIA RESTAURADA) */
+        .hero-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 5%;
+            position: relative;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.8rem;
-            font-weight: 700;
-            line-height: 1.2;
+            font-size: 4rem;
+            line-height: 1.1;
             margin-bottom: 20px;
-            max-width: 800px;
+            color: var(--primary-blue);
         }
 
-        .hero-title strong {
-            color: var(--primary-gold); /* Destaque em Laranja/Ouro */
-            font-weight: 800;
-        }
-        
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: var(--text-gray);
-            max-width: 600px;
             margin-bottom: 40px;
-            line-height: 1.5;
         }
 
-        /* CTAs */
-        .cta-container {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background: linear-gradient(90deg, #3b82f6, #63b3ed);
-            color: #fff;
-            padding: 15px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.05rem;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            border: none;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
-            padding: 15px 30px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1.05rem;
-            transition: all 0.3s;
-            display: inline-flex;
-            align-items: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        /* Responsivo */
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-            }
-            .nav-links {
-                display: none; /* Mobile menu hidden by default, will be controlled by JS if needed */
-            }
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            .hero-subtitle {
-                font-size: 1rem;
-            }
-            .cta-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-        
-        /* Estilo para o botão de Login/Logout dinâmico */
-        .login-btn {
-            background: var(--primary-gold);
+        .cta-btn {
+            background-color: var(--primary-gold);
             color: var(--dark-bg);
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 700;
+            padding: 15px 35px;
+            border-radius: 8px;
             text-decoration: none;
-            transition: opacity 0.3s;
-            margin-left: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: background-color 0.3s;
+        }
+
+        .cta-btn:hover {
+            background-color: #d9900a;
+        }
+
+        /* Particles Background (Canvas) */
+        #particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            z-index: 1;
         }
         
-        .login-btn:hover {
-            opacity: 0.9;
-            color: var(--dark-bg); /* Garante que o texto não mude de cor no hover */
+        /* General Sections */
+        .section {
+            padding: var(--section-spacing) 10%;
+            text-align: center;
         }
-        
-        .logout-link {
-            background: none;
-            color: var(--text-gray);
-            text-decoration: underline;
-            margin-left: 10px;
-        }
-        
-        .logout-link:hover {
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
             color: var(--primary-gold);
         }
 
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: left;
+            border-top: 3px solid var(--primary-blue);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+        
+        .newsletter-section {
+            background-color: var(--card-bg);
+            padding: 50px 10%;
+            text-align: center;
+            margin-top: var(--section-spacing);
+        }
+
+        .newsletter-form input {
+            padding: 12px;
+            border-radius: 5px;
+            border: 1px solid var(--text-gray);
+            background: #1e293b;
+            color: var(--text-light);
+            margin-right: 10px;
+        }
+
+        .newsletter-form button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--primary-blue);
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Footer */
+        footer {
+            background: #070712;
+            padding: 30px 10%;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            header {
+                padding: 15px 20px;
+            }
+        }
     </style>
 </head>
 <body>
+    <canvas id="particles-canvas"></canvas>
     
     <header>
-        <a href="home.html" class="logo">
-            <div class="logo-icon">IT</div>
-            INSTITUTO TANIGAWA
-        </a>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="home.html">Home</a></li>
-                <li><a href="mentoria.html">Mentorias</a></li>
-                <li><a href="devocionais.html">Devocionais</a></li>
-                <li><a href="nr-1.html">NR-1</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="contato.html">Contato</a></li>
-                <div id="navAuth">
-                    </div>
-            </ul>
+        <a href="home.html" class="logo">INSTITUTO TANIGAWA</a>
+        <nav id="mainNav">
+            <a href="sobre.html">Sobre</a>
+            <a href="mentoria.html">Mentorias</a>
+            <a href="devocionais.html">Devocionais</a>
+            <a href="contato.html">Contato</a>
+            <div id="navAuth">
+                 <a href="auth_system.html" class="cta-btn login-btn">Área de Membros</a>
+            </div>
         </nav>
     </header>
 
-    <div class="hero-section">
-        <span class="tag-vagas">Vagas limitadas para 2025</span>
-        
-        <h1 class="hero-title">
-            Quando Deus mexe <br>
-            na sua **zona de conforto**
-        </h1>
-        
-        <p class="hero-subtitle">
-            Não é porque te abandonou, é porque preparou algo maior. Descubra seu propósito e transforme sua vida através de mentoria espiritual personalizada.
-        </p>
-        
-        <div class="cta-container">
-            <a href="cadastro-completo.html" class="btn-primary">
-                Descobrir minha jornada →
-            </a>
-            <a href="devocionais.html" class="btn-secondary">
-                Ver devocionais grátis
-            </a>
-        </div>
-    </div>
+    <main>
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Onde a Estratégia Encontra o Espírito.</h1>
+                <p class="hero-subtitle">
+                    Transformação profunda para pastores, líderes, empresários e famílias.
+                </p>
+                <a href="diagnostico-tanigawa-pead.html" class="cta-btn">Faça seu Diagnóstico PEAD →</a>
+            </div>
+        </section>
+
+        <section id="mentorias" class="section">
+            <h2 class="section-title">Mentorias de Propósito e Cura</h2>
+            <p style="color: var(--text-gray); margin-bottom: 50px;">
+                Caminhos para alinhar sua vida espiritual, emocional e profissional.
+            </p>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Mentoria Espiritual (SYNESIS)</h3>
+                    <p>Desenvolvimento da vocação e propósito, forjando líderes de alto impacto no Reino.</p>
+                </div>
+                <div class="card">
+                    <h3>Mentoria Cura Emocional (LEV)</h3>
+                    <p>Processo de cura profunda de traumas e feridas, baseado em TCC e princípios bíblicos.</p>
+                </div>
+                <div class="card">
+                    <h3>Consultoria NR-1</h3>
+                    <p>Solução para a conformidade legal em riscos psicossociais no ambiente de trabalho.</p>
+                </div>
+            </div>
+            <a href="mentoria.html" class="cta-btn" style="margin-top: 50px; background-color: var(--primary-blue);">Conheça Todas as Mentorias</a>
+        </section>
+
+        <section id="sobre" class="section" style="background-color: #1e293b;">
+            <h2 class="section-title" style="color: var(--text-light);">Nossa História</h2>
+            <p style="color: var(--text-gray); margin: 0 auto; max-width: 800px;">
+                Há mais de 15 anos, o Instituto Tanigawa tem sido um farol para líderes e famílias, unindo a sabedoria bíblica com ferramentas de gestão e psicologia. Nossa missão é forjar líderes completos, prontos para Governar em suas áreas de influência.
+            </p>
+            <a href="sobre.html" class="cta-btn" style="margin-top: 30px; background-color: var(--primary-blue);">Saiba Mais →</a>
+        </section>
+
+        <section id="contato" class="newsletter-section">
+            <h2 class="section-title" style="margin-bottom: 20px;">Receba Nossas Reflexões</h2>
+            <p style="color: var(--text-gray); margin-bottom: 30px;">
+                Assine a newsletter e receba devocionais e análises semanais.
+            </p>
+            <form id="newsletterForm" class="newsletter-form">
+                <input type="email" name="email" placeholder="Seu melhor e-mail" required>
+                <button type="submit">Assinar</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>Desenvolvido pelo Instituto Tanigawa. &copy; 2026. Todos os direitos reservados.</p>
+    </footer>
 
     <script>
-        
-        // Função unificada de Logout (limpa a sessão e redireciona)
+        // Função unificada de Logout (necessária para o header dinâmico)
         function logout() {
             sessionStorage.clear();
-            // Redireciona para o login (ou recarrega a home para atualizar o menu)
             window.location.href = 'auth_system.html'; 
         }
 
-        // Função para atualizar o menu de autenticação
+        // Função para atualizar o menu de autenticação (Item 13)
         function updateNavBar() {
             const navAuth = document.getElementById('navAuth');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
             const userType = sessionStorage.getItem('userType');
-            const userName = sessionStorage.getItem('userName');
             
-            navAuth.innerHTML = ''; // Limpa o conteúdo
+            navAuth.innerHTML = ''; 
             
             if (isLoggedIn) {
-                // Usuário Logado: Mostra link para a área correta + Logout
-                let linkTarget = 'area_membros.html';
-                let linkText = 'Área de Membros';
-
-                if (userType === 'admin') {
-                    linkTarget = 'admin_dashboard.html';
-                    linkText = 'Painel Admin';
-                }
+                let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
+                let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
                 navAuth.innerHTML = `
-                    <li style="margin-left: 15px;">
-                        <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
-                            ${linkText}
-                        </a>
-                    </li>
-                    <li style="margin-left: 15px;">
-                        <button class="logout-link" onclick="logout()">Sair</button>
-                    </li>
+                    <a href="${linkTarget}" class="cta-btn login-btn" style="background-color: var(--primary-blue); color: #fff; margin-right: 10px;">
+                        ${linkText}
+                    </a>
+                    <button class="logout-btn" onclick="logout()" style="background: none; color: var(--text-gray); border: none; cursor: pointer;">Sair</button>
                 `;
-                
-                // Remove a tag de cadastro se já estiver logado (pode ser ajustado se o usuário puder se cadastrar em outra mentoria)
-                document.querySelector('.cta-container a:first-child').style.display = 'none';
-
             } else {
-                // Usuário Deslogado: Mostra link para o Login
                 navAuth.innerHTML = `
-                    <li style="margin-left: 15px;">
-                        <a href="auth_system.html" class="login-btn">
-                            Entrar
-                        </a>
-                    </li>
+                    <a href="auth_system.html" class="cta-btn login-btn">
+                        Área de Membros
+                    </a>
                 `;
             }
         }
-
-        // Inicia a verificação do menu ao carregar a página
-        document.addEventListener('DOMContentLoaded', updateNavBar);
         
-        // Fallback para estilos responsivos do menu (se não houver um menu mobile mais complexo)
-        // NOTE: Mantido simples pois a prioridade é a funcionalidade de login/logout.
-        const menuItems = document.querySelectorAll('.nav-links li:not(:last-child)');
-        menuItems.forEach(item => {
-            if (item.querySelector('a')) {
-                item.querySelector('a').addEventListener('click', updateNavBar); // Reexecuta para garantir estado correto
+        // --- Scripts do Background Particle Network (Restaurado) ---
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function setCanvasDimensions() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            createParticles();
+        }
+        window.addEventListener('resize', setCanvasDimensions);
+        setCanvasDimensions();
+
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < 60; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 0.4,
+                    speedY: (Math.random() - 0.5) * 0.4
+                });
             }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let p of particles) {
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+
+                ctx.beginPath();
+                ctx.fillStyle = "#64748b";
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // SCROLL SUAVE
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute("href"));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: "smooth"
+                    });
+                }
+            });
         });
         
+        // Newsletter Form (CRÍTICO: Chamada para a nova API Serverless - Item 9)
+        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('button');
+            submitBtn.disabled = true;
+            submitBtn.textContent = '⏳ Assinando...';
+
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+
+            // ALTERAÇÃO CRÍTICA: Chamada para /api/newsletter
+            fetch('/api/newsletter', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'sucesso') {
+                    alert('✅ Inscrição realizada com sucesso! Verifique seu email.');
+                    this.reset();
+                } else {
+                    alert('❌ Erro ao inscrever. Tente novamente.');
+                }
+            })
+            .catch((error) => {
+                alert('❌ Erro de rede. Tente novamente.');
+                console.error('Erro:', error);
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Assinar';
+            });
+        });
+        
+        // Inicializa a navegação dinâmica e as partículas
+        document.addEventListener('DOMContentLoaded', function() {
+            updateNavBar();
+        });
     </script>
 </body>
 </html>

@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ESTILOS ORIGINAIS MANTIDOS NA ÍNTEGRA (Item 11) */
+        /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
         * {
             margin: 0;
             padding: 0;
@@ -32,13 +32,6 @@
             --header-spacing: 4rem;
         }
 
-        @media (max-width: 768px) {
-            :root {
-                --section-spacing: 4rem;
-                --container-padding: 1.5rem;
-            }
-        }
-
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
@@ -47,7 +40,7 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, h4 {
+        h1, h2, h3 {
             font-family: 'Playfair Display', serif;
             line-height: 1.3;
         }
@@ -61,6 +54,7 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
+            opacity: 0.6;
         }
 
         .particle {
@@ -78,7 +72,7 @@
             75% { transform: translateY(-20px) translateX(5px); }
         }
 
-        /* Header */
+        /* Header (FIDELIDADE RESTAURADA) */
         header {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
@@ -173,185 +167,115 @@
             z-index: 2;
         }
 
-        .hero-mentoria {
-            padding: var(--header-spacing) 0;
-            text-align: center;
-            background: url('https://images.unsplash.com/photo-1519781313437-123447938363') no-repeat center center/cover;
-            position: relative;
-        }
-        
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 var(--container-padding);
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            color: var(--primary-gold);
-            margin-bottom: 1rem;
-        }
-
-        .hero-content p {
-            font-size: 1.25rem;
-            color: var(--text-light);
-            margin-bottom: 2rem;
-            opacity: 0.8;
-        }
-
-        .btn-cta {
-            background: linear-gradient(90deg, var(--primary-blue), #63b3ed);
-            color: #fff;
-            padding: 15px 35px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
-        }
-
-        /* Mentoria Cards Section */
-        .mentoria-section {
-            padding: var(--section-spacing) 0;
-        }
-
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 var(--container-padding);
+            padding: var(--section-spacing) var(--container-padding);
         }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
+        .hero-title {
+            font-size: 3rem;
             color: var(--primary-blue);
             margin-bottom: 0.75rem;
+            text-align: center;
         }
 
-        .section-header p {
+        .hero-subtitle {
+            font-size: 1.2rem;
             color: var(--text-gray);
-            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            text-align: center;
         }
 
+        /* MENTORIAS GRID (SIMETRIA RESTAURADA) */
         .mentoria-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
+            gap: 40px;
+            margin-top: 40px;
         }
-
+        
         .mentoria-card {
             background: var(--card-bg);
-            padding: 35px;
+            padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, border-color 0.3s;
             border-top: 5px solid var(--primary-gold);
+            transition: transform 0.3s;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
         }
 
         .mentoria-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
         }
 
-        .card-icon {
-            font-size: 3rem;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-
-        .card-title {
-            font-size: 1.8rem;
-            color: var(--text-light);
+        .mentoria-card h3 {
+            font-size: 2rem;
+            color: var(--primary-gold);
             margin-bottom: 10px;
         }
 
-        .card-price {
-            font-size: 1.4rem;
-            color: var(--primary-gold);
-            font-weight: 700;
+        .mentoria-card p {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+        
+        .card-tag {
+            background-color: var(--primary-blue);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
             margin-bottom: 15px;
         }
 
-        .card-description {
-            color: var(--text-gray);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-        }
-
-        .card-features li {
-            list-style: none;
-            margin-bottom: 8px;
-            font-size: 0.95rem;
-            color: var(--text-light);
-            display: flex;
-            align-items: center;
-        }
-
-        .card-features li::before {
-            content: '✓';
-            color: var(--primary-blue);
-            font-weight: 700;
-            margin-right: 10px;
-            font-size: 1.1rem;
-        }
-
-        .card-cta-btn {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            margin-top: 25px;
-            border-radius: 8px;
+        .btn-saiba-mais {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 6px;
             background-color: var(--primary-blue);
             color: #fff;
-            text-align: center;
             text-decoration: none;
             font-weight: 600;
             transition: background-color 0.3s;
+            align-self: flex-start;
         }
 
-        .card-cta-btn:hover {
+        .btn-saiba-mais:hover {
             background-color: #2563eb;
         }
         
+        .cta-box {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: var(--section-spacing);
+            border: 1px solid var(--primary-blue);
+        }
+        
+        .cta-box h3 {
+            color: var(--primary-blue);
+            font-size: 2.2rem;
+        }
+
         /* Footer (Mantido simples) */
         footer {
             text-align: center;
             padding: 30px 0;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
-            margin-top: 30px;
+            margin-top: var(--section-spacing);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero-content h1 {
+            .hero-title {
                 font-size: 2.5rem;
-            }
-            .hero-content p {
-                font-size: 1rem;
-            }
-            .section-header h2 {
-                font-size: 2rem;
             }
         }
     </style>
@@ -379,124 +303,98 @@
     </header>
 
     <main>
-        <section class="hero-mentoria">
-            <div class="hero-overlay"></div>
-            <div class="hero-content">
-                <h1>Descubra sua Mentoria</h1>
-                <p>O caminho para a transformação começa aqui. Encontre o programa certo para o seu propósito, cura emocional ou desenvolvimento de liderança.</p>
-                <a href="#programas" class="btn-cta">Ver Programas e Valores ↓</a>
-            </div>
-        </section>
+        <div class="container">
+            <h1 class="hero-title">Mentorias para Transformação Completa</h1>
+            <p class="hero-subtitle">
+                Desenvolvemos programas focados em propósito, cura emocional e excelência profissional.
+            </p>
 
-        <section class="mentoria-section" id="programas">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Nossos Programas de Transformação</h2>
-                    <p>Programas de mentoria liderados por Sergio e Wanessa Tanigawa.</p>
+            <div class="mentoria-grid">
+                
+                <div class="mentoria-card" id="espiritual">
+                    <span class="card-tag">FOCO: Propósito & Vocação</span>
+                    <h3>Mentoria SYNESIS</h3>
+                    <p>
+                        Programa para pastores, líderes e empresários que buscam clareza no chamado, estratégia divina para a liderança e alinhamento do propósito com o Reino. Desenvolva o discernimento espiritual (Synesis) necessário para governar.
+                    </p>
+                    <a href="cadastro-completo.html?mentoria=SYNESIS" class="btn-saiba-mais">Inscreva-se →</a>
                 </div>
 
-                <div class="mentoria-grid">
-                    
-                    <div class="mentoria-card" id="espiritual">
-                        <div class="card-icon">⚔️</div>
-                        <h3 class="card-title">SYNESIS (Discernimento Espiritual)</h3>
-                        <p class="card-price">R$ 2.997 à vista</p>
-                        <p class="card-description">Mentoria de alto nível focada em propósito, chamado e discernimento espiritual para líderes e empresários. Conduzido por Sergio Tanigawa.</p>
-                        
-                        <ul class="card-features">
-                            <li>Método de 12 Semanas</li>
-                            <li>Aulas em grupo + 1:1</li>
-                            <li>Comunidade Exclusiva</li>
-                        </ul>
-                        <a href="cadastro-completo.html" class="card-cta-btn">Quero Iniciar o SYNESIS</a>
-                    </div>
-                    
-                    <div class="mentoria-card" id="lev">
-                        <div class="card-icon">💜</div>
-                        <h3 class="card-title">LEV (Cura Emocional)</h3>
-                        <p class="card-price">R$ 2.497 à vista</p>
-                        <p class="card-description">Jornada de cura interior e emocional, focada em traumas, autoestima e relacionamentos. Conduzido pela Psicóloga Wanessa Tanigawa.</p>
-                        
-                        <ul class="card-features">
-                            <li>Módulos de Aulas Gravadas</li>
-                            <li>Sessões de Acompanhamento em Grupo</li>
-                            <li>Estratégias de Batalha Emocional</li>
-                        </ul>
-                        <a href="cadastro-completo.html" class="card-cta-btn">Quero Iniciar o LEV</a>
-                    </div>
-
-                    <div class="mentoria-card" id="tcc">
-                        <div class="card-icon">🧠</div>
-                        <h3 class="card-title">Psicoterapia TCC</h3>
-                        <p class="card-price">R$ 350 por sessão</p>
-                        <p class="card-description">Atendimento individual de Terapia Cognitivo-Comportamental para tratamento de ansiedade, depressão e questões comportamentais (CRP 06/128917).</p>
-                        
-                        <ul class="card-features">
-                            <li>Sessões Avulsas ou Pacotes</li>
-                            <li>Foco em Solução de Problemas</li>
-                            <li>Atendimento Online</li>
-                        </ul>
-                        <a href="contato.html" class="card-cta-btn" style="background-color: var(--primary-gold); color: var(--dark-bg);">Agendar Sessão (Contato)</a>
-                    </div>
+                <div class="mentoria-card" id="lev">
+                    <span class="card-tag" style="background-color: #8b5cf6;">FOCO: Cura & Identidade</span>
+                    <h3>Mentoria LEV</h3>
+                    <p>
+                        Luz, Esperança e Vida. Jornada de cura emocional baseada em princípios bíblicos e psicologia (TCC). Ideal para quem busca libertação de traumas, culpa e padrões autodestrutivos.
+                    </p>
+                    <a href="cadastro-completo.html?mentoria=LEV" class="btn-saiba-mais" style="background-color: #8b5cf6;">Inscreva-se →</a>
                 </div>
-            </div>
-        </section>
 
+                <div class="mentoria-card" id="nr-1">
+                    <span class="card-tag" style="background-color: #22c55e;">FOCO: Conformidade & Bem-Estar</span>
+                    <h3>Consultoria NR-1</h3>
+                    <p>
+                        Solução completa para Riscos Psicossociais no Trabalho, atendendo à Norma Regulamentadora 1 e COPSOQ III. Transforme a obrigatoriedade legal em um programa de saúde e performance para sua empresa.
+                    </p>
+                    <a href="nr-1.html" class="btn-saiba-mais" style="background-color: #22c55e;">Saiba Mais →</a>
+                </div>
+                
+            </div>
+            
+            <div class="cta-box">
+                <h3>Faça seu Diagnóstico de Perfil PEAD</h3>
+                <p style="color: var(--text-gray); margin-top: 15px;">
+                    Descubra qual mentoria é a mais indicada para você no momento.
+                </p>
+                <a href="diagnostico-tanigawa-pead.html" class="btn-saiba-mais" style="margin-top: 25px; background-color: var(--primary-gold); color: var(--dark-bg);">Iniciar Diagnóstico →</a>
+            </div>
+        </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados.</p>
+        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
     </footer>
 
     <script>
-        
-        // Função unificada de Logout (limpa a sessão e redireciona)
+        // Função unificada de Logout (necessária para o header dinâmico)
         function logout() {
             sessionStorage.clear();
             window.location.href = 'auth_system.html'; 
         }
 
-        // Função para atualizar o menu de autenticação (reconstruída)
+        // Função para atualizar o menu de autenticação (Item 13)
         function updateNavBar() {
             const navAuth = document.getElementById('navAuth');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
             const userType = sessionStorage.getItem('userType');
             
+            if (!navAuth) return; 
             navAuth.innerHTML = ''; 
             
             if (isLoggedIn) {
-                let linkTarget = 'area_membros.html';
-                let linkText = 'Área de Membros';
-
-                if (userType === 'admin') {
-                    linkTarget = 'admin_dashboard.html';
-                    linkText = 'Painel Admin';
-                }
+                let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
+                let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
                 navAuth.innerHTML = `
-                    <li style="margin-left: 15px;">
+                    <div style="margin-left: 20px;">
                         <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
                             ${linkText}
                         </a>
-                    </li>
-                    <li style="margin-left: 15px;">
                         <button class="logout-link" onclick="logout()">Sair</button>
-                    </li>
+                    </div>
                 `;
             } else {
                 navAuth.innerHTML = `
-                    <li style="margin-left: 15px;">
-                        <a href="auth_system.html" class="login-btn">
-                            Entrar
-                        </a>
-                    </li>
+                    <a href="auth_system.html" class="login-btn">
+                        Entrar
+                    </a>
                 `;
             }
         }
 
-        // Inicializar Partículas (Mantido do original)
+        // Inicializar Partículas (Restaurado)
         function createParticles() {
             const container = document.getElementById('particles');
+            if (!container) return;
             const particleCount = 50;
 
             for (let i = 0; i < particleCount; i++) {
@@ -529,13 +427,13 @@
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
+                    window.scrollTo({
+                        top: target.offsetTop - 80, // Ajuste para o header fixo
                         behavior: 'smooth'
                     });
                 }
             });
         });
-
     </script>
 </body>
 </html>

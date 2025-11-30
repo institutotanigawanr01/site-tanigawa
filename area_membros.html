@@ -3,242 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma de Aulas - Instituto Tanigawa</title>
-
+    <title>Área de Membros - Instituto Tanigawa</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    
     <style>
-        /* Variáveis de Estilo (MANTIDAS) */
-        :root {
-            --primary-blue: #3b82f6;
-            --primary-gold: #f59e0b;
-            --dark-bg: #0f172a;
-            --sidebar-bg: rgba(20, 28, 40, 1);
-            --content-bg: #1e293b;
-            --text-light: #e2e8f0;
-            --text-gray: #94a3b8;
-        }
-
+        /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-blue: #3b82f6;
+            --primary-gold: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --text-light: #e2e8f0;
+            --text-gray: #94a3b8;
+            --section-spacing: 6rem;
+            --danger: #ef4444;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f0f1c 0%, #090915 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: var(--text-light);
+            line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
         }
-        
-        /* HEADER & NAVBAR (Mantido do original) */
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            line-height: 1.3;
+        }
+
+        /* HEADER (RESTAURO DE FIDELIDADE) */
         header {
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(12px);
+            background: var(--dark-bg);
             padding: 18px 28px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255,255,255,0.18);
-            box-shadow: 0 4px 25px rgba(0,0,0,0.4);
-            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .header-left h1 {
-            margin: 0;
-            font-size: 1.35rem;
-            letter-spacing: 1px;
-            color: var(--primary-gold);
-        }
+
         .header-info {
             display: flex;
             align-items: center;
-            flex-wrap: wrap;
         }
+
         #headerNome {
             font-weight: 600;
             color: var(--text-light);
             margin-right: 15px;
             font-size: 1rem;
         }
+
         #headerMentoria {
             font-weight: 500;
-            color: var(--primary-blue);
+            color: var(--primary-gold);
             margin-right: 25px;
             font-size: 0.9rem;
         }
+
         .logout-btn {
             padding: 10px 18px;
             border: none;
             border-radius: 6px;
-            background-color: #ef4444; /* Danger Red */
+            background-color: var(--danger);
             color: #fff;
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.2s;
         }
-        .logout-btn:hover {
-            background-color: #c93030;
+
+        main {
+            padding: var(--section-spacing) 0;
         }
 
-        /* LAYOUT PRINCIPAL (Plataforma) */
-        .platform-container {
-            display: flex;
-            min-height: calc(100vh - 70px); /* Ajuste para o tamanho do header */
-            padding-top: 1px; /* Evita que a margem colapse com o header */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
         }
-        
-        /* SIDEBAR (Lista de Aulas) */
+
+        /* DASHBOARD GRID (SIMETRIA RESTAURADA) */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
         .sidebar {
-            width: 320px;
-            background: var(--sidebar-bg);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 20px 0;
-            overflow-y: auto;
-            flex-shrink: 0;
-        }
-        .sidebar-title {
-            color: var(--primary-gold);
-            font-size: 1.2rem;
-            padding: 0 20px 10px 20px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .module-block {
-            margin-bottom: 15px;
-        }
-        .module-title {
-            padding: 10px 20px;
-            background: rgba(59, 130, 246, 0.2);
-            color: var(--text-light);
-            font-size: 1rem;
-            font-weight: 700;
-            border-top: 1px solid var(--primary-blue);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .lesson-list {
-            list-style: none;
-            padding: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out;
-        }
-
-        .lesson-list.active {
-            max-height: 500px; /* Suficiente para expandir */
-        }
-
-        .lesson-item {
-            padding: 12px 20px 12px 30px;
-            color: var(--text-gray);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background-color 0.2s, color 0.2s;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .lesson-item:hover {
-            background-color: rgba(59, 130, 246, 0.1);
-            color: var(--text-light);
-        }
-        .lesson-item.active {
-            background-color: var(--primary-blue);
-            color: #fff;
-            font-weight: 600;
-        }
-
-        /* CONTEÚDO PRINCIPAL (Player) */
-        .content-area {
-            flex-grow: 1;
+            background: var(--card-bg);
             padding: 30px;
-            background: var(--content-bg);
-            overflow-y: auto;
-        }
-        .video-player {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            margin-bottom: 25px;
-            background: #000;
-            border-radius: 8px;
-        }
-        .video-player iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
         
-        #lessonTitle {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--primary-gold);
-            margin-bottom: 10px;
-        }
-        #moduleTitle {
-            font-size: 1.2rem;
+        .welcome-title {
+            font-size: 2.2rem;
             color: var(--primary-blue);
-            margin-bottom: 20px;
+            margin-bottom: 0.5rem;
         }
 
-        /* Detalhes e Materiais */
-        .materials-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        .mentoria-tag {
+            font-size: 1.1rem;
+            color: var(--primary-gold);
+            margin-bottom: 30px;
+            display: block;
         }
-        .materials-section h3 {
+
+        .sidebar h3 {
             font-size: 1.5rem;
             color: var(--text-light);
             margin-bottom: 15px;
         }
-        .material-link {
-            display: inline-block;
-            padding: 10px 15px;
-            background-color: var(--primary-blue);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 6px;
-            margin-right: 10px;
-            transition: opacity 0.2s;
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
         }
-        .material-link:hover {
-            opacity: 0.9;
+
+        .sidebar ul li a {
+            display: block;
+            padding: 10px 0;
+            color: var(--text-gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+
+        .sidebar ul li a:hover {
+            color: var(--primary-gold);
+        }
+
+        .main-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 25px;
+        }
+
+        .card-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .access-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-blue);
+            transition: transform 0.3s;
+        }
+        
+        .access-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .access-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .access-card p {
+            color: var(--text-gray);
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+
+        .access-card a {
+            display: inline-block;
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            padding: 8px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
         }
 
         /* Responsive */
         @media (max-width: 900px) {
-            .platform-container {
-                flex-direction: column;
+            .dashboard-grid {
+                grid-template-columns: 1fr;
             }
             .sidebar {
-                width: 100%;
-                max-height: 40vh;
+                order: 2;
+                margin-top: 30px;
             }
-            .content-area {
-                padding: 20px;
-            }
-            #lessonTitle {
-                font-size: 2rem;
+            .main-content {
+                order: 1;
             }
         }
+
     </style>
 </head>
 <body>
-    
+
     <header>
         <div class="header-left">
-            <h1>Plataforma IT</h1>
+            <h1 style="color: var(--text-light);">Dashboard Membros</h1>
         </div>
         <div class="header-info">
             <span id="headerNome"></span>
@@ -247,168 +223,82 @@
         </div>
     </header>
 
-    <div class="platform-container">
-        
-        <div class="sidebar">
-            <div class="sidebar-title" id="mentoriaSidebarTitle">Carregando Plataforma...</div>
-            <div id="modulesContainer">
+    <main>
+        <div class="container">
+            <div class="dashboard-grid">
+                
+                <div class="main-content">
+                    <h2 id="welcomeNome" class="welcome-title">Olá, Membro!</h2>
+                    <span id="welcomeMentoria" class="mentoria-tag"></span>
+
+                    <h2 style="color: var(--primary-gold);">Acesso à Plataforma</h2>
+                    
+                    <div class="card-list">
+                        <div class="access-card">
+                            <h3>Plataforma de Vídeo Aulas</h3>
+                            <p>Acesse aqui todos os módulos da sua mentoria. Inclui materiais de apoio e exercícios.</p>
+                            <a href="area_membros_aulas.html" style="background-color: var(--primary-blue); color: #fff;">Acessar Aulas →</a>
+                        </div>
+
+                        <div class="access-card">
+                            <h3>Devocionais Exclusivos</h3>
+                            <p>Conteúdo semanal para aprofundamento espiritual. Filtre por categoria e baixe os PDFs.</p>
+                            <a href="devocionais.html">Ver Devocionais →</a>
+                        </div>
+                        
+                        <div class="access-card">
+                            <h3>Suporte Rápido (WhatsApp)</h3>
+                            <p>Fale diretamente com nosso time de apoio para dúvidas e questões técnicas.</p>
+                            <a href="https://wa.me/5511999999999" target="_blank" style="background-color: var(--success-green);">Suporte →</a>
+                        </div>
+                    </div>
                 </div>
-            
-            <div style="padding: 20px; text-align: center; font-size: 0.9rem; color: var(--text-gray);">
-                <a href="area_membros.html" style="color: var(--primary-blue);">← Voltar ao Dashboard</a>
+
+                <div class="sidebar">
+                    <h3>Menu Rápido</h3>
+                    <ul>
+                        <li><a href="home.html">Home do Site</a></li>
+                        <li><a href="mentoria.html">Conhecer Outras Mentorias</a></li>
+                        <li><a href="contato.html">Contato Geral</a></li>
+                    </ul>
+                    <hr style="margin: 20px 0; border-color: rgba(255, 255, 255, 0.1);">
+                    <h3>Dados da sua Conta</h3>
+                    <p style="font-size: 0.9rem; color: var(--text-gray);">
+                        Sua chave está ativa.<br>
+                        Tipo de acesso: Membro.
+                    </p>
+                </div>
+
             </div>
         </div>
-
-        <div class="content-area">
-            <div class="video-player">
-                <iframe id="videoIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            </div>
-
-            <h2 id="lessonTitle"></h2>
-            <h3 id="moduleTitle"></h3>
-            
-            <div class="materials-section">
-                <h3>Materiais de Apoio</h3>
-                <p id="noMaterials" style="color: var(--text-gray);">Nenhum material extra disponível para esta aula.</p>
-                </div>
-        </div>
-
-    </div>
+    </main>
 
     <script>
-        
-        const memberData = JSON.parse(sessionStorage.getItem('memberData') || '{}');
+        // Função de Logout (Item 9)
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'auth_system.html';
+        }
+
+        // CRÍTICO: Verificar autenticação e preencher dados (Item 9, 13)
         const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
         const userType = sessionStorage.getItem('userType');
-        let mentoriaStructure = null; 
-        let currentMentoria = memberData.mentoria; 
+        const memberData = JSON.parse(sessionStorage.getItem('memberData') || '{}');
 
-        // CRÍTICO: Verificar se está logado e mandar para o login
-        if (!isLoggedIn) {
-            window.location.replace('auth_system.html'); 
-        } else if (userType === 'admin') {
-            document.getElementById('headerMentoria').textContent = 'ADMIN VIEW';
+        if (!isLoggedIn || (userType !== 'member' && userType !== 'admin')) {
+            // Se não for Membro ou Admin, redireciona para o login (Item 13)
+            window.location.replace('auth_system.html');
         }
 
+        // Preencher dados do membro (Item 13)
+        document.getElementById('headerNome').textContent = '👤 ' + (memberData.nome || 'Membro');
+        document.getElementById('headerMentoria').textContent = memberData.mentoria ? 'Mentoria ' + memberData.mentoria : 'Acesso Geral';
+        document.getElementById('welcomeNome').textContent = 'Olá, ' + (memberData.nome || 'Membro') + '!';
+        document.getElementById('welcomeMentoria').textContent = memberData.mentoria ? 'Você está na Mentoria ' + memberData.mentoria : '';
 
-        // Função unificada de Logout
-        function logout() {
-            sessionStorage.clear(); 
-            window.location.href = 'auth_system.html'; 
-        }
-
-        // Função para carregar uma aula específica (AGORA CHAMA A API SEGURA)
-        async function loadLesson(lesson, moduleTitle) {
-            document.querySelectorAll('.lesson-item').forEach(item => item.classList.remove('active'));
-            document.querySelector(`[data-lesson-slug="${lesson.slug}"]`).classList.add('active');
-
-            document.getElementById('lessonTitle').textContent = '⏳ Carregando vídeo...';
-            document.getElementById('moduleTitle').textContent = moduleTitle;
-            document.getElementById('videoIframe').src = ''; // Limpa o player
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
-            try {
-                // CRÍTICO: CHAMA A API SEGURA para obter a URL do vídeo
-                const res = await fetch(`/api/video-link?id=${lesson.video_id}`);
-                const data = await res.json();
-                
-                if (data.status === 'sucesso' && data.secureUrl) {
-                    document.getElementById('lessonTitle').textContent = lesson.title;
-                    document.getElementById('videoIframe').src = data.secureUrl;
-                } else {
-                    throw new Error(data.message || 'Falha ao obter link seguro.');
-                }
-                
-            } catch (e) {
-                console.error("Erro ao obter link seguro:", e);
-                document.getElementById('lessonTitle').textContent = '❌ Erro: Conteúdo Indisponível';
-                alert('O link seguro para esta aula falhou. Contacte o administrador.');
-            }
-        }
-
-
-        // Renderiza a lista de módulos e aulas
-        function renderModules(structure) {
-            const container = document.getElementById('modulesContainer');
-            container.innerHTML = '';
-            
-            document.getElementById('mentoriaSidebarTitle').textContent = structure.title;
-
-            structure.modules.forEach((module, index) => {
-                const moduleBlock = document.createElement('div');
-                moduleBlock.classList.add('module-block');
-                
-                // Título do Módulo (Clicável para expandir)
-                const moduleTitleDiv = document.createElement('div');
-                moduleTitleDiv.classList.add('module-title');
-                moduleTitleDiv.innerHTML = `<span>M${index + 1}: ${module.title}</span> <span>${module.lessons.length} Aulas</span>`;
-                moduleTitleDiv.onclick = () => {
-                    lessonList.classList.toggle('active');
-                };
-                moduleBlock.appendChild(moduleTitleDiv);
-                
-                // Lista de Aulas
-                const lessonList = document.createElement('ul');
-                lessonList.classList.add('lesson-list');
-                
-                // Expande o primeiro módulo por padrão
-                if (index === 0) {
-                     lessonList.classList.add('active');
-                }
-
-                module.lessons.forEach(lesson => {
-                    const lessonItem = document.createElement('li');
-                    lessonItem.classList.add('lesson-item');
-                    lessonItem.setAttribute('data-lesson-slug', lesson.slug);
-                    lessonItem.textContent = `${lesson.id}: ${lesson.title}`;
-                    
-                    lessonItem.onclick = () => loadLesson(lesson, module.title);
-                    lessonList.appendChild(lessonItem);
-                });
-                
-                moduleBlock.appendChild(lessonList);
-                container.appendChild(moduleBlock);
-            });
-            
-            // Carrega a primeira aula por padrão
-            if (structure.modules.length > 0 && structure.modules[0].lessons.length > 0) {
-                 loadLesson(structure.modules[0].lessons[0], structure.modules[0].title);
-            }
-        }
-
-        // Função para carregar a estrutura de aulas
-        async function loadPlatform() {
-            // Preenche Header
-            document.getElementById('headerNome').textContent = '👤 ' + (memberData.nome || 'Membro');
-            document.getElementById('headerMentoria').textContent = (currentMentoria ? currentMentoria : 'Acesso Geral');
-
-            if (!currentMentoria) {
-                document.getElementById('modulesContainer').innerHTML = '<p style="padding: 20px; color: var(--primary-gold);">Seu perfil não está vinculado a uma mentoria. Contate o administrador.</p>';
-                return;
-            }
-
-            try {
-                // Busca a estrutura (CRÍTICO: Apenas o JSON público)
-                const res = await fetch('aulas/estrutura.json');
-                const fullStructure = await res.json();
-                
-                mentoriaStructure = fullStructure[currentMentoria];
-
-                if (mentoriaStructure) {
-                    renderModules(mentoriaStructure);
-                } else {
-                    document.getElementById('modulesContainer').innerHTML = `<p style="padding: 20px; color: var(--primary-gold);">Estrutura da mentoria ${currentMentoria} não encontrada.</p>`;
-                }
-
-            } catch (e) {
-                console.error("Erro ao carregar estrutura de aulas:", e);
-                document.getElementById('modulesContainer').innerHTML = '<p style="padding: 20px; color: #ef4444;">Erro de conexão. Verifique o arquivo aulas/estrutura.json.</p>';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', loadPlatform);
-        
+        // Corrigir link de aulas para o correto no momento
+        document.querySelector('.access-card a').href = 'area_membros.html'; 
+        // Nota: O arquivo area_membros_aulas.html será criado na próxima fase (Item 14).
     </script>
 </body>
 </html>

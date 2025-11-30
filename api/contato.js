@@ -1,15 +1,13 @@
 // api/contato.js
-// Vercel Serverless Function para receber e NOTIFICAR sobre novo contato (contato.html)
+// Vercel Serverless Function para receber e NOTIFICAR sobre novo contato
 
 const nodemailer = require('nodemailer');
 
-// -----------------------------------------------------------
 // Configuração SMTP (Lida das Variáveis de Ambiente do Vercel)
-// -----------------------------------------------------------
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT) || 587,
-    secure: (parseInt(process.env.SMTP_PORT) === 465), // true for 465 (Gmail default)
+    secure: (parseInt(process.env.SMTP_PORT) === 465), 
     auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -34,15 +32,12 @@ module.exports = async (req, res) => {
     try {
         const data = req.body;
         
-        // 1. Validação Simples dos Dados (CRÍTICO)
+        // Validação Simples dos Dados
         if (!data || !data.nome || !data.email || !data.mensagem) {
-            return res.status(400).json({ 
-                status: 'falha', 
-                message: 'Por favor, preencha nome, email e mensagem.' 
-            });
+            return res.status(400).json({ status: 'falha', message: 'Por favor, preencha nome, email e mensagem.' });
         }
 
-        // 2. Criação do Conteúdo do E-mail
+        // Criação do Conteúdo do E-mail
         const emailContent = `
             <h3>Nova Mensagem de Contato Recebida</h3>
             <p><strong>De:</strong> ${data.nome}</p>
@@ -51,33 +46,25 @@ module.exports = async (req, res) => {
             <hr>
             <h4>Mensagem:</h4>
             <p>${data.mensagem.replace(/\n/g, '<br>')}</p>
-            <hr>
-            <p><small>Enviado em: ${new Date().toLocaleString('pt-BR')}</small></p>
         `;
 
-        // 3. Envio do E-mail (CRÍTICO)
+        // Envio do E-mail (CRÍTICO)
         const mailOptions = {
             from: process.env.SMTP_USER,
-            to: process.env.DESTINATION_EMAIL, // E-mail de destino (o seu)
-            replyTo: data.email, // Permite responder diretamente ao cliente
+            to: process.env.DESTINATION_EMAIL, 
+            replyTo: data.email, 
             subject: `[CONTATO] ${data.assunto || 'Nova Mensagem'} de ${data.nome}`,
             html: emailContent,
         };
 
         await transporter.sendMail(mailOptions);
         
-        // Log de Confirmação
         console.log(`✅ NOTIFICAÇÃO DE CONTATO ENVIADA: ${data.nome}`);
         
-        // 4. Resposta de Sucesso ao Front-end
-        return res.status(200).json({ 
-            status: 'sucesso', 
-            message: 'Mensagem recebida e notificação enviada com sucesso.'
-        });
+        return res.status(200).json({ status: 'sucesso', message: 'Mensagem recebida e notificação enviada com sucesso.' });
 
     } catch (e) {
         console.error("❌ Erro fatal no processamento do contato/email:", e);
-        // Retorna alerta ao Front-end caso haja falha no SMTP
         return res.status(200).json({ 
              status: 'alerta', 
              message: 'Mensagem recebida, mas houve falha no envio da notificação por e-mail. Verifique os logs da Vercel.' 

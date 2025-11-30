@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ESTILOS ORIGINAIS MANTIDOS NA ÍNTEGRA (Item 11) */
+        /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
         * {
             margin: 0;
             padding: 0;
@@ -29,7 +29,6 @@
             
             --section-spacing: 6rem;
             --container-padding: 2rem;
-            --header-spacing: 4rem;
         }
 
         body {
@@ -55,6 +54,7 @@
             height: 100%;
             z-index: 1;
             pointer-events: none;
+            opacity: 0.6;
         }
 
         .particle {
@@ -72,7 +72,7 @@
             75% { transform: translateY(-20px) translateX(5px); }
         }
 
-        /* Header */
+        /* Header (FIDELIDADE RESTAURADA) */
         header {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
@@ -196,13 +196,13 @@
         }
 
         .quiz-card h3 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: var(--primary-gold);
             margin-bottom: 25px;
             text-align: center;
         }
 
-        /* Questões */
+        /* Questões (SIMETRIA RESTAURADA) */
         .question-group {
             margin-bottom: 30px;
             padding: 20px;
@@ -243,7 +243,7 @@
             background: rgba(59, 130, 246, 0.1);
         }
 
-        /* Progress */
+        /* Progress Bar (SIMETRIA RESTAURADA) */
         .progress-bar-container {
             margin-bottom: 20px;
             padding: 10px;
@@ -347,7 +347,9 @@
     <main>
         <div class="container">
             <h1 class="hero-title">Diagnóstico PEAD</h1>
-            <p class="hero-subtitle">Descubra seu perfil de propósito e chamado, baseado nos pilares de **P**aulo, **E**lias, **A**braão e **D**avi.</p>
+            <p class="hero-subtitle">
+                Descubra seu perfil de propósito e chamado, baseado nos pilares de **P**aulo, **E**lias, **A**braão e **D**avi.
+            </p>
             
             <div class="quiz-card">
                 <h3>Responda as perguntas</h3>
@@ -407,32 +409,34 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Instituto Tanigawa. Todos os direitos reservados.</p>
+        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
     </footer>
 
     <script>
-        // Mapeamento dos perfis
+        
+        // Mapeamento dos perfis para redirecionamento
         const profiles = {
-            p: { name: "Paulo (O Apóstolo)", description: "Seu chamado é o de Mestre e Mentor, focado em doutrina, expansão e estruturação de propósitos.", mentoria: "SYNESIS" },
-            e: { name: "Elias (O Profeta)", description: "Seu chamado é Profético, focado em santidade, confronto de sistemas e restauração da justiça.", mentoria: "LEV" },
-            a: { name: "Abraão (O Patriarca)", description: "Seu chamado é de Pioneiro, focado em fé, empreendedorismo e caminhar em promessas incertas.", mentoria: "SYNESIS" },
-            d: { name: "Davi (O Rei/Adorador)", description: "Seu chamado é de Adorador e Restaurador, focado em cura emocional, quebrantamento e a expressão artística da fé.", mentoria: "LEV" }
+            p: { name: "Paulo (O Apóstolo)", mentoria: "SYNESIS" },
+            e: { name: "Elias (O Profeta)", mentoria: "LEV" },
+            a: { name: "Abraão (O Patriarca)", mentoria: "SYNESIS" },
+            d: { name: "Davi (O Rei/Adorador)", mentoria: "LEV" }
         };
         const totalQuestions = 5;
         const submitBtn = document.getElementById('submitBtn');
-        
-        // Função unificada de Logout (mantida para a nav bar)
+
+        // Função unificada de Logout (necessária para o header dinâmico)
         function logout() {
             sessionStorage.clear();
             window.location.href = 'auth_system.html'; 
         }
 
-        // Função para atualizar o menu de autenticação
+        // Função para atualizar o menu de autenticação (Item 13)
         function updateNavBar() {
             const navAuth = document.getElementById('navAuth');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
             const userType = sessionStorage.getItem('userType');
             
+            if (!navAuth) return; 
             navAuth.innerHTML = ''; 
             
             if (isLoggedIn) {
@@ -440,22 +444,18 @@
                 let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
                 navAuth.innerHTML = `
-                    <li style="margin-left: 15px;">
+                    <div style="margin-left: 20px;">
                         <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
                             ${linkText}
                         </a>
-                    </li>
-                    <li style="margin-left: 15px;">
                         <button class="logout-link" onclick="logout()">Sair</button>
-                    </li>
+                    </div>
                 `;
             } else {
                 navAuth.innerHTML = `
-                    <li style="margin-left: 15px;">
-                        <a href="auth_system.html" class="login-btn">
-                            Entrar
-                        </a>
-                    </li>
+                    <a href="auth_system.html" class="login-btn">
+                        Entrar
+                    </a>
                 `;
             }
         }
@@ -519,6 +519,7 @@
                 email: document.getElementById('email').value
             };
             
+            // Objeto final para API e Redirecionamento
             const finalData = {
                 'form-name': 'diagnostico-pead',
                 ...personalData,
@@ -529,14 +530,14 @@
             
             // 3. Envio para a API (Vercel Serverless Function)
             try {
-                // Chamada para um endpoint API do Vercel (Você precisará criar a Serverless Function em /api/diagnostico)
+                // ALTERAÇÃO CRÍTICA: Chamada para o endpoint /api/diagnostico (Item 9)
                 const response = await fetch('/api/diagnostico', { 
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(finalData)
                 });
 
-                if (response.ok || response.status === 404) {
+                if (response.status === 200) {
                     // Sucesso: Redirecionar para a página da mentoria recomendada
                     const redirects = {
                         SYNESIS: 'mentoria.html#espiritual',
@@ -549,16 +550,18 @@
                 }
                 
             } catch (error) {
-                alert('Erro ao enviar diagnóstico. Por favor, tente novamente.');
+                alert('❌ Erro ao enviar diagnóstico. Por favor, tente novamente.');
                 console.error(error);
+            } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = 'Continuar → Descobrir meu perfil';
             }
         });
 
-        // Inicializar Partículas
+        // Inicializar Partículas (Restaurado)
         function createParticles() {
             const container = document.getElementById('particles');
+            if (!container) return;
             const particleCount = 50;
 
             for (let i = 0; i < particleCount; i++) {
@@ -586,6 +589,7 @@
             // Inicializa o progresso no carregamento
             updateProgress();
         });
+        
     </script>
 </body>
 </html>
