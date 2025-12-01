@@ -6,9 +6,7 @@
     <title>Mentorias - Instituto Tanigawa</title>
     <meta name="description" content="Conheça nossas mentorias: Espiritual, LEV e Psicoterapia TCC. Transformação espiritual, cura emocional e desenvolvimento pessoal.">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
@@ -18,6 +16,7 @@
             box-sizing: border-box;
         }
 
+        /* RESTAURADO: Paleta de cores original */
         :root {
             --primary-blue: #3b82f6;
             --primary-gold: #f59e0b;
@@ -29,7 +28,6 @@
             /* Sistema de Espaçamento Simétrico */
             --section-spacing: 6rem;
             --container-padding: 2rem;
-            --header-spacing: 4rem;
         }
 
         body {
@@ -40,8 +38,10 @@
             overflow-x: hidden;
         }
 
+        /* CORREÇÃO ESTÉTICA: Títulos usam Inter, font-weight 700 */
         h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
             line-height: 1.3;
         }
 
@@ -105,7 +105,8 @@
             font-size: 1.1rem;
             font-weight: 800;
             color: var(--dark-bg);
-            font-family: 'Playfair Display', serif;
+            /* Font de impacto forçada aqui, mas mantendo a cor */
+            font-family: 'Inter', sans-serif; 
         }
 
         .logo span {

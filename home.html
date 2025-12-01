@@ -5,43 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Instituto Tanigawa - Home</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <style>
-        /* RESTAURAÇÃO: Todas as variáveis de cor e espaçamento são mantidas */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-blue: #3b82f6;
-            --primary-gold: #f59e0b;
-            --dark-bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --text-light: #f8fafc;
-            --text-gray: #94a3b8;
-            --section-spacing: 6rem;
-        }
-
         body {
             font-family: 'Inter', sans-serif; /* FIDELIDADE: Inter é a fonte base */
             background: linear-gradient(135deg, #0a0f2d 0%, #1b1038 50%, #0f0a26 100%);
-            color: var(--text-light);
+            color: #f8fafc;
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.6; /* Restaurado do original */
         }
 
-        /* CORREÇÃO: Removida a aplicação de Playfair Display em h1, h2, h3 */
-        h1, h2, h3 {
-            font-family: 'Inter', sans-serif; /* Agora herda ou usa Inter */
-            font-weight: 700;
-        }
-
-        /* HEADER (FIDELIDADE RESTAURADA) */
+        /* RESTAURADO: Header (Item 11) */
         header {
             position: fixed;
             width: 100%;
@@ -58,252 +39,180 @@
         .logo {
             font-size: 1.4rem;
             font-weight: 700;
-            color: var(--primary-gold);
-            text-decoration: none;
-        }
-        
-        nav {
-            display: flex;
-            /* CORREÇÃO: Removido 'gap' e restaurado 'margin' nos links (Revisão 2) */
-            align-items: center;
+            letter-spacing: 0.1em; /* RESTAURADO */
+            color: #a5b4fc; /* RESTAURADO */
         }
 
+        nav ul {
+            display: flex;
+            /* RESTAURADO: Removido 'gap' */
+            list-style: none;
+            padding: 0; /* Adicionado para garantir simetria */
+        }
+        
+        /* RESTAURADO: Estilo dos links (margin-left) */
         nav a {
-            color: var(--text-light);
             text-decoration: none;
+            color: #e2e8f0;
             font-weight: 500;
-            transition: color 0.3s;
-            margin-left: 30px; /* RESTAURADO: Espaçamento original do menu */
+            transition: 0.2s;
+        }
+        
+        nav ul li {
+            /* Simula o gap com margin-left, mantendo fidelidade */
+            margin-left: 32px; 
         }
 
         nav a:hover {
-            color: var(--primary-gold);
-        }
-        
-        .login-btn {
-            background-color: var(--primary-blue);
-            padding: 8px 15px; 
-            border-radius: 6px; 
-            font-size: 1rem;
-            font-weight: 500;
+            color: #818cf8;
         }
 
-        /* Hero Section (SIMETRIA RESTAURADA) */
-        .hero-section {
+        /* MENU MOBILE (Restaurado) */
+        .mobile-menu {
+            display: none;
+            cursor: pointer;
+            font-size: 2rem;
+        }
+
+        @media (max-width: 820px) {
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -300px;
+                width: 250px;
+                height: 100vh;
+                background: #0a0f2d;
+                flex-direction: column;
+                padding-top: 80px;
+                transition: 0.4s ease;
+            }
+            nav ul.active {
+                right: 0;
+            }
+            .mobile-menu {
+                display: block;
+            }
+        }
+
+
+        /* SEÇÃO HERO ORIGINAL (RESTABELECIDO) */
+        .hero {
             height: 100vh;
+            padding: 100px 40px 40px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
             text-align: center;
-            padding: 0 5%;
-            position: relative;
-        }
-
-        .hero-content {
-            position: relative;
             z-index: 2;
-            max-width: 900px;
+            position: relative;
         }
 
-        .hero-title {
-            font-size: 4rem;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            color: var(--primary-blue);
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--text-gray);
-            margin-bottom: 40px;
-        }
-
-        .cta-btn {
-            background-color: var(--primary-gold);
-            color: var(--dark-bg);
-            padding: 15px 35px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 1.2rem;
+        .hero h1 {
+            font-size: 2.4rem;
             font-weight: 700;
-            transition: background-color 0.3s;
+            margin-bottom: 14px;
+            color: #cbd5ff; /* RESTAURADO */
         }
 
+        .hero p {
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin: 10px auto 0;
+            color: #dbeafe; /* RESTAURADO */
+        }
+
+        /* BOTÃO ORIGINAL (RESTABELECIDO) */
+        .cta-btn {
+            margin-top: 26px;
+            padding: 14px 34px;
+            border-radius: 6px;
+            background-color: #6366f1; /* RESTAURADO */
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.25s;
+            display: inline-block; /* Garantir que fique centralizado */
+        }
         .cta-btn:hover {
-            background-color: #d9900a;
+            background-color: #818cf8;
         }
 
-        /* Particles Background (Canvas) */
-        #particles-canvas {
-            position: absolute;
+        /* PARTÍCULAS (Restaurado) */
+        #particles {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.1;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
             z-index: 1;
         }
         
-        /* General Sections */
-        .section {
-            padding: var(--section-spacing) 10%;
-            text-align: center;
+        /* Estilo para Login Dinâmico (Mínima Injeção) */
+        .login-btn-dynamic {
+            /* Estilo do botão original */
+            padding: 8px 15px; 
+            border-radius: 6px; 
+            background-color: #6366f1;
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            margin-left: 32px; /* Mantém o espaçamento da lista */
+            transition: 0.25s;
+            display: inline-block;
         }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary-gold);
+        .login-btn-dynamic:hover {
+            background-color: #818cf8;
         }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: left;
-            border-top: 3px solid var(--primary-blue);
-            transition: transform 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card h3 {
-            color: var(--primary-blue);
-            margin-bottom: 10px;
-        }
-        
-        .newsletter-section {
-            background-color: var(--card-bg);
-            padding: 50px 10%;
-            text-align: center;
-            margin-top: var(--section-spacing);
-        }
-
-        .newsletter-form input {
-            padding: 12px;
-            border-radius: 5px;
-            border: 1px solid var(--text-gray);
-            background: #1e293b;
-            color: var(--text-light);
-            margin-right: 10px;
-        }
-
-        .newsletter-form button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            background-color: var(--primary-blue);
-            color: #fff;
+        .logout-link {
+            color: #e2e8f0;
+            text-decoration: underline;
+            margin-left: 20px;
             cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        /* Footer */
-        footer {
-            background: #070712;
-            padding: 30px 10%;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: none;
+            border: none;
+            font-size: 1rem;
         }
         
-        /* Responsive */
-        @media (max-width: 900px) {
-            .hero-title {
-                font-size: 3rem;
-            }
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-            header {
-                padding: 15px 20px;
-            }
-        }
     </style>
 </head>
+
 <body>
-    <canvas id="particles-canvas"></canvas>
-    
+
+    <canvas id="particles"></canvas>
+
     <header>
-        <a href="home.html" class="logo">INSTITUTO TANIGAWA</a>
-        <nav id="mainNav">
-            <a href="sobre.html">Sobre</a>
-            <a href="mentoria.html">Mentorias</a>
-            <a href="devocionais.html">Devocionais</a>
-            <a href="contato.html">Contato</a>
-            <div id="navAuth">
-                 <a href="auth_system.html" class="cta-btn login-btn">Área de Membros</a>
-            </div>
+        <div class="logo">INSTITUTO TANIGAWA</div>
+
+        <div class="mobile-menu" id="mobileMenu">☰</div>
+
+        <nav>
+            <ul id="navList">
+                <li><a href="home.html">Início</a></li>
+                <li><a href="mentoria.html">Mentorias</a></li>
+                <li><a href="diagnostico-tanigawa-pead.html">Diagnóstico</a></li>
+                <li><a href="devocionais.html">Devocionais</a></li>
+                <li><a href="nr-1.html">NR-1</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+
+                <li id="authLink">
+                    <a href="auth_system.html" style="color:#a5b4fc;font-weight:600;">Login</a>
+                </li>
+            </ul>
         </nav>
     </header>
 
-    <main>
-        <section id="home" class="hero-section">
-            <div class="hero-content">
-                <h1 class="hero-title">Onde a Estratégia Encontra o Espírito.</h1>
-                <p class="hero-subtitle">
-                    Transformação profunda para pastores, líderes, empresários e famílias.
-                </p>
-                <a href="diagnostico-tanigawa-pead.html" class="cta-btn">Faça seu Diagnóstico PEAD →</a>
-            </div>
-        </section>
+    <section class="hero">
+        <h1>Transformando vidas, líderes e empresas</h1>
+        <p>Desenvolvimento espiritual, inteligência emocional, mentorias direcionadas e soluções profundas para líderes,
+            igrejas, empresas e famílias.</p>
 
-        <section id="mentorias" class="section">
-            <h2 class="section-title">Mentorias de Propósito e Cura</h2>
-            <p style="color: var(--text-gray); margin-bottom: 50px;">
-                Caminhos para alinhar sua vida espiritual, emocional e profissional.
-            </p>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Mentoria Espiritual (SYNESIS)</h3>
-                    <p>Desenvolvimento da vocação e propósito, forjando líderes de alto impacto no Reino.</p>
-                </div>
-                <div class="card">
-                    <h3>Mentoria Cura Emocional (LEV)</h3>
-                    <p>Processo de cura profunda de traumas e feridas, baseado em TCC e princípios bíblicos.</p>
-                </div>
-                <div class="card">
-                    <h3>Consultoria NR-1</h3>
-                    <p>Solução para a conformidade legal em riscos psicossociais no ambiente de trabalho.</p>
-                </div>
-            </div>
-            <a href="mentoria.html" class="cta-btn" style="margin-top: 50px; background-color: var(--primary-blue);">Conheça Todas as Mentorias</a>
-        </section>
-
-        <section id="sobre" class="section" style="background-color: #1e293b;">
-            <h2 class="section-title" style="color: var(--text-light);">Nossa História</h2>
-            <p style="color: var(--text-gray); margin: 0 auto; max-width: 800px;">
-                Há mais de 15 anos, o Instituto Tanigawa tem sido um farol para líderes e famílias, unindo a sabedoria bíblica com ferramentas de gestão e psicologia. Nossa missão é forjar líderes completos, prontos para Governar em suas áreas de influência.
-            </p>
-            <a href="sobre.html" class="cta-btn" style="margin-top: 30px; background-color: var(--primary-blue);">Saiba Mais →</a>
-        </section>
-
-        <section id="contato" class="newsletter-section">
-            <h2 class="section-title" style="margin-bottom: 20px;">Receba Nossas Reflexões</h2>
-            <p style="color: var(--text-gray); margin-bottom: 30px;">
-                Assine a newsletter e receba devocionais e análises semanais.
-            </p>
-            <form id="newsletterForm" class="newsletter-form">
-                <input type="email" name="email" placeholder="Seu melhor e-mail" required>
-                <button type="submit">Assinar</button>
-            </form>
-        </section>
-    </main>
-
-    <footer>
-        <p>Desenvolvido pelo Instituto Tanigawa. &copy; 2026. Todos os direitos reservados.</p>
-    </footer>
+        <a href="mentoria.html" class="cta-btn">Conhecer Mentorias</a>
+    </section>
 
     <script>
-        // Função unificada de Logout (necessária para o header dinâmico)
+        // Função unificada de Logout
         function logout() {
             sessionStorage.clear();
             window.location.href = 'auth_system.html'; 
@@ -311,45 +220,58 @@
 
         // Função para atualizar o menu de autenticação (Item 13)
         function updateNavBar() {
-            const navAuth = document.getElementById('navAuth');
+            const authLink = document.getElementById('authLink');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
             const userType = sessionStorage.getItem('userType');
             
-            navAuth.innerHTML = ''; 
+            if (!authLink) return; 
+            
+            authLink.innerHTML = ''; 
             
             if (isLoggedIn) {
                 let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
                 let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
-                navAuth.innerHTML = `
-                    <div style="margin-left: 20px;">
-                        <a href="${linkTarget}" class="cta-btn login-btn" style="background-color: var(--primary-blue); color: #fff; margin-right: 10px;">
-                            ${linkText}
-                        </a>
-                        <button class="logout-btn" onclick="logout()" style="background: none; color: var(--text-gray); border: none; cursor: pointer;">Sair</button>
-                    </div>
-                `;
-            } else {
-                navAuth.innerHTML = `
-                    <a href="auth_system.html" class="cta-btn login-btn">
-                        Área de Membros
+                // CRÍTICO: Mantém o estilo original do link estático, mas injeta o link dinâmico
+                authLink.innerHTML = `
+                    <a href="${linkTarget}" class="login-btn-dynamic">
+                        ${linkText}
                     </a>
+                    <button class="logout-link" onclick="logout()">Sair</button>
                 `;
+                 // Remove o margin-left do li para o elemento ser tratado como um bloco único
+                 authLink.style.marginLeft = '0'; 
+
+            } else {
+                // RESTAURADO: Link estático original (Login)
+                authLink.innerHTML = `
+                    <a href="auth_system.html" style="color:#a5b4fc;font-weight:600;">Login</a>
+                `;
+                 authLink.style.marginLeft = '32px'; 
             }
         }
-        
-        // --- Scripts do Background Particle Network (Restaurado) ---
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
 
-        function setCanvasDimensions() {
+
+        // MENU MOBILE
+        const navList = document.getElementById("navList");
+        const mobileMenu = document.getElementById("mobileMenu");
+
+        mobileMenu.addEventListener("click", () => {
+            navList.classList.toggle("active");
+        });
+
+        // PARTÍCULAS
+        const canvas = document.getElementById("particles");
+        const ctx = canvas.getContext("2d");
+
+        function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            createParticles();
         }
-        window.addEventListener('resize', setCanvasDimensions);
-        setCanvasDimensions();
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
+
+        let particles = [];
 
         function createParticles() {
             particles = [];
@@ -363,6 +285,7 @@
                 });
             }
         }
+        createParticles();
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -384,62 +307,22 @@
         }
         animateParticles();
 
-        // SCROLL SUAVE
+        // SCROLL SUAVE (restaurado)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener("click", function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute("href"));
                 if (target) {
-                    // Ajuste para o header fixo
-                    const offset = document.querySelector('header').offsetHeight; 
-                    window.scrollTo({
-                        top: target.offsetTop - offset,
-                        behavior: "smooth"
-                    });
+                    target.scrollIntoView({ behavior: "smooth" });
                 }
             });
         });
         
-        // Newsletter Form (CRÍTICO: Chamada para a nova API Serverless - Item 9)
-        document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const submitBtn = this.querySelector('button');
-            submitBtn.disabled = true;
-            submitBtn.textContent = '⏳ Assinando...';
-
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData.entries());
-
-            // ALTERAÇÃO CRÍTICA: Chamada para /api/newsletter
-            fetch('/api/newsletter', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === 'sucesso') {
-                    alert('✅ Inscrição realizada com sucesso! Verifique seu email.');
-                    this.reset();
-                } else {
-                    alert('❌ Erro ao inscrever. Tente novamente.');
-                }
-            })
-            .catch((error) => {
-                alert('❌ Erro de rede. Tente novamente.');
-                console.error('Erro:', error);
-            })
-            .finally(() => {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Assinar';
-            });
-        });
-        
-        // Inicializa a navegação dinâmica e as partículas
+        // Inicialização
         document.addEventListener('DOMContentLoaded', function() {
             updateNavBar();
         });
     </script>
+
 </body>
 </html>
