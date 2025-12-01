@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área Restrita - Instituto Tanigawa</title>
-    <meta name="description" content="Acesso exclusivo para membros e administradores do Instituto Tanigawa">
+    <meta name="description" content="Acesso exclusivo para membros e administradores.">
     
     <!-- Fontes do Design System (Sora para Títulos, Inter para Corpo) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,8 +14,8 @@
     <!-- FIREBASE AUTHENTICATION E FIRESTORE IMPORTS CRÍTICOS -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         
         // Variáveis globais do Canvas (CRÍTICO para a inicialização)
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
@@ -23,15 +23,17 @@
         
         // 1. Inicializa Firebase
         const app = initializeApp(firebaseConfig);
-        window.auth = getAuth(app); // Torna o Auth globalmente acessível
-        window.db = getFirestore(app); // Torna o DB globalmente acessível
+        window.auth = getAuth(app); 
+        window.db = getFirestore(app);
         window.appId = appId;
-        
-        // O restante do código JS será executado fora deste módulo para melhor compatibilidade.
+
+        // CRÍTICO: Exporta os helpers para evitar ReferenceError (SDK Modular)
+        window.authHelpers = { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, onAuthStateChanged, signOut };
+        window.firestoreHelpers = { doc, getDoc, collection };
     </script>
 
     <style>
-        /* VARIÁVEIS DO DESIGN SYSTEM (COMPLETO) */
+        /* [CÓDIGO CSS COMPLETO DO DESIGN SYSTEM INALTERADO] */
         :root {
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -45,7 +47,6 @@
             --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
         }
 
-        /* CONVERSÃO ESTÉTICA COMPLETA */
         * {
             margin: 0;
             padding: 0;
@@ -64,7 +65,6 @@
             position: relative;
         }
 
-        /* 🌊 EFEITO 1: BACKGROUND ANIMADO EM CAMADAS (Fidelidade Estética) */
         body::before {
             content: '';
             position: fixed;
@@ -85,7 +85,6 @@
             50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        /* CARD DE LOGIN (Glassmorphism e Layout) */
         .glass-card {
             width: 420px;
             max-width: 90%;
@@ -117,7 +116,6 @@
             font-size: 1.05rem;
         }
 
-        /* FORMULÁRIO */
         .form-group {
             margin-bottom: 1.5rem;
         }
@@ -146,7 +144,6 @@
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
         }
 
-        /* Botão Principal */
         .login-btn-submit {
             width: 100%;
             padding: 1.2rem;
@@ -172,7 +169,6 @@
             box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
         }
 
-        /* Mensagens de Status (Erros e Sucesso) */
         #errorBox {
             background: var(--danger);
             padding: 1rem;
@@ -256,7 +252,9 @@
     </div>
     
     <script>
-        // Função de utilidade para mostrar mensagens
+        // CRÍTICO: Constantes para Firestore
+        const ADMINS_COLLECTION = 'admins';
+        
         function showMessage(msg, isSuccess = true) {
             const box = isSuccess ? document.getElementById('successBox') : document.getElementById('errorBox');
             const otherBox = isSuccess ? document.getElementById('errorBox') : document.getElementById('successBox');
@@ -268,7 +266,6 @@
             setTimeout(() => { box.style.display = 'none'; }, 5000);
         }
 
-        // Estado do formulário (Login vs. Cadastro)
         let isLoginMode = true;
         const submitBtn = document.getElementById('submitBtn');
         const toggleBtn = document.getElementById('toggleAuthBtn');
@@ -287,20 +284,18 @@
             document.getElementById('successBox').style.display = 'none';
         }
         
-        // 🛑 CRÍTICO: NOVA FUNÇÃO DE CHECAGEM DE ADMIN VIA FIRESTORE (Escalável)
-        const ADMINS_COLLECTION = 'admins';
-        
+        // CRÍTICO: Checagem de Admin via Firestore (com helpers)
         async function checkAdmin(uid) {
-            if (!window.db || !uid) return { type: 'member', nome: 'Membro' };
+            // Verifica se a dependência do Firestore está pronta
+            if (!window.db || !window.firestoreHelpers || !uid) return { type: 'member', nome: 'Membro' };
             
-            // Caminho para a coleção pública de admins (definido no admin_dashboard.html)
-            const adminDocRef = firebase.firestore.doc(
-                window.db, 
-                `artifacts/${window.appId}/public/data/${ADMINS_COLLECTION}/${uid}`
+            const adminDocRef = window.firestoreHelpers.doc(
+                window.firestoreHelpers.collection(window.db, `artifacts/${window.appId}/public/data/${ADMINS_COLLECTION}`),
+                uid
             );
 
             try {
-                const adminDoc = await firebase.firestore.getDoc(adminDocRef);
+                const adminDoc = await window.firestoreHelpers.getDoc(adminDocRef);
 
                 if (adminDoc.exists()) {
                     const data = adminDoc.data();
@@ -308,59 +303,37 @@
                 }
             } catch (e) {
                 console.error("Erro ao verificar admin no Firestore:", e);
-                // Falha segura: Se houver erro de conexão, trata como membro
             }
-            
-            // Padrão: Membro comum
             return { type: 'member', nome: 'Membro' }; 
         }
         
         // ------------------------------------------------------------------
-        // HANDLERS PRINCIPAIS (Login, Cadastro, Recuperação)
+        // HANDLERS PRINCIPAIS
         // ------------------------------------------------------------------
         
-        document.getElementById('authForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '⏳ Processando...';
+        // CRÍTICO: Form Listener movido para startAuthSystem()
+        let formListenerAttached = false;
 
-            if (isLoginMode) {
-                handleLogin(email, password);
-            } else {
-                handleSignup(email, password);
-            }
-        });
-        
         async function handleLogin(email, password) {
             try {
-                // 1. Tenta logar com Firebase Auth
-                const userCredential = await firebase.auth.signInWithEmailAndPassword(email, password);
+                const userCredential = await window.authHelpers.signInWithEmailAndPassword(window.auth, email, password);
                 const user = userCredential.user;
                 
-                // 2. Verifica o nível de acesso (Admin vs Membro)
                 const userData = await checkAdmin(user.uid);
                 
-                // 3. Salva a sessão no sessionStorage
                 sessionStorage.setItem("userType", userData.type);
                 sessionStorage.setItem("userName", userData.nome || user.email.split('@')[0]);
                 sessionStorage.setItem("userEmail", user.email);
                 
-                // 4. Redireciona
                 if (userData.type === "admin") {
-                    window.location.href = "admin_dashboard.html";
+                    window.location.replace("admin_dashboard.html");
                 } else {
-                    window.location.href = "area_membros.html";
+                    window.location.replace("area_membros.html");
                 }
 
             } catch (error) {
                 console.error("Erro de Login:", error);
-                let msg = "Credenciais inválidas. Verifique seu email e senha.";
-                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-                    msg = "Email ou senha inválidos. Tente novamente.";
-                }
+                let msg = "Email ou senha inválidos. Tente novamente.";
                 showMessage(msg, false);
             } finally {
                 submitBtn.disabled = false;
@@ -377,14 +350,12 @@
             }
             
             try {
-                // 1. Tenta criar o novo usuário
-                const userCredential = await firebase.auth.createUserWithEmailAndPassword(email, password);
+                const userCredential = await window.authHelpers.createUserWithEmailAndPassword(window.auth, email, password);
                 const user = userCredential.user;
                 
-                // 2. NOVO CADASTRO É SEMPRE MEMBRO. Não precisa checar Firestore aqui.
+                // Cadastro é sempre tipo 'member'
                 const userData = { type: 'member', nome: user.email.split('@')[0] };
                 
-                // 3. Salva a sessão
                 sessionStorage.setItem("userType", userData.type);
                 sessionStorage.setItem("userName", userData.nome);
                 sessionStorage.setItem("userEmail", user.email);
@@ -392,7 +363,7 @@
                 showMessage("✅ Cadastro realizado com sucesso! Redirecionando para a área de membros...", true);
                 
                 setTimeout(() => {
-                    window.location.href = "area_membros.html";
+                    window.location.replace("area_membros.html");
                 }, 1500);
 
             } catch (error) {
@@ -408,7 +379,7 @@
             }
         }
         
-        // 🛑 CRÍTICO: RECUPERAÇÃO DE SENHA 
+        // CRÍTICO: RECUPERAÇÃO DE SENHA 
         window.handleResetPassword = async function() {
             const email = document.getElementById('email').value;
             
@@ -420,14 +391,8 @@
             showMessage("⏳ Enviando link de recuperação...", true);
             
             try {
-                // Verifica se a variável auth está disponível globalmente através do módulo
-                const authInstance = window.auth || firebase.auth; 
-                if (authInstance) {
-                    await firebase.auth.sendPasswordResetEmail(authInstance, email);
-                    showMessage(`✅ Um link de recuperação foi enviado para ${email}. Verifique sua caixa de entrada e spam.`, true);
-                } else {
-                     showMessage("Erro: Serviço de autenticação não inicializado.", false);
-                }
+                await window.authHelpers.sendPasswordResetEmail(window.auth, email);
+                showMessage(`✅ Um link de recuperação foi enviado para ${email}. Verifique sua caixa de entrada e spam.`, true);
             } catch (error) {
                 console.error("Erro ao enviar reset:", error);
                 showMessage("❌ Erro ao tentar recuperar. Email não encontrado ou erro de conexão.", false);
@@ -435,27 +400,62 @@
         }
         
         // ------------------------------------------------------------------
-        // INICIALIZAÇÃO
+        // INICIALIZAÇÃO ROBUSTA (Corrigindo o race condition)
         // ------------------------------------------------------------------
         
-        // Verifica se já está logado
-        onAuthStateChanged(window.auth, async (user) => {
-            if (user) {
-                // 1. Já logado com Firebase Auth. Agora checa o Firestore para definir o TIPO.
-                const userData = await checkAdmin(user.uid);
-                
-                // 2. Salva a sessão (atualizando nome/tipo)
-                sessionStorage.setItem("userType", userData.type);
-                sessionStorage.setItem("userName", userData.nome || user.email.split('@')[0]);
-                sessionStorage.setItem("userEmail", user.email);
-
-                // 3. Redireciona
-                if (userData.type === "admin") {
-                    window.location.replace("admin_dashboard.html");
-                } else {
-                    window.location.replace("area_membros.html");
-                }
+        // 🛑 NOVO FLUXO: Aguarda até que as variáveis globais do módulo estejam prontas
+        function waitForFirebaseReady(callback) {
+            if (window.auth && window.db && window.authHelpers) {
+                callback();
+            } else {
+                setTimeout(() => waitForFirebaseReady(callback), 100);
             }
+        }
+        
+        function startAuthSystem() {
+            // 1. Verifica se o usuário já está logado
+            window.authHelpers.onAuthStateChanged(window.auth, async (user) => {
+                if (user) {
+                    const userData = await checkAdmin(user.uid);
+                    
+                    // Salva a sessão (atualizando nome/tipo)
+                    sessionStorage.setItem("userType", userData.type);
+                    sessionStorage.setItem("userName", userData.nome || user.email.split('@')[0]);
+                    sessionStorage.setItem("userEmail", user.email);
+
+                    // Redireciona
+                    if (userData.type === "admin") {
+                        window.location.replace("admin_dashboard.html");
+                    } else {
+                        window.location.replace("area_membros.html");
+                    }
+                }
+            });
+            
+            // 2. Anexa o Listener do Formulário (apenas uma vez)
+            if (!formListenerAttached) {
+                document.getElementById('authForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // O código do handler é executado aqui
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                    
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '⏳ Processando...';
+
+                    if (isLoginMode) {
+                        handleLogin(email, password);
+                    } else {
+                        handleSignup(email, password);
+                    }
+                });
+                formListenerAttached = true;
+            }
+        }
+
+        // Inicia o processo de espera após o DOM carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            waitForFirebaseReady(startAuthSystem);
         });
         
     </script>
