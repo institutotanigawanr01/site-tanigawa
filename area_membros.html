@@ -4,34 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área de Membros - Instituto Tanigawa</title>
-    <meta name="description" content="Área exclusiva para membros do Instituto Tanigawa. Acesse suas mentorias, vídeo aulas e conteúdos exclusivos.">
-    
-    <!-- Fontes do Design System (Sora para Títulos, Inter para Corpo) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="description" content="Área de membros do Instituto Tanigawa, com visão da jornada, mentorias e acessos rápidos.">
+
+    <!-- Fontes do Design System -->
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- FIREBASE IMPORTS CRÍTICOS (Autenticação) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        
-        // Variáveis globais do Canvas (CRÍTICO para a inicialização)
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        const app = initializeApp(firebaseConfig);
-        window.auth = getAuth(app); 
-        
-        // O restante do código JS será executado fora deste módulo
-    </script>
-    
+
     <style>
-        /* VARIÁVEIS DO DESIGN SYSTEM (COMPLETO) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         :root {
+            /* Gradientes */
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
             
+            /* Cores */
             --color-dark: #0a0e27;
             --color-darker: #060919;
             --color-card: rgba(255, 255, 255, 0.03);
@@ -39,17 +31,11 @@
             --color-text: #ffffff;
             --color-text-muted: #a0aec0;
             --color-accent: #667eea;
-            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
+            --color-accent-secondary: #f5576c;
             
-            --section-padding: 3rem;
-            --container-max-width: 1400px;
-        }
-
-        /* CONVERSÃO ESTÉTICA COMPLETA */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            /* Sombras */
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         body {
@@ -60,28 +46,40 @@
             overflow-x: hidden;
             position: relative;
             min-height: 100vh;
-            padding-top: 80px; /* Espaço para o header fixo */
         }
-        
-        /* 🌊 EFEITOS VISUAIS DE FUNDO (Fidelidade Estética) */
+
+        /* Background animado */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: 
                 radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%);
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
             z-index: 0;
             animation: backgroundShift 20s ease infinite;
-            pointer-events: none;
         }
 
         @keyframes backgroundShift {
             0%, 100% { opacity: 1; transform: scale(1); }
             50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
         .floating-particle {
@@ -101,8 +99,8 @@
             50% { transform: translateY(-60px) translateX(-20px); }
             75% { transform: translateY(-30px) translateX(10px); }
         }
-        
-        /* HEADER (Simplificado para área interna) */
+
+        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -112,185 +110,445 @@
             background: rgba(10, 14, 39, 0.8);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 1rem 2rem;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
             font-family: 'Sora', sans-serif;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo span {
             font-size: 1.1rem;
             font-weight: 700;
+            font-family: 'Sora', sans-serif;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-decoration: none;
         }
 
-        .user-header {
+        .nav-links {
+            list-style: none;
             display: flex;
+            gap: 2rem;
             align-items: center;
-            gap: 1rem;
         }
-        
-        .user-header span {
+
+        .nav-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-text);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0%;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .login-btn {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            padding-top: 110px;
+            min-height: calc(100vh - 160px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3.5rem 2rem 3rem;
+        }
+
+        /* Área de membros layout */
+        .member-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+            align-items: flex-start;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .member-title-block {
+            max-width: 700px;
+        }
+
+        .member-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            color: #e5e7eb;
+            margin-bottom: 0.6rem;
+        }
+
+        .member-title-block h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #c4d0ff 40%, #a5b4fc 65%, #f9a8d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-title-block p {
             font-size: 0.95rem;
             color: var(--color-text-muted);
         }
 
-        .logout-btn {
-            background: var(--gradient-secondary);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(245, 87, 108, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.5);
-        }
-        
-        /* DASHBOARD LAYOUT */
-        main {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            max-width: var(--container-max-width);
-            margin: 0 auto;
-            padding: var(--section-padding) 2rem;
-            gap: 2rem;
-        }
-        
-        .sidebar {
-            width: 300px;
-            min-width: 250px;
-            padding: 1.5rem;
-            background: var(--color-card);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            height: fit-content;
-        }
-
-        .content-area {
-            flex-grow: 1;
-        }
-        
-        .welcome-box {
-            background: var(--gradient-primary);
-            padding: 2rem;
-            border-radius: 16px;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
-            color: white;
-        }
-        
-        .welcome-box h2 {
-            font-family: 'Sora', sans-serif;
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-        }
-        
-        .welcome-box p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        /* CARDS DE CONTEÚDO */
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .mentoria-card {
-            background: var(--color-card);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: var(--color-text);
-            position: relative;
-            overflow: hidden;
-            border-left: 5px solid;
-        }
-        
-        .mentoria-card:hover {
-            background: var(--color-card-hover);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .mentoria-card h3 {
-            font-family: 'Sora', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .mentoria-card p {
+        .member-info {
+            text-align: right;
             font-size: 0.9rem;
             color: var(--color-text-muted);
         }
-        
-        .mentoria-card .access-btn {
-            display: block;
-            margin-top: 1rem;
-            background: var(--gradient-primary);
-            color: white;
-            padding: 0.6rem;
-            text-align: center;
-            border-radius: 50px;
-            font-weight: 600;
+
+        .member-info strong {
+            color: #e5e7eb;
         }
-        
-        /* Estilos de Cores Dinâmicas */
-        .mentoria-card[data-type="LEV"] { border-left-color: var(--color-accent-secondary); }
-        .mentoria-card[data-type="SYNESIS"] { border-left-color: var(--color-accent); }
-        
-        /* Estilos do Sidebar */
-        .sidebar h3 {
+
+        .member-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(129, 140, 248, 0.8);
+            color: #c7d2fe;
+            margin-bottom: 0.4rem;
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.8fr) minmax(0, 1.2fr);
+            gap: 2rem;
+            align-items: flex-start;
+        }
+
+        .panel {
+            background: rgba(15, 23, 42, 0.92);
+            border-radius: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            box-shadow: 0 22px 70px rgba(15, 23, 42, 0.95);
+            padding: 1.8rem 1.7rem 1.7rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel::before {
+            content: '';
+            position: absolute;
+            inset: -30%;
+            background:
+                radial-gradient(circle at 0% 0%, rgba(129, 140, 248, 0.35), transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.25), transparent 60%);
+            opacity: 0.55;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .panel-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .panel-header {
+            margin-bottom: 1rem;
+        }
+
+        .panel-header h2 {
             font-family: 'Sora', sans-serif;
             font-size: 1.2rem;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding-bottom: 0.5rem;
+            font-weight: 700;
         }
-        
-        .sidebar-item {
-            display: block;
+
+        .panel-header p {
+            font-size: 0.85rem;
             color: var(--color-text-muted);
-            text-decoration: none;
-            padding: 0.75rem 0;
-            border-left: 3px solid transparent;
-            padding-left: 10px;
-            transition: all 0.3s ease;
         }
-        
-        .sidebar-item:hover, .sidebar-item.active {
-            color: var(--color-text);
-            border-left: 3px solid var(--color-accent);
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
+
+        .journey-summary {
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
+        .journey-summary strong {
+            color: #e5e7eb;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+        }
+
+        thead {
+            border-bottom: 1px solid rgba(148, 163, 184, 0.5);
+        }
+
+        th, td {
+            padding: 0.55rem 0.4rem;
+            text-align: left;
+        }
+
+        th {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: rgba(148, 163, 184, 0.9);
+        }
+
+        tbody tr {
+            border-bottom: 1px solid rgba(30, 41, 59, 0.9);
+        }
+
+        tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        .empty-state {
+            font-size: 0.87rem;
+            color: var(--color-text-muted);
+            padding: 0.9rem 0.2rem 0.2rem;
+        }
+
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.15rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            border-width: 1px;
+            border-style: solid;
+        }
+
+        .status-pendente {
+            background: rgba(253, 224, 71, 0.08);
+            border-color: rgba(250, 204, 21, 0.6);
+            color: #facc15;
+        }
+
+        .status-ativo {
+            background: rgba(45, 212, 191, 0.1);
+            border-color: rgba(45, 212, 191, 0.7);
+            color: #5eead4;
+        }
+
+        .status-inativo {
+            background: rgba(248, 113, 113, 0.1);
+            border-color: rgba(248, 113, 113, 0.7);
+            color: #fecaca;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+
+        .btn-outline {
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.8);
+            padding: 0.55rem 0.9rem;
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+            font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline:hover {
+            border-color: rgba(129, 140, 248, 1);
+            box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
+            transform: translateY(-1px);
+        }
+
+        .tag-small {
+            font-size: 0.78rem;
+            color: var(--color-text-muted);
+            margin-top: 0.9rem;
+        }
+
+        footer {
+            border-top: 1px solid rgba(148, 163, 184, 0.35);
+            padding: 1.5rem 2rem 2.5rem;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-right {
+            text-align: right;
+            min-width: 200px;
+        }
+
+        .footer-right a {
+            color: #e5e7eb;
+            text-decoration: none;
+        }
+
+        .footer-right a:hover {
+            text-decoration: underline;
         }
 
         @media (max-width: 1024px) {
-            main {
+            .layout-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 3rem 1.5rem 2.5rem;
+            }
+
+            .member-header {
                 flex-direction: column;
             }
-            .sidebar {
-                width: 100%;
-                min-width: auto;
+
+            .member-info {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 2.8rem 1.3rem 2.2rem;
+            }
+
+            .member-title-block h1 {
+                font-size: 1.6rem;
+            }
+
+            .panel {
+                padding: 1.5rem 1.3rem 1.5rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: left;
+            }
+
+            .footer-right {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 2.5rem 1.1rem 2rem;
+            }
+
+            .member-title-block h1 {
+                font-size: 1.4rem;
             }
         }
     </style>
@@ -298,192 +556,334 @@
 <body>
     <div class="bg-grid"></div>
 
-    <header>
-        <a href="home.html" class="logo">INSTITUTO TANIGAWA</a>
-        <div class="user-header">
-            <span>Olá, <b id="headerNome">Membro</b>!</span>
-            <button class="logout-btn" onclick="logout()">Sair</button>
-        </div>
+    <header id="header">
+        <nav>
+            <a href="home.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="mentoria.html">Mentorias</a></li>
+                <li><a href="diagnostico-tanigawa-pead.html">Diagnóstico</a></li>
+                <li><a href="devocionais.html">Devocionais</a></li>
+                <li><a href="nr-1.html">NR-1</a></li>
+            </ul>
+            <div id="navAuth"></div>
+        </nav>
     </header>
 
     <main>
-        <aside class="sidebar">
-            <h3>Navegação</h3>
-            <a href="area_membros.html" class="sidebar-item active">🏠 Dashboard</a>
-            <a href="plataforma_aulas.html" class="sidebar-item">📚 Minhas Aulas</a>
-            <a href="perfil.html" class="sidebar-item">👤 Meu Perfil</a>
-            <a href="contato.html" class="sidebar-item">📞 Suporte</a>
-            
-            <h3 style="margin-top: 2rem;">Status</h3>
-            <p style="font-size: 0.9rem; color: var(--color-text);">
-                Tipo de Conta: <strong id="accountType">Membro</strong>
-            </p>
-            <p style="font-size: 0.9rem; color: var(--color-text-muted); margin-top: 0.5rem;">
-                Mentoria Ativa: <strong id="mentoriaAtiva">Carregando...</strong>
-            </p>
-            
-        </aside>
-        
-        <div class="content-area">
-            <div class="welcome-box">
-                <h2 id="welcomeNome">Olá, Membro!</h2>
-                <p id="welcomeMentoria">Prepare-se para uma jornada de transformação profunda.</p>
-            </div>
-            
-            <h3>Seu Conteúdo Exclusivo</h3>
-            
-            <div class="content-grid" id="mentoriaContentGrid">
-                <!-- Cards de Mentoria/Conteúdo Injetados Aqui -->
+        <section class="container">
+            <div class="member-header">
+                <div class="member-title-block">
+                    <div class="member-badge">
+                        <span>●</span>
+                        <span>Área de membros</span>
+                    </div>
+                    <h1>Bem-vindo à sua jornada dentro do Instituto Tanigawa</h1>
+                    <p>
+                        Aqui você acompanha o status dos seus cadastros, a mentoria que está alinhada à sua fase
+                        e acessa rapidamente conteúdos, diagnósticos e próximos passos.
+                    </p>
+                </div>
+                <div class="member-info">
+                    <div class="member-pill">
+                        <span>Conta conectada</span>
+                    </div>
+                    <div><strong id="memberName">Membro</strong></div>
+                    <div id="memberEmail">email@exemplo.com</div>
+                </div>
             </div>
 
-            <div style="margin-top: 3rem; padding: 1.5rem; background: var(--color-card); backdrop-filter: blur(10px); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05);">
-                <h3 style="margin-bottom: 1rem; color: var(--color-accent);">Próximos Passos</h3>
-                <p style="color: var(--color-text-muted);">
-                    Se esta é sua primeira vez aqui, comece acessando o link <a href="plataforma_aulas.html" style="color: var(--color-accent);">"Minhas Aulas"</a> no menu lateral para iniciar seu módulo de Mentoria.
-                </p>
+            <div class="layout-grid">
+                <div class="panel">
+                    <div class="panel-inner">
+                        <div class="panel-header">
+                            <h2>Minha jornada e cadastros</h2>
+                            <p>
+                                Visão dos cadastros enviados através do formulário completo. Quando a equipe validar,
+                                seu status muda para <strong>Ativo</strong>.
+                            </p>
+                        </div>
+
+                        <div id="journeySummary" class="journey-summary"></div>
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mentoria</th>
+                                    <th>Origem</th>
+                                    <th>Status</th>
+                                    <th>Data</th>
+                                </tr>
+                            </thead>
+                            <tbody id="journeyTableBody">
+                                <tr>
+                                    <td colspan="4" class="empty-state">
+                                        Nenhum cadastro encontrado ainda com seu e-mail.
+                                        Se já preencheu o formulário, aguarde alguns instantes ou tente atualizar a página.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-inner">
+                        <div class="panel-header">
+                            <h2>Acessos rápidos</h2>
+                            <p>
+                                Caminhos principais para você continuar se movendo em direção ao propósito,
+                                governo e alinhamento que Deus tem para você.
+                            </p>
+                        </div>
+
+                        <div class="quick-links">
+                            <button type="button" class="btn-outline" onclick="window.location.href='devocionais.html'">
+                                Devocionais diários
+                            </button>
+                            <button type="button" class="btn-outline" onclick="window.location.href='diagnostico-tanigawa-pead.html'">
+                                Fazer / Refazer o Diagnóstico Tanigawa – Método PEAD
+                            </button>
+                            <button type="button" class="btn-outline" onclick="window.location.href='mentoria.html'">
+                                Ver detalhes das mentorias disponíveis
+                            </button>
+                            <button type="button" class="btn-outline" onclick="window.location.href='cadastro-completo.html'">
+                                Atualizar ou enviar um novo cadastro completo
+                            </button>
+                            <button type="button" class="btn-outline" onclick="window.location.href='nr-1.html'">
+                                Acessar a jornada corporativa – NR-1
+                            </button>
+                            <button type="button" class="btn-outline" onclick="logout()">
+                                Sair da área de membros
+                            </button>
+                        </div>
+
+                        <div class="tag-small">
+                            Lembrete: esta área mostra os cadastros salvos no sistema com base no seu e-mail.
+                            Quando a equipe marcar sua ficha como validada no painel admin, aqui aparecerá como <strong>Ativo</strong>.
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <script type="module">
-        // Imports já definidos no bloco <script type="module"> inicial
-        import { signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+    <footer>
+        <div class="footer-inner">
+            <div>
+                Instituto Tanigawa – Discernimento, governo, direção e cuidado.
+            </div>
+            <div class="footer-right">
+                <div>&copy; <span id="year"></span> Instituto Tanigawa. Todos os direitos reservados.</div>
+            </div>
+        </div>
+    </footer>
 
+    <script>
+        const CADASTROS_KEY = 'tanigawa_cadastros';
 
-        /* ----------------------------------------------------
-           FUNÇÕES DE LAYOUT E FIREBASE
-           ---------------------------------------------------- */
-           
-        // Inicia DB fora do módulo
-        let db; 
-        if (window.auth) {
-            db = getFirestore(window.auth.app);
-        }
+        // Ano dinâmico
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-        // 🛑 FUNÇÃO CRÍTICA DE AUTENTICAÇÃO (Guard-Rail)
-        function checkAuth() {
-            // Se o Firebase ainda não carregou, espera
-            if (!window.auth) {
-                 setTimeout(checkAuth, 100); 
-                 return;
+        // Header com sombra ao rolar
+        const headerEl = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                headerEl.classList.add('scrolled');
+            } else {
+                headerEl.classList.remove('scrolled');
             }
+        });
 
-            // Listener de estado de autenticação
-            onAuthStateChanged(window.auth, (user) => {
-                if (!user) {
-                    // Não logado: Redireciona para login
-                    window.location.replace('auth_system.html');
-                    return;
-                }
-                
-                // Logado: Carrega dados do sessionStorage (definidos no auth_system.html)
-                const userType = sessionStorage.getItem('userType');
-                const userName = sessionStorage.getItem('userName');
-                const userEmail = sessionStorage.getItem('userEmail');
-                const userMentoria = sessionStorage.getItem('userMentoria'); // Próxima etapa (será dinâmico)
-                
-                // 🛑 GUARD-RAIL: Se for Admin, redireciona para o Painel Admin
-                if (userType === 'admin') {
-                    window.location.replace('admin_dashboard.html');
-                    return;
-                }
-                
-                // 1. Preenche a interface
-                const nomeCompleto = userName || userEmail.split('@')[0];
-                const mentoriaAtual = userMentoria || 'Acesso Geral';
-
-                document.getElementById('headerNome').textContent = nomeCompleto;
-                document.getElementById('welcomeNome').textContent = 'Olá, ' + nomeCompleto.split(' ')[0] + '!';
-                document.getElementById('accountType').textContent = 'Membro';
-                document.getElementById('mentoriaAtiva').textContent = mentoriaAtual;
-                
-                if (mentoriaAtual !== 'Acesso Geral') {
-                    document.getElementById('welcomeMentoria').textContent = `Você está na Mentoria ${mentoriaAtual}. Continue sua jornada de transformação!`;
-                }
-
-                // 2. Carrega o conteúdo dinâmico (mentorias/produtos)
-                carregarConteudoDinamico(mentoriaAtual);
-
-            });
-        }
-        
-        // Função de Logout (Firebase)
-        window.logout = async function() {
-            try {
-                await signOut(window.auth);
-                sessionStorage.clear();
-                window.location.replace('auth_system.html');
-            } catch (error) {
-                console.error("Erro ao fazer logout:", error);
-                // Mesmo com erro, tenta limpar e redirecionar
-                sessionStorage.clear();
-                window.location.replace('auth_system.html');
-            }
-        };
-
-        // Carrega as partículas (Fidelidade Estética)
-        function createFloatingParticles() {
+        // Partículas flutuantes
+        (function createFloatingParticles() {
             const particleCount = 30;
-            const container = document.body;
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'floating-particle';
-                
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.top = Math.random() * 100 + '%';
-                
                 particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
                 particle.style.animationDelay = (Math.random() * 5) + 's';
-                container.appendChild(particle);
+                document.body.appendChild(particle);
+            }
+        })();
+
+        // Proteção de rota: somente membro logado
+        function enforceMemberAccess() {
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const userType = sessionStorage.getItem('userType');
+            const userName = sessionStorage.getItem('userName') || 'Membro';
+            const userEmail = sessionStorage.getItem('userEmail') || 'email@exemplo.com';
+
+            if (!isLoggedIn) {
+                window.location.href = 'auth_system.html';
+                return;
+            }
+
+            // Se for admin, manda para o painel admin
+            if (userType === 'admin') {
+                window.location.href = 'admin_dashboard.html';
+                return;
+            }
+
+            const nameEl = document.getElementById('memberName');
+            const emailEl = document.getElementById('memberEmail');
+            if (nameEl) nameEl.textContent = userName;
+            if (emailEl) emailEl.textContent = userEmail;
+        }
+
+        // Nav dinâmica
+        function updateNavBar() {
+            const navAuth = document.getElementById('navAuth');
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const userType = sessionStorage.getItem('userType');
+            
+            if (!navAuth) return;
+            navAuth.innerHTML = '';
+            
+            if (isLoggedIn) {
+                navAuth.innerHTML = `
+                    <button class="login-btn" type="button" onclick="logout()">
+                        Sair
+                    </button>
+                `;
+            } else {
+                navAuth.innerHTML = `
+                    <a href="auth_system.html" class="login-btn">
+                        Entrar
+                    </a>
+                `;
             }
         }
-        
-        // 🛑 CARREGAMENTO DINÂMICO DE CONTEÚDO (MOCK UP - Próxima Fase será o Real)
-        function carregarConteudoDinamico(mentoria) {
-            const grid = document.getElementById('mentoriaContentGrid');
-            grid.innerHTML = '';
-            
-            // MOCK DATA (Simulando o que viria do Firestore)
-            const mockProducts = [
-                { nome: 'Mentoria SYNESIS', tipo: 'Mentoria', descricao: 'Seu ponto de partida para a transformação espiritual.', link: 'plataforma_aulas.html', gradient: 'primary' },
-                { nome: 'Ebook: O Poder da Cura', tipo: 'Ebook', descricao: 'Um guia prático para a cura emocional e espiritual.', link: 'ebook-download.html', gradient: 'secondary' },
-                { nome: 'Imersão LEV', tipo: 'Imersão', descricao: 'Treinamento intensivo de dois dias sobre liberdade emocional.', link: 'imersao-inscricao.html', gradient: 'secondary' }
-            ];
 
-            mockProducts.forEach(p => {
-                // Apenas exibe o card se for a mentoria ativa (MOCK UP)
-                if (p.nome.includes(mentoria) || mentoria === 'Acesso Geral' || p.tipo !== 'Mentoria') {
-                    const card = document.createElement('a');
-                    card.href = p.link;
-                    card.className = 'mentoria-card';
-                    card.setAttribute('data-type', p.nome.split(' ')[1] || p.tipo);
-                    card.style.borderLeftColor = `var(--color-accent)`; // Simplificado para fins de mock
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'home.html';
+        }
 
-                    card.innerHTML = `
-                        <h3 style="background: var(--gradient-${p.gradient}); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${p.nome}</h3>
-                        <p>${p.descricao}</p>
-                        <span class="access-btn">Acessar ${p.tipo} →</span>
-                    `;
-                    grid.appendChild(card);
-                }
+        function carregarCadastros() {
+            let cadastros = [];
+            try {
+                const bruto = localStorage.getItem(CADASTROS_KEY);
+                if (bruto) cadastros = JSON.parse(bruto) || [];
+            } catch (err) {
+                console.error('Erro ao ler cadastros do localStorage:', err);
+                cadastros = [];
+            }
+            return Array.isArray(cadastros) ? cadastros : [];
+        }
+
+        function formatarData(dataIso) {
+            if (!dataIso) return '-';
+            const d = new Date(dataIso);
+            if (isNaN(d.getTime())) return '-';
+            return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+
+        function getStatusClass(status) {
+            const s = (status || 'pendente').toLowerCase();
+            if (s === 'ativo') return 'status-pill status-ativo';
+            if (s === 'inativo') return 'status-pill status-inativo';
+            return 'status-pill status-pendente';
+        }
+
+        function getStatusLabel(status) {
+            const s = (status || 'pendente').toLowerCase();
+            if (s === 'ativo') return 'Ativo';
+            if (s === 'inativo') return 'Inativo';
+            return 'Pendente';
+        }
+
+        function preencherJornada() {
+            const cadastros = carregarCadastros();
+            const emailSessao = (sessionStorage.getItem('userEmail') || '').toLowerCase();
+            const journeySummary = document.getElementById('journeySummary');
+            const tbody = document.getElementById('journeyTableBody');
+
+            if (!tbody || !journeySummary) return;
+
+            if (!emailSessao) {
+                journeySummary.innerHTML = `
+                    Não foi possível identificar seu e-mail na sessão. 
+                    Faça login novamente para ver seus cadastros.
+                `;
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            Sessão sem e-mail associado. Refaça o login em <strong>Entrar</strong>.
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            const meusCadastros = cadastros.filter(c => {
+                const cEmail = (c.email || '').toLowerCase();
+                return cEmail && cEmail === emailSessao;
             });
 
-            if (grid.children.length === 0) {
-                 grid.innerHTML = `<p style="color: var(--color-text-muted);">Nenhum conteúdo liberado para sua conta ainda.</p>`;
+            if (!meusCadastros.length) {
+                journeySummary.innerHTML = `
+                    Nenhum cadastro encontrado para o e-mail <strong>${emailSessao}</strong> ainda.
+                    Se você já preencheu o formulário, aguarde alguns instantes ou atualize a página.
+                `;
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            Você ainda não possui cadastros registrados com este e-mail.
+                            Se desejar, envie seu primeiro cadastro em <strong>Cadastro completo</strong>.
+                        </td>
+                    </tr>
+                `;
+                return;
             }
+
+            // Ordena mais recentes primeiro
+            meusCadastros.sort((a, b) => {
+                const da = new Date(a.dataCadastro || 0).getTime();
+                const db = new Date(b.dataCadastro || 0).getTime();
+                return db - da;
+            });
+
+            const maisRecente = meusCadastros[0];
+            const statusLabel = getStatusLabel(maisRecente.status);
+            const mentoria = maisRecente.mentoria || maisRecente.jornada || '-';
+            const origem = maisRecente.origem || maisRecente.canal || '-';
+            const data = formatarData(maisRecente.dataCadastro);
+
+            journeySummary.innerHTML = `
+                Cadastro mais recente: <strong>${mentoria}</strong> · Origem: <strong>${origem}</strong> ·
+                Status: <strong>${statusLabel}</strong> · Data: <strong>${data}</strong>.
+            `;
+
+            tbody.innerHTML = '';
+            meusCadastros.forEach(c => {
+                const tr = document.createElement('tr');
+                const statusClass = getStatusClass(c.status);
+                const statusTexto = getStatusLabel(c.status);
+                const ment = c.mentoria || c.jornada || '-';
+                const orig = c.origem || c.canal || '-';
+                const dt = formatarData(c.dataCadastro);
+
+                tr.innerHTML = `
+                    <td>${ment}</td>
+                    <td>${orig}</td>
+                    <td><span class="${statusClass}">${statusTexto}</span></td>
+                    <td>${dt}</td>
+                `;
+                tbody.appendChild(tr);
+            });
         }
 
-
-        // ----------------------------------------------------
-        // INICIALIZAÇÃO
-        // ----------------------------------------------------
-
-        document.addEventListener('DOMContentLoaded', function() {
-            createFloatingParticles();
-            checkAuth(); // Inicia a verificação de segurança
+        document.addEventListener('DOMContentLoaded', () => {
+            enforceMemberAccess();
+            updateNavBar();
+            preencherJornada();
         });
-        
     </script>
 </body>
 </html>

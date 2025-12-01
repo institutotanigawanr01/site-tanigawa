@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mentorias - Instituto Tanigawa</title>
-    <meta name="description" content="Conheça nossas mentorias: Espiritual, LEV e Psicoterapia TCC. Transformação espiritual, cura emocional e desenvolvimento pessoal.">
-    
+    <meta name="description" content="Mentorias SYNESIS, LEV, Advanced Performance, SOZO e NR-1 para transformação espiritual, emocional e estratégica.">
+
+    <!-- Fontes do Design System -->
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
+
     <style>
         * {
             margin: 0;
@@ -16,11 +17,13 @@
         }
 
         :root {
+            /* Gradientes */
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
             
+            /* Cores */
             --color-dark: #0a0e27;
             --color-darker: #060919;
             --color-card: rgba(255, 255, 255, 0.03);
@@ -30,6 +33,7 @@
             --color-accent: #667eea;
             --color-accent-secondary: #f5576c;
             
+            /* Sombras */
             --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
             --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
@@ -41,16 +45,14 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            min-height: 100vh;
         }
 
-        /* Background animado */
+        /* Background animado + grid */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: 
                 radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
@@ -64,13 +66,9 @@
             50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        /* Grid animado de fundo */
         .bg-grid {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background-image: 
                 linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
@@ -84,7 +82,25 @@
             100% { transform: translate(50px, 50px); }
         }
 
-        /* Header moderno */
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6); 
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
+        }
+
+        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -165,30 +181,23 @@
             position: relative;
         }
 
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-text);
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
             left: 0;
-            width: 0;
+            bottom: -6px;
+            width: 0%;
             height: 2px;
             background: var(--gradient-primary);
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover {
-            color: var(--color-text);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-links a.active {
-            color: var(--color-text);
-            font-weight: 600;
-        }
-
+        .nav-links a:hover::after,
         .nav-links a.active::after {
             width: 100%;
         }
@@ -202,6 +211,10 @@
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
         }
 
         .login-btn:hover {
@@ -209,300 +222,406 @@
             box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
         }
 
-        /* Main Content */
         main {
             position: relative;
             z-index: 1;
-            padding-top: 100px;
+            padding-top: 110px;
+            min-height: calc(100vh - 160px);
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 3.5rem 2rem 3rem;
         }
 
-        /* Hero Section */
+        /* HERO MENTORIAS */
         .hero {
-            text-align: center;
-            margin-bottom: 5rem;
-            animation: fadeInUp 0.8s ease;
+            max-width: 900px;
+            margin-bottom: 3rem;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            color: #e5e7eb;
+            margin-bottom: 0.6rem;
         }
 
         .hero-title {
             font-family: 'Sora', sans-serif;
-            font-size: 4rem;
+            font-size: 2.4rem;
             font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #f5576c 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #c4d0ff 40%, #a5b4fc 65%, #f9a8d4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            line-height: 1.2;
+            margin-bottom: 0.5rem;
         }
 
         .hero-subtitle {
-            font-size: 1.3rem;
+            font-size: 1rem;
             color: var(--color-text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-            font-weight: 400;
+            max-width: 650px;
         }
 
-        /* Mentorias Grid */
+        .hero-subsubtitle {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-top: 0.4rem;
+        }
+
+        /* CTA Diagnóstico */
+        .diagnostico-cta {
+            margin-bottom: 2.5rem;
+        }
+
+        .diagnostico-box {
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            padding: 1.6rem 1.7rem;
+            background: radial-gradient(circle at 0% 0%, rgba(79, 172, 254, 0.3), transparent 60%),
+                        radial-gradient(circle at 100% 100%, rgba(0, 242, 254, 0.35), transparent 55%);
+            border: 1px solid rgba(191, 219, 254, 0.8);
+            box-shadow: 0 18px 55px rgba(15, 23, 42, 0.9);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1.1rem 2rem;
+        }
+
+        .diagnostico-box-main {
+            flex: 2;
+            min-width: 220px;
+        }
+
+        .diagnostico-box h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .diagnostico-box p {
+            font-size: 0.9rem;
+            color: #e5e7eb;
+            max-width: 520px;
+        }
+
+        .diagnostico-box-side {
+            flex: 1;
+            min-width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .diagnostico-tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #e0f2fe;
+        }
+
+        .btn-diagnostico {
+            border-radius: 999px;
+            border: none;
+            padding: 0.9rem 1.6rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-tertiary);
+            color: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.75);
+            transition: all 0.25s ease;
+        }
+
+        .btn-diagnostico:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(37, 99, 235, 1);
+        }
+
+        /* GRID MENTORIAS */
+        .mentoria-section-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .mentoria-section-header h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .mentoria-section-header p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+        }
+
         .mentoria-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 2.5rem;
-            margin-bottom: 5rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.2rem;
         }
 
         .mentoria-card {
-            background: var(--color-card);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            padding: 1.9rem 1.7rem 1.6rem;
+            border-radius: 24px;
+            background: var(--color-card);
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--shadow-card);
             overflow: hidden;
-            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .mentoria-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
+            inset: -40%;
+            opacity: 0.7;
+            mix-blend-mode: screen;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
         }
 
         .mentoria-card.synesis::before {
-            background: var(--gradient-primary);
+            background:
+                radial-gradient(circle at 0% 0%, rgba(102, 126, 234, 0.42), transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(76, 201, 240, 0.35), transparent 60%);
         }
 
         .mentoria-card.lev::before {
-            background: var(--gradient-secondary);
+            background:
+                radial-gradient(circle at 0% 0%, rgba(240, 148, 251, 0.38), transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(245, 87, 108, 0.34), transparent 60%);
+        }
+
+        .mentoria-card.advanced::before {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(129, 140, 248, 0.38), transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.32), transparent 60%);
+        }
+
+        .mentoria-card.sozo::before {
+            background:
+                radial-gradient(circle at 0% 0%, rgba(45, 212, 191, 0.4), transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.3), transparent 60%);
         }
 
         .mentoria-card.nr1::before {
-            background: var(--gradient-quaternary);
+            background:
+                radial-gradient(circle at 0% 0%, rgba(67, 233, 123, 0.4), transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(56, 249, 215, 0.35), transparent 60%);
         }
 
-        .mentoria-card:hover {
-            background: var(--color-card-hover);
-            border-color: rgba(255, 255, 255, 0.1);
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-card);
-        }
-
-        .mentoria-card:hover::before {
-            transform: scaleX(1);
+        .mentoria-card-inner {
+            position: relative;
+            z-index: 1;
         }
 
         .card-tag {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.85rem;
+            border-radius: 999px;
             font-size: 0.75rem;
-            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 1.5rem;
-            background: var(--gradient-primary);
-        }
-
-        .mentoria-card.lev .card-tag {
-            background: var(--gradient-secondary);
-        }
-
-        .mentoria-card.nr1 .card-tag {
-            background: var(--gradient-quaternary);
+            letter-spacing: 0.08em;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            color: #e5e7eb;
+            margin-bottom: 0.7rem;
         }
 
         .mentoria-card h3 {
             font-family: 'Sora', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--color-text);
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
         }
 
-        .mentoria-card p {
+        .mentoria-focus {
+            font-size: 0.9rem;
             color: var(--color-text-muted);
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 2rem;
+            margin-bottom: 0.7rem;
         }
 
-        .btn-saiba-mais {
-            display: inline-flex;
+        .mentoria-description {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.8rem;
+        }
+
+        .mentoria-list {
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+        }
+
+        .mentoria-list li {
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.35rem;
+        }
+
+        .mentoria-list li::before {
+            content: "•";
+            color: #e5e7eb;
+            font-size: 1.1rem;
+            line-height: 1;
+            margin-top: -1px;
+        }
+
+        .mentoria-footer {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.9rem 2rem;
-            border-radius: 50px;
-            background: var(--gradient-primary);
-            color: white;
-            text-decoration: none;
+            flex-wrap: wrap;
+        }
+
+        .mentoria-intensity {
+            font-size: 0.78rem;
+            color: rgba(226, 232, 240, 0.9);
+        }
+
+        .btn-card {
+            border-radius: 999px;
+            border: none;
+            padding: 0.7rem 1.3rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-        }
-
-        .mentoria-card.lev .btn-saiba-mais {
-            background: var(--gradient-secondary);
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
-        }
-
-        .mentoria-card.nr1 .btn-saiba-mais {
-            background: var(--gradient-quaternary);
-            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
-        }
-
-        .btn-saiba-mais:hover {
-            transform: translateX(5px);
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
-        }
-
-        /* CTA Box */
-        .cta-box {
-            background: var(--color-card);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 4rem 3rem;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
-            animation: rotateCTA 15s linear infinite;
-        }
-
-        @keyframes rotateCTA {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .cta-box h3 {
-            font-family: 'Sora', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: var(--gradient-tertiary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-box p {
-            color: var(--color-text-muted);
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .btn-diagnostic {
+            font-family: 'Inter', sans-serif;
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+            cursor: pointer;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 0.7rem;
-            padding: 1.2rem 3rem;
-            border-radius: 50px;
-            background: var(--gradient-tertiary);
-            color: white;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 30px rgba(79, 172, 254, 0.4);
-            position: relative;
-            z-index: 1;
+            gap: 0.4rem;
+            transition: all 0.2s ease;
+            border: 1px solid rgba(148, 163, 184, 0.9);
         }
 
-        .btn-diagnostic:hover {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 40px rgba(79, 172, 254, 0.6);
+        .btn-card span {
+            font-size: 1rem;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        .btn-card:hover {
+            border-color: rgba(129, 140, 248, 0.95);
+            box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.8);
+            transform: translateY(-1px);
+        }
+
+        .mentoria-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+            background: var(--color-card-hover);
+        }
+
+        .mentoria-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Nota final */
+        .nota-final {
+            font-size: 0.85rem;
             color: var(--color-text-muted);
+            margin-top: 2rem;
+            max-width: 800px;
+        }
+
+        footer {
+            border-top: 1px solid rgba(148, 163, 184, 0.35);
+            padding: 1.5rem 2rem 2.5rem;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
             position: relative;
             z-index: 1;
         }
 
-        /* Particles decorativos */
-        .floating-particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: rgba(102, 126, 234, 0.6);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
         }
 
-        /* Responsive */
+        .footer-right {
+            text-align: right;
+            min-width: 200px;
+        }
+
+        .footer-right a {
+            color: #e5e7eb;
+            text-decoration: none;
+        }
+
+        .footer-right a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 1024px) {
-            .mentoria-grid {
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            .container {
+                padding: 3rem 1.5rem 2.5rem;
+            }
+
+            .diagnostico-box {
+                padding: 1.4rem 1.4rem;
             }
         }
 
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
+            nav {
+                padding: 0 1.5rem;
             }
 
             .nav-links {
                 display: none;
             }
 
-            .mentoria-grid {
-                grid-template-columns: 1fr;
+            .container {
+                padding: 2.8rem 1.3rem 2.2rem;
             }
 
-            .cta-box {
-                padding: 3rem 2rem;
-            }
-
-            .cta-box h3 {
+            .hero-title {
                 font-size: 2rem;
+            }
+
+            .diagnostico-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: left;
+            }
+
+            .footer-right {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 2.5rem 1.1rem 2rem;
+            }
+
+            .hero-title {
+                font-size: 1.7rem;
             }
         }
     </style>
@@ -519,94 +638,249 @@
             <ul class="nav-links">
                 <li><a href="home.html">Home</a></li>
                 <li><a href="mentoria.html" class="active">Mentorias</a></li>
+                <li><a href="diagnostico-tanigawa-pead.html">Diagnóstico</a></li>
                 <li><a href="devocionais.html">Devocionais</a></li>
                 <li><a href="nr-1.html">NR-1</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="contato.html">Contato</a></li>
-                <div id="navAuth">
-                    <a href="auth_system.html" class="login-btn">Entrar</a>
-                </div>
             </ul>
+            <div id="navAuth"></div>
         </nav>
     </header>
 
     <main>
-        <div class="container">
+        <section class="container">
             <div class="hero">
-                <h1 class="hero-title">Mentorias para Transformação Completa</h1>
+                <div class="hero-badge">
+                    <span>●</span>
+                    <span>Mentorias para quem governa destinos</span>
+                </div>
+                <h1 class="hero-title">Mentorias para transformação espiritual, emocional e estratégica</h1>
                 <p class="hero-subtitle">
-                    Desenvolvemos programas focados em propósito, cura emocional e excelência profissional.
+                    Cada mentoria foi desenhada para alinhar discernimento espiritual, cura emocional,
+                    decisões práticas e governo de destino – para pastores, líderes, empresários e famílias
+                    que não aceitam mais viver abaixo do que Deus já liberou.
+                </p>
+                <p class="hero-subsubtitle">
+                    Leia com calma. Escolha com consciência. E, se tiver dúvida, faça o Diagnóstico Tanigawa – Método PEAD
+                    para descobrir por onde começar.
+                </p>
+            </div>
+
+            <div class="diagnostico-cta">
+                <div class="diagnostico-box">
+                    <div class="diagnostico-box-main">
+                        <h2>Não sabe por qual mentoria começar?</h2>
+                        <p>
+                            O <strong>Diagnóstico Tanigawa – Método PEAD</strong> te ajuda a entender em qual fase você está:
+                            Propósito, Estrutura, Alinhamento ou Destravamento. A partir disso, conseguimos indicar com clareza
+                            qual jornada faz mais sentido para este momento.
+                        </p>
+                    </div>
+                    <div class="diagnostico-box-side">
+                        <span class="diagnostico-tag">Diagnóstico orientado por princípios bíblicos e inteligência espiritual</span>
+                        <button class="btn-diagnostico" type="button" onclick="window.location.href='diagnostico-tanigawa-pead.html'">
+                            Fazer o Diagnóstico Tanigawa – Método PEAD
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mentoria-section-header">
+                <h2>Mentorias e jornadas disponíveis</h2>
+                <p>
+                    Abaixo você encontra as principais jornadas do Instituto Tanigawa.
+                    Ao clicar em “Quero esta mentoria”, você será direcionado para o cadastro completo,
+                    e sua ficha será analisada com critério e responsabilidade.
                 </p>
             </div>
 
             <div class="mentoria-grid">
+                <!-- SYNESIS -->
                 <div class="mentoria-card synesis">
-                    <span class="card-tag">FOCO: Propósito & Vocação</span>
-                    <h3>Mentoria SYNESIS</h3>
-                    <p>
-                        Programa para pastores, líderes e empresários que buscam clareza no chamado, estratégia divina para a liderança e alinhamento do propósito com o Reino. Desenvolva o discernimento espiritual (Synesis) necessário para governar.
-                    </p>
-                    <a href="cadastro-completo.html?mentoria=SYNESIS" class="btn-saiba-mais">
-                        Inscreva-se
-                        <span>→</span>
-                    </a>
+                    <div class="mentoria-card-inner">
+                        <span class="card-tag">FOCO: Propósito, Governo & Discernimento</span>
+                        <h3>Mentoria SYNESIS</h3>
+                        <p class="mentoria-focus">
+                            Inteligência espiritual aplicada a decisões, governo, propósito e alinhamento de destino.
+                        </p>
+                        <p class="mentoria-description">
+                            Para pastores, líderes e empresários que sentem que “algo grande” está à porta,
+                            mas ainda não têm clareza, linguagem ou estrutura espiritual para sustentar o nível
+                            que Deus está pedindo.
+                        </p>
+                        <ul class="mentoria-list">
+                            <li>Discernir ciclos espirituais e tempos proféticos sobre a sua vida.</li>
+                            <li>Alinhar propósito, chamada e decisões práticas do dia a dia.</li>
+                            <li>Tratar cegueiras espirituais, ruídos internos e confusões de rota.</li>
+                            <li>Gerar convicção para decisões que mexem com geografia, finanças e posição.</li>
+                        </ul>
+                        <div class="mentoria-footer">
+                            <div class="mentoria-intensity">
+                                Intensidade: <strong>Alta</strong> · Foco em governo, rota e decisões
+                            </div>
+                            <a href="cadastro-completo.html?mentoria=SYNESIS" class="btn-card">
+                                Quero esta mentoria <span>→</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- ADVANCED PERFORMANCE -->
+                <div class="mentoria-card advanced">
+                    <div class="mentoria-card-inner">
+                        <span class="card-tag">FOCO: Vida Pessoal & Alta Performance</span>
+                        <h3>Advanced Performance – Life & Spiritual</h3>
+                        <p class="mentoria-focus">
+                            Performance ajustada ao Céu: sem adoecer, sem perder a família e sem se perder no caminho.
+                        </p>
+                        <p class="mentoria-description">
+                            Para quem já carrega muita responsabilidade, lidera pessoas, empresas ou ministérios,
+                            mas sabe que algo na estrutura interna (emoções, mente, hábitos, espiritualidade) precisa
+                            ser recalibrado para o próximo nível.
+                        </p>
+                        <ul class="mentoria-list">
+                            <li>Alinhar agenda, energia, mente e espírito a um único norte: propósito.</li>
+                            <li>Tratar exaustão, cansaço crônico, autocobrança e culpa por “não dar conta de tudo”.</li>
+                            <li>Construir uma rotina de governo (espiritual, emocional e prático) sustentável.</li>
+                            <li>Unir Bíblia, inteligência emocional e decisões concretas na vida real.</li>
+                        </ul>
+                        <div class="mentoria-footer">
+                            <div class="mentoria-intensity">
+                                Intensidade: <strong>Média/Alta</strong> · Foco em alinhamento vida & chamada
+                            </div>
+                            <a href="cadastro-completo.html?mentoria=Advanced%20Performance" class="btn-card">
+                                Quero esta mentoria <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LEV -->
                 <div class="mentoria-card lev">
-                    <span class="card-tag">FOCO: Cura & Identidade</span>
-                    <h3>Mentoria LEV</h3>
-                    <p>
-                        Luz, Esperança e Vida. Jornada de cura emocional baseada em princípios bíblicos e psicologia (TCC). Ideal para quem busca libertação de traumas, culpa e padrões autodestrutivos.
-                    </p>
-                    <a href="cadastro-completo.html?mentoria=LEV" class="btn-saiba-mais">
-                        Inscreva-se
-                        <span>→</span>
-                    </a>
+                    <div class="mentoria-card-inner">
+                        <span class="card-tag">FOCO: Cura, Identidade & Emoções</span>
+                        <h3>Mentoria LEV</h3>
+                        <p class="mentoria-focus">
+                            Luz, Esperança e Vida – jornada terapêutica e espiritual com a Wanessa Tanigawa.
+                        </p>
+                        <p class="mentoria-description">
+                            Para quem carrega dores profundas, traumas, inseguranças, auto boicote, ciclos repetitivos
+                            de culpa e medo – e sabe que precisa de um lugar seguro, terapêutico e espiritual para
+                            reorganizar o coração e a mente.
+                        </p>
+                        <ul class="mentoria-list">
+                            <li>Tratar marcas emocionais que travam decisões e relacionamentos.</li>
+                            <li>Resignificar histórias, lutos, rejeições e narrativas internas destrutivas.</li>
+                            <li>Reconstruir identidade à luz da Palavra e de princípios de psicologia.</li>
+                            <li>Gerar um novo nível de estabilidade interna para avançar em outras áreas.</li>
+                        </ul>
+                        <div class="mentoria-footer">
+                            <div class="mentoria-intensity">
+                                Intensidade: <strong>Média</strong> · Foco em cura, identidade e emoções
+                            </div>
+                            <a href="cadastro-completo.html?mentoria=LEV" class="btn-card">
+                                Quero esta mentoria <span>→</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
+                <!-- SOZO / METODOLOGIA DE ORAÇÃO -->
+                <div class="mentoria-card sozo">
+                    <div class="mentoria-card-inner">
+                        <span class="card-tag">FOCO: Oração, Intercessão & Vida no Espírito</span>
+                        <h3>Metodologia SOZO – Oração & Intercessão</h3>
+                        <p class="mentoria-focus">
+                            Estrutura espiritual para quem sente que nasceu para orar, vigiar e guardar portas.
+                        </p>
+                        <p class="mentoria-description">
+                            Para intercessores, líderes de oração, pastores e apaixonados pela presença de Deus que
+                            querem sair do nível “apaga-incêndio” e entrar em uma vida de oração estruturada,
+                            estratégica e frutífera.
+                        </p>
+                        <ul class="mentoria-list">
+                            <li>Formar intercessores maduros, bíblicos, equilibrados e cheios de discernimento.</li>
+                            <li>Entender territórios, sentinelas, ciclos espirituais e leituras proféticas.</li>
+                            <li>Praticar tipos de oração (guerra, clamor, governo, gratidão, restituição, etc.).</li>
+                            <li>Transformar o lugar secreto em base real de governo, e não apenas alívio emocional.</li>
+                        </ul>
+                        <div class="mentoria-footer">
+                            <div class="mentoria-intensity">
+                                Intensidade: <strong>Alta</strong> · Foco em profundidade no espírito
+                            </div>
+                            <a href="cadastro-completo.html?mentoria=SOZO" class="btn-card">
+                                Quero esta mentoria <span>→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NR-1 CORPORATIVO -->
                 <div class="mentoria-card nr1">
-                    <span class="card-tag">FOCO: Conformidade & Bem-Estar</span>
-                    <h3>Consultoria NR-1</h3>
-                    <p>
-                        Solução completa para Riscos Psicossociais no Trabalho, atendendo à Norma Regulamentadora 1 e COPSOQ III. Transforme a obrigatoriedade legal em um programa de saúde e performance para sua empresa.
-                    </p>
-                    <a href="nr-1.html" class="btn-saiba-mais">
-                        Saiba Mais
-                        <span>→</span>
-                    </a>
+                    <div class="mentoria-card-inner">
+                        <span class="card-tag">FOCO: Empresas, NR-1 & Saúde Psicossocial</span>
+                        <h3>NR-1 – Jornada Psicossocial Corporativa</h3>
+                        <p class="mentoria-focus">
+                            Para empresas que entenderam que adoecimento emocional, conflitos e exaustão têm custo
+                            espiritual, humano e financeiro.
+                        </p>
+                        <p class="mentoria-description">
+                            Jornada corporativa alinhada à NR-1, com diagnóstico psicossocial, leitura de riscos
+                            emocionais, intervenções estratégicas e visão de cuidado integral – sem espiritualizar
+                            o que é clínico, e sem reduzir o espiritual ao que é apenas técnico.
+                        </p>
+                        <ul class="mentoria-list">
+                            <li>Mapeamento psicossocial de times sob a ótica da NR-1 / MTE.</li>
+                            <li>Compreensão de riscos emocionais, burnout, conflitos e clima organizacional.</li>
+                            <li>Estruturação de planos de ação e trilhas de cuidado.</li>
+                            <li>Integração com PGR, PCMSO, GRO e relatórios auditáveis para inspeção.</li>
+                        </ul>
+                        <div class="mentoria-footer">
+                            <div class="mentoria-intensity">
+                                Intensidade: <strong>Personalizada</strong> · Foco em empresas e lideranças
+                            </div>
+                            <a href="cadastro-completo.html?mentoria=NR-1%20Corporativo" class="btn-card">
+                                Quero esta jornada <span>→</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="cta-box">
-                <h3>Faça seu Diagnóstico de Perfil PEAD</h3>
-                <p>
-                    Descubra qual mentoria é a mais indicada para você no momento.
-                </p>
-                <a href="diagnostico-tanigawa-pead.html" class="btn-diagnostic">
-                    Iniciar Diagnóstico
-                    <span>→</span>
-                </a>
-            </div>
-        </div>
+            <p class="nota-final">
+                Depois que você enviar o cadastro completo, sua ficha entra como <strong>pendente</strong> para análise.
+                A equipe do Instituto Tanigawa vai discernir, junto com você, qual é o melhor passo – e quando sua
+                jornada for ativada, você terá acesso à <strong>Área de Membros</strong> e às instruções específicas da mentoria.
+            </p>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
+        <div class="footer-inner">
+            <div>
+                Instituto Tanigawa – Discernimento, governo, direção e cuidado.
+            </div>
+            <div class="footer-right">
+                <div>&copy; <span id="year"></span> Instituto Tanigawa. Todos os direitos reservados.</div>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Scroll effect no header
+        // Ano dinâmico
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Header com sombra ao rolar
+        const headerEl = document.getElementById('header');
         window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
+            if (window.scrollY > 10) {
+                headerEl.classList.add('scrolled');
             } else {
-                header.classList.remove('scrolled');
+                headerEl.classList.remove('scrolled');
             }
         });
 
-        // Criar partículas flutuantes
-        function createFloatingParticles() {
+        // Partículas flutuantes
+        (function createFloatingParticles() {
             const particleCount = 30;
             for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
@@ -615,19 +889,11 @@
                 particle.style.top = Math.random() * 100 + '%';
                 particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
                 particle.style.animationDelay = (Math.random() * 5) + 's';
-                particle.style.animation = 'float 20s infinite ease-in-out';
                 document.body.appendChild(particle);
             }
-        }
+        })();
 
-        createFloatingParticles();
-
-        // Função de autenticação
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'auth_system.html';
-        }
-
+        // Nav dinâmica (mesmo padrão das outras páginas)
         function updateNavBar() {
             const navAuth = document.getElementById('navAuth');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -654,7 +920,9 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', updateNavBar);
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavBar();
+        });
     </script>
 </body>
 </html>

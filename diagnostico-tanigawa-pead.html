@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnóstico PEAD - Instituto Tanigawa</title>
-    <meta name="description" content="Descubra seu perfil espiritual e emocional através do Método PEAD: Paulo, Elias, Abraão e Davi.">
-    
+    <title>Diagnóstico Tanigawa – Método PEAD</title>
+    <meta name="description" content="Descubra seu perfil espiritual e de chamado a partir dos arquétipos Paulo, Elias, Abraão e Davi – Método PEAD do Instituto Tanigawa.">
+
+    <!-- Fontes do Design System -->
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
+
     <style>
         * {
             margin: 0;
@@ -16,13 +17,13 @@
         }
 
         :root {
-            /* DESIGN SYSTEM - Gradientes Identitários */
+            /* Gradientes */
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
             
-            /* Cores Principais */
+            /* Cores */
             --color-dark: #0a0e27;
             --color-darker: #060919;
             --color-card: rgba(255, 255, 255, 0.03);
@@ -30,6 +31,7 @@
             --color-text: #ffffff;
             --color-text-muted: #a0aec0;
             --color-accent: #667eea;
+            --color-accent-secondary: #f5576c;
             
             /* Sombras */
             --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
@@ -46,14 +48,11 @@
             min-height: 100vh;
         }
 
-        /* Background Animado */
+        /* Background animado + grid */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: 
                 radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
@@ -67,13 +66,9 @@
             50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        /* Grid de Fundo */
         .bg-grid {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background-image: 
                 linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
@@ -87,10 +82,22 @@
             100% { transform: translate(50px, 50px); }
         }
 
-        h1, h2, h3 {
-            font-family: 'Sora', sans-serif;
-            font-weight: 700;
-            line-height: 1.3;
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6); 
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
         }
 
         /* Header */
@@ -174,22 +181,24 @@
             position: relative;
         }
 
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-text);
+        }
+
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
             left: 0;
-            width: 0;
+            bottom: -6px;
+            width: 0%;
             height: 2px;
             background: var(--gradient-primary);
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover {
-            color: var(--color-text);
-        }
-
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
         }
 
@@ -202,6 +211,10 @@
             text-decoration: none;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
         }
 
         .login-btn:hover {
@@ -209,231 +222,319 @@
             box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
         }
 
-        /* Main Content */
         main {
             position: relative;
             z-index: 1;
-            padding-top: 140px;
-            padding-bottom: 6rem;
+            padding-top: 110px;
+            min-height: calc(100vh - 160px);
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 3.5rem 2rem 3rem;
+        }
+
+        /* HERO */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            color: #e5e7eb;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-badge span:first-child {
+            font-size: 0.6rem;
         }
 
         .hero-title {
             font-family: 'Sora', sans-serif;
-            font-size: 3.5rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            text-align: center;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #f5576c 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #c4d0ff 40%, #a5b4fc 65%, #f9a8d4 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: fadeInUp 0.8s ease;
+            margin-bottom: 0.4rem;
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: var(--color-text-muted);
-            text-align: center;
-            margin-bottom: 3rem;
-            animation: fadeInUp 0.8s ease 0.2s both;
+            margin-bottom: 0.8rem;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .hero-subsubtitle {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.4rem;
         }
 
-        /* Quiz Card */
+        .hero-extra-note {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.8rem;
+        }
+
+        /* PROGRESSO */
+        .progress-wrapper {
+            margin-bottom: 1.2rem;
+        }
+
+        .progress-label {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-bottom: 0.3rem;
+        }
+
+        .progress-bar-outer {
+            width: 100%;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.9);
+            overflow: hidden;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            width: 0%;
+            border-radius: 999px;
+            background: var(--gradient-primary);
+            transition: width 0.25s ease;
+        }
+
+        .progress-text {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-top: 0.3rem;
+        }
+
+        /* CARTÃO DO QUIZ */
         .quiz-card {
             background: var(--color-card);
-            backdrop-filter: blur(10px);
             border-radius: 24px;
-            padding: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem 1.8rem 1.8rem;
+            border: 1px solid rgba(148, 163, 184, 0.6);
             box-shadow: var(--shadow-card);
-            animation: fadeInUp 0.8s ease 0.4s both;
+            backdrop-filter: blur(14px);
         }
 
         .quiz-card h3 {
             font-family: 'Sora', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 2rem;
-            background: var(--gradient-tertiary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
         }
 
-        /* Formulário */
+        .quiz-card-intro {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.4rem;
+        }
+
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--color-text);
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
         }
 
         .personal-data-input {
             width: 100%;
-            padding: 12px;
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 8px;
+            padding: 0.7rem 0.8rem;
+            border-radius: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.8);
+            background: rgba(15, 23, 42, 0.9);
             color: var(--color-text);
-            font-size: 1rem;
-            transition: all 0.3s;
-            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s ease;
         }
 
         .personal-data-input:focus {
-            outline: none;
-            border-color: var(--color-accent);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #818cf8;
+            box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.7);
         }
 
-        /* Progress Bar */
-        .progress-bar-container {
-            margin-bottom: 2rem;
-            padding: 1rem;
-            background: rgba(15, 23, 42, 0.3);
-            border-radius: 12px;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: var(--gradient-primary);
-            border-radius: 8px;
-            width: 0;
-            transition: width 0.5s ease-in-out;
-            box-shadow: 0 0 10px rgba(102, 126, 234, 0.5);
-        }
-
-        .progress-text {
-            text-align: right;
-            font-size: 0.9rem;
-            background: var(--gradient-tertiary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 600;
-            margin-top: 0.5rem;
-        }
-
-        /* Questões */
         .question-group {
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            background: rgba(0, 0, 0, 0.2);
-            transition: all 0.3s;
+            margin-top: 1.4rem;
+            margin-bottom: 1.1rem;
         }
 
-        .question-group:hover {
-            border-color: rgba(102, 126, 234, 0.3);
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .question-group label:first-child {
+        .question-group > label {
             display: block;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--color-text);
-            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            margin-bottom: 0.6rem;
+            font-weight: 500;
         }
 
-        /* Radio Options */
         .radio-option {
             display: block;
-            margin-bottom: 0.75rem;
+            position: relative;
+            padding: 0.6rem 0.75rem;
+            margin-bottom: 0.4rem;
+            border-radius: 14px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            font-size: 0.86rem;
+            color: var(--color-text-muted);
             cursor: pointer;
-            padding: 12px 15px;
-            background: rgba(15, 23, 42, 0.5);
-            border-radius: 8px;
-            transition: all 0.3s;
-            border: 1px solid transparent;
-        }
-
-        .radio-option:hover {
-            background: rgba(15, 23, 42, 0.7);
-            border-color: rgba(102, 126, 234, 0.3);
-        }
-
-        .radio-option.selected {
-            border: 1px solid var(--color-accent);
-            background: rgba(102, 126, 234, 0.1);
+            background: rgba(15, 23, 42, 0.95);
+            transition: all 0.2s ease;
         }
 
         .radio-option input[type="radio"] {
-            margin-right: 10px;
-            accent-color: var(--color-accent);
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
         }
 
-        /* Botão Submit */
+        .radio-option::before {
+            content: "";
+            position: absolute;
+            left: 0.7rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            border: 2px solid rgba(148, 163, 184, 0.9);
+            background: transparent;
+        }
+
+        .radio-option span.option-label {
+            margin-left: 1.4rem;
+        }
+
+        .radio-option.selected {
+            border-color: #818cf8;
+            color: #e5e7eb;
+            box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.8);
+            background: radial-gradient(circle at 0% 0%, rgba(129, 140, 248, 0.25), rgba(15, 23, 42, 0.98));
+        }
+
+        .radio-option.selected::before {
+            background: #818cf8;
+            border-color: #818cf8;
+        }
+
         .btn-submit {
+            margin-top: 1rem;
             width: 100%;
-            padding: 1.2rem 3rem;
+            border-radius: 999px;
             border: none;
-            border-radius: 50px;
-            background: var(--gradient-tertiary);
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 700;
+            padding: 0.9rem 1.3rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-primary);
+            color: #ffffff;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 30px rgba(79, 172, 254, 0.4);
-            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.8);
+            transition: all 0.25s ease;
+        }
+
+        .btn-submit:hover:enabled {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(37, 99, 235, 1);
         }
 
         .btn-submit:disabled {
-            opacity: 0.5;
+            opacity: 0.6;
             cursor: not-allowed;
+            box-shadow: none;
         }
 
-        .btn-submit:hover:not(:disabled) {
-            transform: translateY(-3px) scale(1.05);
-            box-shadow: 0 12px 40px rgba(79, 172, 254, 0.6);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        .note-final {
+            margin-top: 1.6rem;
+            font-size: 0.85rem;
             color: var(--color-text-muted);
+        }
+
+        footer {
+            border-top: 1px solid rgba(148, 163, 184, 0.35);
+            padding: 1.5rem 2rem 2.5rem;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
             position: relative;
             z-index: 1;
         }
 
-        /* Responsive */
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-right {
+            text-align: right;
+            min-width: 200px;
+        }
+
+        .footer-right a {
+            color: #e5e7eb;
+            text-decoration: none;
+        }
+
+        .footer-right a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            .container {
+                padding: 3rem 1.5rem 2.5rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .container {
+                padding: 2.8rem 1.3rem 2.2rem;
+            }
+
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 1.9rem;
             }
 
             .quiz-card {
-                padding: 2rem;
+                padding: 1.7rem 1.4rem 1.5rem;
             }
 
-            .nav-links {
-                display: none;
+            .footer-inner {
+                flex-direction: column;
+                text-align: left;
+            }
+
+            .footer-right {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 2.4rem 1.1rem 2rem;
+            }
+
+            .hero-title {
+                font-size: 1.6rem;
             }
         }
     </style>
@@ -450,112 +551,757 @@
             <ul class="nav-links">
                 <li><a href="home.html">Home</a></li>
                 <li><a href="mentoria.html">Mentorias</a></li>
+                <li><a href="diagnostico-tanigawa-pead.html" class="active">Diagnóstico</a></li>
                 <li><a href="devocionais.html">Devocionais</a></li>
                 <li><a href="nr-1.html">NR-1</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="contato.html">Contato</a></li>
-                <div id="navAuth">
-                    <a href="auth_system.html" class="login-btn">Entrar</a>
-                </div>
             </ul>
+            <div id="navAuth"></div>
         </nav>
     </header>
 
     <main>
-        <div class="container">
-            <h1 class="hero-title">Diagnóstico PEAD</h1>
-            <p class="hero-subtitle">
-                Descubra seu perfil de propósito e chamado, baseado nos pilares de <strong>P</strong>aulo, <strong>E</strong>lias, <strong>A</strong>braão e <strong>D</strong>avi.
-            </p>
-            
+        <section class="container">
+            <div class="hero">
+                <div class="hero-badge">
+                    <span>●</span>
+                    <span>Método PEAD – Paulo, Elias, Abraão e Davi</span>
+                </div>
+                <h1 class="hero-title">Diagnóstico Tanigawa – Método PEAD</h1>
+                <p class="hero-subtitle">
+                    Descubra qual arquétipo espiritual está mais ativo em você neste ciclo:
+                    <strong>P</strong>aulo, <strong>E</strong>lias, <strong>A</strong>braão ou <strong>D</strong>avi.
+                </p>
+                <p class="hero-subsubtitle">
+                    Não é rótulo, nem caixinha. É uma leitura de momento para ajudar a ajustar rota, decisões
+                    e a mentoria certa para esta estação.
+                </p>
+                <p class="hero-extra-note">
+                    São apenas 20 perguntas. Leva de 5 a 10 minutos, mas pode mudar a forma como você enxerga este ciclo.
+                </p>
+            </div>
+
+            <div class="progress-wrapper">
+                <div class="progress-label">Progresso das respostas</div>
+                <div class="progress-bar-outer">
+                    <div class="progress-bar-inner" id="progressBar"></div>
+                </div>
+                <div class="progress-text" id="progressText">
+                    0 de 20 (0% concluído)
+                </div>
+            </div>
+
             <div class="quiz-card">
-                <h3>Responda as perguntas</h3>
-                
+                <h3>Responda com sinceridade</h3>
+                <p class="quiz-card-intro">
+                    Não existe resposta certa ou errada. Existe sinceridade diante de Deus e de você mesmo.
+                    Marque a alternativa que mais se aproxima da sua realidade hoje, não da imagem que você gostaria de ter.
+                </p>
+
                 <form id="diagnosticoForm">
                     <div class="form-group">
                         <label for="nome">Seu Nome Completo:</label>
                         <input type="text" id="nome" name="nome" class="personal-data-input" required>
                     </div>
+
                     <div class="form-group">
-                        <label for="email">Seu Melhor E-mail:</label>
+                        <label for="email">Seu melhor e-mail:</label>
                         <input type="email" id="email" name="email" class="personal-data-input" required>
                     </div>
-                    
-                    <div class="progress-bar-container">
-                        <div class="progress-bar" id="progressBar"></div>
-                    </div>
-                    <div class="progress-text" id="progressText">0% concluído</div>
-                    
+
+                    <!-- PERGUNTAS (20) -->
                     <div class="question-group" data-question-value="1">
-                        <label>1. No seu trabalho ou ministério, qual é sua prioridade?</label>
-                        <label class="radio-option"><input type="radio" name="q1" value="p"> Atingir o maior número de pessoas com a mensagem, com foco na expansão e doutrina.</label>
-                        <label class="radio-option"><input type="radio" name="q1" value="e"> Lutar por justiça e pureza, mesmo que isso signifique confrontar sistemas ou estar sozinho.</label>
+                        <label>1. No seu dia a dia de chamada, o que mais pulsa dentro de você?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q1" value="p">
+                            <span class="option-label">
+                                Ensinar, corrigir rota, estruturar pessoas e igrejas com doutrina e fundamento.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q1" value="e">
+                            <span class="option-label">
+                                Confrontar injustiça, expor aquilo que está escondido e trazer o que Deus está falando agora.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q1" value="a">
+                            <span class="option-label">
+                                Obedecer passos de fé mesmo sem ter todas as respostas, confiando na direção de Deus.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q1" value="d">
+                            <span class="option-label">
+                                Conduzir pessoas ao coração de Deus através de adoração, sensibilidade e expressão emocional.
+                            </span>
+                        </label>
                     </div>
 
                     <div class="question-group" data-question-value="2">
-                        <label>2. Como você reage ao fracasso ou erro?</label>
-                        <label class="radio-option"><input type="radio" name="q2" value="p"> Analiso o erro, crio um novo plano de ação e sigo em frente com resiliência.</label>
-                        <label class="radio-option"><input type="radio" name="q2" value="d"> Me arrependo profundamente, busco a misericórdia de Deus e uso a experiência para compor meu testemunho.</label>
+                        <label>2. Quando algo dá muito errado, qual é sua reação mais comum?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q2" value="p">
+                            <span class="option-label">
+                                Analiso o cenário, aprendo rápido, ajusto o plano e sigo em frente com mais clareza.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q2" value="e">
+                            <span class="option-label">
+                                Vou para a presença de Deus em intensidade, clamor e confronto espiritual do que está por trás.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q2" value="a">
+                            <span class="option-label">
+                                Lembro das promessas, seguro firme nelas e continuo caminhando, mesmo com medo.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q2" value="d">
+                            <span class="option-label">
+                                Transformo a dor em adoração, canções, arte ou expressão sincera diante de Deus.
+                            </span>
+                        </label>
                     </div>
-                    
+
                     <div class="question-group" data-question-value="3">
-                        <label>3. Qual situação gera maior inquietação em seu espírito?</label>
-                        <label class="radio-option"><input type="radio" name="q3" value="e"> A corrupção, a hipocrisia e a falta de integridade nos líderes e instituições.</label>
-                        <label class="radio-option"><input type="radio" name="q3" value="a"> A incerteza sobre o futuro, a falta de segurança ou não saber claramente o próximo passo.</label>
+                        <label>3. O que mais incomoda seu espírito quando você observa o cenário ao seu redor?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q3" value="p">
+                            <span class="option-label">
+                                Ver pessoas sem fundamento, confusas em doutrina, sem entender o evangelho completo.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q3" value="e">
+                            <span class="option-label">
+                                Ver injustiça, opressão, religiosidade morta e sistemas que distorcem o que Deus é.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q3" value="a">
+                            <span class="option-label">
+                                Ver pessoas presas por medo, conforto ou insegurança, sem ousar sair do lugar.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q3" value="d">
+                            <span class="option-label">
+                                Ver corações endurecidos, frieza na adoração e falta de sinceridade diante de Deus.
+                            </span>
+                        </label>
                     </div>
-                    
+
                     <div class="question-group" data-question-value="4">
-                        <label>4. Qual é o seu maior desafio na jornada de fé?</label>
-                        <label class="radio-option"><input type="radio" name="q4" value="a"> Confiar plenamente em uma promessa de Deus que ainda não se concretizou, tendo que abrir mão de garantias.</label>
-                        <label class="radio-option"><input type="radio" name="q4" value="d"> Lidar com minhas emoções e fraquezas (como a tentação), sentindo que minha humanidade me afasta de Deus.</label>
+                        <label>4. Qual é o desafio interno mais forte que você percebe na sua jornada com Deus?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q4" value="p">
+                            <span class="option-label">
+                                Conciliar tanto conteúdo, responsabilidade e trabalho com descanso emocional e espiritual.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q4" value="e">
+                            <span class="option-label">
+                                Lidar com solidão de quem enxerga coisas que poucos veem e, às vezes, é mal interpretado.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q4" value="a">
+                            <span class="option-label">
+                                Permanecer firme quando Deus pede renúncias profundas e decisões sem garantia humana.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q4" value="d">
+                            <span class="option-label">
+                                Equilibrar intensidade emocional, quedas, pecados e recomeços sem se condenar o tempo todo.
+                            </span>
+                        </label>
                     </div>
-                    
+
                     <div class="question-group" data-question-value="5">
-                        <label>5. Como você se sente mais útil para as pessoas?</label>
-                        <label class="radio-option"><input type="radio" name="q5" value="p"> Sendo um mestre e mentor, ensinando e discipulando com sabedoria e profundidade.</label>
-                        <label class="radio-option"><input type="radio" name="q5" value="d"> Usando a adoração e a sensibilidade artística/emocional para conectar as pessoas com Deus.</label>
+                        <label>5. Em qual tipo de movimento você sente que é mais usado por Deus?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q5" value="p">
+                            <span class="option-label">
+                                Construindo estruturas, ensinando, mentoreando e organizando pessoas e projetos.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q5" value="e">
+                            <span class="option-label">
+                                Em momentos de clamor, guerra espiritual, ativação profética e quebra de cadeias.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q5" value="a">
+                            <span class="option-label">
+                                Em decisões de fé, abrindo caminhos, iniciando algo que ninguém começou.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q5" value="d">
+                            <span class="option-label">
+                                Em ambientes de adoração, cura emocional, arte, música, expressão sensível da presença.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="6">
+                        <label>6. Como você se relaciona com a Bíblia no dia a dia?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q6" value="p">
+                            <span class="option-label">
+                                Estudo profundo, contexto, referências, livros, anotações e aplicações práticas.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q6" value="e">
+                            <span class="option-label">
+                                Busco o que Deus está falando de forma específica para este tempo e estação.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q6" value="a">
+                            <span class="option-label">
+                                Leio como quem recebe direção de rota e promessas para obedecer.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q6" value="d">
+                            <span class="option-label">
+                                Encontro consolo, expressão de sentimentos, salmos, cânticos e orações.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="7">
+                        <label>7. Qual frase mais se aproxima do que as pessoas costumam dizer sobre você?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q7" value="p">
+                            <span class="option-label">
+                                “Você é muito profundo, organizado, didático e objetivo.”
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q7" value="e">
+                            <span class="option-label">
+                                “Você é intenso, direto, confrontador e vê coisas que ninguém está vendo.”
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q7" value="a">
+                            <span class="option-label">
+                                “Você é de fé, ousado, começa coisas grandes antes de todo mundo.”
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q7" value="d">
+                            <span class="option-label">
+                                “Você é sensível, profundo, tem um coração muito voltado à presença de Deus.”
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="8">
+                        <label>8. Se você tivesse que escolher um foco principal de impacto, qual seria?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q8" value="p">
+                            <span class="option-label">
+                                Formar pessoas, líderes e estruturas saudáveis e sustentáveis.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q8" value="e">
+                            <span class="option-label">
+                                Despertar a igreja, confrontar padrões e ativar um povo à santidade.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q8" value="a">
+                            <span class="option-label">
+                                Abrir caminhos, plantar algo onde ninguém plantou, iniciar histórias novas.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q8" value="d">
+                            <span class="option-label">
+                                Curar corações, sarar memórias, conduzir pessoas à intimidade com Deus.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="9">
+                        <label>9. Quando Deus te pede algo grande, qual é a sensação predominante?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q9" value="p">
+                            <span class="option-label">
+                                “Preciso entender, organizar e estruturar antes de agir.”
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q9" value="e">
+                            <span class="option-label">
+                                “Sinto um fogo por obedecer, mesmo que isso cause desconforto em muitos.”
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q9" value="a">
+                            <span class="option-label">
+                                “Se Deus falou, eu vou – mesmo com medo, eu caminho.”
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q9" value="d">
+                            <span class="option-label">
+                                “Preciso me derramar primeiro, chorar, cantar, até sentir paz para obedecer.”
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="10">
+                        <label>10. Em relação ao tempo, qual frase te representa mais hoje?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q10" value="p">
+                            <span class="option-label">
+                                Sinto que meu tempo está sempre cheio, mas muito produtivo e focado em construir.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q10" value="e">
+                            <span class="option-label">
+                                Vivo em ciclos de intensidade espiritual, períodos de muito confronto e silêncio.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q10" value="a">
+                            <span class="option-label">
+                                Meu tempo está sendo realocado o tempo todo por direcionamentos de Deus.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q10" value="d">
+                            <span class="option-label">
+                                Meu tempo oscila muito com meu estado emocional, subo e desço de forma intensa.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="11">
+                        <label>11. Em conflitos, qual é sua tendência mais natural?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q11" value="p">
+                            <span class="option-label">
+                                Explicar, argumentar, ensinar, mostrar o caminho com clareza.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q11" value="e">
+                            <span class="option-label">
+                                Ir direto ao ponto, confrontar e expor o que está encoberto.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q11" value="a">
+                            <span class="option-label">
+                                Manter a paz, buscar conciliação e dar passos que preservem a promessa.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q11" value="d">
+                            <span class="option-label">
+                                Sentir muito, chorar, se entristecer, mas depois transformar isso em entrega a Deus.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="12">
+                        <label>12. Quando você pensa em futuro, o que mais vem à sua mente?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q12" value="p">
+                            <span class="option-label">
+                                Projetos, estruturas, pessoas sendo formadas, sistemas funcionando.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q12" value="e">
+                            <span class="option-label">
+                                Movimentos espirituais, despertamento, mudanças profundas na igreja.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q12" value="a">
+                            <span class="option-label">
+                                Territórios, nações, cidades, novas geograﬁas e passos de fé.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q12" value="d">
+                            <span class="option-label">
+                                Uma geração curada, famílias restauradas e corações rendidos na presença.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="13">
+                        <label>13. Em relação à sua vida emocional hoje, qual frase é mais verdadeira?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q13" value="p">
+                            <span class="option-label">
+                                Consigo manter certo equilíbrio, mas às vezes atropelo minhas emoções pela missão.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q13" value="e">
+                            <span class="option-label">
+                                Vivo picos de intensidade emocional, especialmente quando algo está espiritualmente errado.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q13" value="a">
+                            <span class="option-label">
+                                Trago conflitos internos, mas sigo, mesmo sentindo medo ou insegurança.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q13" value="d">
+                            <span class="option-label">
+                                Sinto muito, tudo me pega fundo, e às vezes isso trava minhas decisões.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="14">
+                        <label>14. O que mais te desgasta hoje?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q14" value="p">
+                            <span class="option-label">
+                                Falta de estrutura, desorganização, pessoas que não sustentam o que pedem.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q14" value="e">
+                            <span class="option-label">
+                                Superficialidade, hipocrisia, ambientes que fingem espiritualidade.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q14" value="a">
+                            <span class="option-label">
+                                Ter que esperar demais, processos que parecem lentos para o que Deus falou.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q14" value="d">
+                            <span class="option-label">
+                                Falta de profundidade relacional, conexões rasas e falta de cuidado real.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="15">
+                        <label>15. Em oração, qual é o ambiente mais “natural” para você?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q15" value="p">
+                            <span class="option-label">
+                                Interceder com a Bíblia aberta, orando em cima de princípios, textos e promessas.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q15" value="e">
+                            <span class="option-label">
+                                Clamar, guerrear, sentir cargas espirituais e orar com intensidade.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q15" value="a">
+                            <span class="option-label">
+                                Conversar com Deus sobre decisões, caminhos, portas que Ele está abrindo.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q15" value="d">
+                            <span class="option-label">
+                                Adorar, cantar, chorar, ouvir músicas e derramar o coração.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="16">
+                        <label>16. Se você pudesse escolher um “campo principal” de atuação hoje, seria mais:</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q16" value="p">
+                            <span class="option-label">
+                                Formação de líderes, ensino, mentoria, estruturação de pessoas e ministérios.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q16" value="e">
+                            <span class="option-label">
+                                Despertamento espiritual, convocação, palavra profética, confrontos necessários.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q16" value="a">
+                            <span class="option-label">
+                                Missões, expansão, abrir casas, igrejas, empresas, projetos em novos lugares.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q16" value="d">
+                            <span class="option-label">
+                                Cuidado de pessoas, aconselhamento, cura, restauração de famílias.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="17">
+                        <label>17. Como você lida com reconhecimento e honra?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q17" value="p">
+                            <span class="option-label">
+                                Vejo como consequência do trabalho bem feito, mas não é o centro.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q17" value="e">
+                            <span class="option-label">
+                                Às vezes, o que falo incomoda tanto que o reconhecimento vem depois de muita resistência.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q17" value="a">
+                            <span class="option-label">
+                                Sei que Deus me honra quando obedeço, mesmo sem aplausos no início.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q17" value="d">
+                            <span class="option-label">
+                                Sou sensível à falta de reconhecimento e isso me fere mais do que eu gostaria.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="18">
+                        <label>18. Diante de recursos financeiros, qual é sua postura mais comum?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q18" value="p">
+                            <span class="option-label">
+                                Estruturo, planejo, organizo e penso em sustentabilidade do que Deus confiou.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q18" value="e">
+                            <span class="option-label">
+                                Entendo recursos como munição para guerras espirituais e projetos específicos.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q18" value="a">
+                            <span class="option-label">
+                                Tenho coragem de semear alto, obedecendo mesmo em ofertas e investimentos arriscados.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q18" value="d">
+                            <span class="option-label">
+                                Relaciono recursos com cuidado de pessoas, casa, família e ambiente de segurança emocional.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="19">
+                        <label>19. Em relação à sua família hoje, o que mais representa sua fase?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q19" value="p">
+                            <span class="option-label">
+                                Busco ensinar, ajustar, orientar, dar base bíblica e princípios diariamente.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q19" value="e">
+                            <span class="option-label">
+                                Sinto um peso espiritual pela família e guerras intensas nessa área.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q19" value="a">
+                            <span class="option-label">
+                                Tenho tomado decisões de rota pensando em legado, herança e gerações.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q19" value="d">
+                            <span class="option-label">
+                                Desejo um ambiente de afeto, expressão de amor, perdão e reconciliação.
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="question-group" data-question-value="20">
+                        <label>20. Se hoje Jesus te chamasse para um ajuste específico, qual área você sente que Ele tocaria primeiro?</label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q20" value="p">
+                            <span class="option-label">
+                                Equilíbrio entre missão, estudo, trabalho e descanso do meu corpo e mente.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q20" value="e">
+                            <span class="option-label">
+                                Profundidade de consagração, separação, santidade e obediência imediata.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q20" value="a">
+                            <span class="option-label">
+                                Confiança nEle em decisões de fé, renúncias e deslocamentos que Ele já pediu.
+                            </span>
+                        </label>
+
+                        <label class="radio-option">
+                            <input type="radio" name="q20" value="d">
+                            <span class="option-label">
+                                Cura de emoções, traumas, histórias não resolvidas e pesos antigos do coração.
+                            </span>
+                        </label>
                     </div>
 
                     <button type="submit" class="btn-submit" id="submitBtn">
                         Continuar → Descobrir meu perfil
                     </button>
                 </form>
+
+                <p class="note-final">
+                    Ao finalizar, além de ver o <strong>perfil dominante</strong>, você será direcionado(a) para o
+                    <strong>Cadastro Completo</strong>, onde vamos alinhar a mentoria mais coerente com esta estação da sua vida.
+                </p>
             </div>
-        </div>
+        </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
+        <div class="footer-inner">
+            <div>
+                Instituto Tanigawa – Discernimento, governo, direção e cuidado.
+            </div>
+            <div class="footer-right">
+                <div>&copy; <span id="year"></span> Instituto Tanigawa. Todos os direitos reservados.</div>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Mapeamento dos perfis
-        const profiles = {
-            p: { name: "Paulo (O Apóstolo)", mentoria: "SYNESIS" },
-            e: { name: "Elias (O Profeta)", mentoria: "LEV" },
-            a: { name: "Abraão (O Patriarca)", mentoria: "SYNESIS" },
-            d: { name: "Davi (O Rei/Adorador)", mentoria: "LEV" }
-        };
-        const totalQuestions = 5;
-        const submitBtn = document.getElementById('submitBtn');
+        // Ano dinâmico
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Scroll effect no header
+        // Header com sombra ao rolar
+        const headerEl = document.getElementById('header');
         window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
+            if (window.scrollY > 10) {
+                headerEl.classList.add('scrolled');
             } else {
-                header.classList.remove('scrolled');
+                headerEl.classList.remove('scrolled');
             }
         });
 
-        // Função de Logout
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'auth_system.html'; 
-        }
+        // Partículas flutuantes
+        (function createFloatingParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(particle);
+            }
+        })();
 
-        // Atualizar navbar
+        // Nav dinâmica (padrão geral)
         function updateNavBar() {
             const navAuth = document.getElementById('navAuth');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
@@ -568,34 +1314,58 @@
                 let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
                 let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
-                navAuth.innerHTML = `<a href="${linkTarget}" class="login-btn">${linkText}</a>`;
+                navAuth.innerHTML = `
+                    <a href="${linkTarget}" class="login-btn">
+                        ${linkText}
+                    </a>
+                `;
             } else {
-                navAuth.innerHTML = `<a href="auth_system.html" class="login-btn">Entrar</a>`;
+                navAuth.innerHTML = `
+                    <a href="auth_system.html" class="login-btn">
+                        Entrar
+                    </a>
+                `;
             }
         }
-        
-        // Atualiza progresso
+
+        // PERFIS PEAD
+        const profiles = {
+            p: { name: "Paulo (O Apóstolo)", mentoria: "SYNESIS" },
+            e: { name: "Elias (O Profeta)", mentoria: "LEV" },
+            a: { name: "Abraão (O Patriarca)", mentoria: "SYNESIS" },
+            d: { name: "Davi (O Rei/Adorador)", mentoria: "LEV" }
+        };
+
+        const totalQuestions = 20;
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Atualiza barra de progresso
         function updateProgress() {
             const answered = document.querySelectorAll('input[type="radio"]:checked').length;
             const percentage = (answered / totalQuestions) * 100;
             
-            document.getElementById('progressBar').style.width = percentage + '%';
-            document.getElementById('progressText').textContent = `${answered} de ${totalQuestions} (${Math.round(percentage)}% concluído)`;
-            
+            const bar = document.getElementById('progressBar');
+            const text = document.getElementById('progressText');
+            if (bar) bar.style.width = percentage + '%';
+            if (text) {
+                text.textContent = `${answered} de ${totalQuestions} (${Math.round(percentage)}% concluído)`;
+            }
+
             submitBtn.disabled = answered !== totalQuestions;
         }
-        
-        // Seleção visual
+
+        // Seleção visual das alternativas
         document.querySelectorAll('.radio-option input[type="radio"]').forEach(radio => {
             radio.addEventListener('change', (e) => {
                 const group = e.target.closest('.question-group');
+                if (!group) return;
                 group.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
                 e.target.parentElement.classList.add('selected');
                 updateProgress();
             });
         });
 
-        // Submissão
+        // Submissão do formulário
         document.getElementById('diagnosticoForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -612,12 +1382,14 @@
             
             formData.forEach((value, key) => {
                 if (key.startsWith('q')) {
-                    scores[value] = (scores[value] || 0) + 1;
+                    if (scores[value] !== undefined) {
+                        scores[value] = scores[value] + 1;
+                    }
                 }
             });
 
             let maxScore = -1;
-            let dominantProfile = '';
+            let dominantProfile = 'p';
             for (let profile in scores) {
                 if (scores[profile] > maxScore) {
                     maxScore = scores[profile];
@@ -646,20 +1418,20 @@
                     body: JSON.stringify(finalData)
                 });
 
-                if (response.status === 200) {
-                    const redirects = {
-                        SYNESIS: 'mentoria.html#espiritual',
-                        LEV: 'mentoria.html#lev'
-                    };
-                    alert(`✅ Seu perfil dominante é ${result.name}! Você será direcionado(a) para a Mentoria ${result.mentoria}.`);
-                    window.location.href = redirects[result.mentoria];
-                } else {
+                if (!response.ok && response.status !== 404) {
                     throw new Error(`Erro de submissão: Status ${response.status}`);
                 }
-                
+
+                alert(`✅ Seu perfil dominante é ${result.name}.\nVamos te direcionar para o cadastro da mentoria mais alinhada a este momento: ${result.mentoria}.`);
+
+                const target = `cadastro-completo.html?mentoria=${encodeURIComponent(result.mentoria)}&perfil=${encodeURIComponent(result.name)}`;
+                window.location.href = target;
+
             } catch (error) {
-                alert('❌ Erro ao enviar diagnóstico. Por favor, tente novamente.');
                 console.error(error);
+                alert('❌ Erro ao enviar o diagnóstico. Mesmo assim, você será direcionado(a) para o cadastro completo.');
+                const fallbackTarget = `cadastro-completo.html?mentoria=${encodeURIComponent(result.mentoria)}&perfil=${encodeURIComponent(result.name)}`;
+                window.location.href = fallbackTarget;
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = 'Continuar → Descobrir meu perfil';

@@ -4,80 +4,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área Restrita - Instituto Tanigawa</title>
-    <meta name="description" content="Acesso exclusivo para membros e administradores.">
-    
-    <!-- Fontes do Design System (Sora para Títulos, Inter para Corpo) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <!-- FIREBASE AUTHENTICATION E FIRESTORE IMPORTS CRÍTICOS -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-        
-        // Variáveis globais do Canvas (CRÍTICO para a inicialização)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-        
-        // 1. Inicializa Firebase
-        const app = initializeApp(firebaseConfig);
-        window.auth = getAuth(app); 
-        window.db = getFirestore(app);
-        window.appId = appId;
+    <meta name="description" content="Acesso exclusivo para membros e administradores do Instituto Tanigawa.">
 
-        // CRÍTICO: Exporta os helpers para evitar ReferenceError (SDK Modular)
-        window.authHelpers = { signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, onAuthStateChanged, signOut };
-        window.firestoreHelpers = { doc, getDoc, collection };
-    </script>
+    <!-- Fontes do Design System -->
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
-        /* [CÓDIGO CSS COMPLETO DO DESIGN SYSTEM INALTERADO] */
-        :root {
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --color-dark: #0a0e27;
-            --color-darker: #060919;
-            --color-text: #ffffff;
-            --color-text-muted: #a0aec0;
-            --color-accent: #667eea;
-            --danger: #f5576c;
-            --success: #43e97b;
-            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            /* Gradientes do Design System */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            
+            /* Cores */
+            --color-dark: #0a0e27;
+            --color-darker: #060919;
+            --color-card: rgba(255, 255, 255, 0.03);
+            --color-card-hover: rgba(255, 255, 255, 0.06);
+            --color-text: #ffffff;
+            --color-text-muted: #a0aec0;
+            --color-accent: #667eea;
+            
+            /* Sombras */
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background: var(--color-darker);
             color: var(--color-text);
+            line-height: 1.6;
             overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             position: relative;
+            min-height: 100vh;
         }
 
+        /* Background animado */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
             z-index: 0;
             animation: backgroundShift 20s ease infinite;
-            pointer-events: none;
         }
 
         @keyframes backgroundShift {
@@ -85,379 +65,739 @@
             50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        .glass-card {
-            width: 420px;
-            max-width: 90%;
-            padding: 2.5rem;
-            margin: 2rem 0;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-            position: relative;
-            z-index: 10;
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
         }
 
-        .header-card h2 {
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6); 
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
             font-family: 'Sora', sans-serif;
-            font-size: 2.2rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo span {
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            font-family: 'Sora', sans-serif;
             background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .header-card p {
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
             color: var(--color-text-muted);
-            margin-bottom: 2rem;
-            font-size: 1.05rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
+            text-decoration: none;
             font-weight: 500;
-            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .form-group input {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background: var(--color-dark);
+        .nav-links a:hover,
+        .nav-links a.active {
             color: var(--color-text);
-            font-size: 1rem;
-            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--color-accent);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 0%;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
         }
 
-        .login-btn-submit {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
-            padding: 1.2rem;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        }
+
+        .login-btn {
             background: var(--gradient-primary);
             color: white;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-            transition: all 0.3s ease;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .login-btn-submit:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
-        }
-
-        #errorBox {
-            background: var(--danger);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            margin-bottom: 1.5rem;
-            display: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
             font-weight: 600;
-        }
-
-        #successBox {
-            background: var(--success);
-            color: var(--color-darker);
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-            margin-bottom: 1.5rem;
-            display: none;
-            font-weight: 600;
-        }
-        
-        .links-group {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.95rem;
-        }
-        
-        .links-group a, .links-group button {
-            color: var(--color-accent);
             text-decoration: none;
-            background: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
             border: none;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
             font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.3s;
         }
-        
-        .links-group button:hover {
-            color: #818cf8;
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
+            padding-top: 110px;
+            min-height: calc(100vh - 160px);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3.5rem 2rem 3rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Card de Login */
+        .auth-wrapper {
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .auth-info h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #c4d0ff 40%, #a5b4fc 65%, #f9a8d4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-info p {
+            font-size: 0.98rem;
+            color: var(--color-text-muted);
+            max-width: 440px;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-info ul {
+            list-style: none;
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-left: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-info ul li {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .auth-info ul li span {
+            font-size: 0.9rem;
+            margin-top: 0.1rem;
+        }
+
+        .auth-note {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        .auth-note strong {
+            color: #e5e7eb;
+        }
+
+        .glass-card {
+            width: 420px;
+            max-width: 100%;
+            padding: 2.5rem;
+            margin: 0 auto;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(18px);
+            border-radius: 24px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            box-shadow: 0 22px 70px rgba(15, 23, 42, 0.9);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: -30%;
+            background:
+                radial-gradient(circle at 0% 0%, rgba(129, 140, 248, 0.4), transparent 60%),
+                radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.3), transparent 60%);
+            opacity: 0.6;
+            mix-blend-mode: screen;
+            pointer-events: none;
+        }
+
+        .glass-card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .login-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            background: rgba(15, 23, 42, 0.8);
+            padding: 0.2rem;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+        }
+
+        .login-tab {
+            flex: 1;
+            border-radius: 999px;
+            padding: 0.55rem 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+            border: none;
+            background: transparent;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .login-tab.active {
+            background: var(--gradient-primary);
+            color: #f9fafb;
+            box-shadow: 0 6px 18px rgba(88, 80, 236, 0.6);
+        }
+
+        .field-group {
+            margin-bottom: 1rem;
+        }
+
+        .field-label {
+            font-size: 0.85rem;
+            color: #e5e7eb;
+            margin-bottom: 0.3rem;
+        }
+
+        .field-input {
+            width: 100%;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: rgba(15, 23, 42, 0.9);
+            padding: 0.7rem 1rem;
+            color: #e5e7eb;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .field-input:focus {
+            border-color: #c7d2fe;
+            box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.5);
+        }
+
+        .field-input::placeholder {
+            color: rgba(148, 163, 184, 0.75);
+        }
+
+        .field-select {
+            appearance: none;
+        }
+
+        .field-help {
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .login-footer {
+            margin-top: 1.2rem;
+        }
+
+        .login-btn-primary {
+            width: 100%;
+            border-radius: 999px;
+            border: none;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            background: var(--gradient-tertiary);
+            color: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.85);
+            transition: all 0.25s ease;
+        }
+
+        .login-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 40px rgba(37, 99, 235, 1);
+        }
+
+        .login-meta {
+            margin-top: 0.8rem;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .login-meta a {
+            color: #c7d2fe;
+            text-decoration: none;
+        }
+
+        .login-meta a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            border-radius: 14px;
+            padding: 0.75rem 0.9rem;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert.error {
+            background: rgba(127, 29, 29, 0.85);
+            border: 1px solid rgba(248, 113, 113, 0.9);
+            color: #fee2e2;
+        }
+
+        .alert.success {
+            background: rgba(6, 95, 70, 0.9);
+            border: 1px solid rgba(45, 212, 191, 0.9);
+            color: #ccfbf1;
+        }
+
+        footer {
+            border-top: 1px solid rgba(148, 163, 184, 0.35);
+            padding: 1.5rem 2rem 2.5rem;
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-right {
+            text-align: right;
+            min-width: 200px;
+        }
+
+        .footer-right a {
+            color: #e5e7eb;
+            text-decoration: none;
+        }
+
+        .footer-right a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .auth-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 3rem 1.5rem 2.5rem;
+            }
+
+            .auth-info {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 0 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .auth-info h1 {
+                font-size: 1.6rem;
+            }
+
+            .glass-card {
+                padding: 2rem 1.6rem;
+            }
+
+            .container {
+                padding: 2.8rem 1.3rem 2.2rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: left;
+            }
+
+            .footer-right {
+                text-align: left;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .auth-info h1 {
+                font-size: 1.4rem;
+            }
+
+            .container {
+                padding: 2.5rem 1.1rem 2rem;
+            }
         }
     </style>
 </head>
-
 <body>
-    <div class="glass-card">
-        <div class="header-card">
-            <h2>Área Restrita</h2>
-            <p>Acesso exclusivo para membros e administradores.</p>
-        </div>
+    <div class="bg-grid"></div>
 
-        <div id="errorBox"></div>
-        <div id="successBox"></div>
+    <header id="header">
+        <nav>
+            <a href="home.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="mentoria.html">Mentorias</a></li>
+                <li><a href="devocionais.html">Devocionais</a></li>
+                <li><a href="nr-1.html">NR-1</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+            <div id="navAuth"></div>
+        </nav>
+    </header>
 
-        <!-- FORMULÁRIO UNIFICADO (LOGIN & SIGNUP) -->
-        <form id="authForm">
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" placeholder="seu.email@exemplo.com" required>
+    <main>
+        <section class="container">
+            <div class="auth-wrapper">
+                <div class="auth-info">
+                    <h1>Área restrita para quem já está em jornada.</h1>
+                    <p>
+                        Aqui é onde os membros e administradores acessam conteúdos, mentorias, acompanhamentos e informações estratégicas
+                        do ecossistema Instituto Tanigawa.
+                    </p>
+                    <ul>
+                        <li><span>•</span><span><strong>Membros:</strong> acessam conteúdos, trilhas, materiais de mentorias e comunicados.</span></li>
+                        <li><span>•</span><span><strong>Admin:</strong> gestão de cadastros, mentorias, diagnósticos e relatórios.</span></li>
+                    </ul>
+                    <p class="auth-note">
+                        <strong>Importante:</strong> se você ainda não fez o Diagnóstico Tanigawa ou não passou pelo cadastro completo,
+                        converse com nossa equipe antes de tentar acessar esta área.
+                    </p>
+                </div>
+
+                <div class="glass-card">
+                    <div class="glass-card-inner">
+                        <h2 class="card-title">Entrar no Instituto Tanigawa</h2>
+                        <p class="card-subtitle">Escolha o tipo de acesso e entre com seus dados.</p>
+
+                        <div class="login-tabs">
+                            <button type="button" class="login-tab active" data-type="member">Sou Membro</button>
+                            <button type="button" class="login-tab" data-type="admin">Sou Admin</button>
+                        </div>
+
+                        <div id="alertBox" class="alert"></div>
+
+                        <form id="loginForm">
+                            <input type="hidden" id="loginType" value="member">
+
+                            <div class="field-group">
+                                <div class="field-label">E-mail</div>
+                                <input type="email" id="loginEmail" class="field-input" placeholder="seunome@exemplo.com" required>
+                            </div>
+
+                            <div class="field-group">
+                                <div class="field-label">Senha</div>
+                                <input type="password" id="loginPassword" class="field-input" placeholder="Sua senha" required>
+                                <div class="field-help">
+                                    Para admins, use as credenciais combinadas. Para membros, use o e-mail e senha cadastrados com a equipe.
+                                </div>
+                            </div>
+
+                            <div class="login-footer">
+                                <button type="submit" class="login-btn-primary">
+                                    Entrar
+                                </button>
+                                <div class="login-meta">
+                                    Ainda não fez o cadastro completo?
+                                    <a href="cadastro-completo.html">Clique aqui para iniciar sua jornada.</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="password">Senha:</label>
-                <input type="password" id="password" required>
-            </div>
-            
-            <button type="submit" id="submitBtn" class="login-btn-submit">
-                Acessar
-            </button>
-        </form>
+        </section>
+    </main>
 
-        <div class="links-group">
-            <button id="toggleAuthBtn" onclick="toggleMode()">
-                Não tem acesso? Cadastre-se
-            </button>
-            <span style="color: var(--color-text-muted); margin: 0 10px;">|</span>
-            <button onclick="handleResetPassword()">
-                Esqueceu a senha?
-            </button>
+    <footer>
+        <div class="footer-inner">
+            <div>
+                Instituto Tanigawa – Discernimento, governo, direção e cuidado.
+            </div>
+            <div class="footer-right">
+                <div>&copy; <span id="year"></span> Instituto Tanigawa. Todos os direitos reservados.</div>
+            </div>
         </div>
-    </div>
-    
+    </footer>
+
     <script>
-        // CRÍTICO: Constantes para Firestore
-        const ADMINS_COLLECTION = 'admins';
-        
-        function showMessage(msg, isSuccess = true) {
-            const box = isSuccess ? document.getElementById('successBox') : document.getElementById('errorBox');
-            const otherBox = isSuccess ? document.getElementById('errorBox') : document.getElementById('successBox');
-            
-            box.textContent = msg;
-            box.style.display = 'block';
-            otherBox.style.display = 'none';
-            
-            setTimeout(() => { box.style.display = 'none'; }, 5000);
-        }
+        // Ano dinâmico
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-        let isLoginMode = true;
-        const submitBtn = document.getElementById('submitBtn');
-        const toggleBtn = document.getElementById('toggleAuthBtn');
-
-        function toggleMode() {
-            isLoginMode = !isLoginMode;
-            if (isLoginMode) {
-                submitBtn.innerHTML = 'Acessar';
-                toggleBtn.textContent = 'Não tem acesso? Cadastre-se';
+        // Header com sombra ao rolar
+        const headerEl = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                headerEl.classList.add('scrolled');
             } else {
-                submitBtn.innerHTML = 'Cadastrar Novo Membro';
-                toggleBtn.textContent = 'Já sou membro. Fazer login';
+                headerEl.classList.remove('scrolled');
             }
-            document.getElementById('authForm').reset();
-            document.getElementById('errorBox').style.display = 'none';
-            document.getElementById('successBox').style.display = 'none';
-        }
-        
-        // CRÍTICO: Checagem de Admin via Firestore (com helpers)
-        async function checkAdmin(uid) {
-            // Verifica se a dependência do Firestore está pronta
-            if (!window.db || !window.firestoreHelpers || !uid) return { type: 'member', nome: 'Membro' };
-            
-            const adminDocRef = window.firestoreHelpers.doc(
-                window.firestoreHelpers.collection(window.db, `artifacts/${window.appId}/public/data/${ADMINS_COLLECTION}`),
-                uid
-            );
-
-            try {
-                const adminDoc = await window.firestoreHelpers.getDoc(adminDocRef);
-
-                if (adminDoc.exists()) {
-                    const data = adminDoc.data();
-                    return { type: 'admin', nome: data.nome || 'Admin Designado' };
-                }
-            } catch (e) {
-                console.error("Erro ao verificar admin no Firestore:", e);
-            }
-            return { type: 'member', nome: 'Membro' }; 
-        }
-        
-        // ------------------------------------------------------------------
-        // HANDLERS PRINCIPAIS
-        // ------------------------------------------------------------------
-        
-        // CRÍTICO: Form Listener movido para startAuthSystem()
-        let formListenerAttached = false;
-
-        async function handleLogin(email, password) {
-            try {
-                const userCredential = await window.authHelpers.signInWithEmailAndPassword(window.auth, email, password);
-                const user = userCredential.user;
-                
-                const userData = await checkAdmin(user.uid);
-                
-                sessionStorage.setItem("userType", userData.type);
-                sessionStorage.setItem("userName", userData.nome || user.email.split('@')[0]);
-                sessionStorage.setItem("userEmail", user.email);
-                
-                if (userData.type === "admin") {
-                    window.location.replace("admin_dashboard.html");
-                } else {
-                    window.location.replace("area_membros.html");
-                }
-
-            } catch (error) {
-                console.error("Erro de Login:", error);
-                let msg = "Email ou senha inválidos. Tente novamente.";
-                showMessage(msg, false);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Acessar';
-            }
-        }
-
-        async function handleSignup(email, password) {
-            if (password.length < 6) {
-                showMessage("A senha deve ter pelo menos 6 caracteres.", false);
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Cadastrar Novo Membro';
-                return;
-            }
-            
-            try {
-                const userCredential = await window.authHelpers.createUserWithEmailAndPassword(window.auth, email, password);
-                const user = userCredential.user;
-                
-                // Cadastro é sempre tipo 'member'
-                const userData = { type: 'member', nome: user.email.split('@')[0] };
-                
-                sessionStorage.setItem("userType", userData.type);
-                sessionStorage.setItem("userName", userData.nome);
-                sessionStorage.setItem("userEmail", user.email);
-                
-                showMessage("✅ Cadastro realizado com sucesso! Redirecionando para a área de membros...", true);
-                
-                setTimeout(() => {
-                    window.location.replace("area_membros.html");
-                }, 1500);
-
-            } catch (error) {
-                console.error("Erro de Cadastro:", error);
-                let msg = "Erro ao cadastrar. O e-mail pode já estar em uso ou o formato é inválido.";
-                if (error.code === 'auth/email-already-in-use') {
-                    msg = "Este email já está cadastrado. Tente logar ou use a recuperação de senha.";
-                }
-                showMessage(msg, false);
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Cadastrar Novo Membro';
-            }
-        }
-        
-        // CRÍTICO: RECUPERAÇÃO DE SENHA 
-        window.handleResetPassword = async function() {
-            const email = document.getElementById('email').value;
-            
-            if (!email) {
-                showMessage("Por favor, digite seu email no campo para a recuperação.", false);
-                return;
-            }
-            
-            showMessage("⏳ Enviando link de recuperação...", true);
-            
-            try {
-                await window.authHelpers.sendPasswordResetEmail(window.auth, email);
-                showMessage(`✅ Um link de recuperação foi enviado para ${email}. Verifique sua caixa de entrada e spam.`, true);
-            } catch (error) {
-                console.error("Erro ao enviar reset:", error);
-                showMessage("❌ Erro ao tentar recuperar. Email não encontrado ou erro de conexão.", false);
-            }
-        }
-        
-        // ------------------------------------------------------------------
-        // INICIALIZAÇÃO ROBUSTA (Corrigindo o race condition)
-        // ------------------------------------------------------------------
-        
-        // 🛑 NOVO FLUXO: Aguarda até que as variáveis globais do módulo estejam prontas
-        function waitForFirebaseReady(callback) {
-            if (window.auth && window.db && window.authHelpers) {
-                callback();
-            } else {
-                setTimeout(() => waitForFirebaseReady(callback), 100);
-            }
-        }
-        
-        function startAuthSystem() {
-            // 1. Verifica se o usuário já está logado
-            window.authHelpers.onAuthStateChanged(window.auth, async (user) => {
-                if (user) {
-                    const userData = await checkAdmin(user.uid);
-                    
-                    // Salva a sessão (atualizando nome/tipo)
-                    sessionStorage.setItem("userType", userData.type);
-                    sessionStorage.setItem("userName", userData.nome || user.email.split('@')[0]);
-                    sessionStorage.setItem("userEmail", user.email);
-
-                    // Redireciona
-                    if (userData.type === "admin") {
-                        window.location.replace("admin_dashboard.html");
-                    } else {
-                        window.location.replace("area_membros.html");
-                    }
-                }
-            });
-            
-            // 2. Anexa o Listener do Formulário (apenas uma vez)
-            if (!formListenerAttached) {
-                document.getElementById('authForm').addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    // O código do handler é executado aqui
-                    const email = document.getElementById('email').value;
-                    const password = document.getElementById('password').value;
-                    
-                    submitBtn.disabled = true;
-                    submitBtn.innerHTML = '⏳ Processando...';
-
-                    if (isLoginMode) {
-                        handleLogin(email, password);
-                    } else {
-                        handleSignup(email, password);
-                    }
-                });
-                formListenerAttached = true;
-            }
-        }
-
-        // Inicia o processo de espera após o DOM carregar
-        document.addEventListener('DOMContentLoaded', () => {
-            waitForFirebaseReady(startAuthSystem);
         });
-        
+
+        // Partículas flutuantes
+        (function createFloatingParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(particle);
+            }
+        })();
+
+        // Atualiza nav de acordo com login (mesmo padrão do home.html)
+        function updateNavBar() {
+            const navAuth = document.getElementById('navAuth');
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const userType = sessionStorage.getItem('userType');
+            
+            if (!navAuth) return;
+            navAuth.innerHTML = '';
+            
+            if (isLoggedIn) {
+                let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
+                let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
+                
+                navAuth.innerHTML = `
+                    <a href="${linkTarget}" class="login-btn">
+                        ${linkText}
+                    </a>
+                `;
+            } else {
+                navAuth.innerHTML = `
+                    <a href="auth_system.html" class="login-btn">
+                        Entrar
+                    </a>
+                `;
+            }
+        }
+
+        // Tabs: Membro x Admin
+        const tabs = document.querySelectorAll('.login-tab');
+        const loginTypeInput = document.getElementById('loginType');
+        const alertBox = document.getElementById('alertBox');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                loginTypeInput.value = tab.dataset.type;
+                hideAlert();
+            });
+        });
+
+        // Configuração SIMPLES de admins (edite aqui, se quiser)
+        const ADMIN_USERS = [
+            {
+                email: 'admin@institutotanigawa.com',
+                password: 'admin123',
+                name: 'Admin Instituto Tanigawa'
+            }
+            // Você pode adicionar outros admins aqui
+        ];
+
+        function showAlert(message, type = 'error') {
+            alertBox.textContent = message;
+            alertBox.className = 'alert ' + type;
+            alertBox.style.display = 'block';
+        }
+
+        function hideAlert() {
+            alertBox.style.display = 'none';
+        }
+
+        // Login
+        const loginForm = document.getElementById('loginForm');
+        loginForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            hideAlert();
+
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const type = loginTypeInput.value; // member | admin
+
+            if (!email || !password) {
+                showAlert('Preencha e-mail e senha para continuar.');
+                return;
+            }
+
+            if (type === 'admin') {
+                // Validação simples contra lista interna
+                const adminUser = ADMIN_USERS.find(u => 
+                    u.email.toLowerCase() === email.toLowerCase() && u.password === password
+                );
+
+                if (!adminUser) {
+                    showAlert('Credenciais de administrador inválidas. Confirme com o responsável pelo sistema.', 'error');
+                    return;
+                }
+
+                // Login como admin
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userType', 'admin');
+                sessionStorage.setItem('userName', adminUser.name);
+                sessionStorage.setItem('userEmail', adminUser.email);
+
+                showAlert('Login de administrador realizado com sucesso. Redirecionando...', 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'admin_dashboard.html';
+                }, 800);
+
+            } else {
+                // Membro: aceita qualquer combinação válida (para destravar fluxo)
+                const nameFromEmail = email.split('@')[0].replace('.', ' ');
+                const displayName = nameFromEmail.charAt(0).toUpperCase() + nameFromEmail.slice(1);
+
+                sessionStorage.setItem('isLoggedIn', 'true');
+                sessionStorage.setItem('userType', 'member');
+                sessionStorage.setItem('userName', displayName);
+                sessionStorage.setItem('userEmail', email);
+
+                showAlert('Login de membro realizado com sucesso. Redirecionando...', 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'area_membros.html';
+                }, 800);
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateNavBar();
+        });
     </script>
 </body>
 </html>
