@@ -6,12 +6,9 @@
     <title>Cadastro Completo - Instituto Tanigawa</title>
     <meta name="description" content="Sistema completo de cadastro, escolha de mentoria e pagamento - Instituto Tanigawa">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
         * {
             margin: 0;
             padding: 0;
@@ -19,80 +16,219 @@
         }
 
         :root {
-            --primary-blue: #3b82f6;
-            --primary-gold: #f59e0b;
-            --dark-bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --text-light: #e2e8f0;
-            --text-gray: #94a3b8;
-            --success-green: #10b981;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
             
-            --section-spacing: 4rem;
+            --color-dark: #0a0e27;
+            --color-darker: #060919;
+            --color-card: rgba(255, 255, 255, 0.03);
+            --color-card-hover: rgba(255, 255, 255, 0.06);
+            --color-text: #ffffff;
+            --color-text-muted: #a0aec0;
+            --color-accent: #667eea;
+            --color-success: #43e97b;
+            
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--text-light);
+            background: var(--color-darker);
+            color: var(--color-text);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            line-height: 1.3;
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
+            z-index: 0;
+            animation: backgroundShift 20s ease infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
         }
 
         header {
-            background: var(--dark-bg);
-            padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-gold);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             text-decoration: none;
+            color: var(--color-text);
+            transition: transform 0.3s ease;
         }
-        
-        .logout-link {
-            background: none;
-            color: var(--text-gray);
-            text-decoration: underline;
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo span {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        .login-btn {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
             border: none;
             cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
         }
 
         main {
-            padding: var(--section-spacing) 0;
+            position: relative;
+            z-index: 1;
+            padding-top: 100px;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 4rem 2rem;
         }
 
         .card {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .card h2 {
+            font-family: 'Sora', sans-serif;
             font-size: 2rem;
-            color: var(--primary-blue);
-            margin-bottom: 25px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .form-group {
@@ -103,131 +239,262 @@
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
-            color: var(--text-light);
+            color: var(--color-text);
+            font-size: 0.95rem;
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 6px;
-            color: var(--text-light);
+            padding: 0.9rem 1rem;
+            background: rgba(10, 14, 39, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--color-text);
             font-size: 1rem;
             font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: rgba(10, 14, 39, 0.7);
         }
-        
-        /* Select específico para temas escuros */
+
         .form-group select option {
-             background: var(--dark-bg);
-             color: var(--text-light);
+            background: var(--color-dark);
+            color: var(--color-text);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-group-inline {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-group-inline .form-group {
+            flex: 1;
+        }
+
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+            animation: fadeInUp 0.6s ease;
         }
 
         .btn-navigation {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            background-color: var(--primary-gold);
-            color: var(--dark-bg);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
             font-size: 1rem;
-            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            border: none;
             cursor: pointer;
-            transition: background-color 0.3s;
+            font-family: 'Inter', sans-serif;
         }
 
         .btn-navigation:hover {
-            background-color: #d9900a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-navigation:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .btn-container {
             display: flex;
             justify-content: space-between;
-            margin-top: 30px;
+            margin-top: 2rem;
+            gap: 1rem;
         }
-        
-        .step-content {
-            display: none;
-        }
-        
-        .step-content.active {
-            display: block;
-        }
-        
-        /* Contrato */
+
         .contract-box {
-            background: rgba(15, 23, 42, 0.7);
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             max-height: 300px;
             overflow-y: auto;
-            color: var(--text-gray);
+            color: var(--color-text-muted);
             font-size: 0.9rem;
-            margin-bottom: 15px;
+            margin-bottom: 1.5rem;
         }
-        
+
         .contract-box h4 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-gold);
-            margin-top: 10px;
-            margin-bottom: 5px;
+            font-family: 'Sora', sans-serif;
+            background: var(--gradient-tertiary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
-        
+
+        .contract-box h4:first-child {
+            margin-top: 0;
+        }
+
         .contract-box p {
-            margin-bottom: 10px;
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
         }
-        
+
         .contract-checkbox {
             display: flex;
             align-items: center;
-            margin-top: 20px;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
-        
-        .contract-checkbox input {
+
+        .contract-checkbox input[type="checkbox"] {
             width: auto;
-            margin-right: 10px;
+            margin-right: 0.75rem;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
         }
 
-        /* Confirmação Final */
+        .contract-checkbox label {
+            margin-bottom: 0 !important;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
         #confirmationDetails {
-            background: rgba(59, 130, 246, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            border: 1px solid var(--primary-blue);
-        }
-        
-        #confirmationDetails p {
-            margin-bottom: 10px;
-        }
-        
-        #confirmationDetails strong {
-            color: var(--primary-gold);
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-top: 1.5rem;
+            border: 1px solid rgba(79, 172, 254, 0.2);
         }
 
-        /* Footer (Mantido simples) */
+        #confirmationDetails p {
+            margin-bottom: 0.75rem;
+            font-size: 1.05rem;
+        }
+
+        #confirmationDetails strong {
+            background: var(--gradient-tertiary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .success-message {
+            color: var(--color-success);
+            font-size: 1.1rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
         footer {
             text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            margin-top: var(--section-spacing);
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 1.5rem;
+            }
+
+            .card h2 {
+                font-size: 1.5rem;
+            }
+
+            .form-group-inline {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .btn-container {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .contract-box {
+                max-height: 200px;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <a href="home.html" class="logo">INSTITUTO TANIGAWA</a>
-        <button class="logout-link" onclick="logout()">Sair</button>
+    <div class="bg-grid"></div>
+
+    <header id="header">
+        <nav>
+            <a href="home.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="mentoria.html">Mentorias</a></li>
+                <li><a href="devocionais.html">Devocionais</a></li>
+                <li><a href="nr-1.html">NR-1</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+                <div id="navAuth">
+                    <button class="login-btn" onclick="logout()">Sair</button>
+                </div>
+            </ul>
+        </nav>
     </header>
 
     <main>
@@ -292,12 +559,12 @@
                             <label for="endereco">Endereço:</label>
                             <input type="text" id="endereco" name="endereco" required>
                         </div>
-                        <div class="form-group-inline" style="display: flex; gap: 15px;">
-                            <div class="form-group" style="flex: 1;">
+                        <div class="form-group-inline">
+                            <div class="form-group">
                                 <label for="numero">Número:</label>
                                 <input type="text" id="numero" name="numero" required>
                             </div>
-                            <div class="form-group" style="flex: 2;">
+                            <div class="form-group">
                                 <label for="complemento">Complemento:</label>
                                 <input type="text" id="complemento" name="complemento">
                             </div>
@@ -306,14 +573,14 @@
                             <label for="bairro">Bairro:</label>
                             <input type="text" id="bairro" name="bairro" required>
                         </div>
-                        <div class="form-group-inline" style="display: flex; gap: 15px;">
-                            <div class="form-group" style="flex: 3;">
+                        <div class="form-group-inline">
+                            <div class="form-group">
                                 <label for="cidade">Cidade:</label>
                                 <input type="text" id="cidade" name="cidade" required>
                             </div>
-                            <div class="form-group" style="flex: 1;">
+                            <div class="form-group">
                                 <label for="estado">Estado:</label>
-                                <input type="text" id="estado" name="estado" required>
+                                <input type="text" id="estado" name="estado" required maxlength="2">
                             </div>
                         </div>
                         <div class="btn-container">
@@ -321,8 +588,7 @@
                             <button type="button" class="btn-navigation" onclick="nextStep(3)">Próximo →</button>
                         </div>
                     </div>
-
-                    <div id="step4" class="step-content">
+<div id="step4" class="step-content">
                         <div class="form-group">
                             <label for="expectativas">O que você espera da mentoria?</label>
                             <textarea id="expectativas" name="expectativas" rows="4" required></textarea>
@@ -345,17 +611,18 @@
                             <h4>TERMOS E CONDIÇÕES DA MENTORIA</h4>
                             <p>1. O contratante declara ter lido e aceitado as condições de serviço e a política de reembolso (válida por 7 dias, conforme CDC).</p>
                             <p>2. O acesso à plataforma de membros é imediato após a confirmação do pagamento integral ou da primeira parcela.</p>
-                            <p>3. A Mentoria X (detalhada no site) terá duração de 12 semanas, sendo intransferível e de uso pessoal.</p>
+                            <p>3. A Mentoria selecionada terá duração conforme descrito no site, sendo intransferível e de uso pessoal.</p>
                             <p>4. Em caso de desistência após o prazo de 7 dias, não haverá reembolso de valores pagos.</p>
+                            <p>5. O Instituto Tanigawa se reserva o direito de atualizar o conteúdo e materiais das mentorias para melhor atender aos participantes.</p>
                         </div>
 
                         <div class="contract-checkbox">
                             <input type="checkbox" id="aceiteContrato" name="aceiteContrato" value="Sim" required>
-                            <label for="aceiteContrato" style="margin-bottom: 0;">Li e Aceito os Termos e Condições acima.</label>
+                            <label for="aceiteContrato">Li e Aceito os Termos e Condições acima.</label>
                         </div>
-                         <div class="contract-checkbox">
+                        <div class="contract-checkbox">
                             <input type="checkbox" id="aceiteComunicacao" name="aceiteComunicacao" value="Sim">
-                            <label for="aceiteComunicacao" style="margin-bottom: 0;">Desejo receber comunicações e newsletters do Instituto Tanigawa.</label>
+                            <label for="aceiteComunicacao">Desejo receber comunicações e newsletters do Instituto Tanigawa.</label>
                         </div>
 
                         <div class="btn-container">
@@ -365,20 +632,19 @@
                     </div>
 
                     <div id="step5" class="step-content">
-                        <h2>5. Confirmação de Envio</h2>
-                        <p style="color: var(--success-green); font-size: 1.1rem; font-weight: 500;">
+                        <p class="success-message">
                             ✅ Seu cadastro foi enviado com sucesso!
                         </p>
-                        <p style="margin-top: 20px;">
-                            Detalhes enviados para: <strong id="emailConfirm"></strong>.
+                        <p style="margin-bottom: 1.5rem;">
+                            Detalhes enviados para: <strong id="emailConfirm"></strong>
                         </p>
                         <div id="confirmationDetails">
                             <p>Mentoria: <strong id="mentoriaFinal"></strong></p>
                             <p>Valor: <strong id="valorFinal"></strong></p>
                             <p>Pagamento: <strong id="pagamentoFinal"></strong></p>
                         </div>
-                        <p style="margin-top: 20px;">
-                            Você receberá um e-mail com as instruções de pagamento.
+                        <p style="margin-top: 1.5rem; color: var(--color-text-muted);">
+                            Você receberá um e-mail com as instruções de pagamento em breve.
                         </p>
                         <div class="btn-container">
                             <button type="button" class="btn-navigation" onclick="window.location.href='home.html'">Voltar para Home</button>
@@ -404,10 +670,61 @@
             5: "5. Confirmação de Envio"
         };
 
-        // Função de Logout (necessária para o header)
+        // Scroll effect no header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Criar partículas flutuantes
+        function createFloatingParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(particle);
+            }
+        }
+
+        createFloatingParticles();
+
+        // Função de Logout
         function logout() {
             sessionStorage.clear();
-            window.location.href = 'auth_system.html'; 
+            window.location.href = 'auth_system.html';
+        }
+
+        // Atualiza navbar
+        function updateNavBar() {
+            const navAuth = document.getElementById('navAuth');
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+            const userType = sessionStorage.getItem('userType');
+            
+            if (!navAuth) return;
+            navAuth.innerHTML = '';
+            
+            if (isLoggedIn) {
+                let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
+                let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
+                
+                navAuth.innerHTML = `
+                    <a href="${linkTarget}" class="login-btn">
+                        ${linkText}
+                    </a>
+                `;
+            } else {
+                navAuth.innerHTML = `
+                    <button class="login-btn" onclick="logout()">Sair</button>
+                `;
+            }
         }
 
         // Atualiza a exibição do passo
@@ -418,6 +735,7 @@
             document.getElementById(`step${step}`).classList.add('active');
             formTitle.textContent = steps[step];
             currentStep = step;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         // Validação básica
@@ -428,10 +746,10 @@
             
             requiredFields.forEach(field => {
                 if (!field.value.trim() || (field.type === 'checkbox' && !field.checked)) {
-                    field.style.borderColor = 'var(--danger)';
+                    field.style.borderColor = '#f5576c';
                     isValid = false;
                 } else {
-                    field.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                    field.style.borderColor = 'rgba(255, 255, 255, 0.1)';
                 }
             });
 
@@ -458,32 +776,39 @@
             const priceField = document.getElementById('mentoriaPreco');
             
             if (price) {
-                // Formatação simples para exibir
                 priceField.value = parseFloat(price).toFixed(2).replace('.', ',');
             } else {
                 priceField.value = '';
             }
         });
         
-        // Simulação de preenchimento de CEP (apenas para UX)
+        // Simulação de preenchimento de CEP
         document.getElementById('cep').addEventListener('blur', function() {
             const cep = this.value.replace(/\D/g, '');
             if (cep.length === 8) {
-                document.getElementById('endereco').value = 'Rua do Teste';
-                document.getElementById('bairro').value = 'Bairro Central';
-                document.getElementById('cidade').value = 'São Paulo';
-                document.getElementById('estado').value = 'SP';
+                fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (!data.erro) {
+                            document.getElementById('endereco').value = data.logradouro || '';
+                            document.getElementById('bairro').value = data.bairro || '';
+                            document.getElementById('cidade').value = data.localidade || '';
+                            document.getElementById('estado').value = data.uf || '';
+                        }
+                    })
+                    .catch(error => {
+                        console.log('Erro ao buscar CEP:', error);
+                    });
             }
         });
 
-
-        // Submissão do Formulário (CRÍTICO: Alterado para Vercel API Endpoint)
+        // Submissão do Formulário
         document.getElementById('cadastroForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             if (!validateStep(4)) {
-                 alert('Por favor, preencha todos os campos obrigatórios do Passo 4.');
-                 return;
+                alert('Por favor, preencha todos os campos obrigatórios do Passo 4.');
+                return;
             }
 
             const submitBtn = document.querySelector('#step4 button[type="submit"]');
@@ -494,11 +819,9 @@
             const data = {};
             formData.forEach((value, key) => { data[key] = value; });
             
-            // Adiciona data/hora ao objeto antes de enviar
             data.dataHora = new Date().toLocaleString('pt-BR');
 
             try {
-                // ALTERAÇÃO CRÍTICA: Chamada para o endpoint /api/cadastro (Item 9)
                 const response = await fetch('/api/cadastro', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -507,14 +830,13 @@
 
                 const result = await response.json();
 
-                if (response.status === 200) {
-                    // Preenche dados finais
+                if (response.status === 200 || response.ok) {
                     document.getElementById('emailConfirm').textContent = data.email;
                     document.getElementById('mentoriaFinal').textContent = data.mentoria;
-                    document.getElementById('valorFinal').textContent = `R$ ${data.mentoriaPreco.replace('.', ',')}`;
+                    document.getElementById('valorFinal').textContent = `R$ ${data.mentoriaPreco}`;
                     document.getElementById('pagamentoFinal').textContent = data.pagamento;
                     
-                    showStep(5); // Vai para a tela de confirmação
+                    showStep(5);
                 } else {
                     throw new Error(`Erro de submissão: Status ${response.status}`);
                 }
@@ -522,16 +844,16 @@
             } catch (error) {
                 alert('❌ Erro ao enviar. Por favor, tente novamente ou entre em contato direto.');
                 console.error("Erro no envio do formulário de Cadastro:", error);
-                showStep(4); // Volta ao passo 4
             }
 
             submitBtn.disabled = false;
             submitBtn.innerHTML = 'Finalizar Cadastro →';
         });
 
-        // Inicializa o primeiro passo
+        // Inicializa
         document.addEventListener('DOMContentLoaded', () => {
             showStep(1);
+            updateNavBar();
         });
     </script>
 </body>
