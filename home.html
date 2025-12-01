@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Instituto Tanigawa - Home</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instituto Tanigawa - Transformando Vidas e Líderes</title>
+    <meta name="description" content="Desenvolvimento espiritual, inteligência emocional e soluções profundas para líderes, igrejas, empresas e famílias.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -14,315 +15,761 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            
+            --color-dark: #0a0e27;
+            --color-darker: #060919;
+            --color-card: rgba(255, 255, 255, 0.03);
+            --color-card-hover: rgba(255, 255, 255, 0.06);
+            --color-text: #ffffff;
+            --color-text-muted: #a0aec0;
+            --color-accent: #667eea;
+            
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
         body {
-            font-family: 'Inter', sans-serif; /* FIDELIDADE: Inter é a fonte base */
-            background: linear-gradient(135deg, #0a0f2d 0%, #1b1038 50%, #0f0a26 100%);
-            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            background: var(--color-darker);
+            color: var(--color-text);
+            line-height: 1.6;
             overflow-x: hidden;
-            line-height: 1.6; /* Restaurado do original */
-        }
-
-        /* RESTAURADO: Header (Item 11) */
-        header {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            backdrop-filter: blur(8px);
-            z-index: 999;
-        }
-
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            letter-spacing: 0.1em; /* RESTAURADO */
-            color: #a5b4fc; /* RESTAURADO */
-        }
-
-        nav ul {
-            display: flex;
-            /* RESTAURADO: Removido 'gap' */
-            list-style: none;
-            padding: 0; /* Adicionado para garantir simetria */
-        }
-        
-        /* RESTAURADO: Estilo dos links (margin-left) */
-        nav a {
-            text-decoration: none;
-            color: #e2e8f0;
-            font-weight: 500;
-            transition: 0.2s;
-        }
-        
-        nav ul li {
-            /* Simula o gap com margin-left, mantendo fidelidade */
-            margin-left: 32px; 
-        }
-
-        nav a:hover {
-            color: #818cf8;
-        }
-
-        /* MENU MOBILE (Restaurado) */
-        .mobile-menu {
-            display: none;
-            cursor: pointer;
-            font-size: 2rem;
-        }
-
-        @media (max-width: 820px) {
-            nav ul {
-                position: fixed;
-                top: 0;
-                right: -300px;
-                width: 250px;
-                height: 100vh;
-                background: #0a0f2d;
-                flex-direction: column;
-                padding-top: 80px;
-                transition: 0.4s ease;
-            }
-            nav ul.active {
-                right: 0;
-            }
-            .mobile-menu {
-                display: block;
-            }
-        }
-
-
-        /* SEÇÃO HERO ORIGINAL (RESTABELECIDO) */
-        .hero {
-            height: 100vh;
-            padding: 100px 40px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            text-align: center;
-            z-index: 2;
             position: relative;
         }
 
-        .hero h1 {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-            color: #cbd5ff; /* RESTAURADO */
-        }
-
-        .hero p {
-            font-size: 1.05rem;
-            max-width: 700px;
-            margin: 10px auto 0;
-            color: #dbeafe; /* RESTAURADO */
-        }
-
-        /* BOTÃO ORIGINAL (RESTABELECIDO) */
-        .cta-btn {
-            margin-top: 26px;
-            padding: 14px 34px;
-            border-radius: 6px;
-            background-color: #6366f1; /* RESTAURADO */
-            color: white;
-            font-weight: 600;
-            text-decoration: none;
-            transition: 0.25s;
-            display: inline-block; /* Garantir que fique centralizado */
-        }
-        .cta-btn:hover {
-            background-color: #818cf8;
-        }
-
-        /* PARTÍCULAS (Restaurado) */
-        #particles {
+        /* Background animado */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: 1;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
+            z-index: 0;
+            animation: backgroundShift 20s ease infinite;
         }
-        
-        /* Estilo para Login Dinâmico (Mínima Injeção) */
-        .login-btn-dynamic {
-            /* Estilo do botão original */
-            padding: 8px 15px; 
-            border-radius: 6px; 
-            background-color: #6366f1;
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Grid animado de fundo */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header moderno */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo span {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .login-btn {
+            background: var(--gradient-primary);
             color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
-            margin-left: 32px; /* Mantém o espaçamento da lista */
-            transition: 0.25s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 2rem 4rem;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
             display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            color: var(--color-text);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
         }
-        .login-btn-dynamic:hover {
-            background-color: #818cf8;
+
+        .hero h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            animation: fadeInUp 1s ease 0.4s both;
         }
-        .logout-link {
-            color: #e2e8f0;
-            text-decoration: underline;
-            margin-left: 20px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-size: 1rem;
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--color-text-muted);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.6s both;
         }
-        
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.8s both;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Features Section */
+        .features {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            background: var(--color-card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            background: var(--gradient-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-card:nth-child(2) .feature-icon {
+            background: var(--gradient-secondary);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .feature-card:nth-child(3) .feature-icon {
+            background: var(--gradient-tertiary);
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+        }
+
+        .feature-card:nth-child(4) .feature-icon {
+            background: var(--gradient-quaternary);
+            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
+        }
+
+        .feature-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .feature-card p {
+            color: var(--color-text-muted);
+            line-height: 1.7;
+        }
+
+        /* Stats Section */
+        .stats {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: var(--color-card-hover);
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-family: 'Sora', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 6rem auto;
+            padding: 0 2rem;
+        }
+
+        .cta-box {
+            background: var(--color-card);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 5rem 3rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            animation: rotateCTA 15s linear infinite;
+        }
+
+        @keyframes rotateCTA {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cta-box h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-tertiary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box p {
+            font-size: 1.3rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Partículas flutuantes */
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .cta-box {
+                padding: 3rem 2rem;
+            }
+
+            .cta-box h2 {
+                font-size: 2rem;
+            }
+        }
     </style>
 </head>
-
 <body>
+    <div class="bg-grid"></div>
 
-    <canvas id="particles"></canvas>
-
-    <header>
-        <div class="logo">INSTITUTO TANIGAWA</div>
-
-        <div class="mobile-menu" id="mobileMenu">☰</div>
-
+    <header id="header">
         <nav>
-            <ul id="navList">
-                <li><a href="home.html">Início</a></li>
+            <a href="home.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html" class="active">Home</a></li>
                 <li><a href="mentoria.html">Mentorias</a></li>
-                <li><a href="diagnostico-tanigawa-pead.html">Diagnóstico</a></li>
                 <li><a href="devocionais.html">Devocionais</a></li>
                 <li><a href="nr-1.html">NR-1</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="contato.html">Contato</a></li>
-
-                <li id="authLink">
-                    <a href="auth_system.html" style="color:#a5b4fc;font-weight:600;">Login</a>
-                </li>
+                <div id="navAuth">
+                    <a href="auth_system.html" class="login-btn">Entrar</a>
+                </div>
             </ul>
         </nav>
     </header>
 
-    <section class="hero">
-        <h1>Transformando vidas, líderes e empresas</h1>
-        <p>Desenvolvimento espiritual, inteligência emocional, mentorias direcionadas e soluções profundas para líderes,
-            igrejas, empresas e famílias.</p>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-badge">✨ Transformação que transcende</div>
+                <h1>Transformando vidas, líderes e empresas</h1>
+                <p>Desenvolvimento espiritual, inteligência emocional, mentorias direcionadas e soluções profundas para líderes, igrejas, empresas e famílias.</p>
+                <div class="hero-buttons">
+                    <a href="mentoria.html" class="btn-primary">
+                        Conhecer Mentorias
+                        <span>→</span>
+                    </a>
+                    <a href="diagnostico-tanigawa-pead.html" class="btn-secondary">
+                        Fazer Diagnóstico
+                        <span>→</span>
+                    </a>
+                </div>
+            </div>
+        </section>
 
-        <a href="mentoria.html" class="cta-btn">Conhecer Mentorias</a>
-    </section>
+        <!-- Features Section -->
+        <section class="features">
+            <div class="section-title">
+                <h2>Nossas Áreas de Atuação</h2>
+                <p>Soluções completas para sua transformação pessoal e profissional</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Mentoria Espiritual</h3>
+                    <p>Desenvolva discernimento espiritual profundo e encontre clareza no seu chamado divino. Programa SYNESIS para líderes e empresários.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Cura Emocional</h3>
+                    <p>Jornada de libertação através da Mentoria LEV. Luz, Esperança e Vida para superar traumas e padrões autodestrutivos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Consultoria NR-1</h3>
+                    <p>Gestão de Riscos Psicossociais no Trabalho com metodologia COPSOQ III. Transforme conformidade em bem-estar organizacional.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3>Devocionais Diários</h3>
+                    <p>Conteúdo espiritual profundo para fortalecer sua fé e relacionamento com Deus através de reflexões bíblicas diárias.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Vidas Transformadas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Empresas Atendidas</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Horas de Mentoria</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfação</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-box">
+                <h2>Pronto para sua transformação?</h2>
+                <p>Descubra qual mentoria é perfeita para você através do nosso diagnóstico PEAD</p>
+                <a href="diagnostico-tanigawa-pead.html" class="btn-primary">
+                    Iniciar Diagnóstico Gratuito
+                    <span>→</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
+    </footer>
 
     <script>
-        // Função unificada de Logout
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'auth_system.html'; 
+        // Scroll effect no header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Criar partículas flutuantes
+        function createFloatingParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(particle);
+            }
         }
 
-        // Função para atualizar o menu de autenticação (Item 13)
+        createFloatingParticles();
+
+        // Função de autenticação
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'auth_system.html';
+        }
+
         function updateNavBar() {
-            const authLink = document.getElementById('authLink');
+            const navAuth = document.getElementById('navAuth');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
             const userType = sessionStorage.getItem('userType');
             
-            if (!authLink) return; 
-            
-            authLink.innerHTML = ''; 
+            if (!navAuth) return;
+            navAuth.innerHTML = '';
             
             if (isLoggedIn) {
                 let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
                 let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
-                // CRÍTICO: Mantém o estilo original do link estático, mas injeta o link dinâmico
-                authLink.innerHTML = `
-                    <a href="${linkTarget}" class="login-btn-dynamic">
+                navAuth.innerHTML = `
+                    <a href="${linkTarget}" class="login-btn">
                         ${linkText}
                     </a>
-                    <button class="logout-link" onclick="logout()">Sair</button>
                 `;
-                 // Remove o margin-left do li para o elemento ser tratado como um bloco único
-                 authLink.style.marginLeft = '0'; 
-
             } else {
-                // RESTAURADO: Link estático original (Login)
-                authLink.innerHTML = `
-                    <a href="auth_system.html" style="color:#a5b4fc;font-weight:600;">Login</a>
+                navAuth.innerHTML = `
+                    <a href="auth_system.html" class="login-btn">
+                        Entrar
+                    </a>
                 `;
-                 authLink.style.marginLeft = '32px'; 
             }
         }
 
-
-        // MENU MOBILE
-        const navList = document.getElementById("navList");
-        const mobileMenu = document.getElementById("mobileMenu");
-
-        mobileMenu.addEventListener("click", () => {
-            navList.classList.toggle("active");
-        });
-
-        // PARTÍCULAS
-        const canvas = document.getElementById("particles");
-        const ctx = canvas.getContext("2d");
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener("resize", resizeCanvas);
-
-        let particles = [];
-
-        function createParticles() {
-            particles = [];
-            for (let i = 0; i < 60; i++) {
-                particles.push({
-                    x: Math.random() * canvas.width,
-                    y: Math.random() * canvas.height,
-                    size: Math.random() * 2 + 1,
-                    speedX: (Math.random() - 0.5) * 0.4,
-                    speedY: (Math.random() - 0.5) * 0.4
-                });
-            }
-        }
-        createParticles();
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            for (let p of particles) {
-                p.x += p.speedX;
-                p.y += p.speedY;
-
-                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
-
-                ctx.beginPath();
-                ctx.fillStyle = "#64748b";
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-
-            requestAnimationFrame(animateParticles);
-        }
-        animateParticles();
-
-        // SCROLL SUAVE (restaurado)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener("click", function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute("href"));
-                if (target) {
-                    target.scrollIntoView({ behavior: "smooth" });
-                }
-            });
-        });
-        
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            updateNavBar();
-        });
+        document.addEventListener('DOMContentLoaded', updateNavBar);
     </script>
-
 </body>
 </html>

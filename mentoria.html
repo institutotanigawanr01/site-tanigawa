@@ -6,81 +6,107 @@
     <title>Mentorias - Instituto Tanigawa</title>
     <meta name="description" content="Conheça nossas mentorias: Espiritual, LEV e Psicoterapia TCC. Transformação espiritual, cura emocional e desenvolvimento pessoal.">
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* RESTAURADO: Paleta de cores original */
         :root {
-            --primary-blue: #3b82f6;
-            --primary-gold: #f59e0b;
-            --dark-bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --text-light: #e2e8f0;
-            --text-gray: #94a3b8;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
             
-            /* Sistema de Espaçamento Simétrico */
-            --section-spacing: 6rem;
-            --container-padding: 2rem;
+            --color-dark: #0a0e27;
+            --color-darker: #060919;
+            --color-card: rgba(255, 255, 255, 0.03);
+            --color-card-hover: rgba(255, 255, 255, 0.06);
+            --color-text: #ffffff;
+            --color-text-muted: #a0aec0;
+            --color-accent: #667eea;
+            --color-accent-secondary: #f5576c;
+            
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--text-light);
+            background: var(--color-darker);
+            color: var(--color-text);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* CORREÇÃO ESTÉTICA: Títulos usam Inter, font-weight 700 */
-        h1, h2, h3 {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            line-height: 1.3;
-        }
-
-        /* Particles - Mantido o visual dos outros arquivos */
-        #particles {
+        /* Background animado */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.6;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
+            z-index: 0;
+            animation: backgroundShift 20s ease infinite;
         }
 
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.4;
-            animation: float 15s infinite ease-in-out;
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-20px) translateX(10px); }
-            50% { transform: translateY(-40px) translateX(-10px); }
-            75% { transform: translateY(-20px) translateX(5px); }
-        }
-
-        /* Header (FIDELIDADE RESTAURADA) */
-        header {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 1rem var(--container-padding);
-            position: sticky;
+        /* Grid animado de fundo */
+        .bg-grid {
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header moderno */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -91,200 +117,400 @@
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
-            color: var(--text-light);
+            color: var(--color-text);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            background-color: var(--primary-gold);
-            border-radius: 6px;
-            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            color: var(--dark-bg);
-            /* Font de impacto forçada aqui, mas mantendo a cor */
-            font-family: 'Inter', sans-serif; 
+            font-family: 'Sora', sans-serif;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
         .logo span {
             font-size: 1.1rem;
             font-weight: 700;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
+            font-family: 'Sora', sans-serif;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            margin: 0;
-            padding: 0;
+            gap: 2rem;
             align-items: center;
         }
 
-        .nav-links li {
-            margin-left: 1.5rem;
-        }
-
         .nav-links a {
-            color: var(--text-gray);
+            color: var(--color-text-muted);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--primary-gold);
+            color: var(--color-text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
         }
 
         .login-btn {
-            background: var(--primary-gold);
-            color: var(--dark-bg);
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 700;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
             text-decoration: none;
-            transition: opacity 0.3s;
-            margin-left: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
-        
-        .logout-link {
-            background: none;
-            color: var(--text-gray);
-            text-decoration: underline;
-            margin-left: 10px;
-            border: none;
-            cursor: pointer;
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
         }
 
         /* Main Content */
         main {
             position: relative;
-            z-index: 2;
+            z-index: 1;
+            padding-top: 100px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: var(--section-spacing) var(--container-padding);
+            padding: 4rem 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-title {
-            font-size: 3rem;
-            color: var(--primary-blue);
-            margin-bottom: 0.75rem;
-            text-align: center;
+            font-family: 'Sora', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
-            color: var(--text-gray);
-            margin-bottom: 3rem;
-            text-align: center;
+            font-size: 1.3rem;
+            color: var(--color-text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
         }
 
-        /* MENTORIAS GRID (SIMETRIA RESTAURADA) */
+        /* Mentorias Grid */
         .mentoria-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
         }
-        
+
         .mentoria-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border-top: 5px solid var(--primary-gold);
-            transition: transform 0.3s;
-            min-height: 350px;
-            display: flex;
-            flex-direction: column;
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .mentoria-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .mentoria-card.synesis::before {
+            background: var(--gradient-primary);
+        }
+
+        .mentoria-card.lev::before {
+            background: var(--gradient-secondary);
+        }
+
+        .mentoria-card.nr1::before {
+            background: var(--gradient-quaternary);
         }
 
         .mentoria-card:hover {
-            transform: translateY(-5px);
+            background: var(--color-card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .mentoria-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-tag {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-primary);
+        }
+
+        .mentoria-card.lev .card-tag {
+            background: var(--gradient-secondary);
+        }
+
+        .mentoria-card.nr1 .card-tag {
+            background: var(--gradient-quaternary);
         }
 
         .mentoria-card h3 {
-            font-size: 2rem;
-            color: var(--primary-gold);
-            margin-bottom: 10px;
+            font-family: 'Sora', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text);
         }
 
         .mentoria-card p {
-            color: var(--text-gray);
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-        
-        .card-tag {
-            background-color: var(--primary-blue);
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-bottom: 15px;
+            color: var(--color-text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
         }
 
         .btn-saiba-mais {
-            display: inline-block;
-            padding: 12px 25px;
-            border-radius: 6px;
-            background-color: var(--primary-blue);
-            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            background: var(--gradient-primary);
+            color: white;
             text-decoration: none;
             font-weight: 600;
-            transition: background-color 0.3s;
-            align-self: flex-start;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .mentoria-card.lev .btn-saiba-mais {
+            background: var(--gradient-secondary);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .mentoria-card.nr1 .btn-saiba-mais {
+            background: var(--gradient-quaternary);
+            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
         }
 
         .btn-saiba-mais:hover {
-            background-color: #2563eb;
-        }
-        
-        .cta-box {
-            background: var(--card-bg);
-            padding: 40px;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: var(--section-spacing);
-            border: 1px solid var(--primary-blue);
-        }
-        
-        .cta-box h3 {
-            color: var(--primary-blue);
-            font-size: 2.2rem;
+            transform: translateX(5px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
         }
 
-        /* Footer (Mantido simples) */
+        /* CTA Box */
+        .cta-box {
+            background: var(--color-card);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            animation: rotateCTA 15s linear infinite;
+        }
+
+        @keyframes rotateCTA {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cta-box h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-tertiary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box p {
+            color: var(--color-text-muted);
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-diagnostic {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            background: var(--gradient-tertiary);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(79, 172, 254, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-diagnostic:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(79, 172, 254, 0.6);
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            margin-top: var(--section-spacing);
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Particles decorativos */
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .mentoria-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .mentoria-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-box {
+                padding: 3rem 2rem;
+            }
+
+            .cta-box h3 {
+                font-size: 2rem;
             }
         }
     </style>
 </head>
 <body>
-    <div id="particles"></div>
+    <div class="bg-grid"></div>
 
-    <header>
+    <header id="header">
         <nav>
             <a href="home.html" class="logo">
                 <div class="logo-icon">IT</div>
@@ -292,61 +518,74 @@
             </a>
             <ul class="nav-links">
                 <li><a href="home.html">Home</a></li>
-                <li><a href="mentoria.html" style="color: var(--primary-gold);">Mentorias</a></li>
+                <li><a href="mentoria.html" class="active">Mentorias</a></li>
                 <li><a href="devocionais.html">Devocionais</a></li>
                 <li><a href="nr-1.html">NR-1</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="contato.html">Contato</a></li>
                 <div id="navAuth">
-                    </div>
+                    <a href="auth_system.html" class="login-btn">Entrar</a>
+                </div>
             </ul>
         </nav>
     </header>
 
     <main>
         <div class="container">
-            <h1 class="hero-title">Mentorias para Transformação Completa</h1>
-            <p class="hero-subtitle">
-                Desenvolvemos programas focados em propósito, cura emocional e excelência profissional.
-            </p>
+            <div class="hero">
+                <h1 class="hero-title">Mentorias para Transformação Completa</h1>
+                <p class="hero-subtitle">
+                    Desenvolvemos programas focados em propósito, cura emocional e excelência profissional.
+                </p>
+            </div>
 
             <div class="mentoria-grid">
-                
-                <div class="mentoria-card" id="espiritual">
+                <div class="mentoria-card synesis">
                     <span class="card-tag">FOCO: Propósito & Vocação</span>
                     <h3>Mentoria SYNESIS</h3>
                     <p>
                         Programa para pastores, líderes e empresários que buscam clareza no chamado, estratégia divina para a liderança e alinhamento do propósito com o Reino. Desenvolva o discernimento espiritual (Synesis) necessário para governar.
                     </p>
-                    <a href="cadastro-completo.html?mentoria=SYNESIS" class="btn-saiba-mais">Inscreva-se →</a>
+                    <a href="cadastro-completo.html?mentoria=SYNESIS" class="btn-saiba-mais">
+                        Inscreva-se
+                        <span>→</span>
+                    </a>
                 </div>
 
-                <div class="mentoria-card" id="lev">
-                    <span class="card-tag" style="background-color: #8b5cf6;">FOCO: Cura & Identidade</span>
+                <div class="mentoria-card lev">
+                    <span class="card-tag">FOCO: Cura & Identidade</span>
                     <h3>Mentoria LEV</h3>
                     <p>
                         Luz, Esperança e Vida. Jornada de cura emocional baseada em princípios bíblicos e psicologia (TCC). Ideal para quem busca libertação de traumas, culpa e padrões autodestrutivos.
                     </p>
-                    <a href="cadastro-completo.html?mentoria=LEV" class="btn-saiba-mais" style="background-color: #8b5cf6;">Inscreva-se →</a>
+                    <a href="cadastro-completo.html?mentoria=LEV" class="btn-saiba-mais">
+                        Inscreva-se
+                        <span>→</span>
+                    </a>
                 </div>
 
-                <div class="mentoria-card" id="nr-1">
-                    <span class="card-tag" style="background-color: #22c55e;">FOCO: Conformidade & Bem-Estar</span>
+                <div class="mentoria-card nr1">
+                    <span class="card-tag">FOCO: Conformidade & Bem-Estar</span>
                     <h3>Consultoria NR-1</h3>
                     <p>
                         Solução completa para Riscos Psicossociais no Trabalho, atendendo à Norma Regulamentadora 1 e COPSOQ III. Transforme a obrigatoriedade legal em um programa de saúde e performance para sua empresa.
                     </p>
-                    <a href="nr-1.html" class="btn-saiba-mais" style="background-color: #22c55e;">Saiba Mais →</a>
+                    <a href="nr-1.html" class="btn-saiba-mais">
+                        Saiba Mais
+                        <span>→</span>
+                    </a>
                 </div>
-                
             </div>
-            
+
             <div class="cta-box">
                 <h3>Faça seu Diagnóstico de Perfil PEAD</h3>
-                <p style="color: var(--text-gray); margin-top: 15px;">
+                <p>
                     Descubra qual mentoria é a mais indicada para você no momento.
                 </p>
-                <a href="diagnostico-tanigawa-pead.html" class="btn-saiba-mais" style="margin-top: 25px; background-color: var(--primary-gold); color: var(--dark-bg);">Iniciar Diagnóstico →</a>
+                <a href="diagnostico-tanigawa-pead.html" class="btn-diagnostic">
+                    Iniciar Diagnóstico
+                    <span>→</span>
+                </a>
             </div>
         </div>
     </main>
@@ -356,32 +595,55 @@
     </footer>
 
     <script>
-        // Função unificada de Logout (necessária para o header dinâmico)
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'auth_system.html'; 
+        // Scroll effect no header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Criar partículas flutuantes
+        function createFloatingParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                particle.style.animation = 'float 20s infinite ease-in-out';
+                document.body.appendChild(particle);
+            }
         }
 
-        // Função para atualizar o menu de autenticação (Item 13)
+        createFloatingParticles();
+
+        // Função de autenticação
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'auth_system.html';
+        }
+
         function updateNavBar() {
             const navAuth = document.getElementById('navAuth');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
             const userType = sessionStorage.getItem('userType');
             
-            if (!navAuth) return; 
-            navAuth.innerHTML = ''; 
+            if (!navAuth) return;
+            navAuth.innerHTML = '';
             
             if (isLoggedIn) {
                 let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
                 let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
                 navAuth.innerHTML = `
-                    <div style="margin-left: 20px;">
-                        <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
-                            ${linkText}
-                        </a>
-                        <button class="logout-link" onclick="logout()">Sair</button>
-                    </div>
+                    <a href="${linkTarget}" class="login-btn">
+                        ${linkText}
+                    </a>
                 `;
             } else {
                 navAuth.innerHTML = `
@@ -392,49 +654,7 @@
             }
         }
 
-        // Inicializar Partículas (Restaurado)
-        function createParticles() {
-            const container = document.getElementById('particles');
-            if (!container) return;
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 4 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-                
-                container.appendChild(particle);
-            }
-        }
-        
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            updateNavBar();
-        });
-        
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80, // Ajuste para o header fixo
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        document.addEventListener('DOMContentLoaded', updateNavBar);
     </script>
 </body>
 </html>
