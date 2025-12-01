@@ -14,7 +14,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, collection, onSnapshot, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, collection, onSnapshot, setDoc, deleteDoc, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"; // Adicionado getDocs
 
         // Variáveis globais do Canvas (CRÍTICO para a inicialização)
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
@@ -599,7 +599,7 @@
                     <div class="admin-card">
                         <h3>${data.nome}</h3>
                         <p>UID: ${uid.slice(0, 10)}...</p>
-                        <p style="color: var(--color-accent-secondary);">${data.email}</p>
+                        <p style="color: var(--color-accent-secondary);">${data.email || 'Não Registrado'}</p>
                         <div class="produto-actions" style="margin-top: 1rem;">
                             <button class="logout-btn" style="background: var(--gradient-secondary);" onclick="removerAdmin('${uid}', '${data.nome}')">Remover Admin</button>
                         </div>
@@ -660,6 +660,39 @@
            GUARDA-CORPO DE SEGURANÇA (ADMIN)
            ---------------------------------------------------- */
            
+        // 🛑 NOVO FLUXO: PROMOÇÃO AUTOMÁTICA DO PRIMEIRO ADMIN 
+        async function promoteInitialAdmin(user) {
+            const adminsSnapshot = await firebase.firestore.getDocs(getAdminsCollectionRef());
+            
+            if (adminsSnapshot.empty) {
+                // É o primeiro usuário a entrar, vamos promovê-lo
+                const adminData = {
+                    nome: "Sergio Tanigawa", // Nome hardcoded para o primeiro admin
+                    email: user.email,
+                    dataDesignacao: new Date().toISOString(),
+                    primeiroAdmin: true
+                };
+                
+                const adminRef = firebase.firestore.doc(getAdminsCollectionRef(), user.uid);
+                await firebase.firestore.setDoc(adminRef, adminData);
+
+                // Atualiza a sessão e força o recarregamento
+                sessionStorage.setItem('userType', 'admin');
+                sessionStorage.setItem('userName', adminData.nome);
+                
+                showStatus(`✅ Bem-vindo, Sergio Tanigawa! Você foi designado como o primeiro Administrador.`, true);
+                
+                // Força o logout para o onAuthStateChanged recarregar as permissões de Admin
+                setTimeout(async () => {
+                    await firebase.auth.signOut(window.auth);
+                    window.location.replace('auth_system.html');
+                }, 2000);
+                
+                return true; // Promovido
+            }
+            return false; // Não promovido
+        }
+           
         function checkAdminAuth() {
             // Se o Firebase ainda não carregou, espera
             if (!window.auth) {
@@ -668,7 +701,7 @@
             }
 
             // Listener de estado de autenticação
-            firebase.auth.onAuthStateChanged(window.auth, (user) => {
+            firebase.auth.onAuthStateChanged(window.auth, async (user) => {
                 
                 if (!user) {
                     // Não logado: Redireciona
@@ -679,7 +712,13 @@
                 const userType = sessionStorage.getItem('userType');
                 const userName = sessionStorage.getItem('userName');
                 
-                // 🛑 GUARD-RAIL CRÍTICO: Se não for Admin, redireciona
+                // 🛑 Tenta Autopromoção se for o primeiro
+                if (userType !== 'admin') {
+                     const promoted = await promoteInitialAdmin(user);
+                     if (promoted) return; // Se promovido, o código fará logout e recarregará
+                }
+
+                // Verifica o acesso após a tentativa de promoção
                 if (userType !== 'admin') {
                     showStatus('Acesso negado. Você não possui permissões de Administrador.', false);
                     setTimeout(() => {
