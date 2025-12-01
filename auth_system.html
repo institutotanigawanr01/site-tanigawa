@@ -6,46 +6,65 @@
     <title>Área Restrita - Instituto Tanigawa</title>
     <meta name="description" content="Acesso exclusivo para membros e administradores do Instituto Tanigawa">
     
+    <!-- Fontes do Design System (Sora para Títulos, Inter para Corpo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
     
+    <!-- FIREBASE AUTHENTICATION E FIRESTORE IMPORTS CRÍTICOS -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // Variáveis globais do Canvas (CRÍTICO para a inicialização)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        
+        // 1. Inicializa Firebase
+        const app = initializeApp(firebaseConfig);
+        window.auth = getAuth(app); // Torna o Auth globalmente acessível
+        window.db = getFirestore(app); // Torna o DB globalmente acessível
+        window.appId = appId;
+        
+        // O restante do código JS será executado fora deste módulo para melhor compatibilidade.
+    </script>
+
     <style>
+        /* VARIÁVEIS DO DESIGN SYSTEM (COMPLETO) */
+        :root {
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --color-dark: #0a0e27;
+            --color-darker: #060919;
+            --color-text: #ffffff;
+            --color-text-muted: #a0aec0;
+            --color-accent: #667eea;
+            --danger: #f5576c;
+            --success: #43e97b;
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+        }
+
+        /* CONVERSÃO ESTÉTICA COMPLETA */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        :root {
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            
-            --color-dark: #0a0e27;
-            --color-darker: #060919;
-            --color-card: rgba(255, 255, 255, 0.03);
-            --color-card-hover: rgba(255, 255, 255, 0.06);
-            --color-text: #ffffff;
-            --color-text-muted: #a0aec0;
-            --color-accent: #667eea;
-            --color-danger: #ef4444;
-            
-            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
-            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
         body {
             font-family: 'Inter', sans-serif;
             background: var(--color-darker);
             color: var(--color-text);
-            line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             min-height: 100vh;
+            position: relative;
         }
 
-        /* Background animado */
+        /* 🌊 EFEITO 1: BACKGROUND ANIMADO EM CAMADAS (Fidelidade Estética) */
         body::before {
             content: '';
             position: fixed;
@@ -54,11 +73,11 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.15) 0%, transparent 50%);
             z-index: 0;
             animation: backgroundShift 20s ease infinite;
+            pointer-events: none;
         }
 
         @keyframes backgroundShift {
@@ -66,536 +85,379 @@
             50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        /* Grid animado de fundo */
-        .bg-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: 0;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Header moderno */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(10, 14, 39, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            background: rgba(10, 14, 39, 0.95);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: var(--color-text);
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 800;
-            font-family: 'Sora', sans-serif;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .logo span {
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: 'Sora', sans-serif;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--color-text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--gradient-primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--color-text);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Main Content */
-        main {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 140px 2rem 4rem;
-        }
-
-        .auth-container {
-            max-width: 450px;
-            width: 100%;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .auth-card {
-            background: var(--color-card);
-            backdrop-filter: blur(10px);
+        /* CARD DE LOGIN (Glassmorphism e Layout) */
+        .glass-card {
+            width: 420px;
+            max-width: 90%;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
             border-radius: 24px;
-            padding: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             position: relative;
-            overflow: hidden;
+            z-index: 10;
         }
 
-        .auth-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-        }
-
-        .auth-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-        }
-
-        .auth-icon {
-            width: 70px;
-            height: 70px;
-            margin: 0 auto 1.5rem;
-            background: var(--gradient-primary);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-        }
-
-        .auth-header h2 {
+        .header-card h2 {
             font-family: 'Sora', sans-serif;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #667eea 100%);
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .auth-header p {
+        .header-card p {
             color: var(--color-text-muted);
-            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
         }
 
+        /* FORMULÁRIO */
         .form-group {
             margin-bottom: 1.5rem;
         }
 
-        label {
+        .form-group label {
             display: block;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.5rem;
             font-weight: 500;
-            color: var(--color-text);
-            font-size: 0.95rem;
+            color: var(--color-text-muted);
         }
 
-        input[type="password"] {
+        .form-group input {
             width: 100%;
             padding: 1rem 1.25rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--color-text);
             border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: var(--color-dark);
+            color: var(--color-text);
             font-size: 1rem;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        input[type="password"]:focus {
+        .form-group input:focus {
             outline: none;
             border-color: var(--color-accent);
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.3);
         }
 
-        input[type="password"]::placeholder {
-            color: var(--color-text-muted);
-        }
-
-        .btn-submit {
+        /* Botão Principal */
+        .login-btn-submit {
             width: 100%;
-            padding: 1.1rem 2rem;
-            border: none;
+            padding: 1.2rem;
             border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             background: var(--gradient-primary);
             color: white;
-            font-family: 'Inter', sans-serif;
-            font-size: 1.05rem;
-            font-weight: 600;
-            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
             display: flex;
-            align-items: center;
             justify-content: center;
-            gap: 0.5rem;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .login-btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.6);
         }
 
-        .btn-submit:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
-        }
-
-        .btn-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .error-box {
-            background: var(--color-danger);
-            color: white;
+        /* Mensagens de Status (Erros e Sucesso) */
+        #errorBox {
+            background: var(--danger);
             padding: 1rem;
-            border-radius: 12px;
-            margin-top: 1.5rem;
-            text-align: center;
-            font-size: 0.9rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
             display: none;
-            animation: shake 0.4s ease;
+            font-weight: 600;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .info-text {
-            text-align: center;
-            margin-top: 2rem;
+        #successBox {
+            background: var(--success);
+            color: var(--color-darker);
             padding: 1rem;
-            color: var(--color-text-muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
+            border-radius: 8px;
+            margin-top: 1rem;
+            margin-bottom: 1.5rem;
+            display: none;
+            font-weight: 600;
         }
-
-        .info-text strong {
-            color: var(--color-text);
-        }
-
-        /* Footer */
-        footer {
-            position: relative;
-            z-index: 1;
+        
+        .links-group {
             text-align: center;
-            padding: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--color-text-muted);
-            font-size: 0.9rem;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
         }
-
-        /* Partículas flutuantes */
-        .floating-particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: rgba(102, 126, 234, 0.6);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            animation: float 20s infinite ease-in-out;
+        
+        .links-group a, .links-group button {
+            color: var(--color-accent);
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
         }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-30px) translateX(20px); }
-            50% { transform: translateY(-60px) translateX(-20px); }
-            75% { transform: translateY(-30px) translateX(10px); }
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .auth-card {
-                padding: 2rem 1.5rem;
-            }
-
-            .auth-header h2 {
-                font-size: 1.6rem;
-            }
-
-            main {
-                padding: 100px 1rem 2rem;
-            }
+        
+        .links-group button:hover {
+            color: #818cf8;
         }
     </style>
 </head>
+
 <body>
-    <div class="bg-grid"></div>
-
-    <header id="header">
-        <nav>
-            <a href="home.html" class="logo">
-                <div class="logo-icon">IT</div>
-                <span>INSTITUTO TANIGAWA</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="home.html">Home</a></li>
-                <li><a href="mentoria.html">Mentorias</a></li>
-                <li><a href="devocionais.html">Devocionais</a></li>
-                <li><a href="nr-1.html">NR-1</a></li>
-                <li><a href="sobre.html">Sobre</a></li>
-                <li><a href="contato.html">Contato</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <div class="auth-container">
-            <div class="auth-card">
-                <div class="auth-header">
-                    <div class="auth-icon">🔐</div>
-                    <h2>Área Restrita</h2>
-                    <p>Acesso exclusivo para membros e administradores</p>
-                </div>
-
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="key">Chave de Acesso:</label>
-                        <input 
-                            type="password" 
-                            id="key" 
-                            placeholder="Digite sua chave de acesso"
-                            required 
-                            autocomplete="off"
-                        >
-                    </div>
-
-                    <button type="submit" class="btn-submit" id="submitBtn">
-                        <span>Acessar</span>
-                        <span>→</span>
-                    </button>
-
-                    <div id="errorBox" class="error-box" role="alert"></div>
-                </form>
-
-                <div class="info-text">
-                    <strong>🔒 Segurança:</strong> Sua chave é criptografada antes do envio.
-                </div>
-            </div>
+    <div class="glass-card">
+        <div class="header-card">
+            <h2>Área Restrita</h2>
+            <p>Acesso exclusivo para membros e administradores.</p>
         </div>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
-    </footer>
+        <div id="errorBox"></div>
+        <div id="successBox"></div>
 
-    <script>
-        // Scroll effect no header
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Criar partículas flutuantes
-        function createFloatingParticles() {
-            const particleCount = 30;
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'floating-particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-                document.body.appendChild(particle);
-            }
-        }
-
-        createFloatingParticles();
-
-        // Função para gerar hash SHA-256
-        function hashKey(str) {
-            return sha256(str);
-        }
-
-        // Lógica de login
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+        <!-- FORMULÁRIO UNIFICADO (LOGIN & SIGNUP) -->
+        <form id="authForm">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="seu.email@exemplo.com" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" required>
+            </div>
             
-            const keyInput = document.getElementById('key');
-            const submitBtn = document.getElementById('submitBtn');
-            const key = keyInput.value.trim();
+            <button type="submit" id="submitBtn" class="login-btn-submit">
+                Acessar
+            </button>
+        </form>
 
-            if (!key) {
-                mostrarErro("Por favor, insira sua chave de acesso.");
-                return;
+        <div class="links-group">
+            <button id="toggleAuthBtn" onclick="toggleMode()">
+                Não tem acesso? Cadastre-se
+            </button>
+            <span style="color: var(--color-text-muted); margin: 0 10px;">|</span>
+            <button onclick="handleResetPassword()">
+                Esqueceu a senha?
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        // Função de utilidade para mostrar mensagens
+        function showMessage(msg, isSuccess = true) {
+            const box = isSuccess ? document.getElementById('successBox') : document.getElementById('errorBox');
+            const otherBox = isSuccess ? document.getElementById('errorBox') : document.getElementById('successBox');
+            
+            box.textContent = msg;
+            box.style.display = 'block';
+            otherBox.style.display = 'none';
+            
+            setTimeout(() => { box.style.display = 'none'; }, 5000);
+        }
+
+        // Estado do formulário (Login vs. Cadastro)
+        let isLoginMode = true;
+        const submitBtn = document.getElementById('submitBtn');
+        const toggleBtn = document.getElementById('toggleAuthBtn');
+
+        function toggleMode() {
+            isLoginMode = !isLoginMode;
+            if (isLoginMode) {
+                submitBtn.innerHTML = 'Acessar';
+                toggleBtn.textContent = 'Não tem acesso? Cadastre-se';
+            } else {
+                submitBtn.innerHTML = 'Cadastrar Novo Membro';
+                toggleBtn.textContent = 'Já sou membro. Fazer login';
             }
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span>⏳ Verificando...</span>';
+            document.getElementById('authForm').reset();
+            document.getElementById('errorBox').style.display = 'none';
+            document.getElementById('successBox').style.display = 'none';
+        }
+        
+        // 🛑 CRÍTICO: NOVA FUNÇÃO DE CHECAGEM DE ADMIN VIA FIRESTORE (Escalável)
+        const ADMINS_COLLECTION = 'admins';
+        
+        async function checkAdmin(uid) {
+            if (!window.db || !uid) return { type: 'member', nome: 'Membro' };
+            
+            // Caminho para a coleção pública de admins (definido no admin_dashboard.html)
+            const adminDocRef = firebase.firestore.doc(
+                window.db, 
+                `artifacts/${window.appId}/public/data/${ADMINS_COLLECTION}/${uid}`
+            );
 
             try {
-                // Gera o hash da chave inserida
-                const hash = hashKey(key);
-                
-                // Chama a API no Vercel
-                const res = await fetch('/api/auth', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ keyHash: hash })
-                });
+                const adminDoc = await firebase.firestore.getDoc(adminDocRef);
 
-                const data = await res.json();
-                
-                if (res.status !== 200) {
-                    mostrarErro(data.message || "Erro ao tentar acessar. Tente novamente.");
-                    return;
+                if (adminDoc.exists()) {
+                    const data = adminDoc.data();
+                    return { type: 'admin', nome: data.nome || 'Admin Designado' };
                 }
+            } catch (e) {
+                console.error("Erro ao verificar admin no Firestore:", e);
+                // Falha segura: Se houver erro de conexão, trata como membro
+            }
+            
+            // Padrão: Membro comum
+            return { type: 'member', nome: 'Membro' }; 
+        }
+        
+        // ------------------------------------------------------------------
+        // HANDLERS PRINCIPAIS (Login, Cadastro, Recuperação)
+        // ------------------------------------------------------------------
+        
+        document.getElementById('authForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '⏳ Processando...';
 
-                const user = data.user;
-
-                // Salva sessão
-                sessionStorage.setItem("isLoggedIn", "true");
-                sessionStorage.setItem("userType", user.type);
-                sessionStorage.setItem("userName", user.nome);
-                sessionStorage.setItem("userMentoria", user.mentoria || "Geral");
-                sessionStorage.setItem("userKeyHash", hash);
-                sessionStorage.setItem("memberData", JSON.stringify(user));
-
-                // Redireciona
-                if (user.type === "admin") {
+            if (isLoginMode) {
+                handleLogin(email, password);
+            } else {
+                handleSignup(email, password);
+            }
+        });
+        
+        async function handleLogin(email, password) {
+            try {
+                // 1. Tenta logar com Firebase Auth
+                const userCredential = await firebase.auth.signInWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // 2. Verifica o nível de acesso (Admin vs Membro)
+                const userData = await checkAdmin(user.uid);
+                
+                // 3. Salva a sessão no sessionStorage
+                sessionStorage.setItem("userType", userData.type);
+                sessionStorage.setItem("userName", userData.nome || user.email.split('@')[0]);
+                sessionStorage.setItem("userEmail", user.email);
+                
+                // 4. Redireciona
+                if (userData.type === "admin") {
                     window.location.href = "admin_dashboard.html";
                 } else {
                     window.location.href = "area_membros.html";
                 }
 
-            } catch (e) {
-                console.error(e);
-                mostrarErro("❌ Erro de conexão com o sistema de acesso.");
+            } catch (error) {
+                console.error("Erro de Login:", error);
+                let msg = "Credenciais inválidas. Verifique seu email e senha.";
+                if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    msg = "Email ou senha inválidos. Tente novamente.";
+                }
+                showMessage(msg, false);
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>Acessar</span><span>→</span>';
+                submitBtn.innerHTML = 'Acessar';
             }
-        });
-
-        // Mostrar erro
-        function mostrarErro(msg) {
-            const box = document.getElementById("errorBox");
-            box.innerHTML = msg;
-            box.style.display = "block";
-            setTimeout(() => { 
-                box.style.display = "none"; 
-            }, 4000);
         }
 
-        // Verificar se já está logado
-        window.onload = function() {
-            const tipo = sessionStorage.getItem('userType');
-            if (tipo) {
-                if (tipo === "admin") {
+        async function handleSignup(email, password) {
+            if (password.length < 6) {
+                showMessage("A senha deve ter pelo menos 6 caracteres.", false);
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Cadastrar Novo Membro';
+                return;
+            }
+            
+            try {
+                // 1. Tenta criar o novo usuário
+                const userCredential = await firebase.auth.createUserWithEmailAndPassword(email, password);
+                const user = userCredential.user;
+                
+                // 2. NOVO CADASTRO É SEMPRE MEMBRO. Não precisa checar Firestore aqui.
+                const userData = { type: 'member', nome: user.email.split('@')[0] };
+                
+                // 3. Salva a sessão
+                sessionStorage.setItem("userType", userData.type);
+                sessionStorage.setItem("userName", userData.nome);
+                sessionStorage.setItem("userEmail", user.email);
+                
+                showMessage("✅ Cadastro realizado com sucesso! Redirecionando para a área de membros...", true);
+                
+                setTimeout(() => {
+                    window.location.href = "area_membros.html";
+                }, 1500);
+
+            } catch (error) {
+                console.error("Erro de Cadastro:", error);
+                let msg = "Erro ao cadastrar. O e-mail pode já estar em uso ou o formato é inválido.";
+                if (error.code === 'auth/email-already-in-use') {
+                    msg = "Este email já está cadastrado. Tente logar ou use a recuperação de senha.";
+                }
+                showMessage(msg, false);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Cadastrar Novo Membro';
+            }
+        }
+        
+        // 🛑 CRÍTICO: RECUPERAÇÃO DE SENHA 
+        window.handleResetPassword = async function() {
+            const email = document.getElementById('email').value;
+            
+            if (!email) {
+                showMessage("Por favor, digite seu email no campo para a recuperação.", false);
+                return;
+            }
+            
+            showMessage("⏳ Enviando link de recuperação...", true);
+            
+            try {
+                // Verifica se a variável auth está disponível globalmente através do módulo
+                const authInstance = window.auth || firebase.auth; 
+                if (authInstance) {
+                    await firebase.auth.sendPasswordResetEmail(authInstance, email);
+                    showMessage(`✅ Um link de recuperação foi enviado para ${email}. Verifique sua caixa de entrada e spam.`, true);
+                } else {
+                     showMessage("Erro: Serviço de autenticação não inicializado.", false);
+                }
+            } catch (error) {
+                console.error("Erro ao enviar reset:", error);
+                showMessage("❌ Erro ao tentar recuperar. Email não encontrado ou erro de conexão.", false);
+            }
+        }
+        
+        // ------------------------------------------------------------------
+        // INICIALIZAÇÃO
+        // ------------------------------------------------------------------
+        
+        // Verifica se já está logado
+        onAuthStateChanged(window.auth, async (user) => {
+            if (user) {
+                // 1. Já logado com Firebase Auth. Agora checa o Firestore para definir o TIPO.
+                const userData = await checkAdmin(user.uid);
+                
+                // 2. Salva a sessão (atualizando nome/tipo)
+                sessionStorage.setItem("userType", userData.type);
+                sessionStorage.setItem("userName", userData.nome || user.email.split('@')[0]);
+                sessionStorage.setItem("userEmail", user.email);
+
+                // 3. Redireciona
+                if (userData.type === "admin") {
                     window.location.replace("admin_dashboard.html");
                 } else {
                     window.location.replace("area_membros.html");
                 }
             }
-            document.getElementById('key').value = '';
-        };
+        });
+        
     </script>
 </body>
 </html>

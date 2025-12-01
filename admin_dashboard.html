@@ -3,18 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo - Instituto Tanigawa</title>
-    <meta name="description" content="Painel administrativo para gestão de chaves de acesso do Instituto Tanigawa.">
-    
+    <title>Painel Admin - Gestão Completa</title>
+
+    <!-- Fontes do Design System (Sora para Títulos, Inter para Corpo) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <!-- FIREBASE IMPORTS CRÍTICOS (Firestore para Dados, Auth para Segurança) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, collection, onSnapshot, setDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // Variáveis globais do Canvas (CRÍTICO para a inicialização)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        
+        // 1. Inicializa Firebase
+        const app = initializeApp(firebaseConfig);
+        window.auth = getAuth(app); 
+        window.db = getFirestore(app);
+        window.appId = appId;
+        
+    </script>
+
+    <style>
+        /* VARIÁVEIS DO DESIGN SYSTEM (COMPLETO) */
         :root {
             --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
@@ -32,6 +47,19 @@
             
             --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
             --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+            --success: #43e97b;
+            --danger: #f5576c;
+            
+            --section-padding: 2rem;
+            --container-max-width: 1400px;
+        }
+
+        /* CONVERSÃO ESTÉTICA COMPLETA */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
@@ -41,9 +69,209 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            padding-top: 80px;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Sora', sans-serif;
+            font-weight: 700;
         }
 
-        /* Background animado */
+        header {
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header-left h1 {
+            font-size: 1.4rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .logout-btn {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(245, 87, 108, 0.5);
+        }
+
+        .container {
+            max-width: var(--container-max-width);
+            margin: 0 auto;
+            padding: var(--section-padding) 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* TABS DE ADMIN */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--color-text-muted);
+            padding: 0.75rem 0;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-family: 'Sora', sans-serif;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: var(--color-text);
+            border-bottom: 3px solid var(--color-accent);
+        }
+        
+        .tab-content {
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            min-height: 400px;
+        }
+        
+        /* Formulários e Inputs */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.3rem;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+        
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: var(--color-dark);
+            color: var(--color-text);
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .btn-save {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-save:hover {
+            transform: translateY(-1px);
+        }
+
+        /* Grid de Conteúdo (Produtos) */
+        #produtosList, #adminsList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .produto-card, .admin-card {
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 5px solid var(--color-accent);
+        }
+        
+        .produto-card h3, .admin-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--color-accent);
+        }
+
+        .produto-card p, .admin-card p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+        }
+        
+        .produto-tag {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--color-darker);
+        }
+
+        /* Mensagens de Status e Aviso */
+        .status-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: none;
+        }
+        
+        .status-success {
+            background-color: var(--success);
+            color: var(--color-darker);
+        }
+        
+        .status-error {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        /* Efeitos de Fundo (Simetria com Home/Mentoria) */
         body::before {
             content: '';
             position: fixed;
@@ -53,10 +281,10 @@
             height: 100%;
             background: 
                 radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%);
             z-index: 0;
             animation: backgroundShift 20s ease infinite;
+            pointer-events: none;
         }
 
         @keyframes backgroundShift {
@@ -64,658 +292,418 @@
             50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        /* Grid animado de fundo */
-        .bg-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: 0;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Header moderno */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(10, 14, 39, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            background: rgba(10, 14, 39, 0.95);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: var(--color-text);
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 800;
-            font-family: 'Sora', sans-serif;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .logo span {
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: 'Sora', sans-serif;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-        }
-
-        .btn-membros {
-            background: var(--gradient-quaternary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
-        }
-
-        .btn-membros:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(67, 233, 123, 0.5);
-        }
-
-        .btn-logout {
-            background: var(--gradient-secondary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
-        }
-
-        .btn-logout:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(245, 87, 108, 0.5);
-        }
-
-        /* Main Content */
-        main {
-            position: relative;
-            z-index: 1;
-            padding-top: 100px;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            margin-bottom: 5rem;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero-title {
-            font-family: 'Sora', sans-serif;
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #f5576c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: var(--color-text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-            font-weight: 400;
-        }
-
-        /* Warning Box */
-        .warning-box {
-            background: var(--color-card);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 2rem;
-            border: 1px solid rgba(245, 87, 108, 0.3);
-            margin-bottom: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .warning-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-secondary);
-        }
-
-        .warning-box h3 {
-            font-family: 'Sora', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #f5576c;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .warning-box p {
-            color: var(--color-text-muted);
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .btn-generate {
-            background: var(--gradient-quaternary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-generate:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(67, 233, 123, 0.5);
-        }
-
-        /* Section Title */
-        .section-title {
-            font-family: 'Sora', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 2rem;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        /* Table Container */
-        .table-container {
-            background: var(--color-card);
-            backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .table-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: var(--gradient-primary);
-        }
-
-        .member-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1.5rem;
-        }
-
-        .member-table th {
-            text-align: left;
-            padding: 1rem;
-            color: var(--color-text);
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .member-table td {
-            padding: 1.2rem 1rem;
-            color: var(--color-text-muted);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .member-table tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-            color: var(--color-text);
-        }
-
-        .member-table tr:last-child td {
-            border-bottom: none;
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-        }
-
-        .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            border-radius: 50px;
-        }
-
-        .btn-copy {
-            background: var(--gradient-tertiary);
-            color: white;
-            box-shadow: 0 2px 10px rgba(79, 172, 254, 0.3);
-        }
-
-        .btn-copy:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.5);
-        }
-
-        .btn-revoke {
-            background: var(--gradient-secondary);
-            color: white;
-            box-shadow: 0 2px 10px rgba(245, 87, 108, 0.3);
-        }
-
-        .btn-revoke:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.5);
-        }
-
-        .btn-contract {
-            background: var(--gradient-quaternary);
-            color: white;
-            box-shadow: 0 2px 10px rgba(67, 233, 123, 0.3);
-        }
-
-        .btn-contract:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.5);
-        }
-
-        /* Notice Boxes */
-        .notice-box {
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            margin-top: 1.5rem;
-            font-weight: 600;
-            display: none;
-            animation: fadeInUp 0.4s ease;
-        }
-
-        .notice-success {
-            background: rgba(67, 233, 123, 0.1);
-            border: 1px solid rgba(67, 233, 123, 0.3);
-            color: #43e97b;
-        }
-
-        .notice-info {
-            background: rgba(79, 172, 254, 0.1);
-            border: 1px solid rgba(79, 172, 254, 0.3);
-            color: #4facfe;
-        }
-
-        .empty-box {
-            padding: 3rem;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 16px;
-            color: var(--color-text-muted);
-            margin-top: 2rem;
-            font-size: 1.1rem;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: var(--color-text-muted);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Partículas flutuantes */
-        .floating-particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: rgba(102, 126, 234, 0.6);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-30px) translateX(20px); }
-            50% { transform: translateY(-60px) translateX(-20px); }
-            75% { transform: translateY(-30px) translateX(10px); }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .member-table {
-                font-size: 0.9rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .header-actions {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .table-container {
-                padding: 1.5rem;
-                overflow-x: auto;
-            }
-
-            .member-table {
-                font-size: 0.8rem;
-            }
-
-            .member-table th,
-            .member-table td {
-                padding: 0.8rem 0.5rem;
-            }
-
-            .action-buttons {
-                flex-direction: column;
-            }
-
-            .btn-small {
-                width: 100%;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-
-    <header id="header">
-        <nav>
-            <a href="home.html" class="logo">
-                <div class="logo-icon">IT</div>
-                <span>INSTITUTO TANIGAWA</span>
-            </a>
-            <div class="header-actions">
-                <a href="area_membros.html" class="btn btn-membros">Área de Membros</a>
-                <button class="btn btn-logout" onclick="logout()">Sair</button>
-            </div>
-        </nav>
+    <header>
+        <div class="header-left">
+            <h1>Painel Administrativo</h1>
+        </div>
+        <div class="header-right">
+            <span class="user-info">Bem-vindo, <span id="welcomeName">Admin</span>!</span>
+            <button class="logout-btn" onclick="logout()">Sair</button>
+        </div>
     </header>
 
-    <main>
-        <div class="container">
-            <div class="hero">
-                <h1 class="hero-title">Painel Administrativo</h1>
-                <p class="hero-subtitle">
-                    Gestão centralizada de chaves de acesso e membros do Instituto Tanigawa
-                </p>
-            </div>
-
-            <div class="warning-box">
-                <h3>⚠️ Aviso Importante</h3>
-                <p>
-                    A listagem abaixo é apenas visual para demonstração. O gerenciamento real de chaves 
-                    é feito através da variável de ambiente <strong>ADMIN_KEYS_JSON</strong> no painel da Vercel.
-                </p>
-                <p>
-                    Para adicionar um novo membro, gere um hash SHA-256 da chave de acesso e adicione-o 
-                    manualmente no JSON configurado no Vercel.
-                </p>
-                <button class="btn btn-generate" onclick="window.location.href='gerar-contrato.html'">
-                    Gerar Documento/Contrato
-                    <span>→</span>
-                </button>
-            </div>
-
-            <h2 class="section-title">Chaves Ativas (Simulação)</h2>
-
-            <div class="table-container">
-                <div id="memberList">
-                    <!-- Tabela será inserida aqui via JavaScript -->
-                </div>
-
-                <div id="copyNotice" class="notice-box notice-info">
-                    Chave copiada para a área de transferência!
-                </div>
-                
-                <div id="successBox" class="notice-box notice-success">
-                    Ação executada com sucesso!
-                </div>
-            </div>
+    <div class="container">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('gestaoConteudo')">Gestão de Conteúdo</button>
+            <button class="tab-btn" onclick="openTab('gestaoAdmin')">Gestão de Administradores</button>
         </div>
-    </main>
 
-    <footer>
-        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
-    </footer>
+        <!-- Mensagem de Status Global -->
+        <div id="statusMessage" class="status-message"></div>
 
-    <script>
-        // Scroll effect no header
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+        <!-- CONTEÚDO 1: GESTÃO DE CONTEÚDO (Mentorias, E-books, Imersões) -->
+        <div id="gestaoConteudo" class="tab-content">
+            <h2>Cadastro de Produto/Serviço</h2>
+            <form id="produtoForm" style="margin-bottom: 2rem;">
+                <input type="hidden" id="produtoId" value="">
+                
+                <div class="form-group">
+                    <label for="produtoNome">Nome do Produto/Mentoria (Ex: Mentoria SYNESIS)</label>
+                    <input type="text" id="produtoNome" required>
+                </div>
+                <div class="form-group">
+                    <label for="produtoTipo">Tipo (Ex: Mentoria, Ebook, Imersão)</label>
+                    <select id="produtoTipo" required>
+                        <option value="Mentoria">Mentoria</option>
+                        <option value="Ebook">E-book</option>
+                        <option value="Imersão">Imersão</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="produtoGradiente">Gradiente de Cor (Design System)</label>
+                    <select id="produtoGradiente" required>
+                        <option value="primary">Primary (Roxo-Azulado)</option>
+                        <option value="secondary">Secondary (Rosa-Vermelho)</option>
+                        <option value="tertiary">Tertiary (Azul Ciano)</option>
+                        <option value="quaternary">Quaternary (Verde)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="produtoTag">Tag de Destaque (Ex: FOCO: Liderança)</label>
+                    <input type="text" id="produtoTag" required>
+                </div>
+                <div class="form-group">
+                    <label for="produtoDescricao">Descrição Curta (Máx. 150 caracteres para Card)</label>
+                    <textarea id="produtoDescricao" rows="3" required></textarea>
+                </div>
 
-        // Criar partículas flutuantes
-        function createFloatingParticles() {
-            const particleCount = 30;
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'floating-particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-                document.body.appendChild(particle);
-            }
+                <button type="submit" id="salvarBtn" class="btn-save">Salvar Produto</button>
+                <button type="button" id="cancelarEdicaoBtn" class="logout-btn" style="margin-left: 1rem; display: none;" onclick="resetForm()">Cancelar Edição</button>
+            </form>
+
+            <h2 style="margin-top: 3rem;">Produtos Cadastrados</h2>
+            <div id="produtosList">Carregando produtos...</div>
+        </div>
+
+        <!-- CONTEÚDO 2: GESTÃO DE ADMINISTRADORES (Novo e CRÍTICO) -->
+        <div id="gestaoAdmin" class="tab-content" style="display:none;">
+            <h2>Designar Novo Administrador</h2>
+            <p style="color: var(--color-text-muted); margin-bottom: 1.5rem;">
+                Para promover um usuário, ele deve primeiro se **cadastrar** na área restrita. Use o UID do usuário (encontrado no console do Firebase) para designar acesso total.
+            </p>
+            <form id="adminForm" style="margin-bottom: 2rem;">
+                <div class="form-group">
+                    <label for="adminUid">UID do Usuário (Identificador Único do Firebase)</label>
+                    <input type="text" id="adminUid" placeholder="Ex: X9Y1Z..." required>
+                </div>
+                <div class="form-group">
+                    <label for="adminNome">Nome do Administrador</label>
+                    <input type="text" id="adminNome" placeholder="Ex: Sérgio Tanigawa" required>
+                </div>
+                <button type="submit" class="btn-save" style="background: var(--gradient-quaternary);">Designar como Admin</button>
+            </form>
+
+            <h2 style="margin-top: 3rem;">Administradores Ativos</h2>
+            <div id="adminsList">Carregando administradores...</div>
+        </div>
+
+    </div>
+
+    <script type="module">
+        // Imports e inicialização já definidos no bloco <script type="module"> inicial
+        
+        /* ----------------------------------------------------
+           CONSTANTES FIRESTORE
+           ---------------------------------------------------- */
+        const PRODUTOS_COLLECTION = 'produtos';
+        const ADMINS_COLLECTION = 'admins';
+        
+        function getProductsCollectionRef() {
+            // Coleção pública: todos veem as mentorias
+            const path = `artifacts/${window.appId}/public/data/${PRODUTOS_COLLECTION}`;
+            return firebase.firestore.collection(window.db, path);
+        }
+        
+        function getAdminsCollectionRef() {
+            // Coleção pública: todos veem (para checagem de permissão)
+            const path = `artifacts/${window.appId}/public/data/${ADMINS_COLLECTION}`;
+            return firebase.firestore.collection(window.db, path);
         }
 
-        createFloatingParticles();
 
-        // Função de logout
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'auth_system.html';
+        /* ----------------------------------------------------
+           FUNÇÕES DE LAYOUT GERAL
+           ---------------------------------------------------- */
+        
+        function showStatus(message, isSuccess = true) {
+            const box = document.getElementById('statusMessage');
+            box.textContent = message;
+            box.className = `status-message ${isSuccess ? 'status-success' : 'status-error'}`;
+            box.style.display = 'block';
+            setTimeout(() => { box.style.display = 'none'; }, 5000);
         }
+        window.showStatus = showStatus;
 
-        // Verificar autenticação admin
-        const userType = sessionStorage.getItem('userType');
-        if (userType !== 'admin') {
-            alert('Acesso negado. Apenas administradores.');
-            window.location.replace('auth_system.html');
-        }
-
-        // Carregar chaves (simulação com dados estáticos)
-        async function carregarChaves() {
-            // Dados simulados para demonstração
-            const keysData = {
-                "4c74d41f9e521d53d27ec834aec6b0b3472d9b8db62107a1658cd55f87ca3e04": { 
-                    "type": "admin", 
-                    "nome": "Sergio Tanigawa", 
-                    "mentoria": "SYNESIS" 
-                },
-                "outrahashdeusuario": { 
-                    "type": "member", 
-                    "nome": "Wanessa Teste", 
-                    "mentoria": "LEV" 
-                },
-                "hashdeteste123456": { 
-                    "type": "member", 
-                    "nome": "Novo Aluno 1", 
-                    "mentoria": "SYNESIS" 
-                }
-            };
-
+        window.logout = async function() {
             try {
-                const validEntries = Object.entries(keysData).filter(([hash, data]) => hash !== '__config');
+                await firebase.auth.signOut(window.auth);
+                sessionStorage.clear();
+                window.location.replace('auth_system.html');
+            } catch (error) {
+                console.error("Erro ao fazer logout:", error);
+                sessionStorage.clear();
+                window.location.replace('auth_system.html');
+            }
+        };
+        
+        function openTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const btns = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => tab.style.display = 'none');
+            btns.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName).style.display = 'block';
+            document.querySelector(`.tab-btn[onclick*="${tabName}"]`).classList.add('active');
 
-                if (validEntries.length === 0) {
-                    document.getElementById("memberList").innerHTML = `
-                        <div class='empty-box'>
-                            Nenhuma chave de acesso ativa encontrada.
-                        </div>
-                    `;
+            if (tabName === 'gestaoConteudo') {
+                 carregarProdutos();
+            } else if (tabName === 'gestaoAdmin') {
+                 carregarAdmins();
+            }
+        }
+        window.openTab = openTab;
+
+        /* ----------------------------------------------------
+           GESTÃO DE PRODUTOS/CONTEÚDO (CRUD)
+           ---------------------------------------------------- */
+        
+        window.carregarProdutos = function() {
+            if (!window.db) return;
+
+            const produtosRef = getProductsCollectionRef();
+            const produtosList = document.getElementById('produtosList');
+            produtosList.innerHTML = 'Carregando produtos do Firestore...';
+
+            firebase.firestore.onSnapshot(produtosRef, (snapshot) => {
+                let html = '';
+                if (snapshot.empty) {
+                    produtosList.innerHTML = `<div style="grid-column: 1 / -1; color: var(--color-text-muted);">Nenhum produto cadastrado.</div>`;
                     return;
                 }
 
-                let html = `
-                    <table class="member-table">
-                        <thead>
-                            <tr>
-                                <th>Nome</th>
-                                <th>Mentoria</th>
-                                <th>Hash (Final)</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                `;
-
-                for (const [hash, data] of validEntries) {
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const id = doc.id;
+                    
                     html += `
-                        <tr>
-                            <td><strong>${data.nome}</strong></td>
-                            <td>${data.mentoria}</td>
-                            <td><code>...${hash.slice(-8)}</code></td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="btn btn-small btn-copy" onclick="copiarChave('${hash}')">
-                                        Copiar
-                                    </button>
-                                    <button class="btn btn-small btn-revoke" onclick="revogarChave('${hash}')">
-                                        Revogar
-                                    </button>
-                                    <button class="btn btn-small btn-contract" onclick="window.location.href='gerar-contrato.html'">
-                                        Contrato
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
+                    <div class="produto-card" style="border-left-color: var(--color-accent);">
+                        <span class="produto-tag" style="background: var(--gradient-${data.gradiente}); color: var(--color-darker);">${data.tipo}</span>
+                        <h3 style="background: var(--gradient-${data.gradiente}); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">${data.nome}</h3>
+                        <p>${data.tag}</p>
+                        <div class="produto-actions">
+                            <button class="btn-copy btn-save" onclick="preencherFormEdicao('${id}')">Editar</button>
+                            <button class="logout-btn" style="background: var(--gradient-secondary);" onclick="excluirProduto('${id}', '${data.nome}')">Excluir</button>
+                        </div>
+                    </div>
                     `;
+                });
+                produtosList.innerHTML = html;
+            }, (error) => {
+                console.error("Erro ao ouvir produtos:", error);
+                showStatus('Erro ao carregar lista de produtos.', false);
+            });
+        };
+
+        // Salva ou Edita um produto
+        document.getElementById('produtoForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const id = document.getElementById('produtoId').value || Date.now().toString(); // Usa ID existente ou gera novo
+            
+            const produtoData = {
+                nome: document.getElementById('produtoNome').value,
+                tipo: document.getElementById('produtoTipo').value,
+                gradiente: document.getElementById('produtoGradiente').value,
+                tag: document.getElementById('produtoTag').value,
+                descricao: document.getElementById('produtoDescricao').value,
+                dataCadastro: new Date().toISOString()
+            };
+            
+            const submitBtn = document.getElementById('salvarBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = id.length > 15 ? 'Cadastrando...' : 'Salvando Edição...';
+
+            try {
+                const produtoRef = firebase.firestore.doc(getProductsCollectionRef(), id);
+                await firebase.firestore.setDoc(produtoRef, produtoData, { merge: true });
+                
+                showStatus(id.length > 15 ? `✅ Produto "${produtoData.nome}" cadastrado com sucesso!` : `✅ Produto "${produtoData.nome}" editado com sucesso!`, true);
+                resetForm();
+
+            } catch (error) {
+                console.error("Erro ao salvar produto:", error);
+                showStatus('❌ Erro ao salvar produto. Verifique a conexão.', false);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Salvar Produto';
+            }
+        });
+
+        // Exclui um produto
+        window.excluirProduto = async function(id, nome) {
+            // Substituição de window.confirm()
+            if (!window.confirm(`Tem certeza que deseja excluir o produto "${nome}"?`)) return;
+            
+            try {
+                const produtoRef = firebase.firestore.doc(getProductsCollectionRef(), id);
+                await firebase.firestore.deleteDoc(produtoRef);
+                showStatus(`✅ Produto "${nome}" excluído com sucesso!`, true);
+            } catch (error) {
+                console.error("Erro ao excluir produto:", error);
+                showStatus('❌ Erro ao excluir produto.', false);
+            }
+        };
+
+        // Preenche o formulário para edição
+        window.preencherFormEdicao = function(id) {
+            // Lógica para obter todos os dados do Firestore (melhor que tentar ler do card)
+            const produtoRef = firebase.firestore.doc(getProductsCollectionRef(), id);
+            
+            firebase.firestore.getDoc(produtoRef).then(docSnapshot => {
+                if (docSnapshot.exists()) {
+                    const data = docSnapshot.data();
+                    
+                    document.getElementById('produtoId').value = id;
+                    document.getElementById('produtoNome').value = data.nome;
+                    document.getElementById('produtoTipo').value = data.tipo;
+                    document.getElementById('produtoGradiente').value = data.gradiente;
+                    document.getElementById('produtoTag').value = data.tag;
+                    document.getElementById('produtoDescricao').value = data.descricao;
+                    
+                    document.getElementById('salvarBtn').textContent = 'Atualizar Produto';
+                    document.getElementById('cancelarEdicaoBtn').style.display = 'inline-block';
+                    showStatus(`Modo Edição ativado para: ${data.nome}`, true);
+                }
+            }).catch(error => {
+                console.error("Erro ao carregar dados para edição:", error);
+                showStatus('Erro ao carregar dados para edição.', false);
+            });
+        };
+        
+        // Limpa o formulário após edição/cadastro
+        function resetForm() {
+            document.getElementById('produtoForm').reset();
+            document.getElementById('produtoId').value = '';
+            document.getElementById('salvarBtn').textContent = 'Salvar Produto';
+            document.getElementById('cancelarEdicaoBtn').style.display = 'none';
+        }
+        window.resetForm = resetForm;
+
+
+        /* ----------------------------------------------------
+           GESTÃO DE ADMINISTRADORES (Escalabilidade)
+           ---------------------------------------------------- */
+        
+        window.carregarAdmins = function() {
+            if (!window.db) return;
+
+            const adminsRef = getAdminsCollectionRef();
+            const adminsList = document.getElementById('adminsList');
+            adminsList.innerHTML = 'Carregando administradores do Firestore...';
+
+            firebase.firestore.onSnapshot(adminsRef, (snapshot) => {
+                let html = '';
+                if (snapshot.empty) {
+                    adminsList.innerHTML = `<div style="grid-column: 1 / -1; color: var(--color-text-muted);">Nenhum administrador designado via UID.</div>`;
+                    return;
                 }
 
-                html += `
-                        </tbody>
-                    </table>
-                `;
-
-                document.getElementById("memberList").innerHTML = html;
-
-            } catch (e) {
-                document.getElementById("memberList").innerHTML = `
-                    <div class='empty-box'>
-                        Erro ao simular chaves. Verifique os dados.
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    const uid = doc.id;
+                    
+                    html += `
+                    <div class="admin-card">
+                        <h3>${data.nome}</h3>
+                        <p>UID: ${uid.slice(0, 10)}...</p>
+                        <p style="color: var(--color-accent-secondary);">${data.email}</p>
+                        <div class="produto-actions" style="margin-top: 1rem;">
+                            <button class="logout-btn" style="background: var(--gradient-secondary);" onclick="removerAdmin('${uid}', '${data.nome}')">Remover Admin</button>
+                        </div>
                     </div>
-                `;
+                    `;
+                });
+                adminsList.innerHTML = html;
+            }, (error) => {
+                console.error("Erro ao ouvir administradores:", error);
+                showStatus('Erro ao carregar lista de administradores.', false);
+            });
+        };
+        
+        document.getElementById('adminForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const uid = document.getElementById('adminUid').value.trim();
+            const nome = document.getElementById('adminNome').value.trim();
+            
+            const adminData = {
+                nome: nome,
+                designadoPor: sessionStorage.getItem('userName'),
+                dataDesignacao: new Date().toISOString()
+            };
+            
+            if (uid.length < 20) {
+                 showStatus('UID inválido. Deve ser o identificador completo do Firebase.', false);
+                 return;
             }
+
+            try {
+                const adminRef = firebase.firestore.doc(getAdminsCollectionRef(), uid);
+                await firebase.firestore.setDoc(adminRef, adminData, { merge: true });
+                
+                showStatus(`✅ Usuário ${nome} designado como Administrador!`, true);
+                document.getElementById('adminForm').reset();
+
+            } catch (error) {
+                console.error("Erro ao designar Admin:", error);
+                showStatus('❌ Erro ao designar Administrador. Verifique se o UID está correto.', false);
+            }
+        });
+        
+        window.removerAdmin = async function(uid, nome) {
+            // Substituição de window.confirm()
+            if (!window.confirm(`Tem certeza que deseja remover as permissões de administrador de "${nome}"?`)) return;
+
+            try {
+                const adminRef = firebase.firestore.doc(getAdminsCollectionRef(), uid);
+                await firebase.firestore.deleteDoc(adminRef);
+                showStatus(`✅ Permissões de Admin removidas para "${nome}". O usuário agora é Membro comum.`, true);
+            } catch (error) {
+                console.error("Erro ao remover Admin:", error);
+                showStatus('❌ Erro ao remover Administrador.', false);
+            }
+        };
+
+        /* ----------------------------------------------------
+           GUARDA-CORPO DE SEGURANÇA (ADMIN)
+           ---------------------------------------------------- */
+           
+        function checkAdminAuth() {
+            // Se o Firebase ainda não carregou, espera
+            if (!window.auth) {
+                 setTimeout(checkAdminAuth, 100); 
+                 return;
+            }
+
+            // Listener de estado de autenticação
+            firebase.auth.onAuthStateChanged(window.auth, (user) => {
+                
+                if (!user) {
+                    // Não logado: Redireciona
+                    window.location.replace('auth_system.html');
+                    return;
+                }
+                
+                const userType = sessionStorage.getItem('userType');
+                const userName = sessionStorage.getItem('userName');
+                
+                // 🛑 GUARD-RAIL CRÍTICO: Se não for Admin, redireciona
+                if (userType !== 'admin') {
+                    showStatus('Acesso negado. Você não possui permissões de Administrador.', false);
+                    setTimeout(() => {
+                        window.location.replace('area_membros.html'); // Membro vai para sua área
+                    }, 1000);
+                    return;
+                }
+                
+                // Se for Admin, preenche a interface
+                document.getElementById('welcomeName').textContent = userName || user.email.split('@')[0];
+                
+                // Carrega o conteúdo default
+                carregarProdutos();
+            });
         }
 
-        carregarChaves();
+        // ----------------------------------------------------
+        // INICIALIZAÇÃO
+        // ----------------------------------------------------
 
-        // Copiar hash da chave
-        function copiarChave(hash) {
-            navigator.clipboard.writeText(hash);
-            const box = document.getElementById("copyNotice");
-            box.style.display = "block";
-            setTimeout(() => { box.style.display = "none"; }, 2000);
-        }
-
-        // Revogar chave (aviso visual)
-        function revogarChave(hash) {
-            const box = document.getElementById("successBox");
-            box.innerHTML = `Chave <strong>...${hash.slice(-8)}</strong> revogada visualmente. <br><strong>AÇÃO REAL:</strong> Remover do ADMIN_KEYS_JSON no Vercel.`;
-            box.style.display = "block";
-            setTimeout(() => { box.style.display = "none"; }, 5000);
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAdminAuth(); // Inicia a verificação de segurança
+        });
+        
     </script>
 </body>
 </html>
