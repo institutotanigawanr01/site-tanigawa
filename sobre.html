@@ -6,12 +6,9 @@
     <title>Sobre Nós - Instituto Tanigawa</title>
     <meta name="description" content="Conheça a história, missão e equipe do Instituto Tanigawa. Mais de 15 anos transformando vidas através de mentoria espiritual e desenvolvimento pessoal.">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
         * {
             margin: 0;
             padding: 0;
@@ -19,67 +16,96 @@
         }
 
         :root {
-            --primary-blue: #3b82f6;
-            --primary-gold: #f59e0b;
-            --dark-bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --text-light: #e2e8f0;
-            --text-gray: #94a3b8;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
             
-            /* Sistema de Espaçamento Simétrico */
-            --section-spacing: 6rem;
-            --container-padding: 2rem;
+            --color-dark: #0a0e27;
+            --color-darker: #060919;
+            --color-card: rgba(255, 255, 255, 0.03);
+            --color-card-hover: rgba(255, 255, 255, 0.06);
+            --color-text: #ffffff;
+            --color-text-muted: #a0aec0;
+            --color-accent: #667eea;
+            
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--text-light);
+            background: var(--color-darker);
+            color: var(--color-text);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            line-height: 1.3;
-        }
-
-        /* Particles - Mantido o visual dos outros arquivos */
-        #particles {
+        /* Background animado */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.6;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
+            z-index: 0;
+            animation: backgroundShift 20s ease infinite;
         }
 
-        .particle {
-            position: absolute;
-            background: radial-gradient(circle, var(--primary-blue) 0%, transparent 70%);
-            border-radius: 50%;
-            opacity: 0.4;
-            animation: float 15s infinite ease-in-out;
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-20px) translateX(10px); }
-            50% { transform: translateY(-40px) translateX(-10px); }
-            75% { transform: translateY(-20px) translateX(5px); }
-        }
-
-        /* Header (FIDELIDADE RESTAURADA) */
-        header {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 1rem var(--container-padding);
-            position: sticky;
+        /* Grid animado de fundo */
+        .bg-grid {
+            position: fixed;
             top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header moderno */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -90,191 +116,466 @@
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
-            color: var(--text-light);
+            color: var(--color-text);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .logo-icon {
-            width: 32px;
-            height: 32px;
-            background-color: var(--primary-gold);
-            border-radius: 6px;
-            display: inline-flex;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            color: var(--dark-bg);
-            font-family: 'Playfair Display', serif;
+            font-family: 'Sora', sans-serif;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
 
         .logo span {
             font-size: 1.1rem;
             font-weight: 700;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
+            font-family: 'Sora', sans-serif;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            margin: 0;
-            padding: 0;
+            gap: 2rem;
             align-items: center;
         }
 
-        .nav-links li {
-            margin-left: 1.5rem;
-        }
-
         .nav-links a {
-            color: var(--text-gray);
+            color: var(--color-text-muted);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--primary-gold);
+            color: var(--color-text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--color-text);
+            font-weight: 600;
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
         }
 
         .login-btn {
-            background: var(--primary-gold);
-            color: var(--dark-bg);
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 700;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
             text-decoration: none;
-            transition: opacity 0.3s;
-            margin-left: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
-        
-        .logout-link {
-            background: none;
-            color: var(--text-gray);
-            text-decoration: underline;
-            margin-left: 10px;
-            border: none;
-            cursor: pointer;
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
         }
 
         /* Main Content */
         main {
             position: relative;
-            z-index: 2;
+            z-index: 1;
+            padding-top: 100px;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: var(--section-spacing) var(--container-padding);
+            padding: 4rem 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-title {
-            font-size: 3rem;
-            color: var(--primary-gold);
-            margin-bottom: 0.75rem;
-            text-align: center;
+            font-family: 'Sora', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
         }
 
-        .mission-text {
+        .hero-subtitle {
             font-size: 1.2rem;
-            color: var(--text-gray);
-            margin-bottom: 3rem;
-            text-align: center;
+            color: var(--color-text-muted);
             max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: 0 auto;
+            line-height: 1.8;
         }
 
-        /* TEAM GRID (SIMETRIA RESTAURADA) */
+        /* Section Title */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Team Grid */
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
         }
-        
-        .team-member {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+        .team-card {
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
             text-align: center;
-            border-bottom: 5px solid var(--primary-blue);
         }
-        
-        .team-member img {
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .team-card:nth-child(2)::before {
+            background: var(--gradient-secondary);
+        }
+
+        .team-card:hover {
+            background: var(--color-card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .team-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .team-avatar {
             width: 150px;
             height: 150px;
             border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient-primary);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            color: white;
+        }
+
+        .team-card:nth-child(2) .team-avatar {
+            background: var(--gradient-secondary);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
             object-fit: cover;
-            margin-bottom: 15px;
-            border: 4px solid var(--primary-gold);
         }
-        
-        .team-member h3 {
+
+        .team-card h3 {
+            font-family: 'Sora', sans-serif;
             font-size: 1.8rem;
-            color: var(--text-light);
-            margin-bottom: 5px;
-        }
-        
-        .team-member p {
-            color: var(--text-gray);
-            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
         }
 
-        /* Section Valores */
-        .valores-section {
-            background: rgba(15, 23, 42, 0.7);
-            margin-top: var(--section-spacing);
-            padding: var(--section-spacing) var(--container-padding);
+        .team-card p {
+            color: var(--color-text-muted);
+            line-height: 1.7;
+            font-size: 1.05rem;
         }
-        
-        .valores-section h2 {
-            color: var(--primary-blue);
-            margin-bottom: 40px;
-            text-align: center;
-        }
-        
-        .valores-list {
-            list-style: none;
-            padding: 0;
+
+        /* Valores Grid */
+        .valores-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-        
-        .valores-list li {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--primary-gold);
-            text-align: left;
-            border-left: 3px solid var(--primary-gold);
-            padding-left: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 5rem;
         }
 
-        /* Footer (Mantido simples) */
+        .valor-card {
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .valor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .valor-card:nth-child(2)::before { background: var(--gradient-secondary); }
+        .valor-card:nth-child(3)::before { background: var(--gradient-tertiary); }
+        .valor-card:nth-child(4)::before { background: var(--gradient-quaternary); }
+        .valor-card:nth-child(5)::before { background: var(--gradient-primary); }
+        .valor-card:nth-child(6)::before { background: var(--gradient-secondary); }
+
+        .valor-card:hover {
+            background: var(--color-card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .valor-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .valor-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .valor-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            margin: 6rem 0 4rem;
+        }
+
+        .cta-box {
+            background: var(--color-card);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+            animation: rotateCTA 15s linear infinite;
+        }
+
+        @keyframes rotateCTA {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cta-box h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-tertiary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box p {
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            background: var(--gradient-tertiary);
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(79, 172, 254, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(79, 172, 254, 0.6);
+        }
+
+        /* Footer */
         footer {
             text-align: center;
-            padding: 30px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Partículas flutuantes */
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .team-grid,
+            .valores-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .cta-box {
+                padding: 3rem 2rem;
+            }
+
+            .cta-box h2 {
+                font-size: 2rem;
+            }
+
+            .team-grid,
+            .valores-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div id="particles"></div>
+    <div class="bg-grid"></div>
 
-    <header>
+    <header id="header">
         <nav>
             <a href="home.html" class="logo">
                 <div class="logo-icon">IT</div>
@@ -285,83 +586,162 @@
                 <li><a href="mentoria.html">Mentorias</a></li>
                 <li><a href="devocionais.html">Devocionais</a></li>
                 <li><a href="nr-1.html">NR-1</a></li>
-                <li><a href="sobre.html" style="color: var(--primary-gold);">Sobre</a></li>
+                <li><a href="sobre.html" class="active">Sobre</a></li>
                 <li><a href="contato.html">Contato</a></li>
                 <div id="navAuth">
-                    </div>
+                    <a href="auth_system.html" class="login-btn">Entrar</a>
+                </div>
             </ul>
         </nav>
     </header>
 
     <main>
         <div class="container">
-            <h1 class="hero-title">Nossa História, Visão e Missão</h1>
-            <p class="mission-text">
-                Com mais de 15 anos de trajetória, o Instituto Tanigawa nasceu da união entre a sabedoria bíblica e a excelência profissional. Nossa missão é forjar líderes completos, prontos para influenciar todas as áreas de suas vidas.
-            </p>
+            <div class="hero">
+                <h1 class="hero-title">Nossa História, Visão e Missão</h1>
+                <p class="hero-subtitle">
+                    Com mais de 15 anos de trajetória, o Instituto Tanigawa nasceu da união entre 
+                    a sabedoria bíblica e a excelência profissional. Nossa missão é forjar líderes 
+                    completos, prontos para influenciar todas as áreas de suas vidas.
+                </p>
+            </div>
+
+            <div class="section-title">
+                <h2>Nossa Equipe</h2>
+            </div>
 
             <div class="team-grid">
-                <div class="team-member">
-                    <img src="placeholder-sergio.jpg" alt="Sergio Tanigawa">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        ST
+                        <!-- <img src="placeholder-sergio.jpg" alt="Sergio Tanigawa"> -->
+                    </div>
                     <h3>Sergio Tanigawa</h3>
-                    <p>CEO, Mentor e Teólogo. Estrategista de Propósito.</p>
+                    <p>
+                        CEO, Mentor e Teólogo. Estrategista de Propósito com mais de 15 anos 
+                        de experiência em desenvolvimento de líderes e transformação organizacional.
+                    </p>
                 </div>
                 
-                <div class="team-member">
-                     <img src="placeholder-wanessa.jpg" alt="Wanessa Tanigawa">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        WT
+                        <!-- <img src="placeholder-wanessa.jpg" alt="Wanessa Tanigawa"> -->
+                    </div>
                     <h3>Wanessa Tanigawa</h3>
-                    <p>Psicóloga (CRP 06/128917), Pastora e Diretora Técnica. Especialista em Cura Emocional.</p>
+                    <p>
+                        Psicóloga (CRP 06/128917), Pastora e Diretora Técnica. 
+                        Especialista em Cura Emocional e Terapia Cognitivo-Comportamental (TCC).
+                    </p>
+                </div>
+            </div>
+
+            <div class="section-title">
+                <h2>Nossos Valores Inegociáveis</h2>
+            </div>
+
+            <div class="valores-grid">
+                <div class="valor-card">
+                    <span class="valor-icon">📖</span>
+                    <h3>Discipulado e Mentoria</h3>
+                </div>
+                
+                <div class="valor-card">
+                    <span class="valor-icon">🎯</span>
+                    <h3>Fidelidade ao Chamado</h3>
+                </div>
+                
+                <div class="valor-card">
+                    <span class="valor-icon">⭐</span>
+                    <h3>Excelência Profissional</h3>
+                </div>
+                
+                <div class="valor-card">
+                    <span class="valor-icon">✨</span>
+                    <h3>Integridade e Transparência</h3>
+                </div>
+                
+                <div class="valor-card">
+                    <span class="valor-icon">🤝</span>
+                    <h3>Serviço e Liderança</h3>
+                </div>
+                
+                <div class="valor-card">
+                    <span class="valor-icon">💚</span>
+                    <h3>Cura e Restauração</h3>
+                </div>
+            </div>
+
+            <div class="cta-section">
+                <div class="cta-box">
+                    <h2>Pronto para sua Transformação?</h2>
+                    <p>
+                        Conheça nossas mentorias e descubra qual é a ideal para você no momento. 
+                        Junte-se a centenas de vidas já transformadas.
+                    </p>
+                    <a href="mentoria.html" class="btn-primary">
+                        Conhecer Mentorias
+                        <span>→</span>
+                    </a>
                 </div>
             </div>
         </div>
-        
-        <section class="valores-section">
-            <div class="container" style="max-width: 900px;">
-                <h2>Nossos Valores Inegociáveis</h2>
-                <ul class="valores-list">
-                    <li>Discipulado e Mentoria</li>
-                    <li>Fidelidade ao Chamado</li>
-                    <li>Excelência Profissional</li>
-                    <li>Integridade e Transparência</li>
-                    <li>Serviço e Liderança</li>
-                    <li>Cura e Restauração</li>
-                </ul>
-            </div>
-        </section>
-
     </main>
 
     <footer>
-        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados. Focados em transformar vidas.</p>
+        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
     </footer>
 
     <script>
-        // Função unificada de Logout (necessária para o header dinâmico)
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'auth_system.html'; 
+        // Scroll effect no header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Criar partículas flutuantes
+        function createFloatingParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(particle);
+            }
         }
 
-        // Função para atualizar o menu de autenticação (Item 13)
+        createFloatingParticles();
+
+        // Função de logout
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'auth_system.html';
+        }
+
+        // Atualizar barra de navegação com autenticação
         function updateNavBar() {
             const navAuth = document.getElementById('navAuth');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
             const userType = sessionStorage.getItem('userType');
             
-            if (!navAuth) return; 
-            navAuth.innerHTML = ''; 
+            if (!navAuth) return;
+            navAuth.innerHTML = '';
             
             if (isLoggedIn) {
                 let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
                 let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
                 navAuth.innerHTML = `
-                    <div style="margin-left: 20px;">
-                        <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
-                            ${linkText}
-                        </a>
-                        <button class="logout-link" onclick="logout()">Sair</button>
-                    </div>
+                    <a href="${linkTarget}" class="login-btn">
+                        ${linkText}
+                    </a>
                 `;
             } else {
                 navAuth.innerHTML = `
@@ -372,35 +752,7 @@
             }
         }
 
-        // Inicializar Partículas (Restaurado)
-        function createParticles() {
-            const container = document.getElementById('particles');
-            if (!container) return;
-            const particleCount = 50;
-
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                const size = Math.random() * 4 + 2;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-                
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                
-                particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-                
-                container.appendChild(particle);
-            }
-        }
-        
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function() {
-            createParticles();
-            updateNavBar();
-        });
+        document.addEventListener('DOMContentLoaded', updateNavBar);
     </script>
 </body>
 </html>

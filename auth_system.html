@@ -4,170 +4,517 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área Restrita - Instituto Tanigawa</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <meta name="description" content="Acesso exclusivo para membros e administradores do Instituto Tanigawa">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
+    
     <style>
-        /* DEFINIÇÃO DAS CORES (RESTAURO DE SIMETRIA) */
-        :root {
-            --primary-blue: #3b82f6;
-            --primary-gold: #f59e0b;
-            --dark-bg: #0f172a;
-            --card-bg: rgba(255, 255, 255, 0.08); /* Fundo do glass-card */
-            --text-light: #e2e8f0;
-            --danger: #ef4444;
-        }
-
-        /* ESTILOS RESTAURADOS - BODY, BACKGROUND E FONTES */
-        body {
+        * {
             margin: 0;
             padding: 0;
-            background: radial-gradient(circle at top, #0e0e1a 0%, #070712 100%);
-            font-family: 'Inter', sans-serif, Arial; /* Corrigido para priorizar Inter/Playfair */
-            overflow: hidden;
-            color: #fff;
+            box-sizing: border-box;
         }
 
-        /* RESTAURADO - PARTÍCULAS DO BACKGROUND */
-        .particles {
+        :root {
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            
+            --color-dark: #0a0e27;
+            --color-darker: #060919;
+            --color-card: rgba(255, 255, 255, 0.03);
+            --color-card-hover: rgba(255, 255, 255, 0.06);
+            --color-text: #ffffff;
+            --color-text-muted: #a0aec0;
+            --color-accent: #667eea;
+            --color-danger: #ef4444;
+            
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--color-darker);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Background animado */
+        body::before {
+            content: '';
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://cdn.jsdelivr.net/gh/JulianLaval/canvas-particle-network/background.png');
-            opacity: 0.15;
-            pointer-events: none;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
+            z-index: 0;
+            animation: backgroundShift 20s ease infinite;
         }
 
-        /* RESTAURADO - GLASSMORPHISM CARD */
-        .glass-card {
-            width: 380px;
-            max-width: 90%;
-            padding: 30px;
-            margin: 130px auto 0 auto;
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        h2 {
-            font-family: 'Playfair Display', serif; /* Fonte de impacto restaurada */
+        /* Grid animado de fundo */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header moderno */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo span {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 2rem 4rem;
+        }
+
+        .auth-container {
+            max-width: 450px;
+            width: 100%;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .auth-card {
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .auth-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .auth-header {
             text-align: center;
-            color: var(--primary-gold);
-            margin-bottom: 25px;
-            font-size: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .auth-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            background: var(--gradient-primary);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .auth-header h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .auth-header p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.75rem;
             font-weight: 500;
-            color: var(--text-light);
+            color: var(--color-text);
+            font-size: 0.95rem;
         }
 
         input[type="password"] {
             width: 100%;
-            padding: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.2);
-            color: #fff;
-            border-radius: 8px;
-            box-sizing: border-box;
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--color-text);
+            border-radius: 12px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
         }
 
         input[type="password"]:focus {
             outline: none;
-            border-color: var(--primary-blue);
+            border-color: var(--color-accent);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
 
-        button {
+        input[type="password"]::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        .btn-submit {
             width: 100%;
-            padding: 15px;
-            margin-top: 20px;
-            background: var(--primary-blue);
-            color: #fff;
+            padding: 1.1rem 2rem;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            border-radius: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
-        button:hover {
-            background: #2563eb;
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
         }
 
-        button:disabled {
-            background: #5b6478;
+        .btn-submit:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
+            transform: none;
         }
 
-        /* RESTAURADO - BOX DE ERRO */
-        #errorBox {
-            background: var(--danger);
-            color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 15px;
+        .error-box {
+            background: var(--color-danger);
+            color: white;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-top: 1.5rem;
             text-align: center;
-            display: none;
             font-size: 0.9rem;
-            opacity: 0.95;
+            display: none;
+            animation: shake 0.4s ease;
         }
 
-        /* RESTAURADO - TEXTO INFERIOR */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
         .info-text {
             text-align: center;
-            margin-top: 20px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.7);
+            margin-top: 2rem;
+            padding: 1rem;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
-        /* RESTAURADO - MEDIA QUERIES */
-        @media (max-width: 480px) {
-            .glass-card {
-                padding: 20px;
-                margin-top: 50px;
+        .info-text strong {
+            color: var(--color-text);
+        }
+
+        /* Footer */
+        footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Partículas flutuantes */
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .auth-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .auth-header h2 {
+                font-size: 1.6rem;
+            }
+
+            main {
+                padding: 100px 1rem 2rem;
             }
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.min.js"></script>
-
 </head>
 <body>
+    <div class="bg-grid"></div>
 
-    <div class="particles"></div>
+    <header id="header">
+        <nav>
+            <a href="home.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="mentoria.html">Mentorias</a></li>
+                <li><a href="devocionais.html">Devocionais</a></li>
+                <li><a href="nr-1.html">NR-1</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="glass-card">
-        <h2>Área de Acesso Restrita</h2>
-        
-        <form id="loginForm">
-            <label for="key">Chave de Acesso:</label>
-            <input type="password" id="key" required>
-            <button type="submit" id="submitBtn">Acessar →</button>
-            <div id="errorBox"></div>
-        </form>
-    </div>
+    <main>
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="auth-icon">🔐</div>
+                    <h2>Área Restrita</h2>
+                    <p>Acesso exclusivo para membros e administradores</p>
+                </div>
 
-    <p class="info-text">
-        🔒 Acesso exclusivo para Membros e Administradores.
-    </p>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="key">Chave de Acesso:</label>
+                        <input 
+                            type="password" 
+                            id="key" 
+                            placeholder="Digite sua chave de acesso"
+                            required 
+                            autocomplete="off"
+                        >
+                    </div>
 
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <span>Acessar</span>
+                        <span>→</span>
+                    </button>
+
+                    <div id="errorBox" class="error-box" role="alert"></div>
+                </form>
+
+                <div class="info-text">
+                    <strong>🔒 Segurança:</strong> Sua chave é criptografada antes do envio.
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
+    </footer>
 
     <script>
-        /* ---------------- FUNÇÃO SHA-256 ---------------- */
-        async function sha256(str) {
-            // Função wrapper para usar o sha256.js
-            return sha256.hex(str);
+        // Scroll effect no header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Criar partículas flutuantes
+        function createFloatingParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(particle);
+            }
         }
 
-        /* ---------------- LÓGICA DE LOGIN (CORRIGIDA PARA VERCEL) ---------------- */
+        createFloatingParticles();
+
+        // Função para gerar hash SHA-256
+        function hashKey(str) {
+            return sha256(str);
+        }
+
+        // Lógica de login
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -181,13 +528,13 @@
             }
 
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '⏳ Verificando...';
+            submitBtn.innerHTML = '<span>⏳ Verificando...</span>';
 
             try {
-                // 1. Gera o hash da chave inserida
-                const hash = await sha256(key);
+                // Gera o hash da chave inserida
+                const hash = hashKey(key);
                 
-                // 2. CORRIGIDO: Chama a API segura no Vercel (Item 9)
+                // Chama a API no Vercel
                 const res = await fetch('/api/auth', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -197,20 +544,19 @@
                 const data = await res.json();
                 
                 if (res.status !== 200) {
-                    // O erro pode ser chave inválida (401) ou erro do servidor (500)
                     mostrarErro(data.message || "Erro ao tentar acessar. Tente novamente.");
                     return;
                 }
 
                 const user = data.user;
 
-                // Salva sessão (Item 9)
+                // Salva sessão
                 sessionStorage.setItem("isLoggedIn", "true");
                 sessionStorage.setItem("userType", user.type);
                 sessionStorage.setItem("userName", user.nome);
                 sessionStorage.setItem("userMentoria", user.mentoria || "Geral");
                 sessionStorage.setItem("userKeyHash", hash);
-                sessionStorage.setItem("memberData", JSON.stringify(user)); // Guarda dados completos
+                sessionStorage.setItem("memberData", JSON.stringify(user));
 
                 // Redireciona
                 if (user.type === "admin") {
@@ -224,33 +570,32 @@
                 mostrarErro("❌ Erro de conexão com o sistema de acesso.");
             } finally {
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = 'Acessar →';
+                submitBtn.innerHTML = '<span>Acessar</span><span>→</span>';
             }
         });
 
-        /* ------------ MOSTRAR ERRO ESTILOSO --------------- */
+        // Mostrar erro
         function mostrarErro(msg) {
             const box = document.getElementById("errorBox");
             box.innerHTML = msg;
             box.style.display = "block";
-            setTimeout(() => { box.style.display = "none"; }, 3500);
+            setTimeout(() => { 
+                box.style.display = "none"; 
+            }, 4000);
         }
 
-        /* ------------ SE JÁ ESTIVER LOGADO (MELHORADO) --------------- */
+        // Verificar se já está logado
         window.onload = function() {
             const tipo = sessionStorage.getItem('userType');
             if (tipo) {
-                // Redirecionamento instantâneo se a sessão for encontrada
                 if (tipo === "admin") {
                     window.location.replace("admin_dashboard.html");
                 } else {
                     window.location.replace("area_membros.html");
                 }
             }
-            // Limpa o campo de senha após carregamento
             document.getElementById('key').value = '';
         };
-
     </script>
 </body>
 </html>

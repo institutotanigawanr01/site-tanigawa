@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerar Contrato - Instituto Tanigawa</title>
+    <meta name="description" content="Geração de contrato de mentoria - Instituto Tanigawa">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
         * {
             margin: 0;
             padding: 0;
@@ -18,211 +16,607 @@
         }
 
         :root {
-            --primary-blue: #3b82f6;
-            --primary-gold: #f59e0b;
-            --dark-bg: #0f172a;
-            --text-light: #e2e8f0;
-            --text-gray: #94a3b8;
-            --danger: #ef4444;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            
+            --color-dark: #0a0e27;
+            --color-darker: #060919;
+            --color-card: rgba(255, 255, 255, 0.03);
+            --color-card-hover: rgba(255, 255, 255, 0.06);
+            --color-text: #ffffff;
+            --color-text-muted: #a0aec0;
+            --color-accent: #667eea;
+            --color-danger: #ef4444;
+            
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--text-light);
+            background: var(--color-darker);
+            color: var(--color-text);
             line-height: 1.6;
-            padding: 40px;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            line-height: 1.3;
-        }
-        
-        /* BOTÕES DE AÇÃO (visível apenas na tela) */
-        .action-bar {
+        /* Background animado (oculto na impressão) */
+        body::before {
+            content: '';
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            padding: 10px 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
+            z-index: 0;
+            animation: backgroundShift 20s ease infinite;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Grid animado de fundo */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header moderno */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
-        .action-bar button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 5px;
-            font-weight: 600;
-            cursor: pointer;
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: transform 0.3s ease;
         }
-        
-        .btn-print {
-            background-color: var(--primary-blue);
-            color: #fff;
+
+        .logo:hover {
+            transform: scale(1.05);
         }
-        
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo span {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mentorado-info {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
         .btn-back {
-            background-color: var(--primary-gold);
-            color: var(--dark-bg);
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+            text-decoration: none;
+            font-size: 0.9rem;
         }
 
-        /* CONTRATO (ESTILO DE DOCUMENTO RESTAURADO) */
+        .btn-back:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(245, 87, 108, 0.5);
+        }
+
+        .btn-print {
+            background: var(--gradient-tertiary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(79, 172, 254, 0.3);
+            font-size: 0.9rem;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(79, 172, 254, 0.5);
+        }
+
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 1;
+            padding: 120px 2rem 4rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Contract Container - HÍBRIDO */
         .contract-container {
-            max-width: 800px;
-            margin: 50px auto 0 auto;
-            background: #fff;
-            color: #111;
-            padding: 60px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: var(--shadow-card);
+            animation: fadeInUp 0.8s ease;
         }
 
-        .contract-header h2 {
-            font-size: 2rem;
-            color: var(--dark-bg);
-            text-align: center;
-            margin-bottom: 5px;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
-        .contract-header p {
+
+        .contract-header {
             text-align: center;
-            color: var(--text-gray);
-            margin-bottom: 40px;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .contract-header h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contract-header p {
+            color: var(--color-text-muted);
+            font-size: 1rem;
         }
 
         .contract-body {
+            color: var(--color-text);
             font-size: 1.05rem;
             line-height: 1.8;
         }
 
         .section-title {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Sora', sans-serif;
             font-size: 1.4rem;
-            color: var(--primary-blue);
-            margin-top: 30px;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 5px;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 4px solid;
+            border-image: var(--gradient-primary) 1;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contract-body p {
+            margin-bottom: 1.5rem;
+            color: var(--color-text-muted);
         }
 
         .data-point {
             font-weight: 700;
-            color: var(--dark-bg);
-            border-bottom: 1px dashed #ccc;
-        }
-        
-        .assinatura {
-            margin-top: 80px;
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #111;
+            color: var(--color-text);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.3);
+            padding-bottom: 2px;
         }
 
-        /* MEDIA PRINT (CRÍTICO) */
+        .assinatura {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .assinatura-line {
+            width: 400px;
+            max-width: 100%;
+            margin: 2rem auto 1rem;
+            border-top: 2px solid var(--color-text-muted);
+            padding-top: 0.5rem;
+        }
+
+        .assinatura p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .assinatura strong {
+            color: var(--color-text);
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Partículas flutuantes */
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
+        }
+
+        /* ============================================
+           MEDIA PRINT - IMPRESSÃO FORMAL E LIMPA
+           ============================================ */
         @media print {
-            .action-bar {
-                display: none;
+            /* Remove tudo que não é o contrato */
+            body::before,
+            .bg-grid,
+            header,
+            footer,
+            .floating-particle,
+            .nav-actions,
+            .btn-print,
+            .btn-back {
+                display: none !important;
             }
+
+            /* Reset do body para impressão */
             body {
+                background: white !important;
+                color: #000 !important;
                 padding: 0;
-                background: #fff;
-            }
-            .contract-container {
                 margin: 0;
-                box-shadow: none;
-                padding: 20px;
             }
+
+            main {
+                padding: 0;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 20mm;
+            }
+
+            /* Container do contrato limpo */
+            .contract-container {
+                background: white !important;
+                backdrop-filter: none !important;
+                border-radius: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                box-shadow: none !important;
+                animation: none !important;
+            }
+
+            /* Header do contrato formal */
+            .contract-header {
+                border-bottom: 2px solid #000;
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+            }
+
+            .contract-header h1 {
+                color: #000 !important;
+                background: none !important;
+                -webkit-text-fill-color: #000 !important;
+                font-size: 24pt;
+            }
+
+            .contract-header p {
+                color: #333 !important;
+                font-size: 11pt;
+            }
+
+            /* Corpo do contrato */
+            .contract-body {
+                color: #000 !important;
+                font-size: 11pt;
+                line-height: 1.6;
+            }
+
+            .section-title {
+                color: #000 !important;
+                font-size: 14pt;
+                border-left: 4px solid #000 !important;
+                border-image: none !important;
+                margin-top: 20px;
+                page-break-after: avoid;
+            }
+
+            .contract-body p {
+                color: #000 !important;
+                margin-bottom: 12pt;
+                page-break-inside: avoid;
+            }
+
             .data-point {
-                border-bottom: 1px solid #111;
+                color: #000 !important;
+                background: none !important;
+                -webkit-text-fill-color: #000 !important;
+                font-weight: 700;
+                border-bottom: 1px solid #000 !important;
+            }
+
+            /* Área de assinatura */
+            .assinatura {
+                margin-top: 50px;
+                padding-top: 30px;
+                border-top: 2px solid #000;
+                page-break-inside: avoid;
+            }
+
+            .assinatura-line {
+                border-top: 2px solid #000;
+            }
+
+            .assinatura p,
+            .assinatura strong {
+                color: #000 !important;
+            }
+
+            /* Garantir quebra de página correta */
+            .contract-container {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-back,
+            .btn-print {
+                width: 100%;
+            }
+
+            .contract-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .contract-header h1 {
+                font-size: 2rem;
+            }
+
+            .assinatura-line {
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
-    
-    <div class="action-bar">
-        <button class="btn-back" onclick="goBack()">← Voltar ao Painel</button>
-        <p id="mentoradoInfo" style="color: var(--text-light); font-weight: 600; font-size: 0.95rem;">
-            Documento gerado para: [NOME DO MENTORADO]
-        </p>
-        <button class="btn-print" onclick="printContract()">Imprimir Contrato (PDF) 🖨️</button>
-    </div>
+    <div class="bg-grid"></div>
 
-    <div class="contract-container">
-        
-        <div class="contract-header">
-            <h2>Termo de Adesão e Contrato de Mentoria</h2>
-            <p>INSTITUTO TANIGAWA — CNPJ XX.XXX.XXX/0001-XX</p>
-        </div>
+    <header id="header">
+        <nav>
+            <a href="admin_dashboard.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <div class="nav-actions">
+                <span class="mentorado-info" id="mentoradoInfo">Documento gerado para: [CARREGANDO...]</span>
+                <button class="btn-back" onclick="goBack()">← Voltar ao Painel</button>
+                <button class="btn-print" onclick="printContract()">🖨️ Imprimir PDF</button>
+            </div>
+        </nav>
+    </header>
 
-        <div class="contract-body">
-            
-            <div class="section-title">1. Partes Envolvidas</div>
-            <p>
-                Este Termo de Adesão é celebrado entre o **INSTITUTO TANIGAWA** (Contratado) e o(a) mentorando(a)
-                <span id="contratanteNome" class="data-point">[NOME COMPLETO DO CONTRATANTE]</span>,
-                CPF nº <span id="contratanteCpf" class="data-point">[CPF DO CONTRATANTE]</span>, doravante denominado Contratante.
-            </p>
+    <main>
+        <div class="container">
+            <div class="contract-container">
+                <div class="contract-header">
+                    <h1>Termo de Adesão e Contrato de Mentoria</h1>
+                    <p>INSTITUTO TANIGAWA – CNPJ XX.XXX.XXX/0001-XX</p>
+                </div>
 
-            <div class="section-title">2. Objeto do Contrato</div>
-            <p>
-                O Contratante adquire o serviço de mentoria denominado **<span id="contratoMentoria" class="data-point">[NOME DA MENTORIA]</span>** (Mentoria/Serviço),
-                cujo objetivo é o desenvolvimento espiritual, emocional e/ou profissional, conforme o programa detalhado no site oficial.
-            </p>
+                <div class="contract-body">
+                    <div class="section-title">📋 1. Partes Envolvidas</div>
+                    <p>
+                        Este Termo de Adesão é celebrado entre o <strong>INSTITUTO TANIGAWA</strong> (Contratado) 
+                        e o(a) mentorando(a) <span id="contratanteNome" class="data-point">[NOME COMPLETO DO CONTRATANTE]</span>, 
+                        CPF nº <span id="contratanteCpf" class="data-point">[CPF DO CONTRATANTE]</span>, 
+                        doravante denominado Contratante.
+                    </p>
 
-            <div class="section-title">3. Prazos e Condições</div>
-            <p>
-                O presente contrato entra em vigor na data de <span id="contratoData" class="data-point">[DATA DE HOJE]</span> e terá a duração de 12 (doze) semanas,
-                incluindo acesso total à plataforma de vídeo aulas e materiais de apoio.
-            </p>
-            
-            <div class="section-title">4. Confidencialidade e Cancelamento</div>
-            <p>
-                Todas as informações compartilhadas durante as sessões serão mantidas sob sigilo absoluto. O Contratante tem o direito de cancelamento com reembolso integral no prazo de 7 (sete) dias após a adesão, conforme o Código de Defesa do Consumidor (CDC). Após este prazo, não haverá reembolso.
-            </p>
-            
-            <div class="section-title">5. Declaração de Aceite</div>
-            <p>
-                Pelo presente, o Contratante declara ter lido e aceito integralmente os termos e condições deste contrato.
-            </p>
-            
-            <div class="assinatura">
-                <p>____________________________________________________</p>
-                <p>Assinatura do(a) Contratante</p>
-                <p><span id="assinaturaNome">[NOME COMPLETO DO CONTRATANTE]</span></p>
+                    <div class="section-title">🎯 2. Objeto do Contrato</div>
+                    <p>
+                        O Contratante adquire o serviço de mentoria denominado 
+                        <strong><span id="contratoMentoria" class="data-point">[NOME DA MENTORIA]</span></strong>, 
+                        cujo objetivo é o desenvolvimento espiritual, emocional e/ou profissional, 
+                        conforme o programa detalhado no site oficial.
+                    </p>
+
+                    <div class="section-title">📅 3. Prazos e Condições</div>
+                    <p>
+                        O presente contrato entra em vigor na data de 
+                        <span id="contratoData" class="data-point">[DATA DE HOJE]</span> 
+                        e terá a duração de 12 (doze) semanas, incluindo acesso total à plataforma 
+                        de vídeo aulas e materiais de apoio.
+                    </p>
+                    
+                    <div class="section-title">🔒 4. Confidencialidade e Cancelamento</div>
+                    <p>
+                        Todas as informações compartilhadas durante as sessões serão mantidas sob sigilo absoluto. 
+                        O Contratante tem o direito de cancelamento com reembolso integral no prazo de 7 (sete) dias 
+                        após a adesão, conforme o Código de Defesa do Consumidor (CDC). 
+                        Após este prazo, não haverá reembolso.
+                    </p>
+                    
+                    <div class="section-title">✅ 5. Declaração de Aceite</div>
+                    <p>
+                        Pelo presente, o Contratante declara ter lido e aceito integralmente os termos 
+                        e condições deste contrato, estando ciente de todos os direitos e deveres aqui estabelecidos.
+                    </p>
+                    
+                    <div class="assinatura">
+                        <div class="assinatura-line"></div>
+                        <p>Assinatura do(a) Contratante</p>
+                        <strong><span id="assinaturaNome">[NOME COMPLETO DO CONTRATANTE]</span></strong>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
+    </footer>
 
     <script>
-        // Função de Logout (Item 9)
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'auth_system.html';
+        // Scroll effect no header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Criar partículas flutuantes
+        function createFloatingParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(particle);
+            }
         }
 
-        // CRÍTICO: Verificar autenticação de Administrador (Item 13)
+        createFloatingParticles();
+
+        // CRÍTICO: Verificar autenticação de Administrador
         const userType = sessionStorage.getItem('userType');
         if (userType !== 'admin') {
-            alert('Acesso negado. Apenas administradores.');
+            alert('⚠️ Acesso negado. Apenas administradores podem gerar contratos.');
             window.location.replace('auth_system.html');
         }
 
-        /* -------- SIMULAÇÃO DE CARREGAMENTO DE DADOS (Item 9) -------- */
+        // Carregar dados do mentorado selecionado
         const mentoradoJson = sessionStorage.getItem('currentMentorado');
         let mentorado = null;
 
         if (mentoradoJson) {
             mentorado = JSON.parse(mentoradoJson);
             
-            // Preencher a página
-            document.getElementById('mentoradoInfo').textContent = `Documento gerado para: ${mentorado.nome} (${mentorado.mentoria})`;
+            // Preencher informação no header
+            document.getElementById('mentoradoInfo').textContent = 
+                `📄 Documento de: ${mentorado.nome} (${mentorado.mentoria})`;
             
             // Preencher campos do contrato
             document.getElementById('contratanteNome').textContent = mentorado.nome || 'N/A';
@@ -233,17 +627,18 @@
 
         } else {
             // Caso nenhum mentorado tenha sido selecionado
-            document.getElementById('mentoradoInfo').textContent = '⚠️ Erro: Nenhum mentorado selecionado. Voltando ao Dashboard...';
+            document.getElementById('mentoradoInfo').textContent = 
+                '⚠️ Erro: Nenhum mentorado selecionado. Voltando ao Dashboard...';
             setTimeout(goBack, 3000);
         }
         
-        // Funções de Ação
+        // Função de impressão
         function printContract() {
             window.print();
         }
 
+        // Voltar para o Dashboard Admin
         function goBack() {
-            // Voltar para o Dashboard Admin
             window.location.href = 'admin_dashboard.html';
         }
     </script>

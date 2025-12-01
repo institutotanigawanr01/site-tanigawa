@@ -6,12 +6,9 @@
     <title>NR-1 Riscos Psicossociais - Instituto Tanigawa</title>
     <meta name="description" content="Consultoria em NR-1 e Riscos Psicossociais no Trabalho. Metodologia COPSOQ III para empresas. Obrigatório em 2026.">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
         * {
             margin: 0;
             padding: 0;
@@ -19,252 +16,641 @@
         }
 
         :root {
-            --primary-blue: #3b82f6;
-            --secondary-amber: #f59e0b;
-            --dark-bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --section-spacing: 6rem;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            
+            --color-dark: #0a0e27;
+            --color-darker: #060919;
+            --color-card: rgba(255, 255, 255, 0.03);
+            --color-card-hover: rgba(255, 255, 255, 0.06);
+            --color-text: #ffffff;
+            --color-text-muted: #a0aec0;
+            --color-accent: #667eea;
+            
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
-        
+
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--dark-bg);
-            color: var(--text-primary);
-            overflow-x: hidden;
+            background: var(--color-darker);
+            color: var(--color-text);
             line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-        }
-
-        /* HEADER (FIDELIDADE RESTAURADA) */
-        header {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(8px);
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            position: sticky;
+        /* Background animado */
+        body::before {
+            content: '';
+            position: fixed;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(67, 233, 123, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(56, 249, 215, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(102, 126, 234, 0.08) 0%, transparent 50%);
+            z-index: 0;
+            animation: backgroundShift 20s ease infinite;
         }
 
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--secondary-amber);
-            text-decoration: none;
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Grid animado de fundo */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(67, 233, 123, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(67, 233, 123, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header moderno */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        nav a {
-            color: var(--text-primary);
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             text-decoration: none;
-            margin-left: 30px;
-            font-weight: 500;
-            transition: color 0.3s;
+            color: var(--color-text);
+            transition: transform 0.3s ease;
         }
 
-        nav a:hover {
-            color: var(--secondary-amber);
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-quaternary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.4);
+        }
+
+        .logo span {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            background: var(--gradient-quaternary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--color-text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-quaternary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--color-text);
+            font-weight: 600;
         }
 
         .login-btn {
-            background: var(--primary-blue);
-            color: #fff;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-weight: 700;
+            background: var(--gradient-quaternary);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
             text-decoration: none;
-            transition: opacity 0.3s;
-            margin-left: 20px;
-        }
-        
-        .logout-link {
-            background: none;
-            color: var(--text-secondary);
-            text-decoration: underline;
-            margin-left: 10px;
-            border: none;
-            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
         }
 
-        /* HERO SECTION (SIMETRIA RESTAURADA) */
-        .hero-section {
-            padding: var(--section-spacing) 10% 8rem 10%;
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(67, 233, 123, 0.5);
+        }
+
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 1;
+            padding-top: 100px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
             text-align: center;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            position: relative;
+            margin-bottom: 5rem;
+            animation: fadeInUp 0.8s ease;
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            background: var(--gradient-secondary);
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
         }
 
         .hero-title {
-            font-size: 3.5rem;
-            color: var(--secondary-amber);
-            line-height: 1.2;
-            margin-bottom: 20px;
+            font-family: 'Sora', sans-serif;
+            font-size: 4rem;
             font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff 0%, #43e97b 50%, #38f9d7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease 0.4s both;
         }
 
         .hero-subtitle {
             font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: 30px;
+            color: var(--color-text-muted);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease 0.6s both;
         }
 
-        .cta-btn {
-            background-color: var(--primary-blue);
-            color: #fff;
-            padding: 12px 25px;
-            border-radius: 5px;
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 1.2rem 3rem;
+            border-radius: 50px;
+            background: var(--gradient-quaternary);
+            color: white;
             text-decoration: none;
+            font-weight: 700;
             font-size: 1.1rem;
-            font-weight: 600;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(67, 233, 123, 0.4);
+            animation: fadeInUp 1s ease 0.8s both;
         }
 
-        .cta-btn:hover {
-            background-color: #2563eb;
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 12px 40px rgba(67, 233, 123, 0.6);
         }
-        
-        .section {
-            padding: var(--section-spacing) 10%;
+
+        /* Section Title */
+        .section-title {
             text-align: center;
+            margin-bottom: 4rem;
         }
 
-        /* FEATURE GRID (SIMETRIA RESTAURADA) */
+        .section-title h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-quaternary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title p {
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Feature Grid */
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
         }
 
         .feature-card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: left;
-            border-left: 4px solid var(--secondary-amber);
-        }
-        
-        .feature-card h3 {
-            color: var(--primary-blue);
-            margin-bottom: 10px;
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
         }
 
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-quaternary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover {
+            background: var(--color-card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .feature-card p {
+            color: var(--color-text-muted);
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            margin: 6rem 0;
+        }
+
+        .cta-box {
+            background: var(--color-card);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 4rem 3rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(67, 233, 123, 0.1) 0%, transparent 70%);
+            animation: rotateCTA 15s linear infinite;
+        }
+
+        @keyframes rotateCTA {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .cta-box h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-quaternary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box p {
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Contact Box */
         .contact-box {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            text-align: left;
-            margin: 40px auto 0 auto;
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
             max-width: 600px;
+            margin: 3rem auto 0;
+            position: relative;
+            z-index: 1;
         }
 
         .contact-box h3 {
-            color: var(--secondary-amber);
-            margin-bottom: 15px;
+            font-family: 'Sora', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-quaternary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .contact-box a {
-            color: var(--text-primary);
+        .contact-box p {
+            color: var(--color-text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--color-text);
             text-decoration: none;
-            display: block;
-            margin-bottom: 5px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 12px;
+            background: rgba(67, 233, 123, 0.05);
+            border: 1px solid rgba(67, 233, 123, 0.2);
+            transition: all 0.3s ease;
+            font-weight: 500;
         }
 
+        .contact-link:hover {
+            background: rgba(67, 233, 123, 0.1);
+            border-color: rgba(67, 233, 123, 0.4);
+            transform: translateX(5px);
+        }
+
+        /* Footer */
         footer {
-            background: #070712;
-            padding: 30px 10%;
             text-align: center;
+            padding: 3rem 2rem;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
-            margin-top: var(--section-spacing);
+            color: var(--color-text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Partículas flutuantes */
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(67, 233, 123, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
+        @media (max-width: 1024px) {
+            .feature-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
+        }
+
+        @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.5rem;
             }
+
             .hero-subtitle {
                 font-size: 1.1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .cta-box {
+                padding: 3rem 2rem;
+            }
+
+            .cta-box h2 {
+                font-size: 2rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <a href="home.html" class="logo">INSTITUTO TANIGAWA</a>
-        <nav id="mainNav">
-            <a href="home.html">Home</a>
-            <a href="sobre.html">Sobre</a>
-            <a href="mentoria.html">Mentorias</a>
-            <a href="contato.html">Contato</a>
-             <div id="navAuth">
-                 <a href="auth_system.html" class="cta-btn login-btn">Área de Membros</a>
-            </div>
+    <div class="bg-grid"></div>
+
+    <header id="header">
+        <nav>
+            <a href="home.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="mentoria.html">Mentorias</a></li>
+                <li><a href="devocionais.html">Devocionais</a></li>
+                <li><a href="nr-1.html" class="active">NR-1</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+                <div id="navAuth">
+                    <a href="auth_system.html" class="login-btn">Entrar</a>
+                </div>
+            </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero-section">
-            <div class="hero-content">
-                <h1 class="hero-title">2026: Você Vai Governar ou Ser Governado?</h1>
+        <div class="container">
+            <div class="hero">
+                <div class="hero-badge">⚠️ OBRIGATÓRIO EM 2026</div>
+                <h1 class="hero-title">Você Vai Governar ou Ser Governado?</h1>
                 <p class="hero-subtitle">
-                    A NR-1 exige que sua empresa proteja a saúde mental. Evite multas e processos, transformando a Conformidade em Crescimento.
+                    A NR-1 exige que sua empresa proteja a saúde mental dos colaboradores. 
+                    Evite multas e processos trabalhistas, transformando Conformidade em Crescimento Sustentável.
                 </p>
-                <a href="#solucao" class="cta-btn">Saiba Como se Preparar →</a>
+                <a href="#solucao" class="btn-primary">
+                    Saiba Como se Preparar
+                    <span>→</span>
+                </a>
             </div>
-        </section>
 
-        <section id="solucao" class="section">
-            <h2 style="margin-bottom: 40px; color: var(--primary-blue);">Solução COPSOQ III e NR-1</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h3>✅ Conformidade Legal</h3>
-                    <p>Atendemos integralmente à Norma Regulamentadora 1 (NR-1) e ao Anexo IV da Portaria 677/2022.</p>
+            <section id="solucao">
+                <div class="section-title">
+                    <h2>Solução COPSOQ III e NR-1</h2>
+                    <p>Metodologia validada cientificamente para gestão de riscos psicossociais no ambiente de trabalho</p>
                 </div>
-                <div class="feature-card">
-                    <h3>🛡️ Metodologia Validada</h3>
-                    <p>Utilizamos o COPSOQ III (Copenhagen Psychosocial Questionnaire), o padrão ouro global para riscos psicossociais.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>🚀 Estratégia de Crescimento</h3>
-                    <p>Transformamos a obrigatoriedade legal em um plano de bem-estar que aumenta a produtividade e reduz o turnover.</p>
-                </div>
-            </div>
-        </section>
 
-        <section class="section">
-            <h2 style="margin-bottom: 40px; color: var(--secondary-amber);">Agende Sua Consultoria NR-1</h2>
-            <p style="font-size: 1.1rem; color: var(--text-secondary);">
-                Não espere 2026 chegar. Nossa equipe está pronta para integrar o compliance psicossocial em sua cultura empresarial.
-            </p>
-            <div class="contact-box">
-                <h3>Entre em Contato Agora</h3>
-                <p style="margin-bottom: 15px; color: var(--text-primary);">Fale diretamente com nossa consultoria especializada em saúde mental corporativa.</p>
-                <a href="https://wa.me/5511999999999" target="_blank">📱 WhatsApp: (11) 99999-9999 (Sergio)</a>
-                <a href="mailto:contato@institutotanigawa.com.br">📧 Email: contato@institutotanigawa.com.br</a>
-            </div>
-        </section>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">✅</span>
+                        <h3>Conformidade Legal</h3>
+                        <p>
+                            Atendemos integralmente à Norma Regulamentadora 1 (NR-1) e ao Anexo IV 
+                            da Portaria 677/2022, garantindo sua empresa 100% em compliance.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🛡️</span>
+                        <h3>Metodologia Validada</h3>
+                        <p>
+                            Utilizamos o COPSOQ III (Copenhagen Psychosocial Questionnaire), 
+                            o padrão ouro global para avaliação de riscos psicossociais no trabalho.
+                        </p>
+                    </div>
+
+                    <div class="feature-card">
+                        <span class="feature-icon">🚀</span>
+                        <h3>Estratégia de Crescimento</h3>
+                        <p>
+                            Transformamos a obrigatoriedade legal em um plano estratégico de bem-estar 
+                            que aumenta produtividade e reduz turnover.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="cta-section">
+                <div class="cta-box">
+                    <h2>Agende Sua Consultoria NR-1</h2>
+                    <p>
+                        Não espere 2026 chegar. Nossa equipe está pronta para integrar 
+                        o compliance psicossocial em sua cultura empresarial de forma estratégica.
+                    </p>
+                    
+                    <div class="contact-box">
+                        <h3>Entre em Contato Agora</h3>
+                        <p>
+                            Fale diretamente com nossa consultoria especializada em saúde mental 
+                            corporativa e riscos psicossociais.
+                        </p>
+                        <a href="https://wa.me/5511999999999" target="_blank" class="contact-link">
+                            <span>📱</span>
+                            <span>WhatsApp: (11) 99999-9999 (Sergio)</span>
+                        </a>
+                        <a href="mailto:contato@institutotanigawa.com.br" class="contact-link">
+                            <span>📧</span>
+                            <span>contato@institutotanigawa.com.br</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
     </main>
 
     <footer>
@@ -272,32 +658,69 @@
     </footer>
 
     <script>
-        // Função unificada de Logout (necessária para o header dinâmico)
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'auth_system.html'; 
+        // Scroll effect no header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Criar partículas flutuantes
+        function createFloatingParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(particle);
+            }
         }
 
-        // Função para atualizar o menu de autenticação (Item 13)
+        createFloatingParticles();
+
+        // Smooth scroll para âncoras
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Função de logout
+        function logout() {
+            sessionStorage.clear();
+            window.location.href = 'auth_system.html';
+        }
+
+        // Atualizar barra de navegação com autenticação
         function updateNavBar() {
             const navAuth = document.getElementById('navAuth');
             const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
             const userType = sessionStorage.getItem('userType');
             
-            if (!navAuth) return; 
-            navAuth.innerHTML = ''; 
+            if (!navAuth) return;
+            navAuth.innerHTML = '';
             
             if (isLoggedIn) {
                 let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
                 let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
                 
                 navAuth.innerHTML = `
-                    <div style="margin-left: 20px;">
-                        <a href="${linkTarget}" class="login-btn" style="background-color: var(--primary-blue); color: #fff;">
-                            ${linkText}
-                        </a>
-                        <button class="logout-link" onclick="logout()">Sair</button>
-                    </div>
+                    <a href="${linkTarget}" class="login-btn">
+                        ${linkText}
+                    </a>
                 `;
             } else {
                 navAuth.innerHTML = `
@@ -307,25 +730,8 @@
                 `;
             }
         }
-        
-        // Inicializa a navegação dinâmica
-        document.addEventListener('DOMContentLoaded', function() {
-            updateNavBar();
-        });
 
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80, // Ajuste para o header fixo
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
+        document.addEventListener('DOMContentLoaded', updateNavBar);
     </script>
 </body>
 </html>

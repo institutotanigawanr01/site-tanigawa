@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Área de Membros - Instituto Tanigawa</title>
+    <meta name="description" content="Área exclusiva para membros do Instituto Tanigawa. Acesse suas mentorias, vídeo aulas e conteúdos exclusivos.">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ESTILOS RESTAURADOS PARA MANTER SIMETRIA E FONTES */
         * {
             margin: 0;
             padding: 0;
@@ -18,238 +16,551 @@
         }
 
         :root {
-            --primary-blue: #3b82f6;
-            --primary-gold: #f59e0b;
-            --dark-bg: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.5);
-            --text-light: #e2e8f0;
-            --text-gray: #94a3b8;
-            --section-spacing: 6rem;
-            --danger: #ef4444;
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            
+            --color-dark: #0a0e27;
+            --color-darker: #060919;
+            --color-card: rgba(255, 255, 255, 0.03);
+            --color-card-hover: rgba(255, 255, 255, 0.06);
+            --color-text: #ffffff;
+            --color-text-muted: #a0aec0;
+            --color-accent: #667eea;
+            --color-danger: #ef4444;
+            
+            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: var(--text-light);
+            background: var(--color-darker);
+            color: var(--color-text);
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            line-height: 1.3;
+        /* Background animado */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
+            z-index: 0;
+            animation: backgroundShift 20s ease infinite;
         }
 
-        /* HEADER (RESTAURO DE FIDELIDADE) */
+        @keyframes backgroundShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Grid animado de fundo */
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: 0;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header moderno */
         header {
-            background: var(--dark-bg);
-            padding: 18px 28px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(10, 14, 39, 0.95);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
         }
 
-        .header-info {
+        .logo {
             display: flex;
             align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--color-text);
+            transition: transform 0.3s ease;
         }
 
-        #headerNome {
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            font-family: 'Sora', sans-serif;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .logo span {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Sora', sans-serif;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .user-name {
             font-weight: 600;
-            color: var(--text-light);
-            margin-right: 15px;
-            font-size: 1rem;
+            color: var(--color-text);
+            font-size: 0.95rem;
         }
 
-        #headerMentoria {
-            font-weight: 500;
-            color: var(--primary-gold);
-            margin-right: 25px;
-            font-size: 0.9rem;
+        .user-mentoria {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 600;
         }
 
         .logout-btn {
-            padding: 10px 18px;
-            border: none;
-            border-radius: 6px;
-            background-color: var(--danger);
-            color: #fff;
-            font-size: 0.9rem;
+            background: var(--color-danger);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
             font-weight: 600;
+            border: none;
             cursor: pointer;
-            transition: background-color 0.2s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+            font-size: 0.9rem;
         }
 
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(239, 68, 68, 0.5);
+        }
+
+        /* Main Content */
         main {
-            padding: var(--section-spacing) 0;
+            position: relative;
+            z-index: 1;
+            padding-top: 100px;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 1.5rem;
+            padding: 4rem 2rem;
         }
 
-        /* DASHBOARD GRID (SIMETRIA RESTAURADA) */
+        /* Hero Welcome */
+        .welcome-hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .welcome-hero h1 {
+            font-family: 'Sora', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #f5576c 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .welcome-hero p {
+            font-size: 1.2rem;
+            color: var(--color-text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Dashboard Grid */
         .dashboard-grid {
             display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 40px;
-            align-items: flex-start;
+            grid-template-columns: 2fr 1fr;
+            gap: 2.5rem;
+            margin-bottom: 4rem;
         }
 
+        /* Access Cards */
+        .access-section h2 {
+            font-family: 'Sora', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--color-text);
+        }
+
+        .access-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .access-card {
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .access-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .access-card:nth-child(2)::before {
+            background: var(--gradient-secondary);
+        }
+
+        .access-card:nth-child(3)::before {
+            background: var(--gradient-quaternary);
+        }
+
+        .access-card:hover {
+            background: var(--color-card-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .access-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .access-card h3 {
+            font-family: 'Sora', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--color-text);
+        }
+
+        .access-card p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-access {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            background: var(--gradient-primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .access-card:nth-child(2) .btn-access {
+            background: var(--gradient-secondary);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .access-card:nth-child(3) .btn-access {
+            background: var(--gradient-quaternary);
+            box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
+        }
+
+        .btn-access:hover {
+            transform: translateX(5px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        /* Sidebar */
         .sidebar {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        .welcome-title {
-            font-size: 2.2rem;
-            color: var(--primary-blue);
-            margin-bottom: 0.5rem;
-        }
-
-        .mentoria-tag {
-            font-size: 1.1rem;
-            color: var(--primary-gold);
-            margin-bottom: 30px;
-            display: block;
+            background: var(--color-card);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 120px;
         }
 
         .sidebar h3 {
-            font-size: 1.5rem;
-            color: var(--text-light);
-            margin-bottom: 15px;
+            font-family: 'Sora', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--color-text);
         }
 
         .sidebar ul {
             list-style: none;
-            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 0.5rem;
         }
 
         .sidebar ul li a {
-            display: block;
-            padding: 10px 0;
-            color: var(--text-gray);
+            color: var(--color-text-muted);
             text-decoration: none;
-            transition: color 0.3s;
             font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            display: block;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .sidebar ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: width 0.3s ease;
         }
 
         .sidebar ul li a:hover {
-            color: var(--primary-gold);
+            color: var(--color-text);
+            padding-left: 10px;
         }
 
-        .main-content h2 {
-            font-size: 2.5rem;
-            color: var(--primary-gold);
-            margin-bottom: 25px;
+        .sidebar ul li a:hover::after {
+            width: 100%;
         }
 
-        .card-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
+        .sidebar hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 1.5rem 0;
         }
 
-        .access-card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 10px;
-            border-left: 5px solid var(--primary-blue);
-            transition: transform 0.3s;
-        }
-        
-        .access-card:hover {
-            transform: translateY(-5px);
+        .account-info {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(102, 126, 234, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
         }
 
-        .access-card h3 {
-            color: var(--primary-blue);
-            margin-bottom: 10px;
-            font-size: 1.3rem;
+        .account-info p {
+            font-size: 0.9rem;
+            color: var(--color-text-muted);
+            line-height: 1.6;
         }
 
-        .access-card p {
-            color: var(--text-gray);
-            margin-bottom: 15px;
-            font-size: 0.95rem;
+        .account-info strong {
+            color: var(--color-text);
+            display: block;
+            margin-top: 0.5rem;
         }
 
-        .access-card a {
-            display: inline-block;
-            background: var(--primary-gold);
-            color: var(--dark-bg);
-            padding: 8px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-text-muted);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Partículas flutuantes */
+        .floating-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(102, 126, 234, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-60px) translateX(-20px); }
+            75% { transform: translateY(-30px) translateX(10px); }
         }
 
         /* Responsive */
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
             }
+
             .sidebar {
                 order: 2;
-                margin-top: 30px;
+                position: relative;
+                top: 0;
             }
-            .main-content {
+
+            .access-section {
                 order: 1;
             }
         }
 
+        @media (max-width: 768px) {
+            .welcome-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .user-info {
+                display: none;
+            }
+
+            .access-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 0 1rem;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="bg-grid"></div>
 
-    <header>
-        <div class="header-left">
-            <h1 style="color: var(--text-light);">Dashboard Membros</h1>
-        </div>
-        <div class="header-info">
-            <span id="headerNome"></span>
-            <span id="headerMentoria"></span>
-            <button class="logout-btn" onclick="logout()">Sair</button>
-        </div>
+    <header id="header">
+        <nav>
+            <a href="home.html" class="logo">
+                <div class="logo-icon">IT</div>
+                <span>INSTITUTO TANIGAWA</span>
+            </a>
+            <div class="nav-right">
+                <div class="user-info">
+                    <span class="user-name" id="headerNome">👤 Membro</span>
+                    <span class="user-mentoria" id="headerMentoria">Acesso Geral</span>
+                </div>
+                <button class="logout-btn" onclick="logout()">Sair</button>
+            </div>
+        </nav>
     </header>
 
     <main>
         <div class="container">
-            <div class="dashboard-grid">
-                
-                <div class="main-content">
-                    <h2 id="welcomeNome" class="welcome-title">Olá, Membro!</h2>
-                    <span id="welcomeMentoria" class="mentoria-tag"></span>
+            <div class="welcome-hero">
+                <h1 id="welcomeNome">Bem-vindo à sua Área de Membros!</h1>
+                <p id="welcomeMentoria">Acesse seus conteúdos exclusivos e continue sua jornada de transformação</p>
+            </div>
 
-                    <h2 style="color: var(--primary-gold);">Acesso à Plataforma</h2>
-                    
-                    <div class="card-list">
+            <div class="dashboard-grid">
+                <div class="access-section">
+                    <h2>Seus Acessos</h2>
+                    <div class="access-grid">
                         <div class="access-card">
-                            <h3>Plataforma de Vídeo Aulas</h3>
-                            <p>Acesse aqui todos os módulos da sua mentoria. Inclui materiais de apoio e exercícios.</p>
-                            <a href="area_membros_aulas.html" style="background-color: var(--primary-blue); color: #fff;">Acessar Aulas →</a>
+                            <h3>🎥 Vídeo Aulas</h3>
+                            <p>Acesse todos os módulos da sua mentoria com materiais de apoio e exercícios práticos.</p>
+                            <a href="area_membros_aulas.html" class="btn-access">
+                                Acessar Aulas
+                                <span>→</span>
+                            </a>
                         </div>
 
                         <div class="access-card">
-                            <h3>Devocionais Exclusivos</h3>
-                            <p>Conteúdo semanal para aprofundamento espiritual. Filtre por categoria e baixe os PDFs.</p>
-                            <a href="devocionais.html">Ver Devocionais →</a>
+                            <h3>📖 Devocionais</h3>
+                            <p>Conteúdo semanal exclusivo para aprofundamento espiritual. Filtre por categoria e baixe PDFs.</p>
+                            <a href="devocionais.html" class="btn-access">
+                                Ver Devocionais
+                                <span>→</span>
+                            </a>
                         </div>
                         
                         <div class="access-card">
-                            <h3>Suporte Rápido (WhatsApp)</h3>
-                            <p>Fale diretamente com nosso time de apoio para dúvidas e questões técnicas.</p>
-                            <a href="https://wa.me/5511999999999" target="_blank" style="background-color: var(--success-green);">Suporte →</a>
+                            <h3>💬 Suporte</h3>
+                            <p>Fale diretamente com nosso time de apoio para dúvidas e questões técnicas via WhatsApp.</p>
+                            <a href="https://wa.me/5511999999999" target="_blank" class="btn-access">
+                                Contatar Suporte
+                                <span>→</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -257,48 +568,89 @@
                 <div class="sidebar">
                     <h3>Menu Rápido</h3>
                     <ul>
-                        <li><a href="home.html">Home do Site</a></li>
-                        <li><a href="mentoria.html">Conhecer Outras Mentorias</a></li>
-                        <li><a href="contato.html">Contato Geral</a></li>
+                        <li><a href="home.html">🏠 Home do Site</a></li>
+                        <li><a href="mentoria.html">🎯 Outras Mentorias</a></li>
+                        <li><a href="devocionais.html">📚 Devocionais</a></li>
+                        <li><a href="contato.html">✉️ Contato Geral</a></li>
                     </ul>
-                    <hr style="margin: 20px 0; border-color: rgba(255, 255, 255, 0.1);">
-                    <h3>Dados da sua Conta</h3>
-                    <p style="font-size: 0.9rem; color: var(--text-gray);">
-                        Sua chave está ativa.<br>
-                        Tipo de acesso: Membro.
-                    </p>
+                    
+                    <hr>
+                    
+                    <h3>Sua Conta</h3>
+                    <div class="account-info">
+                        <p>✅ Chave ativa</p>
+                        <p>🔐 Tipo: <strong id="accountType">Membro</strong></p>
+                        <p>📅 Acesso válido</p>
+                    </div>
                 </div>
-
             </div>
         </div>
     </main>
 
+    <footer>
+        <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
+    </footer>
+
     <script>
-        // Função de Logout (Item 9)
-        function logout() {
-            sessionStorage.clear();
-            window.location.href = 'auth_system.html';
+        // Scroll effect no header
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Criar partículas flutuantes
+        function createFloatingParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
+                particle.style.animationDelay = (Math.random() * 5) + 's';
+                document.body.appendChild(particle);
+            }
         }
 
-        // CRÍTICO: Verificar autenticação e preencher dados (Item 9, 13)
+        createFloatingParticles();
+
+        // CRÍTICO: Verificar autenticação e preencher dados
         const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
         const userType = sessionStorage.getItem('userType');
         const memberData = JSON.parse(sessionStorage.getItem('memberData') || '{}');
 
+        // Verificação de segurança
         if (!isLoggedIn || (userType !== 'member' && userType !== 'admin')) {
-            // Se não for Membro ou Admin, redireciona para o login (Item 13)
             window.location.replace('auth_system.html');
         }
 
-        // Preencher dados do membro (Item 13)
-        document.getElementById('headerNome').textContent = '👤 ' + (memberData.nome || 'Membro');
-        document.getElementById('headerMentoria').textContent = memberData.mentoria ? 'Mentoria ' + memberData.mentoria : 'Acesso Geral';
-        document.getElementById('welcomeNome').textContent = 'Olá, ' + (memberData.nome || 'Membro') + '!';
-        document.getElementById('welcomeMentoria').textContent = memberData.mentoria ? 'Você está na Mentoria ' + memberData.mentoria : '';
+        // Preencher dados do membro no header
+        const nomeCompleto = memberData.nome || 'Membro';
+        const mentoria = memberData.mentoria || 'Acesso Geral';
 
-        // Corrigir link de aulas para o correto no momento
-        document.querySelector('.access-card a').href = 'area_membros.html'; 
-        // Nota: O arquivo area_membros_aulas.html será criado na próxima fase (Item 14).
+        document.getElementById('headerNome').textContent = '👤 ' + nomeCompleto;
+        document.getElementById('headerMentoria').textContent = mentoria !== 'Acesso Geral' ? 'Mentoria ' + mentoria : mentoria;
+
+        // Preencher dados na hero
+        document.getElementById('welcomeNome').textContent = 'Olá, ' + nomeCompleto.split(' ')[0] + '!';
+        if (mentoria !== 'Acesso Geral') {
+            document.getElementById('welcomeMentoria').textContent = 'Você está na Mentoria ' + mentoria + '. Continue sua jornada de transformação!';
+        }
+
+        // Atualizar tipo de conta no sidebar
+        document.getElementById('accountType').textContent = userType === 'admin' ? 'Administrador' : 'Membro';
+
+        // Função de logout
+        function logout() {
+            if (confirm('Deseja realmente sair da sua conta?')) {
+                sessionStorage.clear();
+                window.location.href = 'auth_system.html';
+            }
+        }
     </script>
 </body>
 </html>
