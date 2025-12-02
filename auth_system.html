@@ -1,282 +1,351 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login • Instituto Tanigawa</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acesso • Instituto Tanigawa</title>
+  <meta name="description" content="Área restrita para membros e administradores do Instituto Tanigawa.">
 
-    <style>
-        :root {
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-            --color-dark: #0a0e27;
-            --color-darker: #060919;
-            --color-card: rgba(255, 255, 255, 0.03);
-            --color-card-hover: rgba(255, 255, 255, 0.06);
-            --color-text: #ffffff;
-            --color-text-muted: #a0aec0;
+  <style>
+    :root {
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --color-dark: #0a0e27;
+      --color-card: rgba(255,255,255,0.04);
+      --color-card-strong: rgba(10,14,39,0.95);
+      --color-text: #ffffff;
+      --color-text-muted: #a0aec0;
+      --danger: #f5576c;
+      --shadow-card: 0 20px 60px rgba(0,0,0,0.6);
+      --shadow-glow: 0 0 40px rgba(102,126,234,0.45);
+    }
 
-            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
-            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-            --radius-card: 24px;
-            --radius-button: 50px;
-        }
+    body {
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--color-text);
+      background: var(--color-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(102,126,234,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(245,87,108,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(67,233,123,0.10) 0%, transparent 50%);
+      animation: bgMove 25s infinite alternate ease-in-out;
+    }
 
-        body {
-            margin: 0;
-            font-family: "Inter", sans-serif;
-            background: var(--color-dark);
-            color: var(--color-text);
-            overflow-x: hidden;
-            background-image:
-                radial-gradient(circle at 20% 50%, rgba(102,126,234,0.12) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(245,87,108,0.12) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(67,233,123,0.10) 0%, transparent 50%);
-            animation: bgMove 25s infinite alternate ease-in-out;
-        }
+    @keyframes bgMove {
+      from { background-position: 0 0; }
+      to   { background-position: 40px 80px; }
+    }
 
-        @keyframes bgMove {
-            from { background-position: 0 0; }
-            to { background-position: 50px 80px; }
-        }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--color-card-strong);
+      border-radius: 24px;
+      padding: 32px 28px 28px;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+    }
 
-        .container {
-            max-width: 420px;
-            margin: 100px auto;
-            padding: 40px;
-            background: var(--color-card);
-            backdrop-filter: blur(16px);
-            border-radius: var(--radius-card);
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: var(--shadow-card);
-            animation: fadeInUp 0.8s ease;
-            text-align: center;
-        }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top left, rgba(102,126,234,0.35), transparent 55%);
+      opacity: 0.7;
+      pointer-events: none;
+    }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .card-inner {
+      position: relative;
+      z-index: 2;
+    }
 
-        h1 {
-            font-family: "Sora", sans-serif;
-            font-size: 2.4rem;
-            margin-bottom: 10px;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    h1 {
+      font-family: "Sora", system-ui, sans-serif;
+      font-size: 2.4rem;
+      margin-bottom: 4px;
+      text-align: center;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        .subtitle {
-            font-size: 1rem;
-            color: var(--color-text-muted);
-            margin-bottom: 30px;
-        }
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+    }
 
-        .input-group {
-            text-align: left;
-            margin-bottom: 25px;
-        }
+    .mode-toggle {
+      display: flex;
+      gap: 8px;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.05);
+      margin-bottom: 24px;
+    }
 
-        label {
-            font-size: 0.9rem;
-            color: var(--color-text-muted);
-        }
+    .mode-toggle button {
+      flex: 1;
+      border-radius: 999px;
+      border: none;
+      padding: 8px 0;
+      font-size: 0.9rem;
+      font-weight: 500;
+      font-family: "Inter", system-ui, sans-serif;
+      background: transparent;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: 0.25s;
+    }
 
-        input {
-            width: 100%;
-            padding: 14px 18px;
-            margin-top: 8px;
-            border-radius: var(--radius-button);
-            border: 1px solid rgba(255,255,255,0.1);
-            background: rgba(255,255,255,0.04);
-            color: var(--color-text);
-            font-size: 1rem;
-        }
+    .mode-toggle button.active {
+      background: var(--gradient-primary);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(102,126,234,0.7);
+    }
 
-        .mode-toggle {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
+    .form-group {
+      margin-bottom: 18px;
+    }
 
-        .mode-toggle button {
-            width: auto;
-            padding: 8px 16px;
-            border-radius: 999px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: transparent;
-            font-family: "Inter", sans-serif;
-            font-size: 0.9rem;
-            box-shadow: none;
-        }
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 6px;
+    }
 
-        .mode-toggle button.active {
-            background: var(--gradient-primary);
-            box-shadow: 0 4px 15px rgba(102,126,234,0.5);
-        }
+    input {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(6,9,25,0.95);
+      color: var(--color-text);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
+    }
 
-        .main-button {
-            width: 100%;
-            padding: 14px;
-            border-radius: var(--radius-button);
-            background: var(--gradient-tertiary);
-            font-family: "Sora", sans-serif;
-            font-weight: 600;
-            font-size: 1rem;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(79,172,254,0.35);
-        }
+    input:focus {
+      border-color: rgba(102,126,234,0.9);
+      box-shadow: 0 0 0 1px rgba(102,126,234,0.6);
+      background: rgba(4,7,20,0.98);
+    }
 
-        .main-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(79,172,254,0.5);
-        }
+    .main-button {
+      margin-top: 4px;
+      width: 100%;             /* mesma largura do input */
+      padding: 13px 16px;      /* mesma altura base do input */
+      border-radius: 999px;
+      border: none;
+      background: var(--gradient-tertiary);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: "Sora", system-ui, sans-serif;
+      cursor: pointer;
+      box-shadow: 0 6px 22px rgba(79,172,254,0.65);
+      transition: 0.25s;
+    }
 
-        .error-message {
-            margin-top: 20px;
-            color: #ff6b6b;
-            font-size: 0.9rem;
-            min-height: 20px;
-        }
-    </style>
+    .main-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(79,172,254,0.9);
+    }
 
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    .helper {
+      margin-top: 18px;
+      font-size: 0.8rem;
+      text-align: center;
+      color: var(--color-text-muted);
+    }
+
+    .helper a {
+      color: #4facfe;
+      text-decoration: none;
+    }
+
+    .error {
+      min-height: 18px;
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: var(--danger);
+      text-align: center;
+    }
+
+    .hint {
+      margin-top: 10px;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 26px 18px 22px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Acesso</h1>
-        <p class="subtitle">Painel administrativo • Instituto Tanigawa</p>
+  <div class="card">
+    <div class="card-inner">
+      <h1>Acesso</h1>
+      <p class="subtitle">Painel administrativo • Instituto Tanigawa</p>
 
-        <div class="mode-toggle">
-            <button id="modeMember" class="active" type="button">Sou Membro</button>
-            <button id="modeAdmin" type="button">Sou Admin</button>
-        </div>
+      <div class="mode-toggle">
+        <button id="btnMember" class="active" type="button">Sou Membro</button>
+        <button id="btnAdmin" type="button">Sou Admin</button>
+      </div>
 
-        <div class="input-group" id="emailGroup">
-            <label for="email">E-mail</label>
-            <input id="email" type="email" placeholder="Digite seu e-mail" required />
-        </div>
+      <div id="groupEmail" class="form-group">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" placeholder="digite seu e-mail" autocomplete="email" />
+      </div>
 
-        <div class="input-group">
-            <label for="password">Senha</label>
-            <input id="password" type="password" placeholder="Digite sua senha" required />
-        </div>
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input id="password" type="password" placeholder="digite sua senha" autocomplete="current-password" />
+      </div>
 
-        <button id="loginBtn" class="main-button">Entrar</button>
+      <button id="btnLogin" class="main-button" type="button">Entrar</button>
 
-        <div class="error-message" id="error"></div>
+      <div id="error" class="error"></div>
+      <p class="hint">Pressione Enter para acessar mais rápido.</p>
+
+      <p class="helper">
+        Ainda não fez o cadastro completo?<br />
+        <a href="cadastro-completo.html">Clique aqui para iniciar sua jornada.</a>
+      </p>
     </div>
+  </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js";
+  <script>
+    const btnMember = document.getElementById("btnMember");
+    const btnAdmin  = document.getElementById("btnAdmin");
+    const groupEmail = document.getElementById("groupEmail");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const btnLogin = document.getElementById("btnLogin");
+    const errorBox = document.getElementById("error");
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyAk2XTgQ77gGs4gIJMLvINPs-t3ZHp4duY",
-            authDomain: "instituto-tanigawa.firebaseapp.com",
-            projectId: "instituto-tanigawa",
-            storageBucket: "instituto-tanigawa.appspot.com",
-            messagingSenderId: "189968630353",
-            appId: "1:189968630353:web:d415d91ef913f4f789e8b5"
-        };
+    let currentMode = "member"; // "member" ou "admin"
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+    function setMode(mode) {
+      currentMode = mode;
+      errorBox.textContent = "";
 
-        const modeMemberBtn = document.getElementById("modeMember");
-        const modeAdminBtn = document.getElementById("modeAdmin");
-        const emailGroup = document.getElementById("emailGroup");
-        const emailInput = document.getElementById("email");
-        const passwordInput = document.getElementById("password");
-        const errorDiv = document.getElementById("error");
-        const loginBtn = document.getElementById("loginBtn");
+      if (mode === "member") {
+        btnMember.classList.add("active");
+        btnAdmin.classList.remove("active");
+        groupEmail.style.display = "block";
+      } else {
+        btnAdmin.classList.add("active");
+        btnMember.classList.remove("active");
+        groupEmail.style.display = "none";
+        emailInput.value = "";
+      }
+    }
 
-        let currentMode = "member"; // "member" ou "admin"
+    btnMember.addEventListener("click", () => setMode("member"));
+    btnAdmin.addEventListener("click", () => setMode("admin"));
 
-        function setMode(mode) {
-            currentMode = mode;
-            errorDiv.textContent = "";
+    async function sha256(text) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(text);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      return Array.from(new Uint8Array(hashBuffer))
+        .map(b => b.toString(16).padStart(2, "0"))
+        .join("");
+    }
 
-            if (mode === "member") {
-                modeMemberBtn.classList.add("active");
-                modeAdminBtn.classList.remove("active");
-                emailGroup.style.display = "block";
-                emailInput.required = true;
-            } else {
-                modeAdminBtn.classList.add("active");
-                modeMemberBtn.classList.remove("active");
-                emailGroup.style.display = "none";
-                emailInput.required = false;
-                emailInput.value = "";
-            }
+    async function handleLogin() {
+      errorBox.textContent = "";
+      const senha = passwordInput.value.trim();
+
+      if (!senha) {
+        errorBox.textContent = "Digite a senha.";
+        return;
+      }
+
+      if (currentMode === "admin") {
+        // 🔐 ADMIN VIA HASH (keys.json)
+        const hash = await sha256(senha);
+
+        // Hash correto da senha Sw04012014!&#
+        const ADMIN_HASH = "d17a1d2ab6c8efe744019a3249928591d70905d4c3ce309461634a3cf30cca9a";
+
+        if (hash === ADMIN_HASH) {
+          // Mantém sessão em todo o site
+          localStorage.setItem("admin", "true");
+          sessionStorage.setItem("userType", "admin");
+          sessionStorage.setItem("userName", "Sergio Tanigawa");
+          sessionStorage.setItem("userEmail", "admin@institutotanigawa.com.br");
+
+          window.location.href = "admin_dashboard.html";
+          return;
+        } else {
+          errorBox.textContent = "Senha administrativa incorreta.";
+          return;
         }
+      }
 
-        modeMemberBtn.addEventListener("click", () => setMode("member"));
-        modeAdminBtn.addEventListener("click", () => setMode("admin"));
+      // 🔓 MODO MEMBRO – por enquanto só placeholder
+      const email = (emailInput.value || "").trim();
 
-        async function sha256(text) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(text);
-            const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-            return Array.from(new Uint8Array(hashBuffer))
-                .map((b) => b.toString(16).padStart(2, "0"))
-                .join("");
-        }
+      if (!email) {
+        errorBox.textContent = "Digite o e-mail para entrar como membro.";
+        return;
+      }
 
-        loginBtn.addEventListener("click", async () => {
-            const email = emailInput.value.trim();
-            const senha = passwordInput.value.trim();
-            errorDiv.textContent = "";
+      // Aqui no futuro entrará o Firebase Auth / outro sistema.
+      // Por enquanto, apenas mensagem amigável.
+      errorBox.textContent = "Login de membros ainda não está habilitado neste ambiente. Use o acesso de Admin.";
+    }
 
-            if (!senha) {
-                errorDiv.textContent = "Digite a senha.";
-                return;
-            }
+    btnLogin.addEventListener("click", handleLogin);
 
-            try {
-                if (currentMode === "admin") {
-                    const hash = await sha256(senha);
+    // ENTER na senha = clicar no botão
+    passwordInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        handleLogin();
+      }
+    });
 
-                    // HASH CORRETO — SENHA: Sw04012014!&#
-                    if (hash === "d17a1d2ab6c8efe744019a3249928591d70905d4c3ce309461634a3cf30cca9a") {
-                        localStorage.setItem("admin", "true");
-                        window.location.href = "admin_dashboard.html";
-                        return;
-                    }
+    // ENTER no campo de e-mail também dispara se estiver em modo membro
+    emailInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && currentMode === "member") {
+        event.preventDefault();
+        handleLogin();
+      }
+    });
 
-                    errorDiv.textContent = "Senha administrativa incorreta.";
-                    return;
-                }
-
-                // MODO MEMBRO — Firebase Auth
-                if (!email) {
-                    errorDiv.textContent = "Digite o e-mail.";
-                    return;
-                }
-
-                await signInWithEmailAndPassword(auth, email, senha);
-                localStorage.setItem("user", email);
-                window.location.href = "area_membros.html";
-
-            } catch (err) {
-                errorDiv.textContent = "Credenciais inválidas. Verifique e tente novamente.";
-            }
-        });
-
-        // Modo padrão ao carregar
-        setMode("member");
-    </script>
+    // Modo padrão ao carregar
+    setMode("admin"); // se preferir começar em "member", troque aqui
+  </script>
 </body>
 </html>
