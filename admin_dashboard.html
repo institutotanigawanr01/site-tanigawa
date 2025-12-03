@@ -408,6 +408,17 @@
           </article>
 
           <article class="card">
+          <h3 class="card-title">🛍️ Gerenciar Produtos</h3>
+            <p class="card-desc">
+              Adicione e gerencie cursos, mentorias, ebooks e livros físicos oferecidos pelo instituto.
+            </p>
+            <div class="card-footer">
+              <span class="pill">CRUD completo</span>
+              <button class="link-btn" onclick="location.href='admin-produtos.html'">Abrir Gestão</button>
+            </div>
+          </article>
+
+          <article class="card">
             <h3 class="card-title">Área de Membros</h3>
             <p class="card-desc">
               Consulte o ambiente de membros e verifique experiência do usuário logado.
@@ -532,6 +543,30 @@
 
       // Nome fixo para o admin master (pode futuramente ler de storage)
       nameEl.textContent = "Sergio Tanigawa";
+    }
+
+// Função para ir ao gerador de contrato com validação
+    function goToContract(mentoradoIndex) {
+      // Recupera mentorados do localStorage (quando implementar a tabela)
+      const mentorados = JSON.parse(localStorage.getItem('mentorados') || '[]');
+      const mentorado = mentorados[mentoradoIndex];
+      
+      if (!mentorado) {
+        alert('❌ Erro: Mentorado não encontrado.');
+        return;
+      }
+      
+      // Validar dados obrigatórios
+      if (!mentorado.nome || !mentorado.cpf || !mentorado.email) {
+        alert('⚠️ Dados incompletos. Edite o mentorado e preencha todos os campos obrigatórios antes de gerar o contrato.');
+        return;
+      }
+      
+      // Salva mentorado atual para o gerador de contrato
+      localStorage.setItem('currentMentorado', JSON.stringify(mentorado));
+      
+      // Redireciona para gerador
+      window.location.href = 'gerar-contrato.html';
     }
 
     document.addEventListener("DOMContentLoaded", () => {

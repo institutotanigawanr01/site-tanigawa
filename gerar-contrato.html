@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerar Contrato - Instituto Tanigawa</title>
-    <meta name="description" content="Geração de contrato de mentoria - Instituto Tanigawa">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -16,64 +15,36 @@
         }
 
         :root {
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --color-dark: #0a0e27;
-            --color-darker: #060919;
-            --color-card: rgba(255, 255, 255, 0.03);
-            --color-card-strong: rgba(6, 9, 25, 0.96);
-            --color-text: #ffffff;
-            --color-text-muted: #a0aec0;
-            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.6);
-            --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.55);
+            --primary-blue: #3b82f6;
+            --primary-gold: #f59e0b;
+            --dark-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --text-light: #e2e8f0;
+            --text-gray: #94a3b8;
+            --success: #10b981;
+            --danger: #ef4444;
         }
 
         body {
-            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background-color: var(--color-dark);
-            color: var(--color-text);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text-light);
             min-height: 100vh;
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
+            padding: 2rem 1rem;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.09) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
-            z-index: -1;
-            animation: backgroundShift 26s infinite alternate ease-in-out;
-            pointer-events: none;
-        }
-
-        @keyframes backgroundShift {
-            from { transform: translate3d(0,0,0); }
-            to   { transform: translate3d(40px,60px,0); }
-        }
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            backdrop-filter: blur(18px);
-            background: linear-gradient(135deg, rgba(10,14,39,0.96), rgba(6,9,25,0.98));
-            border-bottom: 1px solid rgba(255,255,255,0.06);
-            box-shadow: 0 16px 40px rgba(0,0,0,0.75);
-        }
-
-        nav {
+        .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0.9rem 2rem;
+        }
+
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -82,519 +53,604 @@
         .logo {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 14px;
-            background: var(--gradient-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: "Sora", system-ui, sans-serif;
-            font-weight: 700;
-            font-size: 1.05rem;
-            color: #fff;
-            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.65);
-        }
-
-        .logo-text span {
-            display: block;
-        }
-
-        .logo-small {
-            font-size: 0.73rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--color-text-muted);
-        }
-
-        .logo-main {
-            font-family: "Sora", system-ui, sans-serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
             gap: 1rem;
         }
 
-        .nav-badge {
-            padding: 0.35rem 0.9rem;
-            border-radius: 999px;
-            border: 1px solid rgba(255,255,255,0.15);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.13em;
-            color: var(--color-text-muted);
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #f59e0b);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: white;
         }
 
-        .nav-btn {
-            padding: 0.6rem 1.5rem;
-            border-radius: 999px;
-            border: none;
-            background: var(--gradient-secondary);
-            color: #fff;
-            font-family: "Sora", system-ui, sans-serif;
-            font-weight: 600;
-            font-size: 0.9rem;
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            background: linear-gradient(135deg, #3b82f6, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-back {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--danger);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
-            box-shadow: 0 12px 28px rgba(245, 87, 108, 0.75);
-            transition: 0.25s;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.3s;
         }
 
-        .nav-btn:hover {
+        .btn-back:hover {
+            background: rgba(239, 68, 68, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 16px 36px rgba(245, 87, 108, 0.9);
         }
 
-        main {
-            max-width: 1100px;
-            margin: 2.5rem auto 3rem;
-            padding: 0 2rem 3rem;
-        }
-
-        .page-title {
-            font-family: "Sora", system-ui, sans-serif;
-            font-size: 1.9rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .page-subtitle {
-            font-size: 0.95rem;
-            color: var(--color-text-muted);
-            margin-bottom: 1.8rem;
-        }
-
-        .grid {
+        .content-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
-            gap: 1.8rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
         }
 
-        .card {
-            background: var(--color-card-strong);
-            border-radius: 24px;
-            padding: 1.6rem 1.6rem 1.9rem;
-            border: 1px solid rgba(255,255,255,0.06);
-            box-shadow: var(--shadow-soft);
-            position: relative;
-            overflow: hidden;
+        .panel {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
         }
 
-        .card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at top left, rgba(102,126,234,0.35), transparent 55%);
-            opacity: 0;
-            transition: opacity 0.25s;
-        }
-
-        .card:hover::before {
-            opacity: 1;
-        }
-
-        .card-title {
-            font-family: "Sora", system-ui, sans-serif;
-            font-size: 1.1rem;
-            margin-bottom: 0.4rem;
-        }
-
-        .card-subtitle {
-            font-size: 0.9rem;
-            color: var(--color-text-muted);
-            margin-bottom: 1.1rem;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1rem 1.2rem;
+        .panel-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-blue);
         }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35rem;
+            margin-bottom: 1.5rem;
         }
 
         label {
-            font-size: 0.8rem;
-            color: var(--color-text-muted);
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            margin-bottom: 0.5rem;
         }
 
         input, select, textarea {
-            border-radius: 999px;
-            border: 1px solid rgba(255,255,255,0.16);
-            background: rgba(6,9,25,0.96);
-            color: var(--color-text);
-            padding: 0.7rem 1rem;
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.25s, box-shadow 0.25s, background 0.25s;
-            font-family: inherit;
-        }
-
-        textarea {
-            border-radius: 18px;
-            min-height: 130px;
-            resize: vertical;
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            transition: all 0.3s;
         }
 
         input:focus, select:focus, textarea:focus {
-            border-color: rgba(102,126,234,0.9);
-            box-shadow: 0 0 0 1px rgba(102,126,234,0.7);
-            background: rgba(4,7,20,0.98);
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
-        .full-width {
-            grid-column: 1 / -1;
+        input:disabled {
+            background: rgba(15, 23, 42, 0.3);
+            cursor: not-allowed;
         }
 
-        .btn-row {
-            margin-top: 1.4rem;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
 
         .btn-primary {
-            border-radius: 999px;
-            padding: 0.85rem 1.8rem;
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #3b82f6, #f59e0b);
             border: none;
-            background: var(--gradient-tertiary);
-            color: #fff;
-            font-family: "Sora", system-ui, sans-serif;
-            font-size: 0.95rem;
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 10px 24px rgba(79,172,254,0.8);
-            transition: 0.25s;
+            transition: all 0.3s;
+            margin-top: 1rem;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 14px 30px rgba(79,172,254,0.95);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
         }
 
-        .btn-secondary {
-            border-radius: 999px;
-            padding: 0.8rem 1.7rem;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: transparent;
-            color: var(--color-text-muted);
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.05);
-            color: #fff;
-        }
-
-        .status {
-            margin-top: 0.8rem;
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-        }
-
-        /* Contrato */
-        .contract {
-            background: #ffffff;
-            color: #111827;
-            border-radius: 18px;
-            padding: 1.5rem 1.6rem;
-            max-height: 680px;
+        .preview-container {
+            background: white;
+            color: #1e293b;
+            padding: 3rem;
+            border-radius: 8px;
+            font-family: 'Times New Roman', serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            max-height: 800px;
             overflow-y: auto;
-            font-size: 0.9rem;
-            box-shadow: 0 14px 40px rgba(15,23,42,0.7);
         }
 
-        .contract h2 {
-            font-family: "Sora", system-ui, sans-serif;
-            font-size: 1.1rem;
-            margin-bottom: 0.6rem;
+        .preview-container h2 {
+            text-align: center;
+            font-size: 18pt;
+            margin-bottom: 2rem;
+            color: #1e293b;
         }
 
-        .contract h3 {
-            font-size: 0.95rem;
-            margin-top: 1.4rem;
-            margin-bottom: 0.4rem;
+        .preview-container h3 {
+            font-size: 14pt;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
         }
 
-        .contract p {
-            margin-bottom: 0.4rem;
+        .preview-container p {
+            margin-bottom: 1rem;
             text-align: justify;
         }
 
-        .contract strong {
-            font-weight: 600;
+        .preview-container strong {
+            font-weight: bold;
         }
 
-        .contract .signature {
-            margin-top: 1.8rem;
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
         }
 
-        .contract .signature p {
-            margin-bottom: 1.2rem;
+        .alert-info {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: var(--primary-blue);
         }
 
-        .contract hr {
-            border: none;
-            border-top: 1px solid #e5e7eb;
-            margin: 0.6rem 0 1rem;
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--success);
         }
 
-        @media (max-width: 960px) {
-            .grid {
-                grid-template-columns: minmax(0,1fr);
-            }
-            main {
-                padding: 0 1.2rem 2.4rem;
-            }
-            nav {
-                padding: 0.9rem 1.2rem;
-            }
-        }
-
-        @media print {
-            body {
-                background: #ffffff;
-            }
-
-            header, .btn-row, .status {
-                display: none !important;
-            }
-
-            main {
-                max-width: 100%;
-                margin: 0;
-                padding: 0;
-            }
-
-            .grid {
+        @media (max-width: 1024px) {
+            .content-grid {
                 grid-template-columns: 1fr;
             }
+        }
 
-            .card {
-                box-shadow: none;
-                border-radius: 0;
-                border: none;
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
             }
-
-            .contract {
-                box-shadow: none;
-                border-radius: 0;
-                max-height: none;
+            
+            .preview-container {
+                padding: 1.5rem;
+                font-size: 11pt;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="admin_dashboard.html" class="logo">
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
                 <div class="logo-icon">IT</div>
-                <div class="logo-text">
-                    <span class="logo-small">Painel de Governo</span>
-                    <span class="logo-main">Admin • Instituto Tanigawa</span>
+                <div>
+                    <h1>Gerador de Contrato</h1>
+                    <p style="font-size: 0.75rem; color: var(--text-gray);">Instituto Tanigawa - Mentoria Profissional</p>
                 </div>
-            </a>
-            <div class="nav-right">
-                <span class="nav-badge">Gerador de Contratos</span>
-                <button class="nav-btn" type="button" onclick="goBack()">Voltar ao painel</button>
             </div>
-        </nav>
-    </header>
+            <button class="btn-back" onclick="voltarDashboard()">← Voltar ao Dashboard</button>
+        </div>
 
-    <main>
-        <h1 class="page-title">Gerar contrato de mentoria</h1>
-        <p class="page-subtitle">
-            Preencha os dados do mentorado e da mentoria para gerar o contrato personalizado.
-        </p>
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- Painel Esquerdo: Formulário -->
+            <div class="panel">
+                <h2 class="panel-title">📝 Dados do Contrato</h2>
 
-        <section class="grid">
-            <article class="card">
-                <h2 class="card-title">Dados do contrato</h2>
-                <p class="card-subtitle">Revise com atenção antes de gerar o documento final.</p>
-
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="nomeMentorado">Nome completo do mentorado</label>
-                        <input type="text" id="nomeMentorado" placeholder="Nome do mentorado" />
-                    </div>
-                    <div class="form-group">
-                        <label for="cpfMentorado">CPF</label>
-                        <input type="text" id="cpfMentorado" placeholder="000.000.000-00" />
-                    </div>
-                    <div class="form-group">
-                        <label for="cidadeMentorado">Cidade / Estado</label>
-                        <input type="text" id="cidadeMentorado" placeholder="Cidade - UF" />
-                    </div>
-                    <div class="form-group">
-                        <label for="dataContrato">Data do contrato</label>
-                        <input type="date" id="dataContrato" />
-                    </div>
-                    <div class="form-group">
-                        <label for="nomeMentoria">Mentoria / Programa</label>
-                        <input type="text" id="nomeMentoria" placeholder="Ex.: Mentoria Synesis" />
-                    </div>
-                    <div class="form-group">
-                        <label for="valorMentoria">Valor total (R$)</label>
-                        <input type="number" id="valorMentoria" placeholder="0,00" step="0.01" />
-                    </div>
-                    <div class="form-group">
-                        <label for="formaPagamento">Forma de pagamento</label>
-                        <input type="text" id="formaPagamento" placeholder="À vista / Parcelado em X vezes" />
-                    </div>
-                    <div class="form-group">
-                        <label for="prazoMentoria">Duração / Prazo</label>
-                        <input type="text" id="prazoMentoria" placeholder="Ex.: 6 meses de acompanhamento" />
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="observacoes">Observações adicionais</label>
-                        <textarea id="observacoes" placeholder="Inclua cláusulas específicas, bônus, condições especiais, etc."></textarea>
-                    </div>
+                <div class="alert alert-info" id="alertPreenchimento">
+                    💡 <strong>Dica:</strong> Os dados do mentorado foram preenchidos automaticamente. Ajuste se necessário.
                 </div>
 
-                <div class="btn-row">
-                    <button type="button" class="btn-primary" onclick="gerarContrato()">Gerar contrato</button>
-                    <button type="button" class="btn-secondary" onclick="printContract()">Imprimir / Salvar em PDF</button>
+                <div class="alert alert-success" id="alertCopia" style="display: none;">
+                    ✅ <strong>Sucesso!</strong> Contrato copiado para a área de transferência!
                 </div>
 
-                <p class="status" id="statusMensagem">Preencha os campos e clique em "Gerar contrato".</p>
-            </article>
+                <form id="contratoForm">
+                    <!-- CONTRATANTE (Mentorado) -->
+                    <h3 style="color: var(--primary-blue); margin-bottom: 1rem;">👤 Dados do Contratante</h3>
 
-            <article class="contract" id="previewContrato">
-                <h2>Contrato de Mentoria</h2>
-                <p>Preencha os dados ao lado para visualizar o contrato aqui.</p>
-            </article>
-        </section>
-    </main>
+                    <div class="form-group">
+                        <label>Nome Completo *</label>
+                        <input type="text" id="nomeContratante" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>CPF *</label>
+                            <input type="text" id="cpfContratante" placeholder="000.000.000-00" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" id="emailContratante" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>WhatsApp *</label>
+                            <input type="text" id="whatsappContratante" placeholder="(00) 00000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label>CEP</label>
+                            <input type="text" id="cepContratante" placeholder="00000-000">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Endereço Completo *</label>
+                        <input type="text" id="enderecoContratante" placeholder="Rua, número, complemento, bairro, cidade, estado" required>
+                    </div>
+
+                    <!-- DADOS DA MENTORIA -->
+                    <h3 style="color: var(--primary-gold); margin-top: 2rem; margin-bottom: 1rem;">🎓 Dados da Mentoria</h3>
+
+                    <div class="form-group">
+                        <label>Mentoria Contratada *</label>
+                        <select id="mentoria" required>
+                            <option value="">Selecione...</option>
+                            <option value="SYNESIS" data-preco="2997">SYNESIS - Discernimento Espiritual (R$ 2.997,00)</option>
+                            <option value="LEV" data-preco="2497">LEV - Luz, Esperança e Vida (R$ 2.497,00)</option>
+                            <option value="TCC" data-preco="350">TCC - Coaching por Sessão (R$ 350,00/sessão)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Valor Total *</label>
+                            <input type="text" id="valorTotal" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label>Forma de Pagamento *</label>
+                            <select id="formaPagamento" required>
+                                <option value="">Selecione...</option>
+                                <option value="PIX">PIX</option>
+                                <option value="Cartão de Crédito">Cartão de Crédito</option>
+                                <option value="Boleto Bancário">Boleto Bancário</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Número de Parcelas *</label>
+                            <select id="numeroParcelas" required>
+                                <option value="">Selecione...</option>
+                                <option value="1">1x (à vista)</option>
+                                <option value="2">2x</option>
+                                <option value="3">3x</option>
+                                <option value="6">6x</option>
+                                <option value="12">12x</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Valor por Parcela</label>
+                            <input type="text" id="valorParcela" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Data de Vencimento (1ª Parcela) *</label>
+                        <input type="date" id="dataVencimento" required>
+                    </div>
+
+                    <button type="button" class="btn-primary" onclick="copiarContrato()">📋 Copiar Contrato Completo</button>
+                </form>
+            </div>
+
+            <!-- Painel Direito: Preview -->
+            <div class="panel">
+                <h2 class="panel-title">👁️ Preview do Contrato</h2>
+                <div class="preview-container" id="previewContrato">
+                    <p style="text-align: center; color: #94a3b8;">Preencha os dados ao lado para visualizar o contrato.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
-        // ✅ VERIFICAÇÃO HÍBRIDA DE ADMIN
-        (function validarAdmin() {
-            const isAdminLocal = localStorage.getItem('admin') === 'true';
-            const userType = sessionStorage.getItem('userType');
+        // ============================================
+        // FUNÇÕES DE INICIALIZAÇÃO
+        // ============================================
 
-            if (!(isAdminLocal || userType === 'admin')) {
-                alert('⚠️ Acesso negado. Apenas administradores podem gerar contratos.');
-                window.location.replace('auth_system.html');
+        window.addEventListener('DOMContentLoaded', function() {
+            carregarDadosMentorado();
+            configurarEventos();
+            atualizarPreview();
+        });
+
+        function carregarDadosMentorado() {
+            const mentoradoAtual = JSON.parse(localStorage.getItem('currentMentorado') || '{}');
+            
+            if (mentoradoAtual.nome) {
+                document.getElementById('nomeContratante').value = mentoradoAtual.nome || '';
+                document.getElementById('cpfContratante').value = mentoradoAtual.cpf || '';
+                document.getElementById('emailContratante').value = mentoradoAtual.email || '';
+                document.getElementById('whatsappContratante').value = mentoradoAtual.whatsapp || '';
+                document.getElementById('enderecoContratante').value = mentoradoAtual.endereco || '';
+                
+                // Preenche mentoria se disponível
+                if (mentoradoAtual.mentoria) {
+                    const selectMentoria = document.getElementById('mentoria');
+                    for (let option of selectMentoria.options) {
+                        if (option.value === mentoradoAtual.mentoria) {
+                            selectMentoria.value = mentoradoAtual.mentoria;
+                            calcularValores();
+                            break;
+                        }
+                    }
+                }
             }
-        })();
+        }
 
-        // Carrega dados do mentorado, se tiver vindo de outra tela (mock)
-        const mentoradoJson = sessionStorage.getItem('currentMentorado');
-        let mentorado = null;
+        function configurarEventos() {
+            // Atualizar preview em tempo real
+            document.querySelectorAll('input, select, textarea').forEach(input => {
+                input.addEventListener('input', atualizarPreview);
+                input.addEventListener('change', atualizarPreview);
+            });
 
-        if (mentoradoJson) {
-            try {
-                mentorado = JSON.parse(mentoradoJson);
-            } catch (e) {
-                console.warn('Erro ao ler currentMentorado do sessionStorage:', e);
+            // Calcular valores ao mudar mentoria ou parcelas
+            document.getElementById('mentoria').addEventListener('change', calcularValores);
+            document.getElementById('numeroParcelas').addEventListener('change', calcularValores);
+
+            // Máscaras
+            document.getElementById('cpfContratante').addEventListener('input', function(e) {
+                e.target.value = mascaraCPF(e.target.value);
+            });
+            
+            document.getElementById('whatsappContratante').addEventListener('input', function(e) {
+                e.target.value = mascaraTelefone(e.target.value);
+            });
+            
+            document.getElementById('cepContratante').addEventListener('input', function(e) {
+                e.target.value = mascaraCEP(e.target.value);
+            });
+        }
+
+        // ============================================
+        // FUNÇÕES DE CÁLCULO
+        // ============================================
+
+        function calcularValores() {
+            const mentoriaSelect = document.getElementById('mentoria');
+            const selectedOption = mentoriaSelect.options[mentoriaSelect.selectedIndex];
+            const preco = selectedOption.getAttribute('data-preco');
+            const numeroParcelas = parseInt(document.getElementById('numeroParcelas').value) || 1;
+
+            if (preco) {
+                const valorTotal = parseFloat(preco);
+                const valorParcela = valorTotal / numeroParcelas;
+
+                document.getElementById('valorTotal').value = 'R$ ' + valorTotal.toFixed(2).replace('.', ',');
+                document.getElementById('valorParcela').value = 'R$ ' + valorParcela.toFixed(2).replace('.', ',');
             }
+
+            atualizarPreview();
         }
 
-        if (mentorado) {
-            document.getElementById('nomeMentorado').value   = mentorado.nome || '';
-            document.getElementById('cpfMentorado').value    = mentorado.cpf || '';
-            document.getElementById('cidadeMentorado').value = mentorado.cidade || '';
-            document.getElementById('nomeMentoria').value    = mentorado.mentoria || '';
-            document.getElementById('valorMentoria').value   = mentorado.valor || '';
+        // ============================================
+        // FUNÇÕES DE MÁSCARA
+        // ============================================
+
+        function mascaraCPF(valor) {
+            valor = valor.replace(/\D/g, '');
+            valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+            valor = valor.replace(/(\d{3})(\d)/, '$1.$2');
+            valor = valor.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+            return valor;
         }
 
-        function formatarDataBR(date) {
-            if (!date) return '';
-            const d = new Date(date);
-            if (isNaN(d.getTime())) return date;
-            const dia = String(d.getDate()).padStart(2, '0');
-            const mes = String(d.getMonth() + 1).padStart(2, '0');
-            const ano = d.getFullYear();
-            return `${dia}/${mes}/${ano}`;
+        function mascaraTelefone(valor) {
+            valor = valor.replace(/\D/g, '');
+            valor = valor.replace(/^(\d{2})(\d)/g, '($1) $2');
+            valor = valor.replace(/(\d)(\d{4})$/, '$1-$2');
+            return valor;
         }
 
-        function gerarContrato() {
-            const nome      = document.getElementById('nomeMentorado').value.trim();
-            const cpf       = document.getElementById('cpfMentorado').value.trim();
-            const cidadeUF  = document.getElementById('cidadeMentorado').value.trim();
-            const data      = document.getElementById('dataContrato').value;
-            const mentoria  = document.getElementById('nomeMentoria').value.trim();
-            const valor     = document.getElementById('valorMentoria').value.trim();
-            const forma     = document.getElementById('formaPagamento').value.trim();
-            const prazo     = document.getElementById('prazoMentoria').value.trim();
-            const obs       = document.getElementById('observacoes').value.trim();
+        function mascaraCEP(valor) {
+            valor = valor.replace(/\D/g, '');
+            valor = valor.replace(/^(\d{5})(\d)/, '$1-$2');
+            return valor;
+        }
 
-            if (!nome || !cpf || !cidadeUF || !data || !mentoria || !valor || !forma || !prazo) {
-                document.getElementById('statusMensagem').textContent =
-                    'Preencha todos os campos principais para gerar o contrato.';
+        // ============================================
+        // ATUALIZAR PREVIEW
+        // ============================================
+
+        function atualizarPreview() {
+            const nome = document.getElementById('nomeContratante').value;
+            const cpf = document.getElementById('cpfContratante').value;
+            const email = document.getElementById('emailContratante').value;
+            const whatsapp = document.getElementById('whatsappContratante').value;
+            const endereco = document.getElementById('enderecoContratante').value;
+            const mentoriaSelect = document.getElementById('mentoria');
+            const mentoriaNome = mentoriaSelect.options[mentoriaSelect.selectedIndex].text;
+            const valorTotal = document.getElementById('valorTotal').value;
+            const formaPagamento = document.getElementById('formaPagamento').value;
+            const numeroParcelas = document.getElementById('numeroParcelas').value;
+            const valorParcela = document.getElementById('valorParcela').value;
+            const dataVencimento = document.getElementById('dataVencimento').value;
+
+            if (!nome) {
+                document.getElementById('previewContrato').innerHTML = '<p style="text-align: center; color: #94a3b8;">Preencha os dados ao lado para visualizar o contrato.</p>';
                 return;
             }
 
-            const dataBR = formatarDataBR(data);
-            const hoje = new Date();
-            const hojeBR = formatarDataBR(hoje.toISOString().substring(0,10));
+            const dataFormatada = dataVencimento ? new Date(dataVencimento + 'T00:00:00').toLocaleDateString('pt-BR') : '[DATA]';
+            const dataContrato = new Date().toLocaleDateString('pt-BR');
 
             const contratoHTML = `
-                <h2>Contrato de Prestação de Serviços de Mentoria</h2>
-                <p><strong>CONTRATANTE:</strong> ${nome}, CPF nº ${cpf}, residente em ${cidadeUF}.</p>
-                <p><strong>CONTRATADO:</strong> Instituto Tanigawa, doravante denominado simplesmente CONTRATADO.</p>
-                <p><strong>OBJETO:</strong> O presente contrato tem por objeto a prestação de serviços de mentoria, no programa <strong>${mentoria}</strong>, com foco em desenvolvimento pessoal, espiritual e estratégico.</p>
+                <h2>CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE MENTORIA</h2>
                 
-                <h3>Cláusula 1ª – Do Prazo e Formato</h3>
-                <p>A mentoria terá duração de <strong>${prazo}</strong>, com encontros e atividades conforme cronograma definido entre as partes.</p>
+                <p><strong>CONTRATADO:</strong></p>
+                <p>
+                    <strong>Nome:</strong> Sergio Kiyoshi Tanigawa<br>
+                    <strong>CPF:</strong> 205.447.778-83<br>
+                    <strong>Endereço:</strong> Av. Cauaxi, 258 - Ap. 131 - Alphaville - Barueri - SP - CEP: 06454-020
+                </p>
 
-                <h3>Cláusula 2ª – Do Investimento e Forma de Pagamento</h3>
-                <p>O valor total do investimento é de <strong>R$ ${valor}</strong>, com a seguinte forma de pagamento: <strong>${forma}</strong>.</p>
+                <p><strong>CONTRATANTE:</strong></p>
+                <p>
+                    <strong>Nome:</strong> ${nome || '[NOME]'}<br>
+                    <strong>CPF:</strong> ${cpf || '[CPF]'}<br>
+                    <strong>Email:</strong> ${email || '[EMAIL]'}<br>
+                    <strong>WhatsApp:</strong> ${whatsapp || '[WHATSAPP]'}<br>
+                    <strong>Endereço:</strong> ${endereco || '[ENDEREÇO]'}
+                </p>
 
-                <h3>Cláusula 3ª – Das Responsabilidades</h3>
-                <p>O CONTRATADO se compromete a entregar os conteúdos, encontros e materiais propostos na mentoria, dentro de sua metodologia própria e agenda acordada.</p>
-                <p>O CONTRATANTE é responsável por comparecer aos encontros, aplicar os conteúdos e honrar pontualmente os pagamentos assumidos.</p>
+                <p>As partes acima qualificadas têm, entre si, justo e acertado o presente <strong>CONTRATO DE PRESTAÇÃO DE SERVIÇOS DE MENTORIA</strong>, que se regerá pelas cláusulas seguintes e pelas condições descritas no presente.</p>
 
-                <h3>Cláusula 4ª – Da Reagendamento e Cancelamento</h3>
-                <p>Pedidos de reagendamento deverão ser feitos com antecedência mínima de 24 (vinte e quatro) horas. Em caso de cancelamento após o início da mentoria, poderão ser aplicadas taxas ou retenções proporcionais aos encontros já realizados.</p>
+                <h3>CLÁUSULA 1ª - DO OBJETO</h3>
+                <p>O presente contrato tem como objeto a prestação de serviços de mentoria online denominada <strong>"${mentoriaNome || '[MENTORIA]'}"</strong>, oferecida pelo CONTRATADO ao CONTRATANTE, via plataforma de videoconferência (Zoom, Google Meet ou similar).</p>
 
-                <h3>Cláusula 5ª – Da Confidencialidade</h3>
-                <p>Ambas as partes se comprometem a manter sigilo sobre informações estratégicas, pessoais e sensíveis compartilhadas durante a mentoria.</p>
+                <h3>CLÁUSULA 2ª - DA DURAÇÃO E FORMATO</h3>
+                <p><strong>2.1.</strong> A mentoria terá duração de <strong>3 (três) meses</strong>, com sessões semanais de aproximadamente <strong>60 (sessenta) minutos</strong> cada.</p>
+                <p><strong>2.2.</strong> Todas as sessões serão <strong>gravadas em vídeo e áudio</strong> para fins de revisão e acompanhamento pedagógico.</p>
+                <p><strong>2.3.</strong> As gravações ficarão disponíveis para o CONTRATANTE por um período de <strong>6 (seis) meses</strong>, sendo 3 (três) meses durante a mentoria e 3 (três) meses após o término.</p>
 
-                <h3>Cláusula 6ª – Das Considerações Finais</h3>
-                <p>Este contrato entra em vigor na data de sua assinatura eletrônica ou física, prevalecendo a boa-fé, a transparência e o propósito de crescimento mútuo.</p>
+                <h3>CLÁUSULA 3ª - DO VALOR E FORMA DE PAGAMENTO</h3>
+                <p><strong>3.1.</strong> O valor total da mentoria é de <strong>${valorTotal || '[VALOR]'}</strong>.</p>
+                <p><strong>3.2.</strong> A forma de pagamento escolhida é: <strong>${formaPagamento || '[FORMA]'}</strong>.</p>
+                <p><strong>3.3.</strong> O pagamento será realizado em <strong>${numeroParcelas || '[N]'}x</strong> parcelas de <strong>${valorParcela || '[VALOR PARCELA]'}</strong>.</p>
+                <p><strong>3.4.</strong> O vencimento da primeira parcela é <strong>${dataFormatada}</strong>, com vencimentos subsequentes nas mesmas datas dos meses seguintes.</p>
 
-                ${obs ? `<h3>Cláusula 7ª – Observações Específicas</h3><p>${obs}</p>` : ''}
+                <h3>CLÁUSULA 4ª - DAS OBRIGAÇÕES DO CONTRATADO</h3>
+                <p><strong>4.1.</strong> Ministrar as sessões de mentoria conforme cronograma acordado.</p>
+                <p><strong>4.2.</strong> Fornecer materiais de apoio quando aplicável.</p>
+                <p><strong>4.3.</strong> Disponibilizar as gravações das sessões pelo período estabelecido.</p>
+                <p><strong>4.4.</strong> Manter sigilo sobre todas as informações compartilhadas durante as sessões.</p>
 
-                <div class="signature">
-                    <p>${cidadeUF}, ${dataBR}.</p>
-                    <hr />
-                    <p><strong>${nome}</strong><br/>CONTRATANTE</p>
-                    <hr />
-                    <p><strong>Instituto Tanigawa</strong><br/>CONTRATADO</p>
-                    <p style="margin-top:1rem;font-size:0.8rem;color:#6b7280;">
-                        Documento gerado em ${hojeBR} via painel administrativo do Instituto Tanigawa.
-                    </p>
-                </div>
+                <h3>CLÁUSULA 5ª - DAS OBRIGAÇÕES DO CONTRATANTE</h3>
+                <p><strong>5.1.</strong> Efetuar o pagamento nas datas de vencimento estabelecidas.</p>
+                <p><strong>5.2.</strong> Comparecer às sessões agendadas ou avisar com antecedência mínima de 24 horas em caso de impossibilidade.</p>
+                <p><strong>5.3.</strong> Comprometer-se com o processo de desenvolvimento proposto na mentoria.</p>
+                <p><strong>5.4.</strong> Não compartilhar publicamente as gravações das sessões sem autorização prévia e por escrito do CONTRATADO.</p>
+
+                <h3>CLÁUSULA 6ª - DO CANCELAMENTO E REMARCAÇÃO</h3>
+                <p><strong>6.1.</strong> Sessões canceladas pelo CONTRATANTE com menos de 24 horas de antecedência serão consideradas realizadas.</p>
+                <p><strong>6.2.</strong> Sessões canceladas pelo CONTRATADO serão remarcadas sem custos adicionais.</p>
+
+                <h3>CLÁUSULA 7ª - DA RESCISÃO</h3>
+                <p><strong>7.1.</strong> O presente contrato poderá ser rescindido por qualquer das partes mediante comunicação por escrito com 15 dias de antecedência.</p>
+                <p><strong>7.2.</strong> Em caso de rescisão pelo CONTRATANTE, os valores já pagos não serão reembolsados, sendo devidas apenas as parcelas referentes às sessões não realizadas.</p>
+                <p><strong>7.3.</strong> Em caso de inadimplência, o CONTRATADO poderá suspender a prestação dos serviços até regularização.</p>
+
+                <h3>CLÁUSULA 8ª - DA PROPRIEDADE INTELECTUAL</h3>
+                <p><strong>8.1.</strong> Todo o conteúdo, materiais e gravações produzidas durante a mentoria são de propriedade exclusiva do Instituto Tanigawa.</p>
+                <p><strong>8.2.</strong> O CONTRATANTE tem direito de acesso pessoal e intransferível ao conteúdo, vedada qualquer forma de reprodução, distribuição ou comercialização.</p>
+
+                <h3>CLÁUSULA 9ª - DA PROTEÇÃO DE DADOS (LGPD)</h3>
+                <p><strong>9.1.</strong> O CONTRATANTE autoriza expressamente a coleta, armazenamento e processamento de seus dados pessoais (nome, CPF, email, WhatsApp, endereço, imagem e voz nas gravações) para as seguintes finalidades:</p>
+                <p>a) Prestação dos serviços de mentoria;</p>
+                <p>b) Emissão de documentos fiscais e contratuais;</p>
+                <p>c) Comunicação sobre a mentoria e materiais relacionados;</p>
+                <p>d) Gravação das sessões para fins pedagógicos.</p>
+                <p><strong>9.2.</strong> Os dados pessoais serão armazenados pelo período de <strong>5 (cinco) anos</strong> após o término da mentoria, conforme legislação aplicável.</p>
+                <p><strong>9.3.</strong> O CONTRATANTE tem direito de: a) acessar seus dados; b) corrigir dados incompletos ou incorretos; c) solicitar a exclusão de dados; d) solicitar a portabilidade dos dados.</p>
+                <p><strong>9.4.</strong> Os dados serão compartilhados apenas com plataformas necessárias à prestação do serviço (videoconferência, armazenamento em nuvem, processamento de pagamentos).</p>
+                <p><strong>9.5.</strong> Todas as medidas de segurança técnicas e organizacionais serão adotadas para proteger os dados contra acessos não autorizados.</p>
+
+                <h3>CLÁUSULA 10ª - DO TERMO DE GRAVAÇÃO</h3>
+                <p><strong>10.1.</strong> O CONTRATANTE declara estar plenamente ciente de que todas as sessões de mentoria serão gravadas em vídeo e áudio.</p>
+                <p><strong>10.2.</strong> O CONTRATANTE consente expressamente com a gravação de sua imagem e voz para fins exclusivos de acompanhamento pedagógico e revisão pessoal.</p>
+                <p><strong>10.3.</strong> As gravações têm uso exclusivamente pedagógico e pessoal, sendo vedado ao CONTRATANTE:</p>
+                <p>a) Compartilhar as gravações em redes sociais ou plataformas públicas;</p>
+                <p>b) Distribuir, comercializar ou reproduzir o conteúdo gravado;</p>
+                <p>c) Editar ou modificar as gravações de qualquer forma.</p>
+                <p><strong>10.4.</strong> O descumprimento desta cláusula sujeitará o CONTRATANTE às penalidades legais cabíveis, incluindo indenização por danos morais e materiais.</p>
+
+                <h3>CLÁUSULA 11ª - DAS DISPOSIÇÕES GERAIS</h3>
+                <p><strong>11.1.</strong> Este contrato é regido pelas leis brasileiras.</p>
+                <p><strong>11.2.</strong> Qualquer alteração deste contrato deverá ser feita por escrito e assinada por ambas as partes.</p>
+                <p><strong>11.3.</strong> As partes elegem o foro da comarca de Barueri/SP para dirimir quaisquer controvérsias oriundas deste contrato.</p>
+
+                <p style="margin-top: 2rem;"><strong>ACEITE ELETRÔNICO:</strong></p>
+                <p>
+                    O CONTRATANTE declara ter lido, compreendido e aceito todas as cláusulas deste contrato.<br>
+                    <strong>Data do Aceite:</strong> ${dataContrato}<br>
+                    <strong>IP:</strong> [Registrado automaticamente]<br>
+                    <strong>Horário:</strong> [Registrado automaticamente]<br>
+                    <strong>Código de Verificação:</strong> [Gerado automaticamente]
+                </p>
+
+                <p style="text-align: center; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #ddd;">
+                    <strong>_______________________________________</strong><br>
+                    Sergio Kiyoshi Tanigawa<br>
+                    CONTRATADO<br>
+                    <br>
+                    <strong>_______________________________________</strong><br>
+                    ${nome || '[NOME DO CONTRATANTE]'}<br>
+                    CONTRATANTE
+                </p>
             `;
 
-            const preview = document.getElementById('previewContrato');
-            preview.innerHTML = contratoHTML;
-            document.getElementById('statusMensagem').textContent =
-                'Contrato gerado com sucesso. Revise o conteúdo antes de imprimir ou salvar em PDF.';
+            document.getElementById('previewContrato').innerHTML = contratoHTML;
         }
 
-        function printContract() {
-            window.print();
+        // ============================================
+        // COPIAR CONTRATO
+        // ============================================
+
+        function copiarContrato() {
+            const previewElement = document.getElementById('previewContrato');
+            const texto = previewElement.innerText;
+
+            if (!texto || texto.includes('[NOME]')) {
+                alert('⚠️ Por favor, preencha todos os campos obrigatórios antes de copiar o contrato.');
+                return;
+            }
+
+            navigator.clipboard.writeText(texto).then(() => {
+                const alertCopia = document.getElementById('alertCopia');
+                alertCopia.style.display = 'block';
+                
+                setTimeout(() => {
+                    alertCopia.style.display = 'none';
+                }, 5000);
+            }).catch(err => {
+                alert('❌ Erro ao copiar contrato. Tente selecionar manualmente.');
+                console.error('Erro:', err);
+            });
         }
 
-        function goBack() {
-            window.location.href = 'admin_dashboard.html';
+        // ============================================
+        // NAVEGAÇÃO
+        // ============================================
+
+        function voltarDashboard() {
+            if (confirm('Tem certeza que deseja voltar? As alterações não salvas serão perdidas.')) {
+                window.location.href = 'admin_dashboard.html';
+            }
         }
     </script>
 </body>
 </html>
-

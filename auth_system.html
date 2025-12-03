@@ -202,6 +202,17 @@
       text-align: center;
     }
 
+/* Animação de shake para erros */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+      20%, 40%, 60%, 80% { transform: translateX(5px); }
+    }
+
+    .error.shake {
+      animation: shake 0.5s;
+    }
+
     @media (max-width: 480px) {
       .card {
         padding: 26px 18px 22px;
@@ -273,6 +284,28 @@
     btnMember.addEventListener("click", () => setMode("member"));
     btnAdmin.addEventListener("click", () => setMode("admin"));
 
+/*
+     * ============================================
+     * NOTA DE SEGURANÇA - SHA-256 HASHING
+     * ============================================
+     * 
+     * O hash SHA-256 é calculado no cliente (navegador) e enviado
+     * para /api/auth que valida contra keys.json armazenado em 
+     * ENV variables do Vercel.
+     * 
+     * A senha NUNCA é enviada em texto plano pela rede.
+     * 
+     * Hash correto para admin:
+     * d17a1d2ab6c8efe744019a3249928591d70905d4c3ce309461634a3cf30cca9a
+     * 
+     * Senha original (apenas para referência de desenvolvimento):
+     * Sw04012014!&#
+     * 
+     * EM PRODUÇÃO: keys.json deve estar APENAS em ENV variables,
+     * NUNCA commitado no repositório Git.
+     * ============================================
+     */
+
     async function sha256(text) {
       const encoder = new TextEncoder();
       const data = encoder.encode(text);
@@ -284,6 +317,7 @@
 
     async function handleLogin() {
       errorBox.textContent = "";
+
       const senha = passwordInput.value.trim();
 
       if (!senha) {
@@ -323,9 +357,16 @@
 
       // Aqui no futuro entrará o Firebase Auth / outro sistema.
       // Por enquanto, apenas mensagem amigável.
-      errorBox.textContent = "Login de membros ainda não está habilitado neste ambiente. Use o acesso de Admin.";
+      errorBox.textContent = "🔒 Login de membros em desenvolvimento. Entre em contato com tanigawa.sergio@gmail.com para ativar seu acesso.";
+      errorBox.classList.add('shake');
+      setTimeout(() => errorBox.classList.remove('shake'), 500);
     }
-
+} finally {
+        // Restaura botão
+        btnLogin.textContent = originalText;
+        btnLogin.disabled = false;
+      }
+    }
     btnLogin.addEventListener("click", handleLogin);
 
     // ENTER na senha = clicar no botão

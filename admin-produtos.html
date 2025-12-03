@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão de Produtos - Instituto Tanigawa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #3b82f6; --primary-gold: #f59e0b; --dark-bg: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.5); --text-light: #e2e8f0; --text-gray: #94a3b8;
+            --success: #10b981; --danger: #ef4444; --warning: #f59e0b;
+        }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: var(--text-light); min-height: 100vh; }
+        .header { background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(59, 130, 246, 0.2); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; gap: 1rem; }
+        .logo-icon { width: 50px; height: 50px; background: linear-gradient(135deg, #3b82f6, #f59e0b); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 800; color: white; }
+        h1 { font-family: 'Playfair Display', serif; font-size: 1.75rem; background: linear-gradient(135deg, #3b82f6, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .btn-back { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); color: var(--danger); padding: 0.75rem 1.5rem; border-radius: 8px; cursor: pointer; font-size: 0.875rem; font-weight: 600; transition: all 0.3s; }
+        .btn-back:hover { background: rgba(239, 68, 68, 0.2); transform: translateY(-2px); }
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem 1rem; }
+        .tabs { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid rgba(59, 130, 246, 0.2); overflow-x: auto; }
+        .tab { padding: 1rem 2rem; background: transparent; border: none; color: var(--text-gray); font-size: 0.875rem; font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; white-space: nowrap; }
+        .tab:hover { color: var(--text-light); background: rgba(59, 130, 246, 0.05); }
+        .tab.active { color: var(--primary-blue); border-bottom-color: var(--primary-blue); }
+        .tab-content { display: none; animation: fadeIn 0.3s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .stat-card { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 1.5rem; }
+        .stat-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .stat-value { font-size: 2rem; font-weight: 700; color: var(--primary-blue); }
+        .stat-label { font-size: 0.875rem; color: var(--text-gray); }
+        .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 1rem; flex-wrap: wrap; }
+        .search-box { flex: 1; min-width: 250px; position: relative; }
+        .search-box input { width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 8px; color: var(--text-light); font-size: 0.875rem; }
+        .search-box::before { content: "🔍"; position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); }
+        .btn-primary { padding: 0.75rem 1.5rem; background: linear-gradient(135deg, #3b82f6, #f59e0b); border: none; border-radius: 8px; color: white; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.3s; white-space: nowrap; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); }
+        .table-container { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; }
+        thead { background: rgba(15, 23, 42, 0.8); }
+        th { padding: 1rem; text-align: left; font-size: 0.75rem; font-weight: 600; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.05em; }
+        td { padding: 1rem; border-top: 1px solid rgba(59, 130, 246, 0.1); font-size: 0.875rem; }
+        tr:hover { background: rgba(59, 130, 246, 0.05); }
+        .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; }
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: var(--success); }
+        .badge-warning { background: rgba(245, 158, 11, 0.2); color: var(--warning); }
+        .badge-danger { background: rgba(239, 68, 68, 0.2); color: var(--danger); }
+        .actions { display: flex; gap: 0.5rem; }
+        .btn-icon { padding: 0.5rem; background: transparent; border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 6px; color: var(--text-light); cursor: pointer; transition: all 0.3s; font-size: 0.875rem; }
+        .btn-icon:hover { background: rgba(59, 130, 246, 0.1); border-color: var(--primary-blue); }
+        .btn-icon.danger:hover { background: rgba(239, 68, 68, 0.1); border-color: var(--danger); color: var(--danger); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 1000; align-items: center; justify-content: center; padding: 1rem; }
+        .modal.show { display: flex; }
+        .modal-content { background: var(--dark-bg); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 16px; padding: 2rem; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--primary-blue); }
+        .btn-close { background: transparent; border: none; color: var(--text-gray); font-size: 1.5rem; cursor: pointer; padding: 0.5rem; }
+        .btn-close:hover { color: var(--text-light); }
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; font-size: 0.875rem; font-weight: 600; color: var(--text-gray); margin-bottom: 0.5rem; }
+        input, select, textarea { width: 100%; padding: 0.75rem; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 8px; color: var(--text-light); font-size: 0.875rem; transition: all 0.3s; font-family: 'Inter', sans-serif; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-blue); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        textarea { min-height: 100px; resize: vertical; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-gray); }
+        .empty-state-icon { font-size: 4rem; margin-bottom: 1rem; opacity: 0.3; }
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; }
+            .toolbar { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">IT</div>
+            <div>
+                <h1>Gestão de Produtos</h1>
+                <p style="font-size: 0.75rem; color: var(--text-gray);">Cursos, Mentorias, Ebooks e Livros</p>
+            </div>
+        </div>
+        <button class="btn-back" onclick="window.location.href='admin_dashboard.html'">← Voltar</button>
+    </div>
+
+    <div class="container">
+        <!-- Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">🎓</div>
+                <div class="stat-value" id="statCursos">0</div>
+                <div class="stat-label">Cursos/Mentorias</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📚</div>
+                <div class="stat-value" id="statEbooks">0</div>
+                <div class="stat-label">Ebooks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📖</div>
+                <div class="stat-value" id="statLivros">0</div>
+                <div class="stat-label">Livros Físicos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💰</div>
+                <div class="stat-value" id="statTotal">R$ 0</div>
+                <div class="stat-label">Valor Total Produtos</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('cursos')">🎓 Cursos/Mentorias</button>
+            <button class="tab" onclick="switchTab('ebooks')">📚 Ebooks</button>
+            <button class="tab" onclick="switchTab('livros')">📖 Livros Físicos</button>
+        </div>
+
+        <!-- Tab: Cursos -->
+        <div id="tab-cursos" class="tab-content active">
+            <div class="toolbar">
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar cursos..." onkeyup="filtrar('cursos', this.value)">
+                </div>
+                <button class="btn-primary" onclick="abrirModal('cursos')">+ Adicionar Curso</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Tipo</th>
+                            <th>Duração</th>
+                            <th>Preço</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableCursos"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab: Ebooks -->
+        <div id="tab-ebooks" class="tab-content">
+            <div class="toolbar">
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar ebooks..." onkeyup="filtrar('ebooks', this.value)">
+                </div>
+                <button class="btn-primary" onclick="abrirModal('ebooks')">+ Adicionar Ebook</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>Preço</th>
+                            <th>Downloads</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableEbooks"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab: Livros -->
+        <div id="tab-livros" class="tab-content">
+            <div class="toolbar">
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar livros..." onkeyup="filtrar('livros', this.value)">
+                </div>
+                <button class="btn-primary" onclick="abrirModal('livros')">+ Adicionar Livro</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Título</th>
+                            <th>Autor</th>
+                            <th>ISBN</th>
+                            <th>Preço</th>
+                            <th>Estoque</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableLivros"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cursos -->
+    <div id="modalCursos" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitleCursos">Adicionar Curso/Mentoria</h2>
+                <button class="btn-close" onclick="fecharModal('cursos')">×</button>
+            </div>
+            <form id="formCursos" onsubmit="salvarProduto(event, 'cursos')">
+                <input type="hidden" id="editIdCursos">
+                <div class="form-group">
+                    <label>Nome do Curso *</label>
+                    <input type="text" id="nomeCurso" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Tipo *</label>
+                        <select id="tipoCurso" required>
+                            <option value="">Selecione...</option>
+                            <option value="SYNESIS">SYNESIS</option>
+                            <option value="LEV">LEV</option>
+                            <option value="TCC">TCC</option>
+                            <option value="Outro">Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Duração *</label>
+                        <input type="text" id="duracaoCurso" placeholder="Ex: 12 semanas" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Preço (R$) *</label>
+                        <input type="number" id="precoCurso" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Status *</label>
+                        <select id="statusCurso" required>
+                            <option value="ativo">Ativo</option>
+                            <option value="inativo">Inativo</option>
+                            <option value="breve">Em Breve</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="descricaoCurso" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">💾 Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Ebooks -->
+    <div id="modalEbooks" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitleEbooks">Adicionar Ebook</h2>
+                <button class="btn-close" onclick="fecharModal('ebooks')">×</button>
+            </div>
+            <form id="formEbooks" onsubmit="salvarProduto(event, 'ebooks')">
+                <input type="hidden" id="editIdEbooks">
+                <div class="form-group">
+                    <label>Título *</label>
+                    <input type="text" id="tituloEbook" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Autor *</label>
+                        <input type="text" id="autorEbook" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Preço (R$) *</label>
+                        <input type="number" id="precoEbook" step="0.01" min="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Link de Download</label>
+                    <input type="url" id="linkEbook" placeholder="https://...">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>URL Capa</label>
+                        <input type="url" id="capaEbook" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label>Status *</label>
+                        <select id="statusEbook" required>
+                            <option value="ativo">Ativo</option>
+                            <option value="inativo">Inativo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="descricaoEbook" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">💾 Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Livros -->
+    <div id="modalLivros" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitleLivros">Adicionar Livro Físico</h2>
+                <button class="btn-close" onclick="fecharModal('livros')">×</button>
+            </div>
+            <form id="formLivros" onsubmit="salvarProduto(event, 'livros')">
+                <input type="hidden" id="editIdLivros">
+                <div class="form-group">
+                    <label>Título *</label>
+                    <input type="text" id="tituloLivro" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Autor *</label>
+                        <input type="text" id="autorLivro" required>
+                    </div>
+                    <div class="form-group">
+                        <label>ISBN</label>
+                        <input type="text" id="isbnLivro" placeholder="978-3-16-148410-0">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Preço (R$) *</label>
+                        <input type="number" id="precoLivro" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Estoque *</label>
+                        <input type="number" id="estoqueLivro" min="0" value="0" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>URL Capa</label>
+                    <input type="url" id="capaLivro" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Descrição</label>
+                    <textarea id="descricaoLivro" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width: 100%;">💾 Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // INICIALIZAÇÃO
+        // ============================================
+        let produtos = {
+            cursos: JSON.parse(localStorage.getItem('produtos_cursos') || '[]'),
+            ebooks: JSON.parse(localStorage.getItem('produtos_ebooks') || '[]'),
+            livros: JSON.parse(localStorage.getItem('produtos_livros') || '[]')
+        };
+
+        window.addEventListener('DOMContentLoaded', function() {
+            renderizarTudo();
+            atualizarStats();
+        });
+
+        // ============================================
+        // NAVEGAÇÃO TABS
+        // ============================================
+        function switchTab(tipo) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById('tab-' + tipo).classList.add('active');
+        }
+
+        // ============================================
+        // RENDERIZAÇÃO
+        // ============================================
+        function renderizarTudo() {
+            renderizarCursos();
+            renderizarEbooks();
+            renderizarLivros();
+        }
+
+        function renderizarCursos() {
+            const tbody = document.getElementById('tableCursos');
+            if (produtos.cursos.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="empty-state-icon">📭</div><p>Nenhum curso cadastrado ainda.</p></div></td></tr>';
+                return;
+            }
+            tbody.innerHTML = produtos.cursos.map((c, i) => `
+                <tr>
+                    <td><strong>${c.nome}</strong></td>
+                    <td>${c.tipo}</td>
+                    <td>${c.duracao}</td>
+                    <td>R$ ${c.preco.toFixed(2)}</td>
+                    <td><span class="badge badge-${c.status === 'ativo' ? 'success' : c.status === 'inativo' ? 'danger' : 'warning'}">${c.status}</span></td>
+                    <td class="actions">
+                        <button class="btn-icon" onclick="editarProduto('cursos', ${i})" title="Editar">✏️</button>
+                        <button class="btn-icon danger" onclick="excluirProduto('cursos', ${i})" title="Excluir">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderizarEbooks() {
+            const tbody = document.getElementById('tableEbooks');
+            if (produtos.ebooks.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="empty-state-icon">📭</div><p>Nenhum ebook cadastrado ainda.</p></div></td></tr>';
+                return;
+            }
+            tbody.innerHTML = produtos.ebooks.map((e, i) => `
+                <tr>
+                    <td><strong>${e.titulo}</strong></td>
+                    <td>${e.autor}</td>
+                    <td>R$ ${e.preco.toFixed(2)}</td>
+                    <td>${e.downloads || 0}</td>
+                    <td><span class="badge badge-${e.status === 'ativo' ? 'success' : 'danger'}">${e.status}</span></td>
+                    <td class="actions">
+                        <button class="btn-icon" onclick="editarProduto('ebooks', ${i})" title="Editar">✏️</button>
+                        <button class="btn-icon danger" onclick="excluirProduto('ebooks', ${i})" title="Excluir">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderizarLivros() {
+            const tbody = document.getElementById('tableLivros');
+            if (produtos.livros.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="empty-state-icon">📭</div><p>Nenhum livro cadastrado ainda.</p></div></td></tr>';
+                return;
+            }
+            tbody.innerHTML = produtos.livros.map((l, i) => `
+                <tr>
+                    <td><strong>${l.titulo}</strong></td>
+                    <td>${l.autor}</td>
+                    <td>${l.isbn || '-'}</td>
+                    <td>R$ ${l.preco.toFixed(2)}</td>
+                    <td><span class="badge badge-${l.estoque > 0 ? 'success' : 'danger'}">${l.estoque}</span></td>
+                    <td class="actions">
+                        <button class="btn-icon" onclick="editarProduto('livros', ${i})" title="Editar">✏️</button>
+                        <button class="btn-icon danger" onclick="excluirProduto('livros', ${i})" title="Excluir">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // ============================================
+        // STATS
+        // ============================================
+        function atualizarStats() {
+            document.getElementById('statCursos').textContent = produtos.cursos.length;
+            document.getElementById('statEbooks').textContent = produtos.ebooks.length;
+            document.getElementById('statLivros').textContent = produtos.livros.length;
+            
+            const total = [...produtos.cursos, ...produtos.ebooks, ...produtos.livros]
+                .reduce((sum, p) => sum + (p.preco || 0), 0);
+            document.getElementById('statTotal').textContent = 'R$ ' + total.toFixed(2);
+        }
+
+        // ============================================
+        // MODAL
+        // ============================================
+        function abrirModal(tipo) {
+            document.getElementById('modal' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).classList.add('show');
+            document.getElementById('form' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).reset();
+            document.getElementById('editId' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).value = '';
+            document.getElementById('modalTitle' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).textContent = 
+                'Adicionar ' + (tipo === 'cursos' ? 'Curso/Mentoria' : tipo === 'ebooks' ? 'Ebook' : 'Livro Físico');
+        }
+
+        function fecharModal(tipo) {
+            document.getElementById('modal' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).classList.remove('show');
+        }
+
+        // ============================================
+        // CRUD
+        // ============================================
+        function salvarProduto(event, tipo) {
+            event.preventDefault();
+            
+            const editId = document.getElementById('editId' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).value;
+            
+            let produto = {};
+            if (tipo === 'cursos') {
+                produto = {
+                    nome: document.getElementById('nomeCurso').value,
+                    tipo: document.getElementById('tipoCurso').value,
+                    duracao: document.getElementById('duracaoCurso').value,
+                    preco: parseFloat(document.getElementById('precoCurso').value),
+                    status: document.getElementById('statusCurso').value,
+                    descricao: document.getElementById('descricaoCurso').value,
+                    dataCriacao: new Date().toISOString()
+                };
+            } else if (tipo === 'ebooks') {
+                produto = {
+                    titulo: document.getElementById('tituloEbook').value,
+                    autor: document.getElementById('autorEbook').value,
+                    preco: parseFloat(document.getElementById('precoEbook').value),
+                    link: document.getElementById('linkEbook').value,
+                    capa: document.getElementById('capaEbook').value,
+                    status: document.getElementById('statusEbook').value,
+                    descricao: document.getElementById('descricaoEbook').value,
+                    downloads: 0,
+                    dataCriacao: new Date().toISOString()
+                };
+            } else {
+                produto = {
+                    titulo: document.getElementById('tituloLivro').value,
+                    autor: document.getElementById('autorLivro').value,
+                    isbn: document.getElementById('isbnLivro').value,
+                    preco: parseFloat(document.getElementById('precoLivro').value),
+                    estoque: parseInt(document.getElementById('estoqueLivro').value),
+                    capa: document.getElementById('capaLivro').value,
+                    descricao: document.getElementById('descricaoLivro').value,
+                    dataCriacao: new Date().toISOString()
+                };
+            }
+            
+            if (editId !== '') {
+                produtos[tipo][editId] = produto;
+            } else {
+                produtos[tipo].push(produto);
+            }
+            
+            localStorage.setItem('produtos_' + tipo, JSON.stringify(produtos[tipo]));
+            fecharModal(tipo);
+            renderizarTudo();
+            atualizarStats();
+        }
+
+        function editarProduto(tipo, index) {
+            const produto = produtos[tipo][index];
+            abrirModal(tipo);
+            
+            document.getElementById('editId' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).value = index;
+            document.getElementById('modalTitle' + tipo.charAt(0).toUpperCase() + tipo.slice(1)).textContent = 
+                'Editar ' + (tipo === 'cursos' ? 'Curso/Mentoria' : tipo === 'ebooks' ? 'Ebook' : 'Livro Físico');
+            
+            if (tipo === 'cursos') {
+                document.getElementById('nomeCurso').value = produto.nome;
+                document.getElementById('tipoCurso').value = produto.tipo;
+                document.getElementById('duracaoCurso').value = produto.duracao;
+                document.getElementById('precoCurso').value = produto.preco;
+                document.getElementById('statusCurso').value = produto.status;
+                document.getElementById('descricaoCurso').value = produto.descricao || '';
+            } else if (tipo === 'ebooks') {
+                document.getElementById('tituloEbook').value = produto.titulo;
+                document.getElementById('autorEbook').value = produto.autor;
+                document.getElementById('precoEbook').value = produto.preco;
+                document.getElementById('linkEbook').value = produto.link || '';
+                document.getElementById('capaEbook').value = produto.capa || '';
+                document.getElementById('statusEbook').value = produto.status;
+                document.getElementById('descricaoEbook').value = produto.descricao || '';
+            } else {
+                document.getElementById('tituloLivro').value = produto.titulo;
+                document.getElementById('autorLivro').value = produto.autor;
+                document.getElementById('isbnLivro').value = produto.isbn || '';
+                document.getElementById('precoLivro').value = produto.preco;
+                document.getElementById('estoqueLivro').value = produto.estoque;
+                document.getElementById('capaLivro').value = produto.capa || '';
+                document.getElementById('descricaoLivro').value = produto.descricao || '';
+            }
+        }
+
+        function excluirProduto(tipo, index) {
+            if (confirm('Tem certeza que deseja excluir este produto?')) {
+                produtos[tipo].splice(index, 1);
+                localStorage.setItem('produtos_' + tipo, JSON.stringify(produtos[tipo]));
+                renderizarTudo();
+                atualizarStats();
+            }
+        }
+
+        function filtrar(tipo, termo) {
+            // Implementação básica de filtro (pode ser expandida)
+            console.log('Filtrar', tipo, termo);
+        }
+    </script>
+</body>
+</html>
