@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <title>Instituto Tanigawa</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO BÁSICO CORRIGIDO -->
     <meta name="description" content="Instituto Tanigawa – diagnósticos profundos, mentorias estratégicas e direção espiritual para pastores, líderes, empresários e igrejas.">
-    <meta name="robots" content="noindex, nofollow" />
-    <link rel="canonical" href="home.html" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://institutotanigawa.com.br/" />
 
+    <!-- FONTES -->
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     
     <style>
@@ -47,7 +50,7 @@
             height: 100vh;
         }
 
-        /* BACKGROUND ANIMADO EM CAMADAS (conforme design system) */
+        /* BACKGROUND ANIMADO EM CAMADAS */
         body::before {
             content: '';
             position: fixed;
@@ -68,7 +71,7 @@
             50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        /* GRID DE FUNDO (conforme design system) */
+        /* GRID DE FUNDO */
         .bg-grid {
             position: fixed;
             top: 0;
@@ -135,7 +138,7 @@
             padding: 0 2rem;
         }
 
-        /* ANO - Tipografia Hero Title (Sora 800, 4rem conforme design system) */
+        /* ANO - Tipografia Hero Title */
         #text-display .year {
             font-family: 'Sora', sans-serif;
             font-size: 5rem;
@@ -149,7 +152,7 @@
             text-shadow: 0 0 40px rgba(102, 126, 234, 0.6);
         }
 
-        /* PERGUNTA - Uma linha única, com gradiente degradê */
+        /* PERGUNTA */
         #text-display .question {
             font-family: 'Sora', sans-serif;
             font-size: 2.2rem;
@@ -161,11 +164,10 @@
             line-height: 1.2;
             text-shadow: 0 0 30px rgba(168, 139, 250, 0.5);
             letter-spacing: 0.03em;
-            white-space: nowrap; /* Força uma linha única */
+            white-space: nowrap; /* Força uma linha única em telas maiores */
             text-transform: uppercase;
         }
 
-        /* Animações */
         @keyframes explosionFlash {
             0% {
                 opacity: 0;
@@ -209,7 +211,7 @@
             }
         }
 
-        /* Responsive */
+        /* Responsivo */
         @media (max-width: 1024px) {
             #text-display .year {
                 font-size: 4rem;
@@ -260,11 +262,11 @@
         const text = document.getElementById('text-display');
 
         /*
-        TIMELINE (conforme solicitado):
-        0.0s - 1.0s: Fundo escuro (background design system)
-        1.0s - 2.0s: EXPLOSÃO DE LUZ BRANCA (ultra intenso)
-        2.0s - 4.0s: FRASE aparece e pulsa
-        4.0s: Redireciona para home.html
+            TIMELINE:
+            0.0s - 1.0s: Fundo escuro
+            1.0s - 2.0s: Explosão de luz branca
+            2.0s - 4.0s: Frase aparece e pulsa
+            4.0s: Redireciona para /home
         */
         
         // 1. Após 1 segundo: EXPLOSÃO DE LUZ
@@ -277,9 +279,9 @@
             text.style.animation = 'textFadeIn 0.6s ease-out forwards, textPulse 2s ease-in-out infinite';
         }, 2000);
 
-        // 3. Após 4 segundos: REDIRECIONA
+        // 3. Após 4 segundos: REDIRECIONA PARA /home
         setTimeout(() => {
-            window.location.href = 'home.html';
+            window.location.href = '/home';
         }, 4000);
     </script>
 </body>

@@ -1,0 +1,44 @@
+{
+  "SYNESIS": {
+    "title": "Mentoria SYNESIS - Discernimento Espiritual",
+    "modules": [
+      {
+        "module_id": "SYNESIS-M1",
+        "title": "Módulo 1: O Chamado e o Vazio",
+        "lessons": [
+          {"id": "L1", "title": "Aula 1: O Início da Jornada", "video_id": "VRSY0101", "duration": "35:12"},
+          {"id": "L2", "title": "Aula 2: Zona de Conforto", "video_id": "VRSY0102", "duration": "50:05"},
+          {"id": "L3", "title": "Aula 3: Ambição vs Propósito", "video_id": "VRSY0103", "duration": "45:30"}
+        ]
+      },
+      {
+        "module_id": "SYNESIS-M2",
+        "title": "Módulo 2: Alinhamento Estratégico",
+        "lessons": [
+          {"id": "L4", "title": "Aula 4: Decisões Sob Pressão", "video_id": "VRSY0204", "duration": "40:00"},
+          {"id": "L5", "title": "Aula 5: Guia dos 5 Pilares", "video_id": "VRSY0205", "duration": "60:00"}
+        ]
+      }
+    ]
+  },
+  "LEV": {
+    "title": "Mentoria LEV - Luz, Esperança e Vida",
+    "modules": [
+      {
+        "module_id": "LEV-M1",
+        "title": "Módulo 1: Descoberta da Ferida",
+        "lessons": [
+          {"id": "L1", "title": "Aula 1: Raiz do Trauma", "video_id": "VRLE0101", "duration": "40:00"},
+          {"id": "L2", "title": "Aula 2: Ciclo da Culpa", "video_id": "VRLE0102", "duration": "38:00"}
+        ]
+      },
+      {
+        "module_id": "LEV-M2",
+        "title": "Módulo 2: Restaurando Identidade",
+        "lessons": [
+          {"id": "L3", "title": "Aula 3: Eu Verdadeiro vs Ferido", "video_id": "VRLE0203", "duration": "55:00"}
+        ]
+      }
+    ]
+  }
+}

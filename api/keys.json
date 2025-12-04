@@ -1,11 +1,8 @@
 {
   "__config": {
-    "descricao": "Arquivo oficial de chaves do Instituto Tanigawa. Use o hash SHA-256 da senha.",
-    "versao": "1.0.3",
-    "ultima_atualizacao": "2025-12-01",
-    "observacao": "Hash oficial para autenticação administrativa (modo híbrido)."
+    "descricao": "Arquivo oficial de chaves do Instituto Tanigawa",
+    "versao": "1.0.3"
   },
-
   "d17a1d2ab6c8efe744019a3249928591d70905d4c3ce309461634a3cf30cca9a": {
     "type": "admin",
     "nome": "Sergio Tanigawa"

@@ -1,914 +1,567 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro Completo - Instituto Tanigawa</title>
-    <meta name="description" content="Cadastro completo para mentorias, diagnósticos e jornada com o Instituto Tanigawa.">
-
-    <!-- Fontes do Design System -->
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            /* Gradientes */
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            
-            /* Cores */
-            --color-dark: #0a0e27;
-            --color-darker: #060919;
-            --color-card: rgba(255, 255, 255, 0.03);
-            --color-card-hover: rgba(255, 255, 255, 0.06);
-            --color-text: #ffffff;
-            --color-text-muted: #a0aec0;
-            --color-accent: #667eea;
-            
-            /* Sombras */
-            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
-            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--color-darker);
-            color: var(--color-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-            min-height: 100vh;
-        }
-
-        /* Background animado */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
-            z-index: 0;
-            animation: backgroundShift 20s ease infinite;
-        }
-
-        @keyframes backgroundShift {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-        }
-
-        .bg-grid {
-            position: fixed;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: 0;
-            animation: gridMove 20s linear infinite;
-        }
-
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        .floating-particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            background: rgba(102, 126, 234, 0.6); 
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            animation: float 20s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            25% { transform: translateY(-30px) translateX(20px); }
-            50% { transform: translateY(-60px) translateX(-20px); }
-            75% { transform: translateY(-30px) translateX(10px); }
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(10, 14, 39, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 1rem 0;
-            transition: all 0.3s ease;
-        }
-
-        header.scrolled {
-            background: rgba(10, 14, 39, 0.95);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        nav {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: var(--color-text);
-            transition: transform 0.3s ease;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-primary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: 800;
-            font-family: 'Sora', sans-serif;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .logo span {
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: 'Sora', sans-serif;
-            background: var(--gradient-primary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--color-text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--color-text);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -6px;
-            width: 0%;
-            height: 2px;
-            background: var(--gradient-primary);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 100%;
-        }
-
-        .login-btn {
-            background: var(--gradient-primary);
-            color: white;
-            padding: 0.6rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-            border: none;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.5);
-        }
-
-        main {
-            position: relative;
-            z-index: 1;
-            padding-top: 110px;
-            min-height: calc(100vh - 160px);
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 3.5rem 2rem 3rem;
-        }
-
-        /* Layout do formulário */
-        .page-header {
-            max-width: 900px;
-            margin: 0 auto 2.5rem;
-            text-align: left;
-        }
-
-        .page-header h1 {
-            font-family: 'Sora', sans-serif;
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #c4d0ff 40%, #a5b4fc 65%, #f9a8d4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.75rem;
-        }
-
-        .page-header p {
-            font-size: 0.98rem;
-            color: var(--color-text-muted);
-            max-width: 620px;
-        }
-
-        .badge-intro {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.8rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            color: #e5e7eb;
-            margin-bottom: 0.75rem;
-        }
-
-        .badge-intro span {
-            font-size: 0.9rem;
-        }
-
-        .form-wrapper {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .glass-card {
-            width: 100%;
-            padding: 2.5rem 2.2rem;
-            background: rgba(15, 23, 42, 0.92);
-            backdrop-filter: blur(18px);
-            border-radius: 24px;
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            box-shadow: 0 22px 70px rgba(15, 23, 42, 0.95);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .glass-card::before {
-            content: '';
-            position: absolute;
-            inset: -30%;
-            background:
-                radial-gradient(circle at 0% 0%, rgba(129, 140, 248, 0.36), transparent 60%),
-                radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.3), transparent 60%);
-            opacity: 0.55;
-            mix-blend-mode: screen;
-            pointer-events: none;
-        }
-
-        .glass-card-inner {
-            position: relative;
-            z-index: 1;
-        }
-
-        .card-title {
-            font-family: 'Sora', sans-serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-
-        .card-subtitle {
-            font-size: 0.9rem;
-            color: var(--color-text-muted);
-            margin-bottom: 1.5rem;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1.3rem 1.5rem;
-        }
-
-        .form-full {
-            grid-column: 1 / -1;
-        }
-
-        .field-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
-        }
-
-        .field-label {
-            font-size: 0.85rem;
-            color: #e5e7eb;
-        }
-
-        .field-label span {
-            color: #f97373;
-            margin-left: 2px;
-        }
-
-        .field-input,
-        .field-select,
-        .field-textarea {
-            width: 100%;
-            border-radius: 14px;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            background: rgba(15, 23, 42, 0.9);
-            padding: 0.7rem 0.9rem;
-            color: #e5e7eb;
-            font-size: 0.9rem;
-            outline: none;
-            transition: all 0.2s ease;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .field-input:focus,
-        .field-select:focus,
-        .field-textarea:focus {
-            border-color: #c7d2fe;
-            box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.5);
-        }
-
-        .field-input::placeholder,
-        .field-textarea::placeholder {
-            color: rgba(148, 163, 184, 0.75);
-        }
-
-        .field-select {
-            appearance: none;
-        }
-
-        .field-textarea {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        .field-help {
-            font-size: 0.78rem;
-            color: var(--color-text-muted);
-        }
-
-        .form-footer {
-            margin-top: 1.8rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .btn-primary {
-            border-radius: 999px;
-            border: none;
-            padding: 0.85rem 1.6rem;
-            font-size: 0.95rem;
-            font-weight: 600;
-            font-family: 'Inter', sans-serif;
-            background: var(--gradient-tertiary);
-            color: #ffffff;
-            cursor: pointer;
-            align-self: flex-start;
-            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.85);
-            transition: all 0.25s ease;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 14px 40px rgba(37, 99, 235, 1);
-        }
-
-        .form-meta {
-            font-size: 0.8rem;
-            color: var(--color-text-muted);
-        }
-
-        .form-meta a {
-            color: #c7d2fe;
-            text-decoration: none;
-        }
-
-        .form-meta a:hover {
-            text-decoration: underline;
-        }
-
-        .alert {
-            border-radius: 14px;
-            padding: 0.75rem 0.9rem;
-            font-size: 0.8rem;
-            margin-bottom: 1rem;
-            display: none;
-        }
-
-        .alert.error {
-            background: rgba(127, 29, 29, 0.85);
-            border: 1px solid rgba(248, 113, 113, 0.9);
-            color: #fee2e2;
-        }
-
-        .alert.success {
-            background: rgba(6, 95, 70, 0.9);
-            border: 1px solid rgba(45, 212, 191, 0.9);
-            color: #ccfbf1;
-        }
-
-        footer {
-            border-top: 1px solid rgba(148, 163, 184, 0.35);
-            padding: 1.5rem 2rem 2.5rem;
-            color: var(--color-text-muted);
-            font-size: 0.85rem;
-            background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
-            position: relative;
-            z-index: 1;
-        }
-
-        .footer-inner {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-right {
-            text-align: right;
-            min-width: 200px;
-        }
-
-        .footer-right a {
-            color: #e5e7eb;
-            text-decoration: none;
-        }
-
-        .footer-right a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 1024px) {
-            .container {
-                padding: 3rem 1.5rem 2.5rem;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                padding: 0 1.5rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .container {
-                padding: 2.8rem 1.3rem 2.2rem;
-            }
-
-            .page-header h1 {
-                font-size: 1.6rem;
-            }
-
-            .glass-card {
-                padding: 2rem 1.6rem;
-            }
-
-            .footer-inner {
-                flex-direction: column;
-                text-align: left;
-            }
-
-            .footer-right {
-                text-align: left;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 2.5rem 1.1rem 2rem;
-            }
-
-            .page-header h1 {
-                font-size: 1.4rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro Completo • Instituto Tanigawa</title>
+
+  <meta name="description" content="Finalize seu cadastro e inicie sua jornada no Instituto Tanigawa.">
+  <meta name="robots" content="index, follow">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --color-dark: #020617;
+      --color-darker: #020313;
+      --color-card: rgba(15,23,42,0.96);
+      --color-text: #ffffff;
+      --color-text-muted: #a0aec0;
+      --danger: #f5576c;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(102,126,234,0.18) 0%, transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(245,87,108,0.16) 0%, transparent 55%),
+        radial-gradient(circle at 40% 10%, rgba(56,189,248,0.18) 0%, transparent 55%),
+        #020617;
+      color: var(--color-text);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      background: rgba(2,6,23,0.9);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(148,163,184,0.35);
+    }
+
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.75rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-family: "Sora";
+      font-size: 1rem;
+      box-shadow: 0 4px 16px rgba(79,70,229,0.7);
+    }
+
+    .logo span {
+      font-family: "Sora";
+      font-size: 1rem;
+      font-weight: 700;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.75rem;
+      font-size: 0.92rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--color-text-muted);
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--color-text);
+    }
+
+    #navAuth a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: "Inter";
+      padding: 0.45rem 1.35rem;
+      border-radius: 999px;
+      background: var(--gradient-primary);
+      color: #fff;
+      box-shadow: 0 4px 18px rgba(79,70,229,0.75);
+      transition: 0.2s;
+    }
+
+    #navAuth a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 22px rgba(79,70,229,0.95);
+    }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+    }
+
+    /* MAIN */
+    main {
+      padding-top: 96px;
+      padding-bottom: 48px;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .form-card {
+      width: 100%;
+      max-width: 720px;
+      background: radial-gradient(circle at top left, rgba(129,140,248,0.2), transparent 50%),
+                  radial-gradient(circle at bottom right, rgba(236,72,153,0.18), transparent 55%),
+                  var(--color-card);
+      border-radius: 24px;
+      border: 1px solid rgba(148,163,184,0.45);
+      box-shadow: 0 22px 65px rgba(15,23,42,0.9);
+      padding: 2.25rem 2.25rem 2rem;
+      backdrop-filter: blur(20px);
+    }
+
+    .form-header {
+      margin-bottom: 1.75rem;
+      text-align: left;
+    }
+
+    .form-title {
+      font-family: "Sora";
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+    }
+
+    .form-subtitle {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      max-width: 520px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.15rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    label {
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem 0.9rem;
+      border-radius: 12px;
+      border: 1px solid rgba(148,163,184,0.45);
+      background: rgba(15,23,42,0.92);
+      color: var(--color-text);
+      font-size: 0.9rem;
+      font-family: "Inter";
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #64748b;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: rgba(129,140,248,0.95);
+      box-shadow: 0 0 0 1px rgba(129,140,248,0.7);
+      background: rgba(15,23,42,0.98);
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      margin-top: 0.5rem;
+      width: 100%;
+      border: none;
+      border-radius: 999px;
+      padding: 0.85rem 1rem;
+      font-family: "Sora";
+      font-weight: 700;
+      font-size: 0.98rem;
+      cursor: pointer;
+      background: var(--gradient-tertiary);
+      color: #f9fafb;
+      box-shadow: 0 10px 30px rgba(56,189,248,0.8);
+      transition: 0.2s;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 38px rgba(37,99,235,0.95);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: wait;
+      transform: none;
+      box-shadow: 0 8px 24px rgba(56,189,248,0.6);
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      min-height: 1.1rem;
+    }
+
+    .feedback.success { color: #22c55e; }
+    .feedback.error   { color: var(--danger); }
+
+    @media (max-width: 640px) {
+      .form-card {
+        padding: 1.7rem 1.35rem 1.7rem;
+      }
+      .form-title {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="bg-grid"></div>
 
-    <header id="header">
-        <nav>
-            <a href="home.html" class="logo">
-                <div class="logo-icon">IT</div>
-                <span>INSTITUTO TANIGAWA</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="home.html">Home</a></li>
-                <li><a href="mentoria.html">Mentorias</a></li>
-                <li><a href="diagnostico-tanigawa-pead.html">Diagnóstico</a></li>
-                <li><a href="devocionais.html">Devocionais</a></li>
-                <li><a href="nr-1.html">NR-1</a></li>
-            </ul>
-            <div id="navAuth"></div>
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <a href="/home" class="logo">
+        <div class="logo-icon">IT</div>
+        <span>INSTITUTO TANIGAWA</span>
+      </a>
 
-    <main>
-        <section class="container">
-            <div class="page-header">
-                <div class="badge-intro">
-                    <span>●</span>
-                    <span>Passo importante da sua jornada</span>
-                </div>
-                <h1>Cadastro completo de jornada com o Instituto Tanigawa</h1>
-                <p>
-                    Este formulário nos ajuda a discernir com clareza em qual fase você está, qual mentoria ou jornada
-                    faz mais sentido neste momento e como podemos caminhar ao seu lado com responsabilidade espiritual
-                    e excelência.
-                </p>
-            </div>
+      <ul class="nav-links">
+        <li><a href="/home">Home</a></li>
+        <li><a href="mentoria.html">Mentorias</a></li>
+        <li><a href="devocionais.html">Devocionais</a></li>
+        <li><a href="nr-1.html">NR-1</a></li>
+        <li><a href="sobre.html">Sobre</a></li>
+        <li><a href="contato.html">Contato</a></li>
+      </ul>
 
-            <div class="form-wrapper">
-                <div class="glass-card">
-                    <div class="glass-card-inner">
-                        <h2 class="card-title">Dados para discernimento e cuidado</h2>
-                        <p class="card-subtitle">
-                            Preencha com atenção. Essas informações não são para controle, mas para alinhamento de
-                            propósito, governo e direção na sua jornada.
-                        </p>
+      <div id="navAuth"></div>
+    </nav>
+  </header>
 
-                        <div id="alertBox" class="alert"></div>
-
-                        <form id="cadastroForm">
-                            <div class="form-grid">
-                                <div class="field-group form-full">
-                                    <label class="field-label" for="nome">Nome completo<span>*</span></label>
-                                    <input type="text" id="nome" class="field-input" placeholder="Seu nome completo" required>
-                                </div>
-
-                                <div class="field-group">
-                                    <label class="field-label" for="email">E-mail<span>*</span></label>
-                                    <input type="email" id="email" class="field-input" placeholder="seunome@exemplo.com" required>
-                                </div>
-
-                                <div class="field-group">
-                                    <label class="field-label" for="telefone">WhatsApp / Telefone<span>*</span></label>
-                                    <input type="tel" id="telefone" class="field-input" placeholder="(DDD) 99999-9999" required>
-                                </div>
-
-                                <div class="field-group">
-                                    <label class="field-label" for="cpf">CPF<span>*</span></label>
-                                    <input type="text" id="cpf" class="field-input" placeholder="000.000.000-00" maxlength="14" required>
-                                </div>
-
-                                <div class="field-group">
-                                    <label class="field-label" for="mentoria">Mentoria / Jornada desejada<span>*</span></label>
-                                    <select id="mentoria" class="field-select" required>
-                                        <option value="">Selecione...</option>
-                                        <option value="Synesis">Synesis – Inteligência Espiritual</option>
-                                        <option value="Advanced Performance">Advanced Performance – Life and Spiritual</option>
-                                        <option value="LEV">LEV – Jornada Terapêutica</option>
-                                        <option value="Sozo">Sozo – Metodologia de Oração e Intercessão</option>
-                                        <option value="NR-1 Corporativo">NR-1 – Jornada Psicossocial Corporativa</option>
-                                        <option value="Outra">Outra / A definir junto com a equipe</option>
-                                    </select>
-                                </div>
-
-                                <div class="field-group">
-                                    <label class="field-label" for="origem">Como chegou até o Instituto Tanigawa?<span>*</span></label>
-                                    <select id="origem" class="field-select" required>
-                                        <option value="">Selecione...</option>
-                                        <option value="Instagram">Instagram</option>
-                                        <option value="YouTube">YouTube</option>
-                                        <option value="Indicação">Indicação de amigo(a) / mentor(a)</option>
-                                        <option value="Igreja / Conferência">Igreja / Conferência</option>
-                                        <option value="WhatsApp">Lista de transmissão / WhatsApp</option>
-                                        <option value="Outro">Outro</option>
-                                    </select>
-                                </div>
-
-                                <div class="field-group form-full">
-                                    <label class="field-label" for="momento">Resuma em poucas linhas seu momento atual</label>
-                                    <textarea id="momento" class="field-textarea" placeholder="Por exemplo: área profissional travada, dúvidas sobre direção, conflitos emocionais, bloqueios espirituais, decisões importantes para 2026, etc."></textarea>
-                                    <div class="field-help">
-                                        Isso nos ajuda a entender o contexto e acelerar o discernimento sobre qual caminho seguir com você.
-                                    </div>
-                                </div>
-
-                                <div class="field-group form-full">
-                                    <label class="field-label" for="expectativa">Qual sua principal expectativa com essa jornada?</label>
-                                    <textarea id="expectativa" class="field-textarea" placeholder="O que você espera vivenciar, resolver ou destravar nesse tempo?"></textarea>
-                                </div>
-
-                                <div class="field-group form-full" style="margin-top: 1.5rem; padding: 1.2rem; background: rgba(102, 126, 234, 0.08); border-radius: 12px; border: 1px solid rgba(102, 126, 234, 0.2);">
-                                    <label style="display: flex; align-items: start; gap: 0.75rem; cursor: pointer;">
-                                        <input type="checkbox" id="lgpdConsent" required style="margin-top: 0.25rem; width: 18px; height: 18px; cursor: pointer;">
-                                        <span style="font-size: 0.9rem; line-height: 1.5; color: var(--color-text);">
-                                            <strong>Aceito os termos de LGPD:</strong> Concordo que meus dados sejam armazenados e utilizados pelo Instituto Tanigawa exclusivamente para fins de mentoria, comunicação sobre o programa e emissão de documentos relacionados. Entendo que posso solicitar a exclusão dos meus dados a qualquer momento.
-                                        </span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <div class="form-footer">
-                                <button type="submit" class="btn-primary">Enviar cadastro</button>
-                                <div class="form-meta">
-                                    Após o envio, sua ficha entra como <strong>pendente</strong> para avaliação.
-                                    Você poderá acompanhar o andamento falando com a equipe e, quando for aprovado,
-                                    terá acesso à <a href="area_membros.html">Área de Membros</a> e demais instruções.
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-inner">
-            <div>
-                Instituto Tanigawa – Discernimento, governo, direção e cuidado.
-            </div>
-            <div class="footer-right">
-                <div>&copy; <span id="year"></span> Instituto Tanigawa. Todos os direitos reservados.</div>
-            </div>
+  <main>
+    <div class="page">
+      <div class="form-card">
+        <div class="form-header">
+          <h1 class="form-title">Cadastro Completo</h1>
+          <p class="form-subtitle">
+            Preencha os dados abaixo para iniciarmos sua jornada no Instituto Tanigawa. Quanto mais verdade e clareza, melhor o direcionamento.
+          </p>
         </div>
-    </footer>
 
-    <script>
-        const CADASTROS_KEY = 'tanigawa_cadastros';
+        <form id="cadastroForm">
+          <div class="form-grid">
 
-        // ============================================
-        // VALIDAÇÃO DE CPF (Dígitos Verificadores)
-        // ============================================
-        function validarCPF(cpf) {
-            cpf = cpf.replace(/\D/g, '');
-            
-            // CPF deve ter 11 dígitos
-            if (cpf.length !== 11) return false;
-            
-            // Todos dígitos iguais é inválido (ex: 111.111.111-11)
-            if (/^(\d)\1{10}$/.test(cpf)) return false;
-            
-            // Validar primeiro dígito verificador
-            let soma = 0;
-            for (let i = 0; i < 9; i++) {
-                soma += parseInt(cpf.charAt(i)) * (10 - i);
-            }
-            let resto = 11 - (soma % 11);
-            let digito1 = resto >= 10 ? 0 : resto;
-            
-            if (digito1 !== parseInt(cpf.charAt(9))) return false;
-            
-            // Validar segundo dígito verificador
-            soma = 0;
-            for (let i = 0; i < 10; i++) {
-                soma += parseInt(cpf.charAt(i)) * (11 - i);
-            }
-            resto = 11 - (soma % 11);
-            let digito2 = resto >= 10 ? 0 : resto;
-            
-            return digito2 === parseInt(cpf.charAt(10));
-        }
+            <div class="form-group">
+              <label for="nome">Nome Completo</label>
+              <input type="text" id="nome" required />
+            </div>
 
-        // Ano dinâmico
-        document.getElementById('year').textContent = new Date().getFullYear();
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" required />
+            </div>
 
-        // Header com sombra ao rolar
-        const headerEl = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-                headerEl.classList.add('scrolled');
-            } else {
-                headerEl.classList.remove('scrolled');
-            }
+            <div class="form-group">
+              <label for="telefone">Telefone / WhatsApp</label>
+              <input type="text" id="telefone" required />
+            </div>
+
+            <div class="form-group">
+              <label for="cidade">Cidade</label>
+              <input type="text" id="cidade" required />
+            </div>
+
+            <div class="form-group">
+              <label for="estado">Estado</label>
+              <input type="text" id="estado" required />
+            </div>
+
+            <div class="form-group">
+              <label for="origem">Como chegou até o Instituto?</label>
+              <select id="origem" required>
+                <option value="">Selecione...</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Indicação">Indicação</option>
+                <option value="YouTube">YouTube</option>
+                <option value="Google">Google</option>
+                <option value="Outro">Outro</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="mentoria">Mentoria / Jornada de Interesse</label>
+              <select id="mentoria" required>
+                <option value="">Selecione...</option>
+                <option value="Synesis Individual" data-preco="9970">Synesis Individual</option>
+                <option value="Synesis Casal" data-preco="14970">Synesis Casal</option>
+                <option value="Synesis Grupo" data-preco="997">Synesis em Grupo</option>
+                <option value="LEV" data-preco="0">LEV – Estações da Alma</option>
+                <option value="NR-1 Life Corporate" data-preco="0">NR-1 Life Corporate</option>
+                <option value="Outra" data-preco="0">Outra / a definir após diagnóstico</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="pagamento">Forma de Pagamento (preferencial)</label>
+              <select id="pagamento" required>
+                <option value="">Selecione...</option>
+                <option value="Cartão de Crédito">Cartão de Crédito</option>
+                <option value="PIX à vista">PIX à vista</option>
+                <option value="Boleto">Boleto</option>
+                <option value="Negociar / Personalizar">Quero conversar sobre condições</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="cpf">CPF</label>
+              <input type="text" id="cpf" maxlength="14" placeholder="000.000.000-00" required />
+            </div>
+
+            <div class="form-group">
+              <label for="endereco">Endereço</label>
+              <input type="text" id="endereco" placeholder="Rua, avenida, etc." required />
+            </div>
+
+            <div class="form-group">
+              <label for="numero">Número</label>
+              <input type="text" id="numero" required />
+            </div>
+
+            <div class="form-group">
+              <label for="bairro">Bairro</label>
+              <input type="text" id="bairro" required />
+            </div>
+
+            <div class="form-group">
+              <label for="expectativas">Conte, com suas palavras, o que você busca nesta jornada.</label>
+              <textarea id="expectativas" placeholder="Descreva brevemente sua fase, desafios e o que você espera deste acompanhamento."></textarea>
+            </div>
+
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">Enviar cadastro</button>
+
+          <div id="successMessage" class="feedback success"></div>
+          <div id="errorMessage" class="feedback error"></div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Atualiza botão Entrar / Área de Membros / Admin
+    function updateNavBar() {
+      const navAuth = document.getElementById('navAuth');
+      if (!navAuth) return;
+
+      const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+      const userType   = sessionStorage.getItem('userType');
+
+      navAuth.innerHTML = '';
+
+      if (isLoggedIn) {
+        const linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
+        const linkText   = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
+
+        navAuth.innerHTML = `<a href="${linkTarget}">${linkText}</a>`;
+      } else {
+        navAuth.innerHTML = `<a href="auth_system.html">Entrar</a>`;
+      }
+    }
+
+    // Máscara CPF
+    function maskCPF(value) {
+      let v = value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 9) {
+        v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{0,2})/, '$1.$2.$3-$4');
+      } else if (v.length > 6) {
+        v = v.replace(/(\d{3})(\d{3})(\d{0,3})/, '$1.$2.$3');
+      } else if (v.length > 3) {
+        v = v.replace(/(\d{3})(\d{0,3})/, '$1.$2');
+      }
+      return v;
+    }
+
+    // Máscara telefone (WhatsApp)
+    function maskPhone(value) {
+      let v = value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 6) {
+        v = v.replace(/(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+      } else if (v.length > 2) {
+        v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+      } else if (v.length > 0) {
+        v = v.replace(/(\d{0,2})/, '($1');
+      }
+      return v;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateNavBar();
+
+      const cpfInput      = document.getElementById('cpf');
+      const telefoneInput = document.getElementById('telefone');
+
+      if (cpfInput) {
+        cpfInput.addEventListener('input', (e) => {
+          e.target.value = maskCPF(e.target.value);
         });
+      }
 
-        // Partículas flutuantes
-        (function createFloatingParticles() {
-            const particleCount = 30;
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'floating-particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDuration = (Math.random() * 20 + 10) + 's';
-                particle.style.animationDelay = (Math.random() * 5) + 's';
-                document.body.appendChild(particle);
-            }
-        })();
-
-        // Nav dinâmica (mesmo padrão das outras páginas)
-        function updateNavBar() {
-            const navAuth = document.getElementById('navAuth');
-            const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-            const userType = sessionStorage.getItem('userType');
-            
-            if (!navAuth) return;
-            navAuth.innerHTML = '';
-            
-            if (isLoggedIn) {
-                let linkTarget = userType === 'admin' ? 'admin_dashboard.html' : 'area_membros.html';
-                let linkText = userType === 'admin' ? 'Painel Admin' : 'Área de Membros';
-                
-                navAuth.innerHTML = `
-                    <a href="${linkTarget}" class="login-btn">
-                        ${linkText}
-                    </a>
-                `;
-            } else {
-                navAuth.innerHTML = `
-                    <a href="auth_system.html" class="login-btn">
-                        Entrar
-                    </a>
-                `;
-            }
-        }
-
-        function carregarCadastros() {
-            let cadastros = [];
-            try {
-                const bruto = localStorage.getItem(CADASTROS_KEY);
-                if (bruto) cadastros = JSON.parse(bruto) || [];
-            } catch (err) {
-                console.error('Erro ao ler cadastros do localStorage:', err);
-                cadastros = [];
-            }
-            return Array.isArray(cadastros) ? cadastros : [];
-        }
-
-        function salvarCadastros(cadastros) {
-            try {
-                localStorage.setItem(CADASTROS_KEY, JSON.stringify(cadastros));
-            } catch (err) {
-                console.error('Erro ao salvar cadastros no localStorage:', err);
-            }
-        }
-
-        function showAlert(message, type = 'error') {
-            const alertBox = document.getElementById('alertBox');
-            alertBox.textContent = message;
-            alertBox.className = 'alert ' + type;
-            alertBox.style.display = 'block';
-        }
-
-        function hideAlert() {
-            const alertBox = document.getElementById('alertBox');
-            alertBox.style.display = 'none';
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            updateNavBar();
-
-            // Máscaras em tempo real
-            const telefoneInput = document.getElementById('telefone');
-            const cpfInput = document.getElementById('cpf');
-
-            // Máscara WhatsApp inteligente (celular/fixo)
-            telefoneInput.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                
-                if (value.length <= 10) {
-                    // Formato fixo: (11) 3333-4444
-                    value = value.replace(/^(\d{2})(\d)/, '($1) $2');
-                    value = value.replace(/(\d{4})(\d)/, '$1-$2');
-                } else {
-                    // Formato celular: (11) 93333-4444
-                    value = value.replace(/^(\d{2})(\d)/, '($1) $2');
-                    value = value.replace(/(\d{5})(\d)/, '$1-$2');
-                }
-                
-                e.target.value = value;
-            });
-
-            // Máscara CPF
-            cpfInput.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                value = value.replace(/(\d{3})(\d)/, '$1.$2');
-                value = value.replace(/(\d{3})(\d)/, '$1.$2');
-                value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-                e.target.value = value;
-            });
-
-            const form = document.getElementById('cadastroForm');
-            form.addEventListener('submit', (event) => {
-                event.preventDefault();
-                hideAlert();
-
-                const nome = document.getElementById('nome').value.trim();
-                const email = document.getElementById('email').value.trim();
-                const telefone = document.getElementById('telefone').value.trim();
-                const cpf = document.getElementById('cpf').value.trim();
-                const mentoria = document.getElementById('mentoria').value;
-                const origem = document.getElementById('origem').value;
-                const momento = document.getElementById('momento').value.trim();
-                const expectativa = document.getElementById('expectativa').value.trim();
-                const lgpdConsent = document.getElementById('lgpdConsent').checked;
-
-                // Validações obrigatórias
-                if (!nome || !email || !telefone || !cpf || !mentoria || !origem) {
-                    showAlert('⚠️ Preencha todos os campos obrigatórios marcados com *.', 'error');
-                    return;
-                }
-
-                // Validar CPF com dígitos verificadores
-                if (!validarCPF(cpf)) {
-                    showAlert('❌ CPF inválido. Por favor, verifique o número digitado e tente novamente.', 'error');
-                    document.getElementById('cpf').focus();
-                    return;
-                }
-
-                // Validar checkbox LGPD
-                if (!lgpdConsent) {
-                    showAlert('⚠️ Você deve aceitar os termos de LGPD e proteção de dados para continuar com o cadastro.', 'error');
-                    document.getElementById('lgpdConsent').focus();
-                    return;
-                }
-
-                // Loading state no botão
-                const submitBtn = form.querySelector('button[type="submit"]');
-                const originalText = submitBtn.textContent;
-                submitBtn.textContent = '⏳ Enviando cadastro...';
-                submitBtn.disabled = true;
-
-                try {
-                    const novoCadastro = {
-                        id: 'CAD-' + Date.now(),
-                        nome,
-                        email,
-                        telefone,
-                        cpf,
-                        mentoria,
-                        jornada: mentoria,
-                        origem,
-                        canal: origem,
-                        momento,
-                        expectativa,
-                        lgpdAceito: true,
-                        lgpdData: new Date().toISOString(),
-                        status: 'pendente',
-                        dataCadastro: new Date().toISOString()
-                    };
-
-                    const cadastros = carregarCadastros();
-                    cadastros.push(novoCadastro);
-                    salvarCadastros(cadastros);
-
-                    showAlert('✅ Cadastro enviado com sucesso! Sua ficha foi registrada como pendente para avaliação. Em breve entraremos em contato.', 'success');
-                    form.reset();
-
-                    // Rolar para o topo do card
-                    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } catch (error) {
-                    showAlert('❌ Erro ao enviar cadastro. Por favor, tente novamente ou entre em contato conosco.', 'error');
-                } finally {
-                    submitBtn.textContent = originalText;
-                    submitBtn.disabled = false;
-                }
-            });
+      if (telefoneInput) {
+        telefoneInput.addEventListener('input', (e) => {
+          e.target.value = maskPhone(e.target.value);
         });
-    </script>
+      }
+
+      const form          = document.getElementById('cadastroForm');
+      const submitBtn     = document.getElementById('submitBtn');
+      const successBox    = document.getElementById('successMessage');
+      const errorBox      = document.getElementById('errorMessage');
+      const mentoriaField = document.getElementById('mentoria');
+
+      async function handleSubmit(event) {
+        event.preventDefault();
+        if (!form) return;
+
+        successBox.textContent = '';
+        errorBox.textContent   = '';
+
+        const nome         = document.getElementById('nome').value.trim();
+        const email        = document.getElementById('email').value.trim();
+        const telefone     = document.getElementById('telefone').value.trim();
+        const cidade       = document.getElementById('cidade').value.trim();
+        const estado       = document.getElementById('estado').value.trim();
+        const origem       = document.getElementById('origem').value.trim();
+        const mentoria     = mentoriaField.value;
+        const pagamento    = document.getElementById('pagamento').value.trim();
+        const cpf          = document.getElementById('cpf').value.trim();
+        const endereco     = document.getElementById('endereco').value.trim();
+        const numero       = document.getElementById('numero').value.trim();
+        const bairro       = document.getElementById('bairro').value.trim();
+        const expectativas = document.getElementById('expectativas').value.trim();
+
+        if (!nome || !email || !mentoria) {
+          errorBox.textContent = 'Por favor, preencha ao menos Nome, E-mail e Mentoria.';
+          return;
+        }
+
+        const selectedOption = mentoriaField.selectedOptions[0];
+        const mentoriaPreco  = selectedOption ? (selectedOption.dataset.preco || '') : '';
+
+        const payload = {
+          nome,
+          email,
+          whatsapp: telefone,
+          mentoria,
+          mentoriaPreco,
+          pagamento,
+          cpf,
+          endereco,
+          numero,
+          bairro,
+          cidade,
+          estado,
+          expectativas,
+          origem
+        };
+
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+
+        try {
+          const response = await fetch('/api/cadastro', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          let data;
+          try {
+            data = await response.json();
+          } catch (e) {
+            data = null;
+          }
+
+          if (data && data.status === 'sucesso') {
+            successBox.textContent = data.message || 'Cadastro enviado com sucesso. Entraremos em contato.';
+            form.reset();
+          } else if (data && data.status === 'alerta') {
+            successBox.textContent = data.message || 'Cadastro recebido, mas houve alerta no envio de e-mail.';
+          } else if (data && data.message) {
+            errorBox.textContent = data.message;
+          } else {
+            errorBox.textContent = 'Não foi possível confirmar o envio. Tente novamente em alguns instantes.';
+          }
+        } catch (error) {
+          console.error('Erro ao enviar cadastro:', error);
+          errorBox.textContent = 'Erro ao enviar cadastro. Verifique sua conexão ou tente mais tarde.';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalText;
+        }
+      }
+
+      if (form) {
+        form.addEventListener('submit', handleSubmit);
+      }
+    });
+  </script>
+
 </body>
 </html>

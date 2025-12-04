@@ -156,8 +156,8 @@
 
     .main-button {
       margin-top: 4px;
-      width: 100%;             /* mesma largura do input */
-      padding: 13px 16px;      /* mesma altura base do input */
+      width: 100%;
+      padding: 13px 16px;
       border-radius: 999px;
       border: none;
       background: var(--gradient-tertiary);
@@ -175,6 +175,13 @@
       box-shadow: 0 10px 28px rgba(79,172,254,0.9);
     }
 
+    .main-button:disabled {
+      opacity: 0.7;
+      cursor: wait;
+      transform: none;
+      box-shadow: 0 4px 16px rgba(79,172,254,0.5);
+    }
+
     .helper {
       margin-top: 18px;
       font-size: 0.8rem;
@@ -185,6 +192,10 @@
     .helper a {
       color: #4facfe;
       text-decoration: none;
+    }
+
+    .helper a:hover {
+      text-decoration: underline;
     }
 
     .error {
@@ -202,7 +213,7 @@
       text-align: center;
     }
 
-/* Animação de shake para erros */
+    /* Animação de shake para erros */
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
       10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
@@ -255,19 +266,20 @@
   </div>
 
   <script>
-    const btnMember = document.getElementById("btnMember");
-    const btnAdmin  = document.getElementById("btnAdmin");
-    const groupEmail = document.getElementById("groupEmail");
-    const emailInput = document.getElementById("email");
+    const btnMember     = document.getElementById("btnMember");
+    const btnAdmin      = document.getElementById("btnAdmin");
+    const groupEmail    = document.getElementById("groupEmail");
+    const emailInput    = document.getElementById("email");
     const passwordInput = document.getElementById("password");
-    const btnLogin = document.getElementById("btnLogin");
-    const errorBox = document.getElementById("error");
+    const btnLogin      = document.getElementById("btnLogin");
+    const errorBox      = document.getElementById("error");
 
     let currentMode = "member"; // "member" ou "admin"
 
     function setMode(mode) {
       currentMode = mode;
       errorBox.textContent = "";
+      errorBox.classList.remove("shake");
 
       if (mode === "member") {
         btnMember.classList.add("active");
@@ -284,25 +296,22 @@
     btnMember.addEventListener("click", () => setMode("member"));
     btnAdmin.addEventListener("click", () => setMode("admin"));
 
-/*
+    /*
      * ============================================
-     * NOTA DE SEGURANÇA - SHA-256 HASHING
+     * NOTA DE SEGURANÇA - SHA-256 HASHING (ADMIN)
      * ============================================
-     * 
-     * O hash SHA-256 é calculado no cliente (navegador) e enviado
-     * para /api/auth que valida contra keys.json armazenado em 
-     * ENV variables do Vercel.
-     * 
-     * A senha NUNCA é enviada em texto plano pela rede.
-     * 
-     * Hash correto para admin:
+     * O hash SHA-256 é calculado no cliente e comparado
+     * com o hash da senha admin. Nenhuma senha é enviada
+     * em texto plano pela rede.
+     *
+     * Hash correto da senha administrativa:
      * d17a1d2ab6c8efe744019a3249928591d70905d4c3ce309461634a3cf30cca9a
-     * 
-     * Senha original (apenas para referência de desenvolvimento):
+     *
+     * Senha original (desenvolvimento):
      * Sw04012014!&#
-     * 
-     * EM PRODUÇÃO: keys.json deve estar APENAS em ENV variables,
-     * NUNCA commitado no repositório Git.
+     *
+     * Em produção: a validação ideal é feita na API com ENV,
+     * mas aqui mantemos o fluxo como no arquivo original.
      * ============================================
      */
 
@@ -317,56 +326,65 @@
 
     async function handleLogin() {
       errorBox.textContent = "";
+      errorBox.classList.remove("shake");
 
       const senha = passwordInput.value.trim();
 
       if (!senha) {
         errorBox.textContent = "Digite a senha.";
+        errorBox.classList.add("shake");
+        setTimeout(() => errorBox.classList.remove("shake"), 500);
         return;
       }
 
-      if (currentMode === "admin") {
-        // 🔐 ADMIN VIA HASH (keys.json)
-        const hash = await sha256(senha);
+      const originalText = btnLogin.textContent;
+      btnLogin.disabled = true;
+      btnLogin.textContent = "Entrando...";
 
-        // Hash correto da senha Sw04012014!&#
-        const ADMIN_HASH = "d17a1d2ab6c8efe744019a3249928591d70905d4c3ce309461634a3cf30cca9a";
+      try {
+        if (currentMode === "admin") {
+          // Admin via hash local
+          const hash = await sha256(senha);
 
-        if (hash === ADMIN_HASH) {
-          // Mantém sessão em todo o site
-          localStorage.setItem("admin", "true");
-          sessionStorage.setItem("userType", "admin");
-          sessionStorage.setItem("userName", "Sergio Tanigawa");
-          sessionStorage.setItem("userEmail", "admin@institutotanigawa.com.br");
+          const ADMIN_HASH = "d17a1d2ab6c8efe744019a3249928591d70905d4c3ce309461634a3cf30cca9a";
 
-          window.location.href = "admin_dashboard.html";
-          return;
-        } else {
-          errorBox.textContent = "Senha administrativa incorreta.";
+          if (hash === ADMIN_HASH) {
+            // Marca sessão admin
+            localStorage.setItem("admin", "true");
+            sessionStorage.setItem("userType", "admin");
+            sessionStorage.setItem("userName", "Sergio Tanigawa");
+            sessionStorage.setItem("userEmail", "admin@institutotanigawa.com.br");
+
+            window.location.href = "admin_dashboard.html";
+            return;
+          } else {
+            errorBox.textContent = "Senha administrativa incorreta.";
+            errorBox.classList.add("shake");
+            setTimeout(() => errorBox.classList.remove("shake"), 500);
+            return;
+          }
+        }
+
+        // MODO MEMBRO (placeholder)
+        const email = (emailInput.value || "").trim();
+
+        if (!email) {
+          errorBox.textContent = "Digite o e-mail para entrar como membro.";
+          errorBox.classList.add("shake");
+          setTimeout(() => errorBox.classList.remove("shake"), 500);
           return;
         }
-      }
 
-      // 🔓 MODO MEMBRO – por enquanto só placeholder
-      const email = (emailInput.value || "").trim();
-
-      if (!email) {
-        errorBox.textContent = "Digite o e-mail para entrar como membro.";
-        return;
-      }
-
-      // Aqui no futuro entrará o Firebase Auth / outro sistema.
-      // Por enquanto, apenas mensagem amigável.
-      errorBox.textContent = "🔒 Login de membros em desenvolvimento. Entre em contato com tanigawa.sergio@gmail.com para ativar seu acesso.";
-      errorBox.classList.add('shake');
-      setTimeout(() => errorBox.classList.remove('shake'), 500);
-    }
-} finally {
-        // Restaura botão
+        // Aqui você pode, no futuro, integrar com API/Firebase/etc.
+        errorBox.textContent = "🔒 Login de membros em desenvolvimento. Entre em contato com tanigawa.sergio@gmail.com para ativar seu acesso.";
+        errorBox.classList.add("shake");
+        setTimeout(() => errorBox.classList.remove("shake"), 500);
+      } finally {
         btnLogin.textContent = originalText;
         btnLogin.disabled = false;
       }
     }
+
     btnLogin.addEventListener("click", handleLogin);
 
     // ENTER na senha = clicar no botão
@@ -377,7 +395,7 @@
       }
     });
 
-    // ENTER no campo de e-mail também dispara se estiver em modo membro
+    // ENTER no campo de e-mail dispara se estiver em modo membro
     emailInput.addEventListener("keydown", (event) => {
       if (event.key === "Enter" && currentMode === "member") {
         event.preventDefault();
@@ -385,9 +403,8 @@
       }
     });
 
-    // Modo padrão ao carregar
-    setMode("admin"); // se preferir começar em "member", troque aqui
+    // Modo padrão ao carregar (como no original: admin)
+    setMode("admin");
   </script>
 </body>
 </html>
-
