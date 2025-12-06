@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Painel de Governo • Instituto Tanigawa</title>
 
+  <!-- Fontes padrão do ecossistema -->
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
   <style>
     :root {
       --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -33,324 +36,355 @@
     }
 
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: var(--color-dark);
       color: var(--color-text);
       min-height: 100vh;
       overflow-x: hidden;
       background-image:
-        radial-gradient(circle at 20% 50%, rgba(102,126,234,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(245,87,108,0.12) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(67,233,123,0.10) 0%, transparent 50%);
-      animation: bgMove 25s infinite alternate ease-in-out;
+        radial-gradient(circle at 20% 50%, rgba(102,126,234,0.18) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(245,87,108,0.18) 0%, transparent 55%),
+        radial-gradient(circle at 0% 100%, rgba(67,233,123,0.20) 0%, transparent 55%);
+      background-attachment: fixed;
     }
 
-    @keyframes bgMove {
-      from { background-position: 0 0; }
-      to   { background-position: 50px 80px; }
+    main {
+      max-width: 1200px;
+      margin: 32px auto 64px;
+      padding: 0 16px;
     }
-
-    .page {
-      max-width: 1280px;
-      margin: 32px auto 40px;
-      padding: 0 20px;
-    }
-
-    /* HEADER */
 
     .header {
       position: sticky;
       top: 16px;
-      z-index: 20;
+      z-index: 10;
       margin-bottom: 24px;
     }
 
     .header-inner {
-      background: linear-gradient(135deg, rgba(10,14,39,0.9), rgba(6,9,25,0.96));
+      background: linear-gradient(135deg, rgba(10,14,39,0.95), rgba(6,9,25,0.98));
       backdrop-filter: blur(18px);
       border-radius: 24px;
-      padding: 18px 24px;
+      padding: 18px 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border: 1px solid rgba(255,255,255,0.06);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.55);
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(148,163,184,0.18);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
     }
 
     .brand-icon {
-      width: 42px;
-      height: 42px;
+      width: 46px;
+      height: 46px;
       border-radius: 18px;
-      background: var(--gradient-primary);
+      background: radial-gradient(circle at 10% 0%, #f97316, #ec4899 40%, #3b82f6 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: 700;
       font-family: "Sora", system-ui, sans-serif;
-      font-size: 1.1rem;
-      box-shadow: var(--shadow-glow);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(15,23,42,0.9);
     }
 
     .brand-text {
       display: flex;
       flex-direction: column;
+      gap: 2px;
     }
 
     .brand-label {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.13em;
+      letter-spacing: 0.12em;
       color: var(--color-text-muted);
     }
 
     .brand-title {
       font-family: "Sora", system-ui, sans-serif;
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 700;
       background: var(--gradient-primary);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .header-right {
+    .admin-chip {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 0 0, rgba(96,165,250,0.45), rgba(15,23,42,0.95));
+      box-shadow: var(--shadow-glow);
     }
 
-    .user-info {
-      text-align: right;
+    .admin-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2px;
     }
 
-    .user-name {
+    .admin-name {
+      font-family: "Sora", system-ui, sans-serif;
       font-size: 0.95rem;
       font-weight: 600;
     }
 
-    .user-role {
-      font-size: 0.78rem;
+    .admin-role {
+      font-size: 0.75rem;
       color: var(--color-text-muted);
     }
 
-    .btn-logout {
-      padding: 10px 22px;
-      border-radius: 999px;
+    .logout-btn {
       border: none;
-      cursor: pointer;
-      background: var(--gradient-secondary);
-      color: #fff;
+      outline: none;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #f97373, #fb7185);
+      color: white;
+      font-size: 0.8rem;
       font-weight: 600;
-      font-family: "Sora", system-ui, sans-serif;
-      box-shadow: 0 8px 24px rgba(245,87,108,0.55);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(248,113,113,0.4);
     }
 
-    .btn-logout:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 32px rgba(245,87,108,0.7);
+    .logout-btn:hover {
+      filter: brightness(1.05);
     }
 
-    /* LOADER */
-
-    .loader-wrapper {
-      margin-top: 24px;
-      background: var(--color-card);
-      border-radius: 24px;
-      padding: 40px 24px 50px;
-      border: 1px solid rgba(255,255,255,0.05);
-      box-shadow: var(--shadow-card);
-      text-align: center;
-    }
-
-    .loader-title {
-      font-family: "Sora", system-ui, sans-serif;
-      font-size: 1.05rem;
-      margin-bottom: 12px;
-    }
-
-    .loader-subtitle {
-      font-size: 0.9rem;
-      color: var(--color-text-muted);
-      margin-bottom: 26px;
-    }
-
-    .dots {
-      display: flex;
-      justify-content: center;
+    .badge-version {
+      margin-top: 8px;
+      margin-left: 4px;
+      display: inline-flex;
+      align-items: center;
       gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(148,163,184,0.4);
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
     }
 
-    .dot {
+    .badge-dot {
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.35);
-      animation: pulse 1s infinite ease-in-out;
-    }
-
-    .dot:nth-child(2) { animation-delay: 0.15s; }
-    .dot:nth-child(3) { animation-delay: 0.3s; }
-
-    @keyframes pulse {
-      0%, 100% { transform: translateY(0); opacity: 0.4; }
-      50%      { transform: translateY(-4px); opacity: 1; }
-    }
-
-    /* MAIN CONTENT */
-
-    .content {
-      display: none; /* começa oculto até validar admin */
-      margin-top: 24px;
-      display: none;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34,197,94,0.8);
     }
 
     .section {
-      background: var(--color-card);
-      border-radius: 24px;
-      padding: 24px;
-      border: 1px solid rgba(255,255,255,0.05);
-      box-shadow: var(--shadow-card);
-      margin-bottom: 24px;
+      margin-top: 26px;
     }
 
     .section-header {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      margin-bottom: 18px;
-      gap: 12px;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-inline: 2px;
     }
 
     .section-title {
       font-family: "Sora", system-ui, sans-serif;
-      font-size: 1.1rem;
-    }
-
-    .section-subtitle {
-      font-size: 0.85rem;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
       color: var(--color-text-muted);
     }
 
-    .badge {
-      padding: 6px 12px;
+    .section-pill {
+      font-size: 0.7rem;
+      padding: 4px 10px;
       border-radius: 999px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      background: rgba(255,255,255,0.06);
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(148,163,184,0.35);
       color: var(--color-text-muted);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 18px;
     }
 
     .card {
-      background: rgba(6,9,25,0.9);
-      border-radius: 20px;
-      padding: 18px 18px 20px;
-      border: 1px solid rgba(255,255,255,0.06);
-      transition: 0.3s;
       position: relative;
+      border-radius: var(--radius-card);
+      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.04), rgba(15,23,42,0.98));
+      border: 1px solid rgba(148,163,184,0.25);
+      box-shadow: var(--shadow-card);
+      padding: 18px 18px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
       overflow: hidden;
     }
 
     .card::before {
       content: "";
       position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at top left, rgba(102,126,234,0.3), transparent 55%);
+      inset: -40%;
+      background: radial-gradient(circle at 0 0, rgba(129,140,248,0.32), transparent 60%);
       opacity: 0;
-      transition: opacity 0.3s;
+      transition: opacity 0.3s ease-out;
       pointer-events: none;
-    }
-
-    .card:hover {
-      transform: translateY(-6px);
-      background: rgba(10,14,39,0.98);
-      box-shadow: 0 18px 40px rgba(0,0,0,0.85);
     }
 
     .card:hover::before {
       opacity: 1;
     }
 
+    .card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted);
+    }
+
     .card-title {
       font-family: "Sora", system-ui, sans-serif;
-      font-size: 1rem;
-      margin-bottom: 6px;
+      font-size: 1.02rem;
+      font-weight: 600;
     }
 
     .card-desc {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--color-text-muted);
-      margin-bottom: 14px;
+      line-height: 1.4;
     }
 
     .card-footer {
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      font-size: 0.8rem;
+      align-items: center;
+      margin-top: 6px;
+    }
+
+    .card-meta-pill {
+      font-size: 0.7rem;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.45);
       color: var(--color-text-muted);
-      margin-top: 8px;
+      background: rgba(15,23,42,0.9);
     }
 
-    .pill {
-      padding: 6px 12px;
+    .primary-btn {
       border-radius: 999px;
-      font-size: 0.75rem;
-      border: 1px solid rgba(255,255,255,0.15);
-    }
-
-    .link-btn {
-      border-radius: 999px;
-      padding: 8px 14px;
       border: none;
       cursor: pointer;
-      font-size: 0.82rem;
+      padding: 8px 14px;
+      font-size: 0.8rem;
       font-weight: 600;
-      font-family: "Inter", system-ui, sans-serif;
-      background: var(--gradient-tertiary);
-      color: #fff;
-      box-shadow: 0 4px 14px rgba(79,172,254,0.6);
-      transition: 0.25s;
+      color: #0b1220;
+      background: #f9fafb;
+      box-shadow: 0 10px 25px rgba(15,23,42,0.9);
     }
 
-    .link-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(79,172,254,0.85);
+    .primary-btn:hover {
+      filter: brightness(1.03);
     }
 
-    .danger {
-      background: var(--gradient-secondary);
-      box-shadow: 0 4px 16px rgba(245,87,108,0.7);
+    .primary-btn.blue {
+      background: #0ea5e9;
+      color: white;
+      box-shadow: 0 14px 30px rgba(56,189,248,0.55);
     }
 
-    @media (max-width: 768px) {
+    .primary-btn.purple {
+      background: #6366f1;
+      color: white;
+      box-shadow: 0 14px 30px rgba(79,70,229,0.55);
+    }
+
+    .primary-btn.green {
+      background: #22c55e;
+      color: white;
+      box-shadow: 0 14px 30px rgba(34,197,94,0.55);
+    }
+
+    .primary-btn.pink {
+      background: #ec4899;
+      color: white;
+      box-shadow: 0 14px 30px rgba(236,72,153,0.55);
+    }
+
+    .loader-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+    }
+
+    .loader {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 3px solid rgba(148,163,184,0.3);
+      border-top-color: #6366f1;
+      animation: spin 0.9s linear infinite;
+    }
+
+    .loader-text {
+      margin-top: 14px;
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      text-align: center;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      main {
+        margin-top: 20px;
+      }
+
       .header-inner {
         flex-direction: column;
         align-items: flex-start;
-        gap: 16px;
+        gap: 14px;
       }
-      .header-right {
-        width: 100%;
+
+      .admin-chip {
+        align-self: stretch;
         justify-content: space-between;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="page">
+  <main>
     <!-- HEADER -->
     <header class="header">
       <div class="header-inner">
@@ -362,223 +396,236 @@
           </div>
         </div>
 
-        <div class="header-right">
-          <div class="user-info">
-            <div class="user-name" id="adminName">Carregando...</div>
-            <div class="user-role">Acesso administrativo</div>
+        <div class="admin-chip">
+          <div class="admin-info">
+            <div id="adminName" class="admin-name">Admin</div>
+            <div class="admin-role">Acesso administrativo</div>
           </div>
-          <button class="btn-logout" id="logoutBtn">Sair</button>
+          <button id="logoutBtn" class="logout-btn">Sair</button>
         </div>
+      </div>
+
+      <div class="badge-version">
+        <span class="badge-dot"></span>
+        <span>Versão 2026 • DS</span>
       </div>
     </header>
 
-    <!-- LOADER -->
-    <section id="adminLoader" class="loader-wrapper">
-      <div class="loader-title">Carregando... <span style="font-weight:400;">Verificando credenciais</span></div>
-      <div class="loader-subtitle">Validando acesso de administrador</div>
-      <div class="dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
+    <!-- LOADER INICIAL -->
+    <div id="adminLoader" class="loader-wrapper">
+      <div>
+        <div class="loader"></div>
+        <div class="loader-text">Validando credenciais administrativas...</div>
       </div>
+    </div>
+
+    <!-- CONTEÚDO PRINCIPAL (oculto até validar admin) -->
+    <section id="adminContent" style="display:none;">
+      <!-- VISÃO GERAL -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-title">Visão geral do governo</div>
+          <div class="section-pill">Acesso rápido às principais frentes do Instituto Tanigawa</div>
+        </div>
+
+        <div class="grid">
+          <!-- Mentorias & Produtos -->
+          <article class="card">
+            <div class="card-header">
+              <div class="card-label">Mentorias & Produtos</div>
+              <div class="card-title">Páginas públicas e fluxos do site</div>
+              <p class="card-desc">
+                Visualize como Synesis, Sozo e NR-1 estão apresentados no site e teste o funil dos mentorados.
+              </p>
+            </div>
+            <div class="card-footer">
+              <span class="card-meta-pill">Synesis • Sozo • NR-1</span>
+              <button class="primary-btn blue" onclick="window.location.href='mentoria.html'">Ver site</button>
+            </div>
+          </article>
+
+          <!-- Gestão de Produtos -->
+          <article class="card">
+            <div class="card-header">
+              <div class="card-label">Produtos</div>
+              <div class="card-title">Gerenciar Produtos</div>
+              <p class="card-desc">
+                Cadastre, edite e organize cursos, mentorias, ebooks e livros físicos disponíveis no Instituto.
+              </p>
+            </div>
+            <div class="card-footer">
+              <span class="card-meta-pill">CRUD completo</span>
+              <button class="primary-btn purple" onclick="window.location.href='admin-produtos.html'">Abrir gestão</button>
+            </div>
+          </article>
+
+          <!-- Área de membros -->
+          <article class="card">
+            <div class="card-header">
+              <div class="card-label">Experiência do aluno</div>
+              <div class="card-title">Área de Membros</div>
+              <p class="card-desc">
+                Acesse a visão do aluno para validar trilhas, vídeos, progresso e experiências internas.
+              </p>
+            </div>
+            <div class="card-footer">
+              <span class="card-meta-pill">Ambiente do aluno</span>
+              <button class="primary-btn green" onclick="window.location.href='area_membros.html'">Abrir membros</button>
+            </div>
+          </article>
+
+          <!-- Diagnóstico PEAD -->
+          <article class="card">
+            <div class="card-header">
+              <div class="card-label">Funil estratégico</div>
+              <div class="card-title">Diagnóstico Tanigawa • PEAD</div>
+              <p class="card-desc">
+                Teste o fluxo do diagnóstico, veja a experiência do usuário e valide o redirecionamento para o cadastro.
+              </p>
+            </div>
+            <div class="card-footer">
+              <span class="card-meta-pill">Entrada de jornada</span>
+              <button class="primary-btn pink" onclick="window.location.href='diagnostico-tanigawa-pead.html'">Abrir diagnóstico</button>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- BACKOFFICE -->
+      <section class="section">
+        <div class="section-header">
+          <div class="section-title">Administração & Backoffice</div>
+          <div class="section-pill">Ferramentas internas para operação do Instituto</div>
+        </div>
+
+        <div class="grid">
+          <!-- Gerar contrato -->
+          <article class="card">
+            <div class="card-header">
+              <div class="card-label">Documentos oficiais</div>
+              <div class="card-title">Gerar Contrato</div>
+              <p class="card-desc">
+                Acesse o módulo de geração de contratos para mentorias, acompanhamentos e consultorias.
+              </p>
+            </div>
+            <div class="card-footer">
+              <span class="card-meta-pill">Contratos e termos</span>
+              <button class="primary-btn" onclick="window.location.href='gerar-contrato.html'">Abrir módulo</button>
+            </div>
+          </article>
+
+          <!-- Cadastro completo -->
+          <article class="card">
+            <div class="card-header">
+              <div class="card-label">Onboarding</div>
+              <div class="card-title">Cadastro Completo</div>
+              <p class="card-desc">
+                Teste o fluxo de cadastro completo e verifique se todos os campos estão chegando corretamente.
+              </p>
+            </div>
+            <div class="card-footer">
+              <span class="card-meta-pill">Fluxo de entrada</span>
+              <button class="primary-btn" onclick="window.location.href='cadastro-completo.html'">Abrir cadastro</button>
+            </div>
+          </article>
+
+          <!-- Devocionais -->
+          <article class="card">
+            <div class="card-header">
+              <div class="card-label">Conteúdo espiritual</div>
+              <div class="card-title">Devocionais & Conteúdos</div>
+              <p class="card-desc">
+                Revise a página de devocionais, cards e links para garantir ritmo, estética e coerência.
+              </p>
+            </div>
+            <div class="card-footer">
+              <span class="card-meta-pill">Alimentação espiritual</span>
+              <button class="primary-btn" onclick="window.location.href='devocionais.html'">Abrir devocionais</button>
+            </div>
+          </article>
+
+          <!-- Contato -->
+          <article class="card">
+            <div class="card-header">
+              <div class="card-label">Atendimento</div>
+              <div class="card-title">Contato & Suporte</div>
+              <p class="card-desc">
+                Teste as mensagens de contato e valide o recebimento no e-mail configurado (SMTP / API).
+              </p>
+            </div>
+            <div class="card-footer">
+              <span class="card-meta-pill">Canal oficial</span>
+              <button class="primary-btn" onclick="window.location.href='contato.html'">Testar contato</button>
+            </div>
+          </article>
+
+          <!-- NR-1 -->
+          <article class="card">
+            <div class="card-header">
+              <div class="card-label">NR-1 Life Corporate</div>
+              <div class="card-title">NR-1 • Portal Corporativo</div>
+              <p class="card-desc">
+                Acesse a página do projeto NR-1 e confira navegação, CTAs e linguagem para empresas.
+              </p>
+            </div>
+            <div class="card-footer">
+              <span class="card-meta-pill">Projeto corporativo</span>
+              <button class="primary-btn blue" onclick="window.location.href='nr-1.html'">Abrir NR-1</button>
+            </div>
+          </article>
+
+          <!-- Voltar ao site -->
+          <article class="card">
+            <div class="card-header">
+              <div class="card-label">Visão pública</div>
+              <div class="card-title">Voltar ao Site</div>
+              <p class="card-desc">
+                Visualize o site como visitante para checar identidade visual, navegação e chamadas públicas.
+              </p>
+            </div>
+            <div class="card-footer">
+              <span class="card-meta-pill">Home pública</span>
+              <button class="primary-btn" onclick="window.location.href='home.html'">Home pública</button>
+            </div>
+          </article>
+        </div>
+      </section>
     </section>
-
-    <!-- CONTEÚDO DO PAINEL -->
-    <main id="adminContent" class="content">
-      <!-- BLOCO 1: Resumo rápido -->
-      <section class="section">
-        <div class="section-header">
-          <div>
-            <div class="section-title">Visão geral do governo</div>
-            <div class="section-subtitle">Acesso rápido às principais frentes do Instituto Tanigawa.</div>
-          </div>
-          <span class="badge">Versão 2026 • DS</span>
-        </div>
-
-        <div class="grid">
-          <article class="card">
-            <h3 class="card-title">Mentorias & Produtos</h3>
-            <p class="card-desc">
-              Gerencie páginas de mentoria, devocionais e fluxos do site público.
-            </p>
-            <div class="card-footer">
-              <span class="pill">Synesis • Sozo • NR-1</span>
-              <button class="link-btn" onclick="location.href='home.html'">Ver site</button>
-            </div>
-          </article>
-
-          <article class="card">
-          <h3 class="card-title">🛍️ Gerenciar Produtos</h3>
-            <p class="card-desc">
-              Adicione e gerencie cursos, mentorias, ebooks e livros físicos oferecidos pelo instituto.
-            </p>
-            <div class="card-footer">
-              <span class="pill">CRUD completo</span>
-              <button class="link-btn" onclick="location.href='admin-produtos.html'">Abrir Gestão</button>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Área de Membros</h3>
-            <p class="card-desc">
-              Consulte o ambiente de membros e verifique experiência do usuário logado.
-            </p>
-            <div class="card-footer">
-              <span class="pill">Experiência do aluno</span>
-              <button class="link-btn" onclick="location.href='area_membros.html'">Abrir membros</button>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Diagnóstico Tanigawa • PEAD</h3>
-            <p class="card-desc">
-              Teste o fluxo de diagnóstico e recebimento dos resultados por e-mail.
-            </p>
-            <div class="card-footer">
-              <span class="pill">Funil estratégico</span>
-              <button class="link-btn" onclick="location.href='diagnostico-tanigawa-pead.html'">Abrir diagnóstico</button>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- BLOCO 2: Administração -->
-      <section class="section">
-        <div class="section-header">
-          <div>
-            <div class="section-title">Administração & Backoffice</div>
-            <div class="section-subtitle">Ferramentas internas para operação do Instituto.</div>
-          </div>
-          <span class="badge">Backoffice</span>
-        </div>
-
-        <div class="grid">
-          <article class="card">
-            <h3 class="card-title">Gerar Contrato</h3>
-            <p class="card-desc">
-              Acesse o módulo de geração de contratos para mentorias, acompanhamentos e consultorias.
-            </p>
-            <div class="card-footer">
-              <span class="pill">Documentos oficiais</span>
-              <button class="link-btn" onclick="location.href='gerar-contrato.html'">Abrir módulo</button>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Cadastro Completo</h3>
-            <p class="card-desc">
-              Teste o fluxo de cadastro completo e verifique se todos os campos estão chegando corretamente.
-            </p>
-            <div class="card-footer">
-              <span class="pill">Onboarding</span>
-              <button class="link-btn" onclick="location.href='cadastro-completo.html'">Abrir cadastro</button>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Contato & Suporte</h3>
-            <p class="card-desc">
-              Valide se mensagens de contato estão chegando no e-mail configurado (SMTP / API).
-            </p>
-            <div class="card-footer">
-              <span class="pill">Atendimento</span>
-              <button class="link-btn" onclick="location.href='contato.html'">Testar contato</button>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">NR-1 • Portal Corporativo</h3>
-            <p class="card-desc">
-              Acesse a página do projeto NR-1 e confira a navegação e CTAs corporativos.
-            </p>
-            <div class="card-footer">
-              <span class="pill">NR-1 Life Corporate</span>
-              <button class="link-btn" onclick="location.href='nr-1.html'">Abrir NR-1</button>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Devocionais & Conteúdos</h3>
-            <p class="card-desc">
-              Revise a página de devocionais, cards e links para conteúdos estratégicos.
-            </p>
-            <div class="card-footer">
-              <span class="pill">Alimentação espiritual</span>
-              <button class="link-btn" onclick="location.href='devocionais.html'">Abrir devocionais</button>
-            </div>
-          </article>
-
-          <article class="card">
-            <h3 class="card-title">Voltar ao Site</h3>
-            <p class="card-desc">
-              Visualize o site como visitante para checar identidade visual e navegação.
-            </p>
-            <div class="card-footer">
-              <span class="pill">Visão pública</span>
-              <button class="link-btn danger" onclick="location.href='index.html'">Home pública</button>
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
-  </div>
+  </main>
 
   <script>
+    // Mantém o admin conectado enquanto não clicar em "Sair"
     function verificarAdmin() {
       const isAdmin = localStorage.getItem("admin") === "true";
 
       if (!isAdmin) {
-        // Não autenticado como admin: volta para login
         window.location.href = "auth_system.html";
         return;
       }
 
-      // Se chegou aqui, é admin válido
       const loader = document.getElementById("adminLoader");
       const content = document.getElementById("adminContent");
       const nameEl = document.getElementById("adminName");
 
-      loader.style.display = "none";
-      content.style.display = "block";
+      if (loader) loader.style.display = "none";
+      if (content) content.style.display = "block";
 
-      // Nome fixo para o admin master (pode futuramente ler de storage)
+      // Nome fixo por enquanto – pode futuramente vir do storage
       nameEl.textContent = "Sergio Tanigawa";
     }
 
-// Função para ir ao gerador de contrato com validação
-    function goToContract(mentoradoIndex) {
-      // Recupera mentorados do localStorage (quando implementar a tabela)
-      const mentorados = JSON.parse(localStorage.getItem('mentorados') || '[]');
-      const mentorado = mentorados[mentoradoIndex];
-      
-      if (!mentorado) {
-        alert('❌ Erro: Mentorado não encontrado.');
-        return;
-      }
-      
-      // Validar dados obrigatórios
-      if (!mentorado.nome || !mentorado.cpf || !mentorado.email) {
-        alert('⚠️ Dados incompletos. Edite o mentorado e preencha todos os campos obrigatórios antes de gerar o contrato.');
-        return;
-      }
-      
-      // Salva mentorado atual para o gerador de contrato
-      localStorage.setItem('currentMentorado', JSON.stringify(mentorado));
-      
-      // Redireciona para gerador
-      window.location.href = 'gerar-contrato.html';
-    }
-
     document.addEventListener("DOMContentLoaded", () => {
-      // Dá um pequeno tempo pro efeito de "validando" aparecer
-      setTimeout(verificarAdmin, 700);
+      // Delay curto só para aparecer o "validando"
+      setTimeout(verificarAdmin, 600);
 
       const logoutBtn = document.getElementById("logoutBtn");
-      logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("admin");
-        localStorage.removeItem("user");
-        window.location.href = "auth_system.html";
-      });
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+          localStorage.removeItem("admin");
+          localStorage.removeItem("user");
+          window.location.href = "auth_system.html";
+        });
+      }
     });
   </script>
 </body>
