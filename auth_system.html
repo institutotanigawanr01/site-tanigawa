@@ -1,148 +1,400 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Entrar • Instituto Tanigawa</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acesso • Instituto Tanigawa</title>
+  <meta name="description" content="Área restrita para membros e administradores do Instituto Tanigawa.">
 
-    <!-- Fontes padronizadas -->
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at top, #0a0f24, #000814);
-            color: white;
-            overflow-x: hidden;
-        }
+  <style>
+    :root {
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --color-dark: #0a0e27;
+      --color-card: rgba(255,255,255,0.04);
+      --color-card-strong: rgba(10,14,39,0.95);
+      --color-text: #ffffff;
+      --color-text-muted: #a0aec0;
+      --danger: #f5576c;
+      --shadow-card: 0 20px 60px rgba(0,0,0,0.6);
+      --shadow-glow: 0 0 40px rgba(102,126,234,0.45);
+    }
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-            margin: 120px auto 0;
-            padding: 30px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 18px;
-            backdrop-filter: blur(12px);
-            text-align: center;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        h1 {
-            font-family: 'Sora', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
+    body {
+      min-height: 100vh;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--color-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      background-image:
+        radial-gradient(circle at 20% 50%, rgba(102,126,234,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(245,87,108,0.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(67,233,123,0.10) 0%, transparent 50%);
+      animation: bgMove 25s infinite alternate ease-in-out;
+    }
 
-        p {
-            opacity: 0.8;
-            margin-bottom: 30px;
-        }
+    @keyframes bgMove {
+      from { background-position: 0 0; }
+      to   { background-position: 40px 80px; }
+    }
 
-        input {
-            width: 100%;
-            padding: 14px;
-            border-radius: 10px;
-            border: none;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: radial-gradient(circle at 0% 0%, rgba(102,126,234,0.16), rgba(10,14,39,0.98));
+      border-radius: 24px;
+      padding: 28px 24px 26px;
+      box-shadow: var(--shadow-card);
+      border: 1px solid rgba(148,163,184,0.35);
+      position: relative;
+      overflow: hidden;
+    }
 
-        button {
-            width: 100%;
-            padding: 14px;
-            font-size: 16px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(90deg, #3b82f6, #06b6d4);
-            color: white;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -60%;
+      background:
+        radial-gradient(circle at 0 0, rgba(102,126,234,0.3), transparent 55%),
+        radial-gradient(circle at 100% 0, rgba(245,87,108,0.25), transparent 60%);
+      opacity: 0.3;
+      pointer-events: none;
+    }
 
-        button:hover {
-            opacity: 0.9;
-        }
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
 
-        .msg {
-            margin-top: 15px;
-            font-size: 14px;
-            opacity: 0.8;
-        }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
 
-        /* Partículas de fundo */
-        .bg-dot {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 50%;
-            animation: float 8s infinite ease-in-out;
-        }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: radial-gradient(circle at 0 0, #f97316, #ec4899 40%, #3b82f6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Sora", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(15,23,42,0.8);
+    }
 
-        @keyframes float {
-            0% { transform: translateY(0); opacity: 0.4; }
-            50% { transform: translateY(-25px); opacity: 1; }
-            100% { transform: translateY(0); opacity: 0.4; }
-        }
-    </style>
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .logo-title {
+      font-family: "Sora", system-ui, sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .title {
+      font-family: "Sora", system-ui, sans-serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+      margin-bottom: 18px;
+    }
+
+    .tabs {
+      display: inline-flex;
+      padding: 4px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(148,163,184,0.4);
+      margin-bottom: 18px;
+    }
+
+    .tab-btn {
+      border-radius: 999px;
+      border: none;
+      padding: 6px 12px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      background: transparent;
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .tab-btn.active {
+      background: linear-gradient(135deg, #4f46e5, #22c55e);
+      color: #f9fafb;
+      box-shadow: 0 10px 20px rgba(79,70,229,0.45);
+    }
+
+    .form-group {
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.78rem;
+      margin-bottom: 4px;
+      color: var(--color-text-muted);
+    }
+
+    input {
+      width: 100%;
+      padding: 9px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.6);
+      background: rgba(15,23,42,0.9);
+      color: #e5e7eb;
+      font-size: 0.85rem;
+      font-family: "Inter", system-ui, sans-serif;
+    }
+
+    input::placeholder {
+      color: #64748b;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 1px rgba(96,165,250,0.8);
+    }
+
+    .btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #4f46e5, #0ea5e9);
+      color: #eff6ff;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      box-shadow: 0 14px 30px rgba(59,130,246,0.6);
+    }
+
+    .btn:hover {
+      filter: brightness(1.05);
+    }
+
+    .helper {
+      margin-top: 8px;
+      font-size: 0.75rem;
+      color: var(--color-text-muted);
+    }
+
+    .error {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--danger);
+      min-height: 18px;
+    }
+
+    .admin-hint {
+      margin-top: 6px;
+      font-size: 0.72rem;
+      color: var(--color-text-muted);
+    }
+
+    .admin-hint code {
+      font-family: "Inter", monospace;
+      background: rgba(15,23,42,0.9);
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.4);
+      font-size: 0.72rem;
+    }
+
+    @media (max-width: 480px) {
+      .card {
+        padding: 24px 18px 22px;
+        border-radius: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="card">
+    <div class="card-inner">
+      <div class="logo">
+        <div class="logo-icon">IT</div>
+        <div class="logo-text">
+          <span class="logo-sub">Acesso restrito</span>
+          <span class="logo-title">Instituto Tanigawa</span>
+        </div>
+      </div>
 
-    <!-- Partículas -->
-    <script>
-        for (let i = 0; i < 45; i++) {
-            const dot = document.createElement("div");
-            dot.classList.add("bg-dot");
-            dot.style.left = Math.random() * 100 + "vw";
-            dot.style.top = Math.random() * 100 + "vh";
-            dot.style.animationDelay = Math.random() * 5 + "s";
-            document.body.appendChild(dot);
-        }
-    </script>
+      <h1 class="title">Entrar no Painel</h1>
+      <p class="subtitle">Acesse sua área administrativa ou de membro.</p>
 
-    <div class="container">
-        <h1>Entrar no Painel</h1>
-        <p>Acesse sua área administrativa</p>
+      <div class="tabs">
+        <button id="tab-admin" class="tab-btn active" type="button">Admin</button>
+        <button id="tab-member" class="tab-btn" type="button">Membro</button>
+      </div>
 
-        <input id="email" type="email" placeholder="E-mail" />
-        <input id="senha" type="password" placeholder="Senha" />
+      <div class="form-group" id="group-email">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" placeholder="voce@institutotanigawa.com.br" autocomplete="email" />
+      </div>
 
-        <button onclick="login()">Entrar</button>
+      <div class="form-group">
+        <label for="password" id="label-password">Senha de acesso</label>
+        <input type="password" id="password" placeholder="Digite sua senha" autocomplete="current-password" />
+      </div>
 
-        <div id="msg" class="msg"></div>
+      <button class="btn" id="btnEntrar" type="button">Entrar</button>
+
+      <p class="helper" id="helperText">
+        Use a senha administrativa para acessar o painel de governo.
+      </p>
+
+      <p class="admin-hint">
+        Modo admin protegido por hash local e <code>keys.json</code>.
+      </p>
+
+      <div class="error" id="errorBox"></div>
     </div>
+  </div>
 
-    <script>
-        // LOGIN OFICIAL DO ADMIN — AGORA PERMANENTE
-        function login() {
-            const email = document.getElementById("email").value.trim();
-            const senha = document.getElementById("senha").value.trim();
-            const msg = document.getElementById("msg");
+  <script>
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const errorBox = document.getElementById("errorBox");
+    const helperText = document.getElementById("helperText");
+    const labelPassword = document.getElementById("label-password");
+    const tabAdmin = document.getElementById("tab-admin");
+    const tabMember = document.getElementById("tab-member");
+    const groupEmail = document.getElementById("group-email");
 
-            // >>> Ajuste para seu login real <<<
-            if (email === "admin@institutotanigawa.com.br" && senha === "governo2026") {
-                
-                // Mantém admin conectado até clicar em sair
-                localStorage.setItem("admin", "true");
-                localStorage.setItem("user", "admin");
+    let currentMode = "admin";
 
-                msg.innerHTML = "Acessando...";
-                msg.style.color = "#4ade80";
+    function setMode(mode) {
+      currentMode = mode;
+      errorBox.textContent = "";
 
-                setTimeout(() => {
-                    window.location.href = "admin_dashboard.html";
-                }, 600);
+      if (mode === "admin") {
+        tabAdmin.classList.add("active");
+        tabMember.classList.remove("active");
+        groupEmail.style.display = "none";
+        helperText.textContent = "Use a senha administrativa para acessar o painel de governo.";
+        labelPassword.textContent = "Senha administrativa";
+        passwordInput.placeholder = "Digite a senha administrativa";
+      } else {
+        tabAdmin.classList.remove("active");
+        tabMember.classList.add("active");
+        groupEmail.style.display = "block";
+        helperText.textContent = "Use seu e-mail de cadastro para acessar como membro.";
+        labelPassword.textContent = "Senha de acesso";
+        passwordInput.placeholder = "Digite sua senha de membro";
+      }
+    }
 
-            } else {
-                msg.innerHTML = "Credenciais inválidas.";
-                msg.style.color = "#f87171";
-            }
+    tabAdmin.addEventListener("click", () => setMode("admin"));
+    tabMember.addEventListener("click", () => setMode("member"));
+
+    async function sha256(message) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(message);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+      return hashHex;
+    }
+
+    async function handleLogin() {
+      errorBox.textContent = "";
+
+      const senha = passwordInput.value.trim();
+
+      if (!senha) {
+        errorBox.textContent = "Digite a senha.";
+        return;
+      }
+
+      if (currentMode === "admin") {
+        // 🔐 ADMIN VIA HASH (keys.json)
+        const hash = await sha256(senha);
+
+        // Hash correto da senha Sw04012014!&#
+        const ADMIN_HASH = "d17a1d2ab6c8efe744019a3249928591d70905d4c3ce309461634a3cf30cca9a";
+
+        if (hash === ADMIN_HASH) {
+          // Marca admin em localStorage + sessionStorage
+          localStorage.setItem("admin", "true");
+          sessionStorage.setItem("userType", "admin");
+          sessionStorage.setItem("userName", "Sergio Tanigawa");
+          sessionStorage.setItem("userEmail", "admin@institutotanigawa.com.br");
+
+          window.location.href = "admin_dashboard.html";
+          return;
+        } else {
+          errorBox.textContent = "Senha administrativa incorreta.";
+          return;
         }
-    </script>
+      }
 
+      // 🔓 MODO MEMBRO – por enquanto só placeholder
+      const email = (emailInput.value || "").trim();
+
+      if (!email) {
+        errorBox.textContent = "Digite o e-mail para entrar como membro.";
+        return;
+      }
+
+      // Aqui no futuro entrará o Firebase Auth / outro sistema.
+      // Por enquanto, apenas mensagem amigável.
+      alert("Modo membro ainda em construção. Em breve você poderá acessar sua área de aluno diretamente por aqui.");
+    }
+
+    document.getElementById("btnEntrar").addEventListener("click", handleLogin);
+
+    passwordInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        handleLogin();
+      }
+    });
+
+    emailInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && currentMode === "member") {
+        event.preventDefault();
+        handleLogin();
+      }
+    });
+
+    setMode("admin");
+  </script>
 </body>
 </html>
