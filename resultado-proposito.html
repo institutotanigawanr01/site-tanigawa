@@ -1,189 +1,799 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnóstico do Propósito • Instituto Tanigawa</title>
+  <meta charset="UTF-8">
+  <title>Instituto Tanigawa • Resultado do Diagnóstico de Propósito</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Fontes -->
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --color-dark: #0a0e27;
-            --color-card: rgba(255, 255, 255, 0.05);
-            --color-text: #ffffff;
-            --color-text-muted: #a0aec0;
-        }
+  <style>
+    :root {
+      /* Gradientes */
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
 
-        body {
-            margin: 0;
-            background: var(--color-dark);
-            font-family: "Inter", sans-serif;
-            color: var(--color-text);
-            padding: 0 20px 80px;
-        }
+      /* Cores */
+      --color-dark: #0a0e27;
+      --color-darker: #060919;
+      --color-card: rgba(255, 255, 255, 0.03);
+      --color-card-hover: rgba(255, 255, 255, 0.06);
+      --color-text: #ffffff;
+      --color-text-muted: #a0aec0;
+      --color-accent: #667eea;
+      --color-accent-secondary: #f5576c;
 
-        h1 {
-            font-family: "Sora", sans-serif;
-            font-size: 2.8rem;
-            margin-top: 40px;
-            text-align: center;
-        }
+      /* Sombras */
+      --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+      --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
 
-        .sub {
-            text-align: center;
-            color: var(--color-text-muted);
-            margin-bottom: 50px;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .card {
-            background: var(--color-card);
-            padding: 35px;
-            max-width: 800px;
-            margin: 30px auto;
-            border-radius: 18px;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at 20% 20%, #131a3a 0, #060919 45%, #02030a 100%);
+      color: var(--color-text);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+      overflow-x: hidden;
+    }
 
-        label {
-            display: block;
-            margin-top: 20px;
-            font-size: 1rem;
-        }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.12) 0, transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.12) 0, transparent 55%),
+        radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.10) 0, transparent 55%);
+      opacity: 0.9;
+      z-index: -2;
+    }
 
-        select {
-            width: 100%;
-            margin-top: 8px;
-            padding: 14px;
-            border-radius: 10px;
-            border: none;
-            background: rgba(255,255,255,0.08);
-            color: white;
-            font-size: 1rem;
-        }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.15;
+      z-index: -1;
+      animation: gridMove 30s linear infinite;
+    }
 
-        button {
-            width: 100%;
-            padding: 18px;
-            margin-top: 40px;
-            background: var(--gradient-primary);
-            border-radius: 40px;
-            color: white;
-            font-weight: 700;
-            border: none;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+    @keyframes gridMove {
+      0% { transform: translate(0,0); }
+      100% { transform: translate(60px,60px); }
+    }
 
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.55);
-        }
-    </style>
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: linear-gradient(to bottom,
+                  rgba(6,9,25,0.95),
+                  rgba(6,9,25,0.92),
+                  rgba(6,9,25,0.85),
+                  transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background-image: var(--gradient-primary);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .brand-title {
+      font-family: "Sora", sans-serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #e2e8f0;
+    }
+
+    .brand-subtitle {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+      font-size: 0.9rem;
+    }
+
+    nav a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 0.15rem;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-image: var(--gradient-primary);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .btn-header {
+      padding: 0.55rem 1.4rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background-image: var(--gradient-tertiary);
+      color: #0b1020;
+      box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .btn-header span {
+      font-size: 1.1rem;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+    }
+
+    .page-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .page-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #cbd5f5;
+      background: rgba(15,23,42,0.8);
+      border: 1px solid rgba(148,163,255,0.5);
+    }
+
+    .page-kicker span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 0 4px rgba(74,222,128,0.3);
+    }
+
+    .page-title {
+      font-family: "Sora", sans-serif;
+      font-size: clamp(2.1rem, 2.7vw, 2.8rem);
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .page-subtitle {
+      font-size: 0.98rem;
+      color: var(--color-text-muted);
+      max-width: 720px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1.3fr);
+      gap: 2rem;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 950px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--color-card);
+      border-radius: 24px;
+      padding: 1.8rem 1.9rem;
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(14px);
+      margin-bottom: 1.6rem;
+      transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      background: var(--color-card-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 26px 70px rgba(0,0,0,0.5);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .card-header h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.3rem;
+    }
+
+    .card-subtitle {
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+
+    .badge {
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(148,163,255,0.6);
+      color: #e2e8f0;
+      white-space: nowrap;
+    }
+
+    .proposito-texto {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #e5e7eb;
+      margin-top: 0.5rem;
+    }
+
+    .section-title {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.88rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.8rem;
+    }
+
+    .lista-portas {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap: 0.7rem;
+    }
+
+    .lista-portas li {
+      padding: 0.6rem 0.8rem;
+      border-radius: 12px;
+      background: rgba(15,23,42,0.9);
+      border: 1px solid rgba(129,140,248,0.45);
+      font-size: 0.86rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .porta-nome {
+      font-weight: 600;
+    }
+
+    .porta-nivel {
+      font-size: 0.8rem;
+      color: #a5b4fc;
+    }
+
+    ul.pontos-lista {
+      list-style: disc;
+      padding-left: 1.2rem;
+      font-size: 0.9rem;
+      color: #e5e7eb;
+    }
+
+    ul.pontos-lista li + li {
+      margin-top: 0.4rem;
+    }
+
+    .plano-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .plano-col {
+      background: rgba(15,23,42,0.9);
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,255,0.5);
+      padding: 0.9rem 1rem;
+      font-size: 0.86rem;
+    }
+
+    .plano-col h3 {
+      font-family: "Sora", sans-serif;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+      color: #c7d2fe;
+    }
+
+    .plano-col ul {
+      list-style: disc;
+      padding-left: 1.1rem;
+    }
+
+    .plano-col li + li {
+      margin-top: 0.35rem;
+    }
+
+    .premium {
+      border-image: var(--gradient-secondary) 1;
+      border-width: 1px;
+      border-style: solid;
+    }
+
+    .premium-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 0.8rem;
+    }
+
+    .premium-header h2 {
+      font-family: "Sora", sans-serif;
+      font-size: 1.05rem;
+    }
+
+    .premium-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background-image: var(--gradient-secondary);
+      border-radius: 999px;
+      padding: 0.25rem 0.8rem;
+      color: #111827;
+      font-weight: 600;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      resize: vertical;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,255,0.5);
+      background: rgba(6,9,25,0.9);
+      padding: 0.9rem 1rem;
+      color: #e5e7eb;
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #818cf8;
+      box-shadow: 0 0 0 1px rgba(129,140,248,0.6);
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.2rem;
+    }
+
+    .btn-primary,
+    .btn-outline,
+    .btn-checklist {
+      border-radius: 999px;
+      padding: 0.7rem 1.4rem;
+      border: none;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-image: var(--gradient-primary);
+      color: #0b1020;
+      box-shadow: 0 7px 22px rgba(99,102,241,0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #e5e7eb;
+      border: 1px solid rgba(148,163,255,0.7);
+    }
+
+    .btn-checklist {
+      background-image: var(--gradient-tertiary);
+      color: #0b1020;
+      box-shadow: 0 7px 22px rgba(79,172,254,0.5);
+    }
+
+    .btn-primary span,
+    .btn-checklist span {
+      font-size: 1.1rem;
+    }
+
+    .msg-erro {
+      background: rgba(127,29,29,0.15);
+      border: 1px solid rgba(248,113,113,0.6);
+      color: #fecaca;
+      border-radius: 18px;
+      padding: 1rem 1.2rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 2rem;
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+  </style>
 </head>
-
 <body>
 
-<h1>Diagnóstico do Propósito</h1>
-<p class="sub">Responda as perguntas abaixo e descubra seu Propósito Dominante.</p>
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">IT</div>
+      <div class="brand-text">
+        <div class="brand-title">INSTITUTO TANIGAWA</div>
+        <div class="brand-subtitle">Governo • Propósito • Destino</div>
+      </div>
+    </div>
 
-<form id="formProposito" class="card">
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="mentoria.html">Mentorias</a>
+      <a href="diagnostico-tanigawa-pead.html">Diagnóstico PEAD</a>
+      <a href="diagnostico-tanigawa-proposito.html">Diagnóstico de Propósito</a>
+      <button class="btn-header" type="button" onclick="window.location.href='area_membros.html'">
+        Entrar <span>➜</span>
+      </button>
+    </nav>
+  </div>
+</header>
 
-    <!-- Grupo A -->
-    <label>1. Eu costumo assumir a liderança naturalmente em ambientes difíceis.</label>
-    <select name="a1" required>
-        <option value="0">Selecione</option>
-        <option value="1">Discordo totalmente</option>
-        <option value="2">Discordo</option>
-        <option value="3">Concordo</option>
-        <option value="4">Concordo totalmente</option>
-    </select>
+<main>
+  <section class="page-header">
+    <div class="page-kicker">
+      <span class="dot"></span>
+      <span>Resultado • Método SYNESIS</span>
+    </div>
+    <h1 class="page-title">Seu mapa de propósito foi gerado.</h1>
+    <p class="page-subtitle">
+      Abaixo você vê a síntese do que respondeu nas 10 Portas, cruzada com a inteligência espiritual e estrutural do Método SYNESIS:
+      uma declaração de propósito, mapa das portas, pontos fortes, alertas e um plano prático de 30 / 90 / 180 dias.
+    </p>
+  </section>
 
-    <label>2. Sou orientado a estrutura, ordem e processo.</label>
-    <select name="a2" required>
-        <option value="0">Selecione</option>
-        <option value="1">Discordo totalmente</option>
-        <option value="2">Discordo</option>
-        <option value="3">Concordo</option>
-        <option value="4">Concordo totalmente</option>
-    </select>
+  <div id="mensagemErro" class="msg-erro" style="display:none;">
+    Não encontramos respostas recentes para este diagnóstico neste navegador.<br><br>
+    Para gerar o resultado, volte para o <strong>Diagnóstico de Propósito – Método SYNESIS</strong>,
+    responda as 10 Portas com calma e profundidade e, ao final, clique em
+    <em>“Gerar meu Propósito”</em>. Você será trazido de volta para esta página.
+  </div>
 
-    <!-- Grupo B -->
-    <label>3. Sinto facilidade em compreender dores emocionais dos outros.</label>
-    <select name="b1" required>
-        <option value="0">Selecione</option>
-        <option value="1">Discordo totalmente</option>
-        <option value="2">Discordo</option>
-        <option value="3">Concordo</option>
-        <option value="4">Concordo totalmente</option>
-    </select>
+  <section class="grid" id="gridResultado" style="display:none;">
+    <!-- COLUNA ESQUERDA -->
+    <div>
+      <!-- PROPÓSITO -->
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <h2>Declaração de Propósito Dominante</h2>
+            <p class="card-subtitle">Texto-síntese gerado a partir das 10 Portas e da inteligência do Método SYNESIS.</p>
+          </div>
+          <span class="badge">PROPÓSITO CENTRAL</span>
+        </div>
+        <p class="proposito-texto" id="proposito"></p>
+      </article>
 
-    <label>4. As pessoas frequentemente me procuram para pedir conselhos.</label>
-    <select name="b2" required>
-        <option value="0">Selecione</option>
-        <option value="1">Discordo totalmente</option>
-        <option value="2">Discordo</option>
-        <option value="3">Concordo</option>
-        <option value="4">Concordo totalmente</option>
-    </select>
+      <!-- MAPA PORTAS -->
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <h2>Mapa das 10 Portas do Propósito</h2>
+            <p class="card-subtitle">Como cada dimensão apareceu nas suas respostas neste ciclo.</p>
+          </div>
+          <span class="badge">MAPA PROFUNDO</span>
+        </div>
 
-    <!-- Grupo C -->
-    <label>5. Tomo decisões com rapidez e segurança.</label>
-    <select name="c1" required>
-        <option value="0">Selecione</option>
-        <option value="1">Discordo totalmente</option>
-        <option value="2">Discordo</option>
-        <option value="3">Concordo</option>
-        <option value="4">Concordo totalmente</option>
-    </select>
+        <p class="section-subtitle">
+          Os níveis indicam onde há sinais mais fortes de chamado, história, dor transformada e missão.
+        </p>
 
-    <label>6. Tenho facilidade em organizar pessoas e recursos para executar algo.</label>
-    <select name="c2" required>
-        <option value="0">Selecione</option>
-        <option value="1">Discordo totalmente</option>
-        <option value="2">Discordo</option>
-        <option value="3">Concordo</option>
-        <option value="4">Concordo totalmente</option>
-    </select>
+        <ul class="lista-portas" id="mapaPortas"></ul>
+      </article>
 
-    <!-- Grupo D -->
-    <label>7. Tenho percepções e insights que parecem vir do nada.</label>
-    <select name="d1" required>
-        <option value="0">Selecione</option>
-        <option value="1">Discordo totalmente</option>
-        <option value="2">Discordo</option>
-        <option value="3">Concordo</option>
-        <option value="4">Concordo totalmente</option>
-    </select>
+      <!-- PLANO -->
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <h2>Plano de Ação – 30 / 90 / 180 dias</h2>
+            <p class="card-subtitle">Sugestões práticas para alinhar vida, decisões e movimentos ao seu propósito.</p>
+          </div>
+          <span class="badge">CAMINHADA PRÁTICA</span>
+        </div>
 
-    <label>8. Consigo enxergar o que está por trás das situações com facilidade.</label>
-    <select name="d2" required>
-        <option value="0">Selecione</option>
-        <option value="1">Discordo totalmente</option>
-        <option value="2">Discordo</option>
-        <option value="3">Concordo</option>
-        <option value="4">Concordo totalmente</option>
-    </select>
+        <div class="plano-grid" id="planoAcao"></div>
+      </article>
+    </div>
 
-    <button type="submit">Ver meu Propósito</button>
-</form>
+    <!-- COLUNA DIREITA -->
+    <div>
+      <!-- PONTOS FORTES / ALERTAS -->
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <h2>Pontos Fortes & Pontos de Atenção</h2>
+            <p class="card-subtitle">Áreas onde o propósito já pulsa forte e pontos que pedem cuidado no processo.</p>
+          </div>
+          <span class="badge">DIAGNÓSTICO FINO</span>
+        </div>
+
+        <div style="margin-bottom: 1.1rem;">
+          <h3 class="section-title">Pontos fortes</h3>
+          <ul class="pontos-lista" id="pontosFortes"></ul>
+        </div>
+
+        <div>
+          <h3 class="section-title">Pontos de atenção</h3>
+          <ul class="pontos-lista" id="pontosFracos"></ul>
+        </div>
+      </article>
+
+      <!-- BOTÕES -->
+      <article class="card">
+        <div class="card-header">
+          <div>
+            <h2>Próximos Passos</h2>
+            <p class="card-subtitle">Como continuar aprofundando essa leitura de propósito no Instituto Tanigawa.</p>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-primary" type="button" onclick="window.location.href='diagnostico-tanigawa-proposito.html'">
+            Refazer Diagnóstico <span>↺</span>
+          </button>
+
+          <button class="btn-outline" type="button" onclick="window.location.href='index.html'">
+            Voltar para o Início
+          </button>
+
+          <button class="btn-checklist" type="button" onclick="window.location.href='checklist-proposito.html'">
+            Acessar minha Jornada de Propósito <span>➜</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- PREMIUM -->
+      <article class="card premium" id="premiumArea" style="display:none;">
+        <div class="premium-header">
+          <div>
+            <h2>Área Premium – Comentário Pastoral & Profético</h2>
+            <p class="card-subtitle">
+              Espaço exclusivo para que Sergio Tanigawa registre um parecer personalizado para este diagnóstico.
+            </p>
+          </div>
+          <div class="premium-label">PREMIUM</div>
+        </div>
+
+        <p class="section-subtitle">
+          Use este campo para registrar impressões espirituais, orientações específicas e direções proféticas.
+          O texto fica salvo neste navegador e poderá ser integrado futuramente a PDFs enviados ao mentorado.
+        </p>
+
+        <textarea id="comentarioPremium" placeholder="Escreva aqui seu comentário pastoral e profético..."></textarea>
+
+        <div class="btn-row">
+          <button class="btn-primary" type="button" onclick="salvarPremium()">
+            Salvar comentário
+          </button>
+
+          <button class="btn-outline" type="button" onclick="gerarPdfPremium()">
+            Gerar PDF Premium
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Instituto Tanigawa • Governo, Propósito e Destino.
+</footer>
+
+<!-- MOTOR SYNESIS -->
+<script src="synesis-motor.js"></script>
 
 <script>
-    document.getElementById("formProposito").addEventListener("submit", function(e) {
-        e.preventDefault();
+  // Recupera respostas do diagnóstico
+  const respostas = JSON.parse(localStorage.getItem("diagnosticoProposito") || "[]");
 
-        const form = new FormData(this);
+  const gridResultado   = document.getElementById("gridResultado");
+  const msgErro         = document.getElementById("mensagemErro");
+  const propositoEl     = document.getElementById("proposito");
+  const mapaPortasEl    = document.getElementById("mapaPortas");
+  const fortesEl        = document.getElementById("pontosFortes");
+  const fracosEl        = document.getElementById("pontosFracos");
+  const planoEl         = document.getElementById("planoAcao");
+  const premiumAreaEl   = document.getElementById("premiumArea");
+  const comentarioEl    = document.getElementById("comentarioPremium");
 
-        let a = (parseInt(form.get("a1")) || 0) + (parseInt(form.get("a2")) || 0);
-        let b = (parseInt(form.get("b1")) || 0) + (parseInt(form.get("b2")) || 0);
-        let c = (parseInt(form.get("c1")) || 0) + (parseInt(form.get("c2")) || 0);
-        let d = (parseInt(form.get("d1")) || 0) + (parseInt(form.get("d2")) || 0);
+  if (!respostas || !Array.isArray(respostas) || respostas.length === 0) {
+    msgErro.style.display = "block";
+    gridResultado.style.display = "none";
+  } else {
+    msgErro.style.display = "none";
+    gridResultado.style.display = "grid";
 
-        window.location.href = `resultado-proposito.html?a=${a}&b=${b}&c=${c}&d=${d}`;
-    });
+    const analise = executarMotorSynesis(respostas);
+
+    // 1. Declaração de propósito
+    propositoEl.textContent = analise.declaracao || 
+      "Seu propósito está em processo de clarificação. Volte às respostas das 10 Portas e aprofunde um pouco mais em cada uma delas.";
+
+    // 2. Mapa das Portas
+    const labelsPortas = {
+      identidade:      "Porta 1 – Essência (Identidade)",
+      dor_transformada:"Porta 2 – Dor Transformada",
+      gigante:         "Porta 3 – O Gigante",
+      dom:             "Porta 4 – Dons & Graça",
+      causa:           "Porta 5 – Causa & Bandeira",
+      povo:            "Porta 6 – Povo & Alvo",
+      territorio:      "Porta 7 – Território & Campo",
+      voz:             "Porta 8 – Voz & Mensagem",
+      tempo:           "Porta 9 – Tempo & Estação",
+      missao:          "Porta 10 – Missão & Legado"
+    };
+
+    function nivel(score) {
+      if (score <= 0) return "nível latente (ainda em formação)";
+      if (score === 1) return "sinal inicial nesta porta";
+      if (score === 2) return "porta ativa neste ciclo";
+      if (score >= 3) return "porta muito forte neste ciclo";
+    }
+
+    mapaPortasEl.innerHTML = Object.keys(labelsPortas).map(chave => {
+      const valor = analise.portas[chave] || 0;
+      return `
+        <li>
+          <span class="porta-nome">${labelsPortas[chave]}</span>
+          <span class="porta-nivel">${nivel(valor)}</span>
+        </li>
+      `;
+    }).join("");
+
+    // 3. Pontos fortes
+    fortesEl.innerHTML = (analise.fortes && analise.fortes.length)
+      ? analise.fortes.map(t => `<li>${t}</li>`).join("")
+      : `<li>As respostas ainda estão superficiais. Aprofunde um pouco mais em cada Porta para que possamos enxergar seus pontos fortes com maior nitidez.</li>`;
+
+    // 4. Pontos de atenção
+    fracosEl.innerHTML = (analise.fracos && analise.fracos.length)
+      ? analise.fracos.map(t => `<li>${t}</li>`).join("")
+      : `<li>Não foram identificados pontos críticos neste momento, mas siga vigilante: propósito exige ajustes constantes de rota.</li>`;
+
+    // 5. Plano 30 / 90 / 180
+    function listaPlano(itens) {
+      return itens.map(t => `<li>${t}</li>`).join("");
+    }
+
+    const plano = analise.plano || { dias30: [], dias90: [], dias180: [] };
+
+    planoEl.innerHTML = `
+      <div class="plano-col">
+        <h3>Próximos 30 dias</h3>
+        <ul>${listaPlano(plano.dias30 || [])}</ul>
+      </div>
+      <div class="plano-col">
+        <h3>Próximos 90 dias</h3>
+        <ul>${listaPlano(plano.dias90 || [])}</ul>
+      </div>
+      <div class="plano-col">
+        <h3>Próximos 180 dias</h3>
+        <ul>${listaPlano(plano.dias180 || [])}</ul>
+      </div>
+    `;
+
+    // 6. Área Premium – carrega comentário salvo, se existir
+    const comentarioSalvo = localStorage.getItem("diagnosticoPropositoComentarioPremium");
+    if (comentarioSalvo) {
+      comentarioEl.value = comentarioSalvo;
+    }
+    premiumAreaEl.style.display = "block";
+  }
+
+  function salvarPremium() {
+    const comentario = comentarioEl.value || "";
+    localStorage.setItem("diagnosticoPropositoComentarioPremium", comentario);
+    alert("Comentário Premium salvo neste navegador.\n\nEm uma próxima etapa, isso poderá ser integrado ao PDF enviado ao mentorado.");
+  }
+
+  function gerarPdfPremium() {
+    alert("A geração automática do PDF Premium será configurada em uma etapa específica de integração de PDFs.");
+  }
 </script>
 
 </body>
