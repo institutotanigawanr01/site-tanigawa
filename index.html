@@ -1,288 +1,785 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8" />
-    <title>Instituto Tanigawa</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- SEO BÁSICO CORRIGIDO -->
-    <meta name="description" content="Instituto Tanigawa – diagnósticos profundos, mentorias estratégicas e direção espiritual para pastores, líderes, empresários e igrejas.">
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://institutotanigawa.com.br/" />
+  <meta charset="UTF-8">
+  <title>Instituto Tanigawa • Governo, Propósito e Destino</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- FONTES -->
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-        :root {
-            /* DESIGN SYSTEM - GRADIENTES IDENTITÁRIOS */
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-            
-            /* CORES PRINCIPAIS */
-            --color-dark: #0a0e27;
-            --color-darker: #060919;
-            --color-card: rgba(255, 255, 255, 0.03);
-            --color-card-hover: rgba(255, 255, 255, 0.06);
-            --color-text: #ffffff;
-            --color-text-muted: #a0aec0;
-            --color-accent: #667eea;
-            
-            /* SOMBRAS */
-            --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
-            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
+  <style>
+    :root {
+      /* Gradientes */
+      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
 
-        body {
-            background: var(--color-darker);
-            font-family: 'Sora', sans-serif;
-            overflow: hidden;
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-        }
+      /* Cores */
+      --color-dark: #0a0e27;
+      --color-darker: #060919;
+      --color-card: rgba(255, 255, 255, 0.03);
+      --color-card-hover: rgba(255, 255, 255, 0.06);
+      --color-text: #ffffff;
+      --color-text-muted: #a0aec0;
+      --color-accent: #667eea;
+      --color-accent-secondary: #f5576c;
 
-        /* BACKGROUND ANIMADO EM CAMADAS */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.08) 0%, transparent 50%);
-            z-index: 0;
-            animation: backgroundShift 20s ease infinite;
-        }
+      /* Sombras */
+      --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
+      --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
 
-        @keyframes backgroundShift {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* GRID DE FUNDO */
-        .bg-grid {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(102, 126, 234, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(102, 126, 234, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: 0;
-            animation: gridMove 20s linear infinite;
-        }
+    html, body {
+      height: 100%;
+    }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
+    body {
+      font-family: "Inter", sans-serif;
+      background: radial-gradient(circle at top, #141633 0%, #050716 45%, #02030c 100%);
+      color: var(--color-text);
+      overflow-x: hidden;
+      position: relative;
+    }
 
-        /* Container principal */
-        #splash-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1;
-        }
-        
-        /* Flash de luz branca ULTRA INTENSO */
-        #flash-overlay {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, 
-                rgba(255, 255, 255, 1) 0%, 
-                rgba(255, 255, 255, 0.95) 20%,
-                rgba(255, 255, 255, 0.7) 40%,
-                rgba(255, 255, 255, 0.3) 60%,
-                transparent 100%
-            );
-            opacity: 0;
-            z-index: 100;
-            pointer-events: none;
-            filter: blur(0px);
-        }
-        
-        /* Texto da frase */
-        #text-display {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            opacity: 0;
-            z-index: 10;
-            pointer-events: none;
-            padding: 0 2rem;
-        }
+    /* Background animado */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.18) 0%, transparent 55%),
+        radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.15) 0%, transparent 55%),
+        radial-gradient(circle at 40% 20%, rgba(67, 233, 123, 0.12) 0%, transparent 55%);
+      animation: backgroundShift 22s ease-in-out infinite alternate;
+    }
 
-        /* ANO - Tipografia Hero Title */
-        #text-display .year {
-            font-family: 'Sora', sans-serif;
-            font-size: 5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #f5576c 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            text-shadow: 0 0 40px rgba(102, 126, 234, 0.6);
-        }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -3;
+      background-image: linear-gradient(
+          rgba(102, 126, 234, 0.04) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(102, 126, 234, 0.04) 1px,
+          transparent 1px
+        );
+      background-size: 50px 50px;
+      animation: gridMove 26s linear infinite;
+    }
 
-        /* PERGUNTA */
-        #text-display .question {
-            font-family: 'Sora', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #ffffff 0%, #a78bfa 25%, #c084fc 50%, #e879f9 75%, #f0abfc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
-            text-shadow: 0 0 30px rgba(168, 139, 250, 0.5);
-            letter-spacing: 0.03em;
-            white-space: nowrap; /* Força uma linha única em telas maiores */
-            text-transform: uppercase;
-        }
+    @keyframes backgroundShift {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.85; transform: scale(1.05); }
+    }
 
-        @keyframes explosionFlash {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.1);
-                filter: blur(20px);
-            }
-            30% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.5);
-                filter: blur(10px);
-            }
-            60% {
-                opacity: 0.9;
-                transform: translate(-50%, -50%) scale(2.5);
-                filter: blur(5px);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(4);
-                filter: blur(0px);
-            }
-        }
-        
-        @keyframes textFadeIn {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(60px, 60px); }
+    }
 
-        @keyframes textPulse {
-            0%, 100% {
-                text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-            }
-            50% {
-                text-shadow: 0 0 50px rgba(102, 126, 234, 0.8), 0 0 80px rgba(245, 87, 108, 0.5);
-            }
-        }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        /* Responsivo */
-        @media (max-width: 1024px) {
-            #text-display .year {
-                font-size: 4rem;
-            }
-            #text-display .question {
-                font-size: 1.6rem;
-            }
-        }
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: rgba(10, 14, 39, 0.88);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    }
 
-        @media (max-width: 768px) {
-            #text-display .year {
-                font-size: 3.5rem;
-            }
-            #text-display .question {
-                font-size: 1.3rem;
-            }
-        }
+    .header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
 
-        @media (max-width: 480px) {
-            #text-display .year {
-                font-size: 2.5rem;
-            }
-            #text-display .question {
-                font-size: 1rem;
-                white-space: normal; /* Em telas muito pequenas, permite quebra */
-                line-height: 1.4;
-            }
-        }
-    </style>
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background-image: var(--gradient-primary);
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #fff;
+      transform-origin: center;
+      transition: transform 0.3s ease;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-text .top {
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+
+    .brand-text .bottom {
+      font-family: "Sora", sans-serif;
+      font-weight: 700;
+      font-size: 1.15rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      font-size: 0.95rem;
+    }
+
+    nav a {
+      position: relative;
+      color: var(--color-text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background-image: var(--gradient-tertiary);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #fff;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .btn-nav {
+      padding: 0.6rem 1.5rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: "Inter", sans-serif;
+      background-image: var(--gradient-tertiary);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(79, 172, 254, 0.35);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-nav:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(79, 172, 254, 0.55);
+    }
+
+    /* MAIN */
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 7rem 2rem 4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HERO PRINCIPAL */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+      gap: 3rem;
+      align-items: center;
+      margin-top: 2.5rem;
+      margin-bottom: 4rem;
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @media (max-width: 1024px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.45rem 1.1rem;
+      border-radius: 50px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted);
+    }
+
+    .hero-tag span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-image: var(--gradient-primary);
+      box-shadow: 0 0 12px rgba(102, 126, 234, 0.9);
+    }
+
+    .hero-title {
+      font-family: "Sora", sans-serif;
+      font-weight: 800;
+      font-size: 3.1rem;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 50%, #c4b5fd 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      max-width: 780px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      max-width: 620px;
+    }
+
+    .hero-subtitle strong {
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.8rem;
+    }
+
+    .btn-primary {
+      padding: 1rem 2.6rem;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 600;
+      font-family: "Inter", sans-serif;
+      background-image: var(--gradient-primary);
+      color: #fff;
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 40px rgba(102, 126, 234, 0.75);
+    }
+
+    .btn-secondary-outline {
+      padding: 0.95rem 2.4rem;
+      border-radius: 50px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      font-family: "Inter", sans-serif;
+      background: transparent;
+      color: #e5e7eb;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .btn-secondary-outline:hover {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(129, 140, 248, 0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 26px rgba(15, 23, 42, 0.9);
+    }
+
+    .hero-note {
+      font-size: 0.92rem;
+      color: var(--color-text-muted);
+    }
+
+    .hero-note span {
+      color: #a5b4fc;
+      font-weight: 500;
+    }
+
+    .hero-right {
+      position: relative;
+    }
+
+    .hero-card {
+      background: var(--color-card);
+      border-radius: 26px;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(18px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card-badge {
+      position: absolute;
+      top: 1.4rem;
+      right: 1.6rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      background-image: var(--gradient-tertiary);
+      color: #0b1220;
+      font-weight: 700;
+    }
+
+    .hero-card-title {
+      font-family: "Sora", sans-serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.55rem;
+      color: #e5e7eb;
+    }
+
+    .hero-card-text {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-card-list {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 1.1rem;
+    }
+
+    .hero-card-list li {
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-card-list li::before {
+      content: "• ";
+      color: #4facfe;
+    }
+
+    .hero-card-footer {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+      border-top: 1px solid rgba(148, 163, 184, 0.4);
+      padding-top: 0.7rem;
+      margin-top: 0.7rem;
+    }
+
+    /* SEÇÃO DIAGNÓSTICOS */
+    .section {
+      margin-bottom: 4rem;
+    }
+
+    .section-header {
+      margin-bottom: 1.8rem;
+    }
+
+    .section-kicker {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-family: "Sora", sans-serif;
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title span {
+      background: var(--gradient-tertiary);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-subtitle {
+      font-size: 0.98rem;
+      color: var(--color-text-muted);
+      max-width: 640px;
+    }
+
+    .diagnosticos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .diag-card {
+      position: relative;
+      background: var(--color-card);
+      border-radius: 24px;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(18px);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+
+    .diag-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      background: radial-gradient(circle at top right, rgba(79, 172, 254, 0.28), transparent 55%);
+      transition: opacity 0.3s ease;
+    }
+
+    .diag-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.6);
+      background: var(--color-card-hover);
+    }
+
+    .diag-card:hover::before {
+      opacity: 1;
+    }
+
+    .diag-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-text-muted);
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      margin-bottom: 0.6rem;
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .diag-tag span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-image: var(--gradient-primary);
+    }
+
+    .diag-title {
+      font-family: "Sora", sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.4rem;
+      color: #e5e7eb;
+    }
+
+    .diag-sub {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .diag-list {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 1.2rem;
+    }
+
+    .diag-list li {
+      font-size: 0.9rem;
+      color: #e2e8f0;
+      margin-bottom: 0.35rem;
+    }
+
+    .diag-list li::before {
+      content: "▹ ";
+      color: #4facfe;
+    }
+
+    .diag-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.4rem;
+    }
+
+    .diag-time {
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
+    }
+
+    .btn-diag {
+      padding: 0.8rem 1.7rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.93rem;
+      font-weight: 600;
+      font-family: "Inter", sans-serif;
+      background-image: var(--gradient-tertiary);
+      color: #fff;
+      box-shadow: 0 7px 24px rgba(79, 172, 254, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-diag:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 11px 32px rgba(79, 172, 254, 0.9);
+    }
+
+    /* RODAPÉ SIMPLES */
+    footer {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.8rem 2rem 2.5rem;
+      font-size: 0.82rem;
+      color: var(--color-text-muted);
+      border-top: 1px solid rgba(148, 163, 184, 0.35);
+      margin-top: 2rem;
+    }
+
+    footer span.assinatura {
+      color: #e5e7eb;
+      font-weight: 500;
+    }
+
+    @media (max-width: 1024px) {
+      main {
+        padding: 6.5rem 1.6rem 3.4rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-inner {
+        padding-inline: 1.4rem;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero-title {
+        font-size: 2.4rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1rem;
+      }
+
+      .hero-card {
+        margin-top: 1rem;
+      }
+
+      footer {
+        padding-inline: 1.4rem;
+      }
+    }
+  </style>
 </head>
-
 <body>
-    <div class="bg-grid"></div>
-    
-    <div id="splash-container">
-        <!-- Flash de luz branca -->
-        <div id="flash-overlay"></div>
-        
-        <!-- Texto -->
-        <div id="text-display">
-            <div class="year">2026</div>
-            <div class="question">VAI GOVERNAR OU É GOVERNADO?</div>
-        </div>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <div class="brand-icon">IT</div>
+      <div class="brand-text">
+        <span class="top">INSTITUTO TANIGAWA</span>
+        <span class="bottom">Governo • Propósito • Destino</span>
+      </div>
     </div>
-    
-    <script>
-        const flash = document.getElementById('flash-overlay');
-        const text = document.getElementById('text-display');
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="mentorias.html">Mentorias</a>
+      <a href="diagnostico-tanigawa-pead.html">Diagnóstico PEAD</a>
+      <a href="diagnostico-tanigawa-proposito.html">Diagnóstico de Propósito</a>
+      <button class="btn-nav" type="button" onclick="window.location.href='devocionais.html'">
+        Devocionais
+      </button>
+    </nav>
+  </div>
+</header>
 
-        /*
-            TIMELINE:
-            0.0s - 1.0s: Fundo escuro
-            1.0s - 2.0s: Explosão de luz branca
-            2.0s - 4.0s: Frase aparece e pulsa
-            4.0s: Redireciona para /home
-        */
-        
-        // 1. Após 1 segundo: EXPLOSÃO DE LUZ
-        setTimeout(() => {
-            flash.style.animation = 'explosionFlash 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
-        }, 1000);
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-tag">
+        <span class="dot"></span>
+        <span>Governo, Propósito e Transformação</span>
+      </div>
 
-        // 2. Após 2 segundos: TEXTO APARECE
-        setTimeout(() => {
-            text.style.animation = 'textFadeIn 0.6s ease-out forwards, textPulse 2s ease-in-out infinite';
-        }, 2000);
+      <h1 class="hero-title">
+        Clareza de propósito para quem governa pessoas, recursos e destinos.
+      </h1>
 
-        // 3. Após 4 segundos: REDIRECIONA PARA /home
-        setTimeout(() => {
-            window.location.href = '/home';
-        }, 4000);
-    </script>
+      <p class="hero-subtitle">
+        O Instituto Tanigawa existe para alinhar <strong>identidade, governo e propósito</strong> de pastores, líderes e empresários,
+        unindo profundidade espiritual com estratégias práticas para o dia a dia.
+      </p>
+
+      <div class="hero-actions">
+        <button class="btn-primary" type="button" onclick="window.location.href='mentorias.html'">
+          Ver mentorias e jornadas
+        </button>
+
+        <button class="btn-secondary-outline" type="button" onclick="document.getElementById('diagnosticos').scrollIntoView({behavior:'smooth'})">
+          Quero descobrir meu propósito <span>➜</span>
+        </button>
+      </div>
+
+      <p class="hero-note">
+        Comece pela <span>avaliação de propósito</span> ou pelo <span>Diagnóstico PEAD</span> para enxergar com precisão onde você está e
+        para onde Deus está te conduzindo.
+      </p>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="hero-card-badge">Modo SYNESIS IA</div>
+        <h3 class="hero-card-title">Mapa de Governo & Propósito</h3>
+        <p class="hero-card-text">
+          Uma jornada pensada para quem carrega peso de responsabilidade espiritual e influência sobre pessoas,
+          decisões e recursos — e precisa de clareza para não se perder no meio do caminho.
+        </p>
+        <ul class="hero-card-list">
+          <li>Diagnósticos profundos (PEAD e Propósito) integrados ao Método SYNESIS.</li>
+          <li>Mentorias com aplicação prática, bíblica e estratégica.</li>
+          <li>Ferramentas para decisões, alinhamento e governo saudável.</li>
+        </ul>
+        <div class="hero-card-footer">
+          Desenvolvido por Sergio Tanigawa • Pastor, Mentor & Conselheiro de líderes e empresários.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEÇÃO DIAGNÓSTICOS -->
+  <section id="diagnosticos" class="section">
+    <div class="section-header">
+      <div class="section-kicker">Diagnósticos Instituto Tanigawa</div>
+      <h2 class="section-title">
+        Dois diagnósticos, <span>um movimento</span>: clareza para dentro e para fora.
+      </h2>
+      <p class="section-subtitle">
+        Antes de acelerar, você precisa enxergar. O Instituto Tanigawa trabalha com dois diagnósticos complementares:
+        um focado em perfil e ambiente (PEAD) e outro focado em propósito e missão de vida.
+      </p>
+    </div>
+
+    <div class="diagnosticos-grid">
+      <!-- DIAGNÓSTICO PEAD -->
+      <article class="diag-card">
+        <div class="diag-tag">
+          <span class="dot"></span>
+          <span>PEAD • Perfil & Ambiente</span>
+        </div>
+        <h3 class="diag-title">Diagnóstico Tanigawa – Método PEAD</h3>
+        <p class="diag-sub">
+          Um raio-X preciso sobre como você funciona, como decide, como reage sob pressão e como se relaciona com
+          pessoas, projetos e ambientes.
+        </p>
+        <ul class="diag-list">
+          <li>Mapeia padrões de comportamento, força e vulnerabilidades.</li>
+          <li>Ajuda a entender como você influencia e é influenciado.</li>
+          <li>Base para alinhamento de liderança, família e negócios.</li>
+        </ul>
+        <div class="diag-footer">
+          <span class="diag-time">Tempo médio: 20–30 minutos</span>
+          <button class="btn-diag" type="button" onclick="window.location.href='diagnostico-tanigawa-pead.html'">
+            Fazer Diagnóstico PEAD
+          </button>
+        </div>
+      </article>
+
+      <!-- DIAGNÓSTICO PROPÓSITO -->
+      <article class="diag-card">
+        <div class="diag-tag">
+          <span class="dot"></span>
+          <span>Propósito • 10 Portas</span>
+        </div>
+        <h3 class="diag-title">Diagnóstico de Propósito – Método SYNESIS</h3>
+        <p class="diag-sub">
+          10 Portas que atravessam sua essência, dores, dons, batalhas, voz e missão — para revelar com clareza o
+          tema central da sua vida diante de Deus.
+        </p>
+        <ul class="diag-list">
+          <li>Explora sua história, sua dor transformada e seu chamado.</li>
+          <li>Identifica o povo, território e mensagem da sua missão.</li>
+          <li>Gera um mapa de propósito com plano 30 / 90 / 180 dias.</li>
+        </ul>
+        <div class="diag-footer">
+          <span class="diag-time">Tempo médio: 15–25 minutos</span>
+          <button class="btn-diag" type="button" onclick="window.location.href='diagnostico-tanigawa-proposito.html'">
+            Fazer Diagnóstico de Propósito
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div>
+    <span class="assinatura">Instituto Tanigawa</span> • Governo, Propósito e Destino.  
+    Plataforma desenvolvida para servir pastores, líderes, empresários e famílias que desejam alinhar
+    sua história ao que Deus escreveu para eles.
+  </div>
+</footer>
+
 </body>
 </html>
