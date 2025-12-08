@@ -1,111 +1,168 @@
-/* ============================================================
-   MOTOR SYNESIS — DIAGNÓSTICO DE PROPÓSITO 2026
-   Totalmente reescrito para compatibilidade 100% com o layout.
-   ============================================================ */
+// =========================
+// 🔥 MOTOR SYNESIS 2026 🔥
+// Propósito 100% Individual
+// =========================
 
-// --- UTILITÁRIO PARA LER PARÂMETROS DA URL ---
-function getQueryParams() {
-    let params = {};
-    window.location.search.substring(1).split("&").forEach(item => {
-        let [key, value] = item.split("=");
-        if (key) params[key] = parseInt(value);
-    });
-    return params;
-}
+function executarMotorSynesis(dados) {
+    // -------------------------
+    // 1. Pré-processamento
+    // -------------------------
 
-// --- INICIALIZAÇÃO ---
-document.addEventListener("DOMContentLoaded", () => {
-    const params = getQueryParams();
-    processarDiagnostico(params);
-});
+    const limpar = (arr) =>
+        arr.filter(x => x && x.trim() !== "").map(x => x.trim());
 
-// ============================================================
-//              MAPEAMENTO DO PROPÓSITO DOMINANTE
-// ============================================================
+    const valores = limpar(dados.valores || []);
+    const verbos = limpar(dados.verbos || []);
+    const comportamentos = limpar(dados.comportamentos || []);
+    const transformacao = limpar(dados.transformacao || []);
+    const legado = limpar(dados.legado || []);
+    const povo = limpar(dados.povo || []);
+    const esfera = limpar(dados.esfera || []);
+    const territorio = limpar(dados.territorio || []);
+    const estadoInterno = limpar(dados.estado_interno || []);
+    const sensacao = limpar(dados.sensacao_missao || []);
+    const linguagemPessoal = limpar(dados.linguagem_pessoal || []);
 
-const MAPA_PROPOSITO = {
-    A: {
-        nome: "Construtor de Caminhos",
-        descricao: "Você foi desenhado por Deus para abrir caminhos, estruturar, organizar e trazer direção. Sua presença estabelece ordem e propósito.",
-        fortes: "Estratégia, clareza, visão ampla, firmeza espiritual, autoridade pacificadora.",
-        fracos: "Sobrecarga, excesso de responsabilidade, dificuldade em delegar, cobrança interna elevada.",
-        recomendacoes: "Pratique descanso ativo, delegue tarefas, mantenha disciplina espiritual, fortaleça conexões estratégicas."
-    },
-    B: {
-        nome: "Curador de Pessoas",
-        descricao: "Você carrega um chamado profundo para restauração emocional e espiritual. Deus te usa para acolher, curar e realinhar destinos.",
-        fortes: "Empatia, escuta profunda, sensibilidade espiritual, presença acolhedora.",
-        fracos: "Absorver cargas alheias, dificuldade em impor limites, desgaste emocional.",
-        recomendacoes: "Fortaleça sua identidade em Cristo, pratique limites saudáveis, mantenha ambientes de descanso emocional."
-    },
-    C: {
-        nome: "Governador de Destinos",
-        descricao: "Você governa ambientes, decisões e movimentos. Deus te confiou influência e responsabilidade sobre pessoas, territórios e direções.",
-        fortes: "Liderança, discernimento, firmeza, leitura de cenários, tomada de decisão.",
-        fracos: "Rigor excessivo, impaciência com processos, peso da responsabilidade.",
-        recomendacoes: "Trabalhe flexibilidade, fortaleça mentores espirituais, revisite direções antes de executá-las."
-    },
-    D: {
-        nome: "Mensageiro Profético",
-        descricao: "Sua vida carrega voz, revelação e instrução. Deus te usa para enxergar o que outros não veem e anunciar o que ainda não existe.",
-        fortes: "Intuição espiritual, revelação, sensibilidade profética, coragem.",
-        fracos: "Isolamento, rupturas desnecessárias, intensidade emocional.",
-        recomendacoes: "Aproxime-se de lideranças saudáveis, ancore decisões na Palavra, mantenha ritmo de descanso."
-    }
-};
+    // -------------------------
+    // 2. Funções auxiliares
+    // -------------------------
 
-// ============================================================
-//              FUNÇÃO PRINCIPAL DO DIAGNÓSTICO
-// ============================================================
+    const escolher = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-function processarDiagnostico(params) {
-    if (!params || Object.keys(params).length === 0) {
-        console.error("Nenhum dado recebido.");
-        return;
-    }
+    const unir = (arr, sep = ", ") =>
+        arr.length === 1 ? arr[0] :
+        arr.length === 2 ? `${arr[0]} e ${arr[1]}` :
+        arr.slice(0, -1).join(sep) + " e " + arr[arr.length - 1];
 
-    // Soma total das respostas
-    let total = Object.values(params).reduce((a, b) => a + b, 0);
+    // Variações linguísticas para evitar repetição
+    const conectores = [
+        "para",
+        "a fim de",
+        "com o propósito de",
+        "com a missão de",
+        "visando",
+        "com o chamado de"
+    ];
 
-    // Determina propósito dominante pela soma comparativa
-    let grupos = {
-        A: params.a || 0,
-        B: params.b || 0,
-        C: params.c || 0,
-        D: params.d || 0
+    const intensificadores = [
+        "de forma intensa",
+        "com excelência",
+        "com clareza",
+        "com dedicação profunda",
+        "com intencionalidade",
+        "de modo transformador"
+    ];
+
+    const marcadoresDestino = [
+        "cumprindo o propósito para o qual fui criado",
+        "vivendo o destino profético que recebi de Deus",
+        "respondendo ao chamado do Céu",
+        "honrando aquilo que o Senhor confiou a mim",
+        "caminhando naquilo que Jesus escreveu sobre minha vida"
+    ];
+
+    // -------------------------
+    // 3. Montagem do Propósito
+    // -------------------------
+
+    // (A) Eixo – Verbos + Valores
+    const blocoIdentidade = [
+        verbos.length ? `Nasci para ${unir(verbos)}` : "",
+        valores.length ? `carregando como valores centrais ${unir(valores)}` : ""
+    ].filter(Boolean).join(", ");
+
+    // (B) Ação – Transformação
+    const blocoTransformacao = transformacao.length
+        ? `${escolher(conectores)} ${unir(transformacao)}`
+        : "";
+
+    // (C) Público – Povo / Esfera
+    const blocoPublico = [
+        povo.length ? `alcançando especialmente ${unir(povo)}` : "",
+        esfera.length ? `atuando dentro de ${unir(esfera)}` : ""
+    ].filter(Boolean).join(", ");
+
+    // (D) Território
+    const blocoTerritorio = territorio.length
+        ? `expandindo essa missão em ${unir(territorio)}`
+        : "";
+
+    // (E) Tom emocional
+    const blocoEstado = [
+        estadoInterno.length ? `vivendo ${unir(estadoInterno)}` : "",
+        sensacao.length ? `sentindo que estou ${unir(sensacao)}` : ""
+    ].filter(Boolean).join(", ");
+
+    // (F) Assinatura profética
+    const blocoDestino = escolher(marcadoresDestino);
+
+    // (G) Linguagem pessoal (se houver)
+    const blocoLinguagemPessoal = linguagemPessoal.length
+        ? `Em minhas próprias palavras: "${linguagemPessoal.join(' ')}".`
+        : "";
+
+    // -------------------------
+    // 4. Construção Final
+    // -------------------------
+
+    const declaracao = [
+        blocoIdentidade,
+        blocoTransformacao,
+        blocoPublico,
+        blocoTerritorio,
+        escolher(intensificadores),
+        blocoEstado,
+        blocoDestino,
+        blocoLinguagemPessoal
+    ]
+        .filter(Boolean)
+        .join(". ")
+        .replace(/\.\s*\./g, ".")
+        .trim();
+
+    // -------------------------
+    // 5. Relatório complementar
+    // -------------------------
+
+    const pontosFortes = [
+        ...valores,
+        ...verbos,
+        ...comportamentos
+    ];
+
+    const pontosAtencao = [
+        "Manter alinhamento entre velocidade e profundidade",
+        "Evitar assumir responsabilidades que não são suas",
+        "Praticar descanso estratégico para sustentar o chamado",
+        "Desenvolver estruturas que permitam escalar sua missão"
+    ];
+
+    const plano = {
+        "30_dias": [
+            "Identificar ambientes imediatos onde seu propósito já pode ser praticado.",
+            "Remover distrações que roubam energia do seu chamado.",
+            "Assumir pequenas ações diárias coerentes com seus verbos dominantes."
+        ],
+        "90_dias": [
+            "Mapear relacionamentos estratégicos para sua missão.",
+            "Iniciar um projeto piloto diretamente ligado ao seu propósito.",
+            "Estabelecer hábitos que reforcem seus valores centrais."
+        ],
+        "180_dias": [
+            "Criar uma estrutura contínua de impacto conforme sua esfera de influência.",
+            "Expandir seu alcance para novos territórios (digitais ou físicos).",
+            "Ajustar seu ritmo interno para sustentar sua missão ao longo dos anos."
+        ]
     };
 
-    let dominante = Object.keys(grupos).reduce((a, b) =>
-        grupos[a] > grupos[b] ? a : b
-    );
+    // -------------------------
+    // 6. Retorno Final
+    // -------------------------
 
-    let dados = MAPA_PROPOSITO[dominante];
-
-    preencherPagina(dados, total);
-}
-
-// ============================================================
-//              PREENCHIMENTO DO HTML COM OS RESULTADOS
-// ============================================================
-
-function preencherPagina(dados, total) {
-
-    // Preenche textos principais
-    document.getElementById("resultadoTitulo").innerText = dados.nome;
-    document.getElementById("resultadoDescricao").innerText = dados.descricao;
-
-    // Pontos fortes
-    document.getElementById("pontosFortes").innerText = dados.fortes;
-
-    // Pontos fracos
-    document.getElementById("pontosFracos").innerText = dados.fracos;
-
-    // Recomendações práticas
-    document.getElementById("recomendacoes").innerText = dados.recomendacoes;
-
-    // Barra de alinhamento
-    let porcentagem = Math.min(100, Math.round((total / 80) * 100));
-    document.getElementById("barraProgresso").style.width = porcentagem + "%";
-    document.getElementById("textoPontuacao").innerText = porcentagem + "% alinhado ao propósito";
-
+    return {
+        declaracao,
+        fortes: pontosFortes,
+        fracos: pontosAtencao,
+        plano
+    };
 }
