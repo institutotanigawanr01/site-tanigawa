@@ -1,775 +1,116 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <title>Resultado – Diagnóstico de Propósito | Instituto Tanigawa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      --gradient-tertiary: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      --gradient-quaternary: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-      --color-dark: #0a0e27;
-      --color-darker: #060919;
-      --color-card: rgba(255, 255, 255, 0.03);
-      --color-card-hover: rgba(255, 255, 255, 0.06);
-      --color-text: #ffffff;
-      --color-text-muted: #a0aec0;
-      --color-accent: #667eea;
-      --color-accent-secondary: #f5576c;
-      --shadow-glow: 0 0 40px rgba(102, 126, 234, 0.3);
-      --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.3);
-      --radius-card: 24px;
-      --radius-pill: 999px;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at 20% 20%, rgba(102, 126, 234, 0.15), transparent 55%),
-                  radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.18), transparent 55%),
-                  #060919;
-      color: var(--color-text);
-      min-height: 100vh;
-      line-height: 1.6;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(102,126,234,0.09) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(102,126,234,0.07) 1px, transparent 1px);
-      background-size: 60px 60px, 60px 60px;
-      opacity: 0.35;
-      z-index: -1;
-    }
-
-    .page {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 32px 20px 48px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 32px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      background: var(--gradient-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-family: "Sora", system-ui, sans-serif;
-      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.6);
-    }
-
-    .brand-text-title {
-      font-family: "Sora", system-ui, sans-serif;
-      font-size: 0.95rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-    }
-
-    .brand-text-sub {
-      font-size: 0.8rem;
-      color: var(--color-text-muted);
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(148, 163, 184, 0.35);
-      color: var(--color-text-muted);
-    }
-
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: radial-gradient(circle, #4facfe, #00f2fe);
-      box-shadow: 0 0 10px rgba(79, 172, 254, 0.8);
-    }
-
-    main {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-
-    .hero {
-      background: radial-gradient(circle at top left, rgba(102,126,234,0.36), transparent 55%),
-                  radial-gradient(circle at bottom right, rgba(245,87,108,0.3), transparent 55%),
-                  rgba(15, 23, 42, 0.96);
-      border-radius: 30px;
-      padding: 28px 26px 26px;
-      border: 1px solid rgba(148, 163, 184, 0.32);
-      box-shadow: var(--shadow-card);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 260px;
-      height: 260px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(79,172,254,0.22), transparent 60%);
-      right: -120px;
-      top: -80px;
-      opacity: 0.7;
-    }
-
-    .hero-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 18px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-title {
-      font-family: "Sora", system-ui, sans-serif;
-      font-size: 2.2rem;
-      line-height: 1.15;
-      background: linear-gradient(120deg, #fff, #e2e8f0);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero-subtitle {
-      margin-top: 10px;
-      max-width: 560px;
-      font-size: 0.98rem;
-      color: var(--color-text-muted);
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 6px;
-    }
-
-    .hero-badge-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--color-text-muted);
-    }
-
-    .hero-badge-main {
-      padding: 7px 16px;
-      border-radius: var(--radius-pill);
-      background: rgba(15, 23, 42, 0.85);
-      border: 1px solid rgba(148,163,184,0.4);
-      font-size: 0.78rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .hero-badge-main span:first-child {
-      font-weight: 600;
-      color: #e5e7eb;
-    }
-
-    .hero-body {
-      display: grid;
-      grid-template-columns: minmax(0, 2.2fr) minmax(0, 1.3fr);
-      gap: 24px;
-      margin-top: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .card {
-      background: rgba(15, 23, 42, 0.92);
-      border-radius: var(--radius-card);
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      padding: 20px 22px;
-      backdrop-filter: blur(18px);
-    }
-
-    .card h2 {
-      font-family: "Sora", system-ui, sans-serif;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--color-text-muted);
-      margin-bottom: 12px;
-    }
-
-    .card h3 {
-      font-family: "Sora";
-      font-size: 1.1rem;
-      margin-bottom: 10px;
-    }
-
-    .prop-text {
-      font-size: 0.98rem;
-      color: #e5e7eb;
-      white-space: pre-line;
-    }
-
-    .pill-small {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(148,163,184,0.35);
-      color: var(--color-text-muted);
-      margin-bottom: 10px;
-    }
-
-    .card-list {
-      list-style: none;
-      margin-top: 10px;
-    }
-
-    .card-list li {
-      position: relative;
-      padding-left: 16px;
-      font-size: 0.9rem;
-      color: #e5e7eb;
-      margin-bottom: 6px;
-    }
-
-    .card-list li::before {
-      content: "•";
-      position: absolute;
-      left: 4px;
-      top: 0;
-      color: #4facfe;
-    }
-
-    .section-grid {
-      display: grid;
-      gap: 20px;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin-top: 10px;
-    }
-
-    .section-title {
-      font-family: "Sora";
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--color-text-muted);
-      margin-bottom: 8px;
-    }
-
-    .section-sub {
-      font-size: 0.9rem;
-      color: var(--color-text-muted);
-      margin-bottom: 12px;
-    }
-
-    .plan-card {
-      background: rgba(15,23,42,0.96);
-      border-radius: var(--radius-card);
-      border: 1px solid rgba(148,163,184,0.28);
-      padding: 16px 18px;
-    }
-
-    .plan-card h3 {
-      font-family: "Sora";
-      font-size: 0.95rem;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .tag {
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      border: 1px solid rgba(148,163,184,0.5);
-      color: var(--color-text-muted);
-    }
-
-    .plan-card ul {
-      list-style: none;
-      margin-top: 8px;
-    }
-
-    .plan-card li {
-      padding-left: 14px;
-      font-size: 0.86rem;
-      color: #e5e7eb;
-      margin-bottom: 6px;
-      position: relative;
-    }
-
-    .plan-card li::before {
-      content: "–";
-      position: absolute;
-      left: 2px;
-      top: 0;
-      color: #4facfe;
-    }
-
-    .actions {
-      margin-top: 22px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .btn {
-      border-radius: var(--radius-pill);
-      padding: 10px 18px;
-      border: none;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease;
-      font-family: "Inter";
-    }
-
-    .btn-primary {
-      background: var(--gradient-tertiary);
-      color: #0b1020;
-      box-shadow: 0 8px 25px rgba(79,172,254,0.5);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 32px rgba(79,172,254,0.7);
-    }
-
-    .btn-secondary {
-      background: rgba(15,23,42,0.95);
-      color: #e5e7eb;
-      border: 1px solid rgba(148,163,184,0.4);
-    }
-
-    .btn-secondary:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 24px rgba(15,23,42,0.8);
-    }
-
-    .summary-card {
-      margin-top: 20px;
-      background: rgba(15,23,42,0.96);
-      border-radius: var(--radius-card);
-      border: 1px solid rgba(148,163,184,0.32);
-      padding: 18px 20px;
-    }
-
-    .summary-card h3 {
-      font-family: "Sora";
-      font-size: 0.95rem;
-      margin-bottom: 8px;
-    }
-
-    .summary-card pre {
-      font-family: "Inter", system-ui, sans-serif;
-      font-size: 0.84rem;
-      color: #e5e7eb;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    footer {
-      margin-top: 26px;
-      font-size: 0.78rem;
-      color: var(--color-text-muted);
-      text-align: center;
-    }
-
-    @media (max-width: 900px) {
-      .hero-body {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .section-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    @media (max-width: 640px) {
-      .hero-title {
-        font-size: 1.7rem;
-      }
-      .hero-body {
-        margin-top: 16px;
-      }
-      .card {
-        padding: 16px 14px;
-      }
-      .page {
-        padding-inline: 16px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seu Propósito Nasceu</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a2b4a 0%, #2d4a7c 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container { max-width: 800px; width: 100%; text-align: center; }
+        .nascimento {
+            background: radial-gradient(circle, rgba(244, 208, 63, 0.2) 0%, rgba(0,0,0,0.6) 100%);
+            border: 2px solid rgba(244, 208, 63, 0.5);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+        }
+        .celebracao { font-size: 4em; margin-bottom: 20px; }
+        h1 {
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #f4d03f;
+            margin-bottom: 30px;
+        }
+        .proposito {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: #ffffff;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+            line-height: 1.3;
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+        }
+        .btn {
+            margin: 15px 10px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a2b4a;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 999px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        @media (max-width: 768px) {
+            .proposito { font-size: 1.8em; }
+            .nascimento { padding: 40px 25px; }
+        }
+    </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <div class="brand">
-        <div class="brand-logo">IT</div>
-        <div>
-          <div class="brand-text-title">Instituto Tanigawa</div>
-          <div class="brand-text-sub">Governo • Propósito • Destino</div>
+    <div class="container">
+        <div class="nascimento">
+            <div class="celebracao">🎉</div>
+            <h1>SEU PROPÓSITO NASCEU!</h1>
+            <div class="proposito" id="proposito-principal">ANALISANDO...</div>
+            <a href="relatorio-final.html" class="btn">📋 Ver Relatório Completo</a>
+            <a href="utero-base.html" class="btn">🔄 Refazer</a>
         </div>
-      </div>
-      <div class="pill">
-        <span class="pill-dot"></span>
-        <span>Diagnóstico de Propósito – Método SYNESIS</span>
-      </div>
-    </header>
-
-    <main>
-      <section class="hero">
-        <div class="hero-header">
-          <div>
-            <h1 class="hero-title">Seu mapa de propósito foi gerado.</h1>
-            <p class="hero-subtitle">
-              Abaixo está a síntese do que você escreveu: não é um rótulo, é uma leitura viva
-              da sua história, valores, dores, povo, esfera e missão diante de Deus. Use isso
-              como manual de cabeceira e ponto de partida para decisões.
-            </p>
-          </div>
-          <div class="hero-badge">
-            <span class="hero-badge-label">Status</span>
-            <div class="hero-badge-main">
-              <span>Leitura concluída</span>
-              <span style="font-size:0.75rem;color:#a5b4fc;">Propósito dominante identificado</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-body">
-          <article class="card">
-            <h2>declaração central</h2>
-            <div class="pill-small">Tema central da sua vida</div>
-            <p id="prop-texto" class="prop-text">
-              Carregando seu propósito...
-            </p>
-          </article>
-
-          <aside class="card">
-            <h2>mapa rápido</h2>
-            <h3>O que mais se destaca em você</h3>
-            <ul id="lista-fortes" class="card-list">
-              <li>Carregando...</li>
-            </ul>
-            <h3 style="margin-top:14px;">Atenções e alinhamentos</h3>
-            <ul id="lista-fracos" class="card-list">
-              <li>Carregando...</li>
-            </ul>
-          </aside>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-title">plano prático</div>
-        <p class="section-sub">
-          Propósito sem prática vira frustração. Este é um roteiro base para os próximos 30, 90 e 180 dias.
-          Você e seu mentor podem adaptá-lo à sua realidade.
-        </p>
-
-        <div class="section-grid">
-          <div class="plan-card">
-            <h3><span class="tag">30 dias</span><span>Primeiros passos</span></h3>
-            <ul id="plano-30">
-              <li>Carregando...</li>
-            </ul>
-          </div>
-          <div class="plan-card">
-            <h3><span class="tag">90 dias</span><span>Construção de ritmo</span></h3>
-            <ul id="plano-90">
-              <li>Carregando...</li>
-            </ul>
-          </div>
-          <div class="plan-card">
-            <h3><span class="tag">180 dias</span><span>Estrutura e expansão</span></h3>
-            <ul id="plano-180">
-              <li>Carregando...</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button class="btn btn-primary" type="button" onclick="enviarPorEmail()">
-            Enviar relatório para o Instituto Tanigawa
-          </button>
-          <button class="btn btn-secondary" type="button" onclick="copiarRelatorio()">
-            Copiar texto do relatório
-          </button>
-        </div>
-
-        <div class="summary-card">
-          <h3>Resumo em texto (para você e seu mentor)</h3>
-          <pre id="resumo-textual">O relatório completo será gerado aqui.</pre>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      Instituto Tanigawa • Governo • Propósito • Destino — Este diagnóstico é uma ferramenta de
-      leitura espiritual e prática, não uma sentença. Volte a ele em oração sempre que precisar realinhar rota.
-    </footer>
-  </div>
-
-  <!-- Motor Synesis externo -->
-  <script src="synesis-motor.js"></script>
-
-  <script>
-    // Guarda o último resultado para reuso (e-mail / cópia)
-    let ultimoResultado = null;
-
-    function mapearDiagnosticoAntigo(arr) {
-      // Compatibilidade com a versão antiga baseada em 10 respostas simples.
-      // Aproveitamos tudo como "linguagem pessoal" e "transformação".
-      const respostas = Array.isArray(arr) ? arr : [];
-      const textoUnico = respostas.filter(Boolean).join(" ");
-      return {
-        valores: [],
-        verbos: [],
-        comportamentos: [],
-        expressao_valores: [],
-        transformacao: respostas.filter(Boolean),
-        legado: [],
-        povo: [],
-        esfera: [],
-        territorio: [],
-        estado_interno: [],
-        sensacao_missao: [],
-        linguagem_pessoal: textoUnico ? [textoUnico] : []
-      };
-    }
-
-    function gerarResumoTexto(resultado) {
-      const linhas = [];
-      linhas.push("=== DIAGNÓSTICO DE PROPÓSITO – MÉTODO SYNESIS ===");
-      linhas.push("");
-      linhas.push("DECLARAÇÃO CENTRAL DE PROPÓSITO:");
-      linhas.push(resultado.declaracao.trim());
-      linhas.push("");
-      linhas.push("PONTOS FORTES OBSERVADOS:");
-      if (resultado.fortes && resultado.fortes.length) {
-        resultado.fortes.forEach((f, i) => linhas.push(`- ${f}`));
-      } else {
-        linhas.push("- (não identificado)");
-      }
-      linhas.push("");
-      linhas.push("PONTOS DE ATENÇÃO / ALINHAMENTO:");
-      if (resultado.fracos && resultado.fracos.length) {
-        resultado.fracos.forEach((f, i) => linhas.push(`- ${f}`));
-      } else {
-        linhas.push("- (não identificado)");
-      }
-      linhas.push("");
-      linhas.push("PLANO DE AÇÃO SUGERIDO:");
-      if (resultado.plano) {
-        if (resultado.plano["30_dias"]) {
-          linhas.push("");
-          linhas.push("• Próximos 30 dias:");
-          resultado.plano["30_dias"].forEach(p => linhas.push(`  - ${p}`));
+    </div>
+    <script>
+        function analisar() {
+            const r = {}, c = ['concepcao1','concepcao2','concepcao3','implantacao1','implantacao2','implantacao3','batimento1','batimento2','batimento3','membros1','membros2','membros3','chute1','chute2','chute3','olhos1','olhos2','olhos3','respiracao1','respiracao2','respiracao3','voz1','voz2','voz3','parto1','parto2','parto3'];
+            c.forEach(k => r[k] = (localStorage.getItem(k) || '').trim());
+            const t = Object.values(r).join(' ').toLowerCase();
+            const p = {
+                verbos: {'LIBERTAR':['libert','free'],'CURAR':['curar','cura','restaur'],'FORMAR':['ensinar','educar','formar'],'CONSTRUIR':['construir','edificar'],'DESPERTAR':['despertar','revel'],'GUIAR':['guiar','liderar'],'TRANSFORMAR':['transform']},
+                dest: {'JOVENS':['jovem'],'MULHERES':['mulher'],'HOMENS':['homem','pai'],'LÍDERES':['líder','lider','pastor'],'CRIANÇAS':['criança'],'EMPRESÁRIOS':['empresár','empreend'],'FAMÍLIAS':['família']},
+                cond: {'FERIDOS':['ferido','dor','trauma'],'APRISIONADOS':['preso','cativo'],'PERDIDOS':['perdido','confuso'],'ÓRFÃOS':['órfão','abandon'],'OPRIMIDOS':['oprimido']}
+            };
+            function calc(cat) {
+                const res = {};
+                for(const [n,pl] of Object.entries(p[cat])) {
+                    let peso = 0;
+                    pl.forEach(pal => {
+                        const m = t.match(new RegExp(pal,'gi'));
+                        if(m) peso += m.length;
+                    });
+                    res[n] = peso;
+                }
+                return res;
+            }
+            function dom(pesos) {
+                let max=0, d=null;
+                for(const [n,pe] of Object.entries(pesos)) {
+                    if(pe>max) { max=pe; d=n; }
+                }
+                return d;
+            }
+            const v = dom(calc('verbos')) || 'TRANSFORMAR';
+            const d = dom(calc('dest')) || 'PESSOAS';
+            const co = dom(calc('cond')) || 'PERDIDAS';
+            return `${v} ${d} ${co}`;
         }
-        if (resultado.plano["90_dias"]) {
-          linhas.push("");
-          linhas.push("• Próximos 90 dias:");
-          resultado.plano["90_dias"].forEach(p => linhas.push(`  - ${p}`));
-        }
-        if (resultado.plano["180_dias"]) {
-          linhas.push("");
-          linhas.push("• Próximos 180 dias:");
-          resultado.plano["180_dias"].forEach(p => linhas.push(`  - ${p}`));
-        }
-      }
-      linhas.push("");
-      linhas.push("Gerado automaticamente pelo Motor Synesis – Instituto Tanigawa.");
-      return linhas.join("\n");
-    }
-
-    function preencherPagina(resultado) {
-      ultimoResultado = resultado;
-
-      // Declaração principal
-      const propEl = document.getElementById("prop-texto");
-      propEl.textContent = resultado.declaracao || "Não foi possível gerar sua declaração de propósito.";
-
-      // Pontos fortes
-      const fortesEl = document.getElementById("lista-fortes");
-      fortesEl.innerHTML = "";
-      if (resultado.fortes && resultado.fortes.length) {
-        resultado.fortes.forEach(item => {
-          const li = document.createElement("li");
-          li.textContent = item;
-          fortesEl.appendChild(li);
-        });
-      } else {
-        const li = document.createElement("li");
-        li.textContent = "Nenhum ponto forte foi identificado nesta leitura.";
-        fortesEl.appendChild(li);
-      }
-
-      // Pontos de atenção
-      const fracosEl = document.getElementById("lista-fracos");
-      fracosEl.innerHTML = "";
-      if (resultado.fracos && resultado.fracos.length) {
-        resultado.fracos.forEach(item => {
-          const li = document.createElement("li");
-          li.textContent = item;
-          fracosEl.appendChild(li);
-        });
-      } else {
-        const li = document.createElement("li");
-        li.textContent = "Nenhum ponto de atenção específico foi identificado nesta leitura.";
-        fracosEl.appendChild(li);
-      }
-
-      // Plano 30/90/180
-      const plano = resultado.plano || {};
-      const p30 = plano["30_dias"] || [];
-      const p90 = plano["90_dias"] || [];
-      const p180 = plano["180_dias"] || [];
-
-      const lista30 = document.getElementById("plano-30");
-      const lista90 = document.getElementById("plano-90");
-      const lista180 = document.getElementById("plano-180");
-
-      const preencherLista = (ul, itens) => {
-        ul.innerHTML = "";
-        if (!itens.length) {
-          const li = document.createElement("li");
-          li.textContent = "Nenhum item encontrado para esta etapa.";
-          ul.appendChild(li);
-          return;
-        }
-        itens.forEach(item => {
-          const li = document.createElement("li");
-          li.textContent = item;
-          ul.appendChild(li);
-        });
-      };
-
-      preencherLista(lista30, p30);
-      preencherLista(lista90, p90);
-      preencherLista(lista180, p180);
-
-      // Resumo textual
-      const resumo = gerarResumoTexto(resultado);
-      const resumoEl = document.getElementById("resumo-textual");
-      resumoEl.textContent = resumo;
-    }
-
-    function enviarPorEmail() {
-      if (!ultimoResultado) {
-        alert("O relatório ainda não foi gerado. Tente novamente em alguns segundos.");
-        return;
-      }
-      const resumo = gerarResumoTexto(ultimoResultado);
-      const assunto = encodeURIComponent("Novo Diagnóstico de Propósito – Instituto Tanigawa");
-      const corpo = encodeURIComponent(resumo);
-      const email = "institutotanigawa.nr01@gmail.com";
-      window.location.href = `mailto:${email}?subject=${assunto}&body=${corpo}`;
-    }
-
-    function copiarRelatorio() {
-      if (!ultimoResultado) {
-        alert("O relatório ainda não foi gerado.");
-        return;
-      }
-      const resumo = gerarResumoTexto(ultimoResultado);
-      navigator.clipboard.writeText(resumo)
-        .then(() => {
-          alert("Relatório copiado para a área de transferência.");
-        })
-        .catch(() => {
-          alert("Não foi possível copiar o relatório. Você pode selecionar e copiar manualmente.");
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      // 1) Tenta formato novo (objeto estruturado)
-      let dados = null;
-      const brutoV2 = localStorage.getItem("diagnosticoPropositoV2");
-      if (brutoV2) {
-        try {
-          dados = JSON.parse(brutoV2);
-        } catch (e) {
-          console.error("Erro ao ler diagnosticoPropositoV2:", e);
-        }
-      }
-
-      // 2) Se não houver, tenta formato antigo (array)
-      if (!dados) {
-        const bruto = localStorage.getItem("diagnosticoProposito");
-        if (bruto) {
-          try {
-            const arr = JSON.parse(bruto);
-            dados = mapearDiagnosticoAntigo(arr);
-          } catch (e) {
-            console.error("Erro ao ler diagnosticoProposito antigo:", e);
-          }
-        }
-      }
-
-      if (!dados) {
-        const texto = document.getElementById("prop-texto");
-        texto.textContent = "Não encontramos os dados do seu diagnóstico. Volte à página anterior, preencha novamente e gere o resultado.";
-        return;
-      }
-
-      if (typeof executarMotorSynesis !== "function") {
-        console.error("Motor Synesis não encontrado.");
-        const texto = document.getElementById("prop-texto");
-        texto.textContent = "O motor de propósito não pôde ser carregado. Fale com o suporte do Instituto Tanigawa.";
-        return;
-      }
-
-      const resultado = executarMotorSynesis(dados);
-      preencherPagina(resultado);
-    });
-  </script>
+        window.onload = () => {
+            const prop = analisar();
+            document.getElementById('proposito-principal').textContent = prop;
+            localStorage.setItem('tema_central', prop);
+        };
+    </script>
 </body>
 </html>
