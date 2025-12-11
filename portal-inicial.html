@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Útero do Propósito - Instituto Tanigawa</title>
+    <title>Instituto Tanigawa - Diagnósticos</title>
     <style>
         * {
             margin: 0;
@@ -12,37 +12,103 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #1a2b4a 0%, #2d4a7c 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a2b4a 50%, #2d4a7c 100%);
             min-height: 100vh;
             color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeIn 1s ease-in;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.3);
         }
 
-        .header h1 {
-            font-size: 3em;
+        .logo {
+            font-size: 1.5em;
             font-weight: 700;
             color: #d4af37;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
         }
 
-        .header p {
-            font-size: 1.2em;
+        .nav a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.95em;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero .destaque {
             color: #5b8fd9;
-            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+
+        /* BOTÃO GIGANTE */
+        .cta-gigante {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a2b4a;
+            font-size: 1.8em;
+            font-weight: 700;
+            padding: 30px 60px;
+            border-radius: 60px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.5);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .cta-gigante:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(212, 175, 55, 0.7);
+        }
+
+        .cta-subtexto {
+            font-size: 0.95em;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 15px;
+        }
+
+        .diagnosticos {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 40px;
+        }
+
+        .diagnosticos h2 {
+            text-align: center;
+            font-size: 2.5em;
+            color: #d4af37;
+            margin-bottom: 50px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 40px;
         }
 
         .card {
@@ -50,832 +116,133 @@
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            animation: slideUp 0.6s ease-out;
         }
 
-        .trimestre-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, rgba(91, 143, 217, 0.1) 100%);
-            border-radius: 10px;
+        .card h3 {
+            font-size: 1.8em;
+            color: #f4d03f;
+            margin-bottom: 15px;
         }
 
-        .trimestre-header h2 {
-            font-size: 2em;
-            color: #d4af37;
+        .card p {
+            font-size: 1em;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 10px;
         }
 
-        .trimestre-header p {
-            color: #5b8fd9;
-            font-size: 1.1em;
+        .card ul {
+            list-style: none;
+            margin: 20px 0;
         }
 
-        .camada {
-            margin-bottom: 50px;
-        }
-
-        .camada-titulo {
-            font-size: 1.8em;
-            color: #d4af37;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .camada-numero {
-            background: #d4af37;
-            color: #1a2b4a;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2em;
-        }
-
-        .camada-metafora {
-            color: #5b8fd9;
-            font-size: 0.95em;
-            font-style: italic;
-            margin-bottom: 25px;
-            padding-left: 55px;
-        }
-
-        .pergunta {
-            margin-bottom: 30px;
-        }
-
-        .pergunta-label {
-            font-size: 1.1em;
-            color: #ffffff;
-            margin-bottom: 15px;
-            font-weight: 500;
+        .card li {
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 10px;
             line-height: 1.6;
         }
 
-        textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid rgba(91, 143, 217, 0.3);
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-            font-size: 1em;
-            font-family: inherit;
-            resize: vertical;
-            transition: all 0.3s ease;
+        .card li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #5b8fd9;
+            font-weight: bold;
         }
 
-        textarea:focus {
-            outline: none;
-            border-color: #d4af37;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
-        }
-
-        textarea::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
-
-        .btn {
+        .btn-card {
             background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
             color: #1a2b4a;
             border: none;
-            padding: 15px 40px;
-            font-size: 1.1em;
+            padding: 15px 35px;
+            font-size: 1em;
             font-weight: 600;
-            border-radius: 10px;
+            border-radius: 999px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            display: block;
-            margin: 30px auto 0;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .transicao-trimestre {
-            text-align: center;
-            padding: 60px 40px;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(91, 143, 217, 0.2) 100%);
-            border-radius: 20px;
-            margin: 60px 0;
-        }
-
-        .transicao-trimestre h3 {
-            font-size: 2em;
-            color: #d4af37;
-            margin-bottom: 20px;
-        }
-
-        .transicao-trimestre p {
-            font-size: 1.2em;
-            line-height: 1.8;
-            color: #ffffff;
-            margin-bottom: 15px;
-        }
-
-        .trabalho-parto {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000;
-            z-index: 9999;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .trabalho-parto.ativo {
-            display: flex;
-        }
-
-        .trabalho-parto p {
-            font-size: 2em;
-            color: #ffffff;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-
-        .revelacao {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 10000;
-        }
-
-        .revelacao.ativo {
-            display: block;
-        }
-
-        .revelacao-fundo {
-            width: 100%;
-            height: 100%;
-            background: #000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .luz-piscando {
-            position: absolute;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, #ffffff 0%, transparent 70%);
-            border-radius: 50%;
-            animation: piscar 0.3s infinite;
-        }
-
-        .proposito-revelado {
-            opacity: 0;
-            text-align: center;
-            z-index: 1;
-            padding: 40px;
-        }
-
-        .proposito-revelado h2 {
-            font-size: 2.5em;
-            color: #d4af37;
-            margin-bottom: 30px;
-        }
-
-        .proposito-revelado h1 {
-            font-size: 3.5em;
-            color: #ffffff;
-            font-weight: 700;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        @keyframes piscar {
-            0%, 100% {
-                opacity: 0.3;
-                transform: scale(1);
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1.2);
-            }
-        }
-
-        @keyframes explodir {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                transform: scale(50);
-                opacity: 0;
-            }
-        }
-
-        @keyframes revelar {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
+            .hero h1 {
+                font-size: 2.5em;
             }
-
-            .camada-titulo {
+            
+            .cta-gigante {
                 font-size: 1.4em;
+                padding: 25px 40px;
             }
 
-            .card {
-                padding: 25px;
+            .cards {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🤰 Útero do Propósito</h1>
-            <p>Diagnóstico Gestacional de Propósito</p>
+    <div class="header">
+        <div class="logo">INSTITUTO TANIGAWA</div>
+        <div class="nav">
+            <a href="#inicio">Início</a>
+            <a href="#mentorias">Mentorias</a>
+            <a href="#diagnosticos">Diagnósticos</a>
         </div>
+    </div>
 
-        <!-- 1º TRIMESTRE -->
-        <div class="trimestre-header">
-            <h2>1º TRIMESTRE: FORMAÇÃO</h2>
-            <p>Semanas 1-14 | Concepção e Identidade</p>
+    <div class="hero">
+        <h1>
+            Discernimento, direção e<br>
+            <span class="destaque">governo</span> para líderes,<br>
+            famílias e organizações.
+        </h1>
+        <p>
+            Uma combinação rara de inteligência espiritual, leitura de cenários,<br>
+            diagnóstico profundo e alinhamento de propósito — aplicada à vida,<br>
+            ministérios, famílias e empresas.
+        </p>
+
+        <!-- BOTÃO GIGANTE -->
+        <a href="utero-base.html" class="cta-gigante">
+            🤰 INICIAR DIAGNÓSTICO GESTACIONAL
+        </a>
+        <div class="cta-subtexto">
+            ⏱️ 15-25 minutos · Seu propósito vai nascer aqui
         </div>
+    </div>
 
-        <div class="card">
-            <!-- CAMADA 1: CONCEPÇÃO -->
-            <div class="camada">
-                <div class="camada-titulo">
-                    <span class="camada-numero">1</span>
-                    <span>CONCEPÇÃO</span>
-                </div>
-                <p class="camada-metafora">
-                    Metáfora: O espermatozoide encontra o óvulo - seu DNA espiritual único é estabelecido
-                </p>
-
-                <div class="pergunta">
-                    <p class="pergunta-label">
-                        <strong>Quando Deus te pensou pela primeira vez, o que Ele viu em você?</strong><br>
-                        Antes de qualquer história, antes de qualquer dor ou conquista, existe uma essência. Descreva quem você É, não o que você faz ou o que viveu.
-                    </p>
-                    <textarea id="concepcao1" placeholder="Digite sua resposta aqui..."></textarea>
-                </div>
-
-                <div class="pergunta">
-                    <p class="pergunta-label">
-                        Se você pudesse se descrever em UMA ÚNICA PALAVRA - a primeira que vier sem pensar - qual seria?
-                    </p>
-                    <textarea id="concepcao2" placeholder="Uma palavra..."></textarea>
-                </div>
-
-                <div class="pergunta">
-                    <p class="pergunta-label">
-                        As pessoas que te amam de verdade (não as que te conhecem superficialmente, mas as que te VÊM) - o que elas diriam sobre sua essência? O que elas enxergam em você que talvez você mesmo não veja?
-                    </p>
-                    <textarea id="concepcao3" placeholder="O que elas enxergam em mim..."></textarea>
-                </div>
-            </div>
-
-            <!-- CAMADA 2: IMPLANTAÇÃO -->
-            <div class="camada">
-                <div class="camada-titulo">
-                    <span class="camada-numero">2</span>
-                    <span>IMPLANTAÇÃO</span>
-                </div>
-                <p class="camada-metafora">
-                    Metáfora: O embrião se fixa no útero através da ruptura - a dor que te fixou e transformou
-                </p>
-
-                <div class="pergunta">
-                    <p class="pergunta-label">
-                        <strong>Qual foi a dor mais profunda da sua vida?</strong><br>
-                        Aquela que te marcou de forma irreversível. A que te quebrou. Seja específico - não generalize.
-                    </p>
-                    <textarea id="implantacao1" placeholder="A dor que me quebrou..."></textarea>
-                </div>
-
-                <div class="pergunta">
-                    <p class="pergunta-label">
-                        Como essa dor te TRANSFORMOU? O que você ganhou através dela que não teria de outra forma? (Não minimize a dor, mas reconheça o que nasceu dela)
-                    </p>
-                    <textarea id="implantacao2" placeholder="O que nasceu da dor..."></textarea>
-                </div>
-
-                <div class="pergunta">
-                    <p class="pergunta-label">
-                        Complete a frase: "Por causa dessa dor, hoje eu consigo ___________ de uma forma que outras pessoas não conseguem."
-                    </p>
-                    <textarea id="implantacao3" placeholder="Hoje eu consigo..."></textarea>
-                </div>
-            </div>
-
-            <!-- CAMADA 3: PRIMEIRO BATIMENTO -->
-            <div class="camada">
-                <div class="camada-titulo">
-                    <span class="camada-numero">3</span>
-                    <span>PRIMEIRO BATIMENTO</span>
-                </div>
-                <p class="camada-metafora">
-                    Metáfora: O coração começa a bater - o primeiro órgão funcional, o chamado primário
-                </p>
-
-                <div class="pergunta">
-                    <p class="pergunta-label">
-                        <strong>O que faz seu coração bater mais forte?</strong><br>
-                        Quando você se sente mais VIVO? Não estou perguntando o que te deixa feliz ou confortável - estou perguntando o que te faz sentir que você está EXISTINDO plenamente.
-                    </p>
-                    <textarea id="batimento1" placeholder="Eu me sinto mais vivo quando..."></textarea>
-                </div>
-
-                <div class="pergunta">
-                    <p class="pergunta-label">
-                        Se você tivesse apenas 10 anos de vida garantidos, e soubesse disso hoje, como você gastaria esse tempo? Seja brutalmente honesto.
-                    </p>
-                    <textarea id="batimento2" placeholder="Eu gastaria meu tempo..."></textarea>
-                </div>
-
-                <div class="pergunta">
-                    <p class="pergunta-label">
-                        O que você faria mesmo que NINGUÉM te pagasse, ninguém te reconhecesse, e ninguém soubesse que foi você quem fez?
-                    </p>
-                    <textarea id="batimento3" placeholder="Eu faria..."></textarea>
-                </div>
-            </div>
-
-            <button class="btn" onclick="finalizarTrimestre1()">Completar 1º Trimestre</button>
-        </div>
-
-        <!-- TRANSIÇÃO 1º TRIMESTRE -->
-        <div class="transicao-trimestre hidden" id="transicao1">
-            <h3>🎉 Parabéns! 1º Trimestre Completo</h3>
-            <p>
-                Seu propósito já tem <strong>DNA espiritual</strong> (essência),<br>
-                está <strong>fixado através da dor</strong> (implantação),<br>
-                e começou a <strong>bater</strong> (chamado primário).
-            </p>
-            <p style="margin-top: 20px;">
-                Agora vamos para o <strong>2º Trimestre</strong>, onde ele vai se diferenciar e ganhar características únicas...
-            </p>
-            <button class="btn" onclick="irParaTrimestre2()">Iniciar 2º Trimestre</button>
-        </div>
-
-        <!-- 2º TRIMESTRE -->
-        <div class="hidden" id="trimestre2">
-            <div class="trimestre-header">
-                <h2>2º TRIMESTRE: DIFERENCIAÇÃO</h2>
-                <p>Semanas 15-28 | Desenvolvimento e Movimento</p>
-            </div>
-
+    <div class="diagnosticos" id="diagnosticos">
+        <h2>Dois diagnósticos, um movimento: clareza para dentro e para fora.</h2>
+        
+        <div class="cards">
+            <!-- CARD 1: PEAD -->
             <div class="card">
-                <!-- CAMADA 4: MEMBROS -->
-                <div class="camada">
-                    <div class="camada-titulo">
-                        <span class="camada-numero">4</span>
-                        <span>MEMBROS</span>
-                    </div>
-                    <p class="camada-metafora">
-                        Metáfora: Braços e pernas se formam - capacidade de ação, seus dons práticos
-                    </p>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            <strong>O que suas mãos fazem naturalmente, sem esforço?</strong><br>
-                            Que habilidades você tem que parecem fáceis para você, mas você percebe que são difíceis para a maioria das pessoas?
-                        </p>
-                        <textarea id="membros1" placeholder="Minhas mãos fazem naturalmente..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            Quando as pessoas pedem sua ajuda, sobre o que elas SEMPRE perguntam? Qual é aquele assunto que você é "o cara/a pessoa" para resolver?
-                        </p>
-                        <textarea id="membros2" placeholder="As pessoas sempre me pedem ajuda com..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            Se você pudesse fazer UMA COISA pelo resto da vida (e fazer isso muito bem), o que seria? Não pense em dinheiro ou reconhecimento - pense em expressão.
-                        </p>
-                        <textarea id="membros3" placeholder="Eu faria..."></textarea>
-                    </div>
-                </div>
-
-                <!-- CAMADA 5: PRIMEIRO CHUTE -->
-                <div class="camada">
-                    <div class="camada-titulo">
-                        <span class="camada-numero">5</span>
-                        <span>PRIMEIRO CHUTE</span>
-                    </div>
-                    <p class="camada-metafora">
-                        Metáfora: A mãe sente o bebê chutar pela primeira vez - a indignação santa que não pode ser calada
-                    </p>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            <strong>Contra o que você chuta por dentro?</strong><br>
-                            Que injustiça, que erro, que situação te deixa INDIGNADO de uma forma que você não consegue ignorar? Seja específico.
-                        </p>
-                        <textarea id="chute1" placeholder="Eu não consigo aceitar..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            Complete: "Eu não consigo ver ___________ sem querer fazer algo a respeito."
-                        </p>
-                        <textarea id="chute2" placeholder="Eu não consigo ver..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            Se você pudesse mudar UMA COISA no mundo (não genericamente, mas algo específico e tangível), o que seria?
-                        </p>
-                        <textarea id="chute3" placeholder="Eu mudaria..."></textarea>
-                    </div>
-                </div>
-
-                <!-- CAMADA 6: ABERTURA DOS OLHOS -->
-                <div class="camada">
-                    <div class="camada-titulo">
-                        <span class="camada-numero">6</span>
-                        <span>ABERTURA DOS OLHOS</span>
-                    </div>
-                    <p class="camada-metafora">
-                        Metáfora: O bebê abre os olhos no útero e vê luz - discernimento de para quem você foi enviado
-                    </p>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            <strong>Quem você enxerga quando abre os olhos?</strong><br>
-                            Que grupo específico de pessoas você sente compaixão natural em servir? Não diga "todos" - seja cirúrgico.
-                        </p>
-                        <textarea id="olhos1" placeholder="Eu enxergo..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            Quando você imagina seu trabalho tendo impacto real, transformando vidas - de quem é o rosto que você vê? Descreva essa pessoa (pode ser real ou arquetípica).
-                        </p>
-                        <textarea id="olhos2" placeholder="Eu vejo o rosto de..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            De todas as pessoas do mundo, qual grupo você mais gostaria de ver LIVRE, RESTAURADO, TRANSFORMADO? Por quê esse grupo especificamente?
-                        </p>
-                        <textarea id="olhos3" placeholder="Eu quero ver livre..."></textarea>
-                    </div>
-                </div>
-
-                <button class="btn" onclick="finalizarTrimestre2()">Completar 2º Trimestre</button>
-            </div>
-        </div>
-
-        <!-- TRANSIÇÃO 2º TRIMESTRE -->
-        <div class="transicao-trimestre hidden" id="transicao2">
-            <h3>🎉 2º Trimestre Completo!</h3>
-            <p>
-                Seu propósito agora tem <strong>membros</strong> (dons práticos),<br>
-                <strong>chuta</strong> contra injustiças (causa),<br>
-                e já <strong>enxerga</strong> para quem existe (destinatários).
-            </p>
-            <p style="margin-top: 20px;">
-                Agora vamos para o <strong>3º Trimestre</strong> - a preparação final antes do nascimento...
-            </p>
-            <button class="btn" onclick="irParaTrimestre3()">Iniciar 3º Trimestre</button>
-        </div>
-
-        <!-- 3º TRIMESTRE -->
-        <div class="hidden" id="trimestre3">
-            <div class="trimestre-header">
-                <h2>3º TRIMESTRE: PREPARAÇÃO</h2>
-                <p>Semanas 29-40 | Últimos Ajustes Antes do Nascimento</p>
+                <h3>Diagnóstico Tanigawa – Método PEAD</h3>
+                <p>Um raio-X preciso sobre como você funciona, como decide, como reage sob pressão e como se relaciona com pessoas, projetos e ambientes.</p>
+                <ul>
+                    <li>Mapeia padrões de comportamento, força e vulnerabilidades</li>
+                    <li>Ajuda a entender como você influencia e é influenciado</li>
+                    <li>Base para alinhamento de liderança, família e negócios</li>
+                </ul>
+                <p><strong>Tempo médio:</strong> 20-30 minutos</p>
+                <a href="#" class="btn-card">Fazer Diagnóstico PEAD</a>
             </div>
 
+            <!-- CARD 2: ÚTERO DO PROPÓSITO -->
             <div class="card">
-                <!-- CAMADA 7: RESPIRAÇÃO -->
-                <div class="camada">
-                    <div class="camada-titulo">
-                        <span class="camada-numero">7</span>
-                        <span>RESPIRAÇÃO</span>
-                    </div>
-                    <p class="camada-metafora">
-                        Metáfora: Os pulmões amadurecem - capacidade de respirar sozinho, seu território de governo
-                    </p>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            <strong>Onde você respira sozinho?</strong><br>
-                            Em que contexto, ambiente ou área você se sente COMPETENTE, CONFIANTE, e com AUTORIDADE natural? Onde você não precisa pedir licença?
-                        </p>
-                        <textarea id="respiracao1" placeholder="Eu respiro sozinho em..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            Se você pudesse "governar" um território (uma empresa, um ministério, uma área de conhecimento, uma comunidade) - qual seria? Por que esse território especificamente te chama?
-                        </p>
-                        <textarea id="respiracao2" placeholder="Meu território seria..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            Complete: "As pessoas naturalmente me reconhecem como autoridade quando o assunto é ___________."
-                        </p>
-                        <textarea id="respiracao3" placeholder="Sou reconhecido como autoridade em..."></textarea>
-                    </div>
-                </div>
-
-                <!-- CAMADA 8: VOZ -->
-                <div class="camada">
-                    <div class="camada-titulo">
-                        <span class="camada-numero">8</span>
-                        <span>VOZ</span>
-                    </div>
-                    <p class="camada-metafora">
-                        Metáfora: O bebê desenvolve capacidade de chorar - sua voz única, a mensagem que você carrega
-                    </p>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            <strong>Se você pudesse gritar UMA ÚNICA VERDADE para o mundo inteiro ouvir, qual seria?</strong><br>
-                            Qual mensagem você carrega que PRECISA ser dita? Não pense, sinta. O que sai do fundo do peito?
-                        </p>
-                        <textarea id="voz1" placeholder="Eu gritaria..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            Se sua vida fosse um livro e você tivesse que dar um título de UMA FRASE - qual seria? (Não pense muito, deixe vir)
-                        </p>
-                        <textarea id="voz2" placeholder="Título do livro da minha vida..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            Quando você morrer e as pessoas estiverem no seu velório - o que você QUER que elas digam sobre você? Qual legado você quer deixar impresso nos corações?
-                        </p>
-                        <textarea id="voz3" placeholder="Eu quero que lembrem que eu..."></textarea>
-                    </div>
-                </div>
-
-                <!-- CAMADA 9: TRABALHO DE PARTO -->
-                <div class="camada">
-                    <div class="camada-titulo">
-                        <span class="camada-numero">9</span>
-                        <span>TRABALHO DE PARTO</span>
-                    </div>
-                    <p class="camada-metafora">
-                        Metáfora: O bebê se posiciona para nascer - preparação final, a síntese de tudo
-                    </p>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            <strong>Olhando para TUDO que você compartilhou até aqui - complete esta frase com total honestidade:</strong><br><br>
-                            "Eu fui enviado para ___________________________________________."
-                        </p>
-                        <textarea id="parto1" placeholder="Eu fui enviado para..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            O que precisa NASCER através de você? O que Deus quer trazer ao mundo usando sua vida como canal?
-                        </p>
-                        <textarea id="parto2" placeholder="Precisa nascer através de mim..."></textarea>
-                    </div>
-
-                    <div class="pergunta">
-                        <p class="pergunta-label">
-                            Se hoje fosse seu último dia na Terra, você estaria em paz com o que fez? Se não, o que está faltando nascer?
-                        </p>
-                        <textarea id="parto3" placeholder="Está faltando..."></textarea>
-                    </div>
-                </div>
-
-                <button class="btn" onclick="iniciarTrabalhoDeParto()">🔥 Iniciar Trabalho de Parto</button>
+                <h3>Diagnóstico de Propósito – Método SYNESIS</h3>
+                <p>10 Portas que atravessam sua essência, dores, dons, batalhas, voz e missão — para revelar com clareza o tema central da sua vida diante de Deus.</p>
+                <ul>
+                    <li>Explora sua história, sua dor transformada e seu chamado</li>
+                    <li>Identifica o povo, território e mensagem da sua missão</li>
+                    <li>Gera um mapa de propósito com plano 30 / 90 / 180 dias</li>
+                </ul>
+                <p><strong>Tempo médio:</strong> 15-25 minutos</p>
+                <a href="utero-base.html" class="btn-card">Fazer Diagnóstico de Propósito</a>
             </div>
         </div>
     </div>
-
-    <!-- TELA DE TRABALHO DE PARTO -->
-    <div class="trabalho-parto" id="trabalho-parto">
-        <p>As contrações começaram...</p>
-        <p>Seu propósito está prestes a nascer...</p>
-        <p>Aguarde...</p>
-        <p>Respire fundo...</p>
-    </div>
-
-    <!-- TELA DE REVELAÇÃO -->
-    <div class="revelacao" id="revelacao">
-        <div class="revelacao-fundo">
-            <div class="luz-piscando" id="luz"></div>
-            <div class="proposito-revelado" id="proposito">
-                <h2>SEU PROPÓSITO É:</h2>
-                <h1 id="declaracao-proposito"></h1>
-                <button class="btn" style="margin-top: 40px;" onclick="verRelatorio()">✨ Quer conhecer melhor seu bebê?</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // Salvar respostas no localStorage
-        function salvarResposta(campo) {
-            const valor = document.getElementById(campo).value;
-            localStorage.setItem(campo, valor);
-        }
-
-        // Carregar respostas salvas
-        window.onload = function() {
-            const campos = [
-                'concepcao1', 'concepcao2', 'concepcao3',
-                'implantacao1', 'implantacao2', 'implantacao3',
-                'batimento1', 'batimento2', 'batimento3',
-                'membros1', 'membros2', 'membros3',
-                'chute1', 'chute2', 'chute3',
-                'olhos1', 'olhos2', 'olhos3',
-                'respiracao1', 'respiracao2', 'respiracao3',
-                'voz1', 'voz2', 'voz3',
-                'parto1', 'parto2', 'parto3'
-            ];
-
-            campos.forEach(campo => {
-                const valor = localStorage.getItem(campo);
-                if (valor && document.getElementById(campo)) {
-                    document.getElementById(campo).value = valor;
-                }
-            });
-
-            // Adicionar event listeners
-            campos.forEach(campo => {
-                const elemento = document.getElementById(campo);
-                if (elemento) {
-                    elemento.addEventListener('input', () => salvarResposta(campo));
-                }
-            });
-        };
-
-        function finalizarTrimestre1() {
-            document.getElementById('transicao1').classList.remove('hidden');
-            document.getElementById('transicao1').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function irParaTrimestre2() {
-            document.getElementById('trimestre2').classList.remove('hidden');
-            document.getElementById('trimestre2').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function finalizarTrimestre2() {
-            document.getElementById('transicao2').classList.remove('hidden');
-            document.getElementById('transicao2').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function irParaTrimestre3() {
-            document.getElementById('trimestre3').classList.remove('hidden');
-            document.getElementById('trimestre3').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function iniciarTrabalhoDeParto() {
-            document.getElementById('trabalho-parto').classList.add('ativo');
-
-            setTimeout(() => {
-                document.getElementById('trabalho-parto').classList.remove('ativo');
-                revelarProposito();
-            }, 5000);
-        }
-
-        function revelarProposito() {
-            const proposito = analisarRespostas();
-            document.getElementById('revelacao').classList.add('ativo');
-
-            setTimeout(() => {
-                const luz = document.getElementById('luz');
-                luz.style.animation = 'explodir 1s ease-out forwards';
-
-                setTimeout(() => {
-                    luz.style.display = 'none';
-                    document.querySelector('.revelacao-fundo').style.background =
-                        'linear-gradient(135deg, #1a2b4a 0%, #2d4a7c 100%)';
-
-                    const propositoDiv = document.getElementById('proposito');
-                    document.getElementById('declaracao-proposito').textContent = proposito;
-                    propositoDiv.style.animation = 'revelar 1.5s ease-out forwards';
-                    propositoDiv.style.opacity = '1';
-                }, 1000);
-            }, 3000);
-        }
-
-        function analisarRespostas() {
-            const respostas = {
-                essencia: document.getElementById('concepcao2').value.toLowerCase(),
-                dor: document.getElementById('implantacao1').value.toLowerCase(),
-                dom: document.getElementById('membros1').value.toLowerCase(),
-                causa: document.getElementById('chute1').value.toLowerCase(),
-                povo: document.getElementById('olhos1').value.toLowerCase(),
-                territorio: document.getElementById('respiracao2').value.toLowerCase(),
-                missao: document.getElementById('parto1').value
-            };
-
-            const texto = Object.values(respostas).join(' ').toLowerCase();
-
-            let verbo = 'TRANSFORMAR';
-            let substantivo = 'VIDAS';
-            let adjetivo = 'PERDIDAS';
-
-            if (texto.includes('libert') || texto.includes('free')) verbo = 'LIBERTAR';
-            else if (texto.includes('cur') || texto.includes('rest')) verbo = 'CURAR';
-            else if (texto.includes('ensin') || texto.includes('form')) verbo = 'FORMAR';
-            else if (texto.includes('constr') || texto.includes('edif')) verbo = 'CONSTRUIR';
-            else if (texto.includes('despert') || texto.includes('revel')) verbo = 'DESPERTAR';
-
-            if (texto.includes('jovem') || texto.includes('adolesc')) substantivo = 'JOVENS';
-            else if (texto.includes('mulher') || texto.includes('feminino')) substantivo = 'MULHERES';
-            else if (texto.includes('homem') || texto.includes('pai')) substantivo = 'HOMENS';
-            else if (texto.includes('líder') || texto.includes('lider')) substantivo = 'LÍDERES';
-            else if (texto.includes('criança')) substantivo = 'CRIANÇAS';
-            else if (texto.includes('empreend') || texto.includes('negócio')) substantivo = 'EMPREENDEDORES';
-
-            if (texto.includes('ferido') || texto.includes('dor') || texto.includes('quebrado')) adjetivo = 'FERIDOS';
-            else if (texto.includes('preso') || texto.includes('aprisionado') || texto.includes('cativo')) adjetivo = 'APRISIONADOS';
-            else if (texto.includes('perdido') || texto.includes('sem rumo')) adjetivo = 'PERDIDOS';
-            else if (texto.includes('órfão') || texto.includes('abandona')) adjetivo = 'ÓRFÃOS';
-
-            if (respostas.missao && respostas.missao.length > 20) {
-                return respostas.missao.toUpperCase();
-            }
-
-            return `${verbo} ${substantivo} ${adjetivo}`;
-        }
-
-        function verRelatorio() {
-            // Abre o relatório final com a leitura completa das respostas
-            window.location.href = 'relatorio-final.html';
-        }
-    </script>
 </body>
 </html>
-
