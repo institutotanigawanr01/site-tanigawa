@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório – Útero do Propósito</title>
+    <title>Relatório Final - Útero do Propósito</title>
     <style>
         * {
             margin: 0;
@@ -17,10 +17,11 @@
             min-height: 100vh;
             color: #ffffff;
             overflow-x: hidden;
+            padding: 20px;
         }
 
         .container {
-            max-width: 960px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 40px 20px 60px;
         }
@@ -34,8 +35,8 @@
             font-size: 2.6em;
             font-weight: 700;
             color: #d4af37;
-            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.35);
             margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
         }
 
         .header p {
@@ -43,345 +44,641 @@
             color: #5b8fd9;
         }
 
-        .tag {
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 999px;
-            border: 1px solid rgba(212, 175, 55, 0.6);
-            font-size: 0.85em;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #f4d03f;
-            margin-bottom: 16px;
-        }
-
         .card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 28px 26px;
-            margin-bottom: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            margin-bottom: 25px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-
-        .card h2 {
-            font-size: 1.4em;
-            color: #d4af37;
-            margin-bottom: 8px;
-        }
-
-        .card h3 {
-            font-size: 1.1em;
-            color: #5b8fd9;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.09em;
-        }
-
-        .card p {
-            font-size: 0.98em;
-            line-height: 1.7;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .card p small {
-            display: block;
-            font-size: 0.82em;
-            opacity: 0.75;
-            margin-top: 4px;
-        }
-
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1.1fr 1.1fr;
-            gap: 18px;
-            margin-top: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .section-title {
-            font-size: 1.5em;
-            color: #f4d03f;
-            margin: 26px 0 12px;
-        }
-
-        .proposito-central {
-            text-align: center;
-            padding: 28px 22px 30px;
-            background: radial-gradient(circle at top, rgba(244, 208, 63, 0.18) 0%, rgba(10, 14, 39, 0.2) 52%, rgba(0,0,0,0.5) 100%);
-            border-radius: 24px;
-            border: 1px solid rgba(244, 208, 63, 0.4);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            margin-bottom: 32px;
-        }
-
-        .proposito-central h2 {
-            font-size: 1em;
-            letter-spacing: 0.16em;
+            font-size: 1.4em;
+            color: #d4af37;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            color: #f4d03f;
-            margin-bottom: 10px;
+            letter-spacing: 1px;
         }
 
-        .proposito-central p {
-            font-size: 1.25em;
-            line-height: 1.8;
-        }
-
-        .proposito-central span {
+        .proposito-curto {
+            font-size: 2.1em;
+            font-weight: 800;
+            text-align: center;
+            margin: 20px 0;
             color: #ffffff;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            line-height: 1.3;
+        }
+
+        .proposito-longo {
+            font-size: 1.05em;
+            line-height: 1.8;
+            text-align: justify;
+            color: #f0f3ff;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(91, 143, 217, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .item-label {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5b8fd9;
+            margin-bottom: 8px;
             font-weight: 600;
         }
 
-        .sub-label {
-            font-size: 0.8em;
-            text-transform: uppercase;
-            letter-spacing: 0.16em;
-            color: #5b8fd9;
-            margin-bottom: 4px;
+        .item-text {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #ffffff;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
         }
 
-        .mapa-rapido-list {
-            list-style: none;
-            margin-top: 10px;
+        .empty {
+            opacity: 0.4;
+            font-style: italic;
         }
 
-        .mapa-rapido-list li {
-            margin-bottom: 8px;
-            font-size: 0.96em;
-        }
-
-        .mapa-rapido-list strong {
-            color: #f4d03f;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 30px;
+        .footer-note {
             font-size: 0.9em;
-            color: rgba(255, 255, 255, 0.7);
+            color: #9fb8ff;
+            margin-top: 15px;
+            font-style: italic;
         }
 
-        .footer span {
-            color: #f4d03f;
+        .btn-bar {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
         }
 
         .btn {
-            margin-top: 22px;
             background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
             color: #1a2b4a;
             border: none;
-            padding: 12px 26px;
+            padding: 12px 28px;
             font-size: 0.95em;
             font-weight: 600;
             border-radius: 999px;
             cursor: pointer;
-            transition: all 0.25s ease;
-            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            text-decoration: none;
         }
 
         .btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 7px 24px rgba(212, 175, 55, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
         }
 
-        .btn:active {
-            transform: translateY(0);
+        .lista-pontos {
+            list-style: none;
+            padding: 0;
         }
 
-        @media (max-width: 780px) {
-            .grid-2 {
+        .lista-pontos li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .lista-pontos li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .plano-acao {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .plano-card {
+            background: rgba(91, 143, 217, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #d4af37;
+        }
+
+        .plano-card h4 {
+            color: #d4af37;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .plano-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .plano-card li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .plano-card li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #5b8fd9;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .grid {
                 grid-template-columns: 1fr;
             }
 
-            .header h1 {
-                font-size: 2.1em;
+            .proposito-curto {
+                font-size: 1.6em;
             }
+        }
 
-            .proposito-central p {
-                font-size: 1.05em;
+        @media print {
+            body {
+                background: white;
+                color: black;
             }
-
-            .container {
-                padding: 28px 16px 40px;
+            
+            .btn-bar {
+                display: none;
+            }
+            
+            .card {
+                box-shadow: none;
+                border: 1px solid #ccc;
+                page-break-inside: avoid;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-
-    <div class="header">
-        <div class="tag">Relatório Gestacional de Propósito</div>
-        <h1>Útero do Propósito</h1>
-        <p>Mapa organizado das respostas – 3 trimestres • 9 camadas • 1 propósito central</p>
-    </div>
-
-    <!-- PROPÓSITO CENTRAL -->
-    <div class="proposito-central">
-        <h2>DECLARAÇÃO CENTRAL</h2>
-        <p id="proposito-central-texto">
-            Seu propósito ainda está em processo de formação. Volte e complete a frase da 10ª camada:
-            <span>"Eu fui enviado para..."</span>
-        </p>
-    </div>
-
-    <!-- 1º TRIMESTRE -->
-    <h2 class="section-title">1º Trimestre · Concepção e Identidade</h2>
-
-    <div class="card">
-        <h3>Essência & DNA Espiritual</h3>
-        <p class="sub-label">Camada 1 – Concepção</p>
-        <p id="resumo-essencia"></p>
-        <p><small><strong>Palavra da essência:</strong> <span id="palavra-essencia">—</span></small></p>
-    </div>
-
-    <div class="card">
-        <h3>Dor que te Fixou</h3>
-        <p class="sub-label">Camada 2 – Implantação</p>
-        <p id="resumo-dor"></p>
-        <p><small><strong>Como essa dor te transformou:</strong> <span id="resumo-transformacao"></span></small></p>
-    </div>
-
-    <div class="card">
-        <h3>Primeiro Batimento · Onde você se sente vivo</h3>
-        <p class="sub-label">Camada 3 – Chamado Primário</p>
-        <p id="resumo-batimento"></p>
-    </div>
-
-    <!-- 2º TRIMESTRE -->
-    <h2 class="section-title">2º Trimestre · Dons, Causa e Pessoas</h2>
-
-    <div class="grid-2">
-        <div class="card">
-            <h3>Dons Práticos & Habilidades</h3>
-            <p class="sub-label">Camada 4 – Membros</p>
-            <p id="resumo-dons"></p>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Relatório Final - Útero do Propósito</h1>
+            <p>Síntese Personalizada do Seu Diagnóstico Gestacional</p>
         </div>
 
+        <!-- DECLARAÇÃO CENTRAL -->
         <div class="card">
-            <h3>Indignação Santa & Causa</h3>
-            <p class="sub-label">Camada 5 – Primeiro Chute</p>
-            <p id="resumo-causa"></p>
+            <div class="section-title">🎯 1. Revelação Central do Seu Propósito</div>
+            <div id="proposito-curto" class="proposito-curto">PROPÓSITO AINDA NÃO DEFINIDO</div>
+            <div class="proposito-longo" id="proposito-longo">
+                Complete todas as camadas do Útero do Propósito para que sua declaração de envio seja revelada aqui.
+            </div>
+            <p class="footer-note">
+                • A frase em destaque é a síntese do seu propósito (verbo + pessoas + condição)<br>
+                • O parágrafo abaixo é sua declaração nas suas próprias palavras
+            </p>
+        </div>
+
+        <!-- MAPA EM 8 PONTOS -->
+        <div class="card">
+            <div class="section-title">🗺️ 2. Mapa do Propósito em 8 Dimensões</div>
+            <div class="grid">
+                <div>
+                    <div class="item-label">🧬 Essência</div>
+                    <div class="item-text" id="essencia"></div>
+                </div>
+                <div>
+                    <div class="item-label">🔑 Palavra-Chave</div>
+                    <div class="item-text" id="palavra-identidade"></div>
+                </div>
+                <div>
+                    <div class="item-label">⚡ Dor que te Forjou</div>
+                    <div class="item-text" id="dor"></div>
+                </div>
+                <div>
+                    <div class="item-label">🎁 Dom Natural</div>
+                    <div class="item-text" id="dom"></div>
+                </div>
+                <div>
+                    <div class="item-label">🔥 Causa que te Move</div>
+                    <div class="item-text" id="causa"></div>
+                </div>
+                <div>
+                    <div class="item-label">👥 Pessoas-Alvo</div>
+                    <div class="item-text" id="pessoas"></div>
+                </div>
+                <div>
+                    <div class="item-label">🏛️ Território</div>
+                    <div class="item-text" id="territorio"></div>
+                </div>
+                <div>
+                    <div class="item-label">📢 Mensagem</div>
+                    <div class="item-text" id="mensagem"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PONTOS FORTES -->
+        <div class="card">
+            <div class="section-title">✨ 3. Pontos Fortes Identificados</div>
+            <ul class="lista-pontos" id="pontos-fortes">
+                <li>Analisando suas respostas...</li>
+            </ul>
+        </div>
+
+        <!-- PONTOS DE ATENÇÃO -->
+        <div class="card">
+            <div class="section-title">⚠️ 4. Pontos de Atenção / Alinhamento</div>
+            <ul class="lista-pontos" id="pontos-atencao">
+                <li>Analisando suas respostas...</li>
+            </ul>
+        </div>
+
+        <!-- PLANO DE AÇÃO -->
+        <div class="card">
+            <div class="section-title">🎯 5. Plano de Ação Personalizado</div>
+            <p style="margin-bottom: 20px; color: #9fb8ff;">
+                Baseado no seu propósito revelado, aqui estão os próximos passos práticos:
+            </p>
+            <div class="plano-acao">
+                <div class="plano-card">
+                    <h4>📅 Próximos 30 Dias</h4>
+                    <ul id="plano-30"></ul>
+                </div>
+                <div class="plano-card">
+                    <h4>📅 Próximos 90 Dias</h4>
+                    <ul id="plano-90"></ul>
+                </div>
+                <div class="plano-card">
+                    <h4>📅 Próximos 180 Dias</h4>
+                    <ul id="plano-180"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-bar">
+            <a href="utero-base.html" class="btn">⬅️ Voltar ao Útero</a>
+            <button class="btn" onclick="window.print()">🖨️ Gerar PDF</button>
         </div>
     </div>
 
-    <div class="card">
-        <h3>Para Quem Você Foi Enviado</h3>
-        <p class="sub-label">Camada 6 – Abertura dos Olhos</p>
-        <p id="resumo-pessoas"></p>
-    </div>
-
-    <!-- 3º TRIMESTRE -->
-    <h2 class="section-title">3º Trimestre · Governo, Mensagem e Nascimento</h2>
-
-    <div class="grid-2">
-        <div class="card">
-            <h3>Território de Governo</h3>
-            <p class="sub-label">Camada 7 – Respiração</p>
-            <p id="resumo-territorio"></p>
-        </div>
-
-        <div class="card">
-            <h3>Mensagem & Legado</h3>
-            <p class="sub-label">Camada 8 – Voz</p>
-            <p id="resumo-mensagem"></p>
-        </div>
-    </div>
-
-    <div class="card">
-        <h3>Trabalho de Parto · Síntese</h3>
-        <p class="sub-label">Camada 9 – Nascimento</p>
-        <p id="resumo-trabalho-parto"></p>
-    </div>
-
-    <!-- MAPA RÁPIDO -->
-    <h2 class="section-title">Mapa Rápido do Propósito</h2>
-
-    <div class="card">
-        <h3>Leitura em poucos segundos</h3>
-        <ul class="mapa-rapido-list">
-            <li><strong>Essência:</strong> <span id="mapa-essencia"></span></li>
-            <li><strong>Pessoas-alvo:</strong> <span id="mapa-pessoas"></span></li>
-            <li><strong>Território de governo:</strong> <span id="mapa-territorio"></span></li>
-        </ul>
-
-        <button class="btn" onclick="window.location.href='utero-base.html'">
-            ↩ Voltar para o Útero do Propósito
-        </button>
-    </div>
-
-    <div class="footer">
-        Este relatório é um <span>rascunho espiritual</span>. Ele não te prende – ele aponta caminhos.<br>
-        A cada nova estação, o Espírito Santo pode aprofundar e refinar o que nasceu aqui.
-    </div>
-</div>
-
-<script>
-    function pegar(campo) {
-        return (localStorage.getItem(campo) || "").trim();
-    }
-
-    function resumo(campo, limite) {
-        let txt = pegar(campo);
-        if (!txt) return "—";
-        if (txt.length <= limite) return txt;
-        // tenta cortar na primeira parada boa
-        const ponto = txt.indexOf('.', limite * 0.6);
-        const corte = ponto > 0 && ponto < limite + 80 ? ponto + 1 : limite;
-        return txt.slice(0, corte).trim() + " (...)";
-    }
-
-    function preencherRelatorio() {
-        // Propósito central – 10ª camada (parto1)
-        const proposito = pegar('parto1');
-        const propositoBox = document.getElementById('proposito-central-texto');
-        if (proposito && proposito.length > 10) {
-            propositoBox.innerHTML =
-                'Eu fui enviado para <span>' + proposito + '</span>';
+    <script>
+        function getOrEmpty(key) {
+            const v = localStorage.getItem(key);
+            return v && v.trim().length > 0 ? v.trim() : '';
         }
 
-        // 1º trimestre
-        document.getElementById('resumo-essencia').textContent =
-            resumo('concepcao1', 420);
-        document.getElementById('palavra-essencia').textContent =
-            pegar('concepcao2') || 'não definida';
+        // ANÁLISE AVANÇADA DE PALAVRAS-CHAVE
+        function analisarTexto(texto) {
+            const t = texto.toLowerCase();
+            
+            const padroes = {
+                // Verbos de ação
+                verbos: {
+                    'libertar': ['libert', 'free', 'soltar', 'desacorrent'],
+                    'curar': ['curar', 'cura', 'restaur', 'sarar', 'reden'],
+                    'ensinar': ['ensinar', 'educar', 'formar', 'capacit', 'treinar', 'instruir'],
+                    'construir': ['construir', 'edificar', 'desenvolv', 'criar', 'erguer'],
+                    'despertar': ['despertar', 'acordar', 'revel', 'iluminar', 'conscientiz'],
+                    'guiar': ['guiar', 'conduzir', 'orientar', 'direcionar', 'liderar'],
+                    'transformar': ['transform', 'mudar', 'converter', 'renovar']
+                },
+                
+                // Destinatários
+                destinatarios: {
+                    'jovens': ['jovem', 'jovens', 'adolesc', 'juventude'],
+                    'mulheres': ['mulher', 'mulheres', 'feminino'],
+                    'homens': ['homem', 'homens', 'masculino', 'pai', 'pais'],
+                    'líderes': ['líder', 'líderes', 'lider', 'liderança', 'pastor', 'governo'],
+                    'crianças': ['criança', 'crianças', 'infantil'],
+                    'empresários': ['empresár', 'empreended', 'negócio', 'empresa'],
+                    'famílias': ['família', 'familias', 'casal', 'casais']
+                },
+                
+                // Condições
+                condicoes: {
+                    'feridos': ['ferido', 'machucado', 'quebrado', 'dor', 'trauma'],
+                    'aprisionados': ['preso', 'aprisionado', 'cativo', 'escrav'],
+                    'perdidos': ['perdido', 'sem rumo', 'desorienta', 'confuso'],
+                    'órfãos': ['órfão', 'órfãos', 'abandona', 'rejeitado', 'sozinho'],
+                    'oprimidos': ['oprimido', 'injustiça', 'sofrendo', 'marginaliz']
+                },
+                
+                // Pontos fortes
+                forcas: {
+                    'discernimento': ['discern', 'perceb', 'enxergo', 'vejo', 'sinto'],
+                    'empatia': ['emp atia', 'compaixão', 'sinto a dor', 'entendo'],
+                    'clareza': ['claro', 'clareza', 'objetivo', 'direto', 'preciso'],
+                    'persistência': ['persist', 'não desist', 'continuo', 'insist'],
+                    'sabedoria': ['sabedor', 'sábio', 'entendo profund', 'compreendo'],
+                    'coragem': ['coraj', 'enfrento', 'não tenho medo', 'ousad']
+                }
+            };
+            
+            const resultados = {
+                verbos: [],
+                destinatarios: [],
+                condicoes: [],
+                forcas: []
+            };
+            
+            // Detectar padrões
+            for (const [categoria, subcategorias] of Object.entries(padroes)) {
+                for (const [nome, keywords] of Object.entries(subcategorias)) {
+                    for (const keyword of keywords) {
+                        if (t.includes(keyword)) {
+                            if (!resultados[categoria].includes(nome)) {
+                                resultados[categoria].push(nome);
+                            }
+                        }
+                    }
+                }
+            }
+            
+            return resultados;
+        }
 
-        document.getElementById('resumo-dor').textContent =
-            resumo('implantacao1', 360);
-        document.getElementById('resumo-transformacao').textContent =
-            resumo('implantacao2', 260);
+        function gerarDeclaracao(respostas) {
+            // Juntar todas as respostas
+            const textoCompleto = Object.values(respostas).join(' ');
+            const analise = analisarTexto(textoCompleto);
+            
+            // Escolher verbo dominante
+            let verbo = 'TRANSFORMAR';
+            if (analise.verbos.length > 0) {
+                const verbosMap = {
+                    'libertar': 'LIBERTAR',
+                    'curar': 'CURAR',
+                    'ensinar': 'FORMAR',
+                    'construir': 'CONSTRUIR',
+                    'despertar': 'DESPERTAR',
+                    'guiar': 'GUIAR',
+                    'transformar': 'TRANSFORMAR'
+                };
+                verbo = verbosMap[analise.verbos[0]] || 'TRANSFORMAR';
+            }
+            
+            // Escolher destinatário
+            let destinatario = 'PESSOAS';
+            if (analise.destinatarios.length > 0) {
+                destinatario = analise.destinatarios[0].toUpperCase();
+            }
+            
+            // Escolher condição
+            let condicao = 'PERDIDAS';
+            if (analise.condicoes.length > 0) {
+                condicao = analise.condicoes[0].toUpperCase();
+            }
+            
+            const curta = `${verbo} ${destinatario} ${condicao}`;
+            const longa = respostas.parto1 || respostas.voz1 || respostas.batimento3 || '';
+            
+            return {
+                curta: curta,
+                longa: longa,
+                analise: analise
+            };
+        }
 
-        document.getElementById('resumo-batimento').textContent =
-            resumo('batimento1', 360);
+        function gerarPontosFortes(analise, respostas) {
+            const pontos = [];
+            
+            // Baseado em palavras-chave de força
+            if (analise.forcas.includes('discernimento')) {
+                pontos.push('Capacidade aguçada de discernimento e percepção espiritual');
+            }
+            if (analise.forcas.includes('empatia')) {
+                pontos.push('Empatia profunda e capacidade de se conectar com a dor alheia');
+            }
+            if (analise.forcas.includes('clareza')) {
+                pontos.push('Clareza de pensamento e objetividade estratégica');
+            }
+            if (analise.forcas.includes('persistência')) {
+                pontos.push('Persistência e resiliência diante de adversidades');
+            }
+            if (analise.forcas.includes('sabedoria')) {
+                pontos.push('Sabedoria e maturidade espiritual');
+            }
+            if (analise.forcas.includes('coragem')) {
+                pontos.push('Coragem para enfrentar desafios e confrontar verdades difíceis');
+            }
+            
+            // Baseado em comprimento e profundidade das respostas
+            const respostasLongas = Object.values(respostas).filter(r => r.length > 200).length;
+            if (respostasLongas >= 5) {
+                pontos.push('Capacidade de reflexão profunda e autoconhecimento desenvolvido');
+            }
+            
+            // Baseado em dor transformada
+            if (respostas.implantacao2 && respostas.implantacao2.length > 50) {
+                pontos.push('Habilidade de transformar dor em propósito e autoridade');
+            }
+            
+            // Baseado em clareza de chamado
+            if (respostas.parto1 && respostas.parto1.length > 100) {
+                pontos.push('Clareza e convicção sobre seu propósito de vida');
+            }
+            
+            return pontos.length > 0 ? pontos : ['Sensibilidade e busca genuína por propósito'];
+        }
 
-        // 2º trimestre
-        document.getElementById('resumo-dons').textContent =
-            resumo('membros1', 320);
-        document.getElementById('resumo-causa').textContent =
-            resumo('chute1', 320);
-        document.getElementById('resumo-pessoas').textContent =
-            resumo('olhos1', 380);
+        function gerarPontosAtencao(analise, respostas) {
+            const pontos = [];
+            
+            // Detectar padrões de atenção
+            const textoCompleto = Object.values(respostas).join(' ').toLowerCase();
+            
+            if (textoCompleto.includes('sozinho') || textoCompleto.includes('carregar tudo')) {
+                pontos.push('Cuidado com a tendência de carregar responsabilidades sozinho - aprenda a delegar');
+            }
+            
+            if (textoCompleto.includes('cansaço') || textoCompleto.includes('exaust')) {
+                pontos.push('Pratique descanso estratégico para sustentar seu chamado a longo prazo');
+            }
+            
+            if (textoCompleto.includes('medo') || textoCompleto.includes('insegur')) {
+                pontos.push('Trabalhe questões de medo e insegurança que podem limitar seu alcance');
+            }
+            
+            if (analise.verbos.length > 3) {
+                pontos.push('Foque em 1-2 expressões principais do seu propósito para evitar dispersão');
+            }
+            
+            if (!respostas.parto1 || respostas.parto1.length < 50) {
+                pontos.push('Busque maior clareza na sua declaração de envio através de mentoria');
+            }
+            
+            // Sempre incluir
+            pontos.push('Mantenha alinhamento entre o que você fala e o que você vive');
+            pontos.push('Desenvolva estruturas que permitam escalar seu impacto');
+            
+            return pontos;
+        }
 
-        // 3º trimestre
-        document.getElementById('resumo-territorio').textContent =
-            resumo('respiracao2', 320);
-        document.getElementById('resumo-mensagem').textContent =
-            resumo('voz1', 360);
-        document.getElementById('resumo-trabalho-parto').textContent =
-            resumo('parto2', 320);
+        function gerarPlanoAcao(declaracao, analise) {
+            const plano = {
+                dias30: [],
+                dias90: [],
+                dias180: []
+            };
+            
+            // 30 dias - Primeiros passos
+            plano.dias30.push('Identificar 3 ambientes imediatos onde seu propósito já pode ser praticado');
+            plano.dias30.push(`Assumir pequenas ações diárias coerentes com "${declaracao.curta}"`);
+            plano.dias30.push('Remover 2-3 distrações que roubam energia do seu chamado');
+            
+            // 90 dias - Construção de ritmo
+            plano.dias90.push('Mapear relacionamentos estratégicos para sua missão');
+            plano.dias90.push('Iniciar um projeto piloto diretamente ligado ao seu propósito');
+            plano.dias90.push('Estabelecer hábitos diários que reforcem seus valores centrais');
+            
+            // 180 dias - Estrutura e expansão
+            plano.dias180.push('Criar uma estrutura contínua de impacto conforme sua esfera de influência');
+            plano.dias180.push('Expandir seu alcance para novos territórios (digitais ou físicos)');
+            plano.dias180.push('Ajustar seu ritmo interno para sustentar sua missão nos próximos anos');
+            
+            return plano;
+        }
 
-        // mapa rápido
-        document.getElementById('mapa-essencia').textContent =
-            pegar('concepcao2') || 'Essência ainda não declarada';
-        document.getElementById('mapa-pessoas').textContent =
-            resumo('olhos1', 140);
-        document.getElementById('mapa-territorio').textContent =
-            resumo('respiracao2', 140);
-    }
+        function preencherCampo(id, valor, resumir = false) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            
+            if (!valor || valor.length < 5) {
+                el.textContent = 'Ainda não preenchido.';
+                el.classList.add('empty');
+            } else {
+                // Se resumir e texto for muito longo
+                if (resumir && valor.length > 150) {
+                    el.textContent = valor.substring(0, 147) + '...';
+                } else {
+                    el.textContent = valor;
+                }
+            }
+        }
 
-    window.onload = preencherRelatorio;
-</script>
+        window.onload = function() {
+            // Recuperar todas as respostas
+            const respostas = {
+                concepcao1: getOrEmpty('concepcao1'),
+                concepcao2: getOrEmpty('concepcao2'),
+                concepcao3: getOrEmpty('concepcao3'),
+                implantacao1: getOrEmpty('implantacao1'),
+                implantacao2: getOrEmpty('implantacao2'),
+                implantacao3: getOrEmpty('implantacao3'),
+                batimento1: getOrEmpty('batimento1'),
+                batimento2: getOrEmpty('batimento2'),
+                batimento3: getOrEmpty('batimento3'),
+                membros1: getOrEmpty('membros1'),
+                membros2: getOrEmpty('membros2'),
+                membros3: getOrEmpty('membros3'),
+                chute1: getOrEmpty('chute1'),
+                chute2: getOrEmpty('chute2'),
+                chute3: getOrEmpty('chute3'),
+                olhos1: getOrEmpty('olhos1'),
+                olhos2: getOrEmpty('olhos2'),
+                olhos3: getOrEmpty('olhos3'),
+                respiracao1: getOrEmpty('respiracao1'),
+                respiracao2: getOrEmpty('respiracao2'),
+                respiracao3: getOrEmpty('respiracao3'),
+                voz1: getOrEmpty('voz1'),
+                voz2: getOrEmpty('voz2'),
+                voz3: getOrEmpty('voz3'),
+                parto1: getOrEmpty('parto1'),
+                parto2: getOrEmpty('parto2'),
+                parto3: getOrEmpty('parto3')
+            };
+
+            // Gerar declaração e análise
+            const declaracao = gerarDeclaracao(respostas);
+            
+            // 1) Declaração Central
+            document.getElementById('proposito-curto').textContent = declaracao.curta;
+            if (declaracao.longa) {
+                document.getElementById('proposito-longo').textContent = declaracao.longa;
+            }
+
+            // 2) Mapa em 8 pontos
+            preencherCampo('essencia', respostas.concepcao1, true);
+            preencherCampo('palavra-identidade', respostas.concepcao2);
+            preencherCampo('dor', respostas.implantacao1, true);
+            preencherCampo('dom', respostas.membros1 || respostas.membros2, true);
+            preencherCampo('causa', respostas.chute1, true);
+            preencherCampo('pessoas', respostas.olhos1, true);
+            preencherCampo('territorio', respostas.respiracao2, true);
+            preencherCampo('mensagem', respostas.voz1, true);
+
+            // 3) Pontos Fortes
+            const pontosFortes = gerarPontosFortes(declaracao.analise, respostas);
+            const listaFortes = document.getElementById('pontos-fortes');
+            listaFortes.innerHTML = '';
+            pontosFortes.forEach(ponto => {
+                const li = document.createElement('li');
+                li.textContent = ponto;
+                listaFortes.appendChild(li);
+            });
+
+            // 4) Pontos de Atenção
+            const pontosAtencao = gerarPontosAtencao(declaracao.analise, respostas);
+            const listaAtencao = document.getElementById('pontos-atencao');
+            listaAtencao.innerHTML = '';
+            pontosAtencao.forEach(ponto => {
+                const li = document.createElement('li');
+                li.textContent = ponto;
+                listaAtencao.appendChild(li);
+            });
+
+            // 5) Plano de Ação
+            const plano = gerarPlanoAcao(declaracao, declaracao.analise);
+            
+            const plano30 = document.getElementById('plano-30');
+            plano30.innerHTML = '';
+            plano.dias30.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                plano30.appendChild(li);
+            });
+            
+            const plano90 = document.getElementById('plano-90');
+            plano90.innerHTML = '';
+            plano.dias90.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                plano90.appendChild(li);
+            });
+            
+            const plano180 = document.getElementById('plano-180');
+            plano180.innerHTML = '';
+            plano.dias180.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                plano180.appendChild(li);
+            });
+        };
+    </script>
 </body>
 </html>
