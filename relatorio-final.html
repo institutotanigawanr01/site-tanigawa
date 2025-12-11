@@ -1,255 +1,363 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Relatório Final — Útero do Propósito</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Final - Útero do Propósito</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-    /* ================================
-       BASE VISUAL INSTITUTO TANIGAWA
-    =================================*/
-    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap');
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a2b4a 0%, #2d4a7c 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
 
-    body {
-        margin: 0;
-        padding: 0;
-        background: #0a0e27;
-        color: #ffffff;
-        font-family: 'Sora', sans-serif;
-        line-height: 1.7;
-        overflow-x: hidden;
-    }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
 
-    /* ================================
-       HEADER
-    =================================*/
-    header {
-        width: 100%;
-        padding: 20px;
-        background: rgba(255,255,255,0.03);
-        backdrop-filter: blur(8px);
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-        position: fixed;
-        top: 0;
-        z-index: 999;
-        text-align: center;
-    }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
 
-    header h1 {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 600;
-        color: #8ab4ff;
-        letter-spacing: 0.5px;
-    }
+        .header h1 {
+            font-size: 2.6em;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
 
-    /* ================================
-       CONTAINER
-    =================================*/
-    .container {
-        max-width: 900px;
-        margin: 120px auto 80px auto;
-        padding: 20px;
-        animation: fadeIn 1.4s ease;
-    }
+        .header p {
+            font-size: 1.1em;
+            color: #5b8fd9;
+        }
 
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(25px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-    /* ================================
-       BLOCOS
-    =================================*/
-    .bloco {
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.08);
-        padding: 36px;
-        border-radius: 18px;
-        margin-bottom: 40px;
-        transition: 0.35s;
-    }
+        .section-title {
+            font-size: 1.4em;
+            color: #d4af37;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-    .bloco:hover {
-        background: rgba(255,255,255,0.07);
-    }
+        .proposito-curto {
+            font-size: 2.1em;
+            font-weight: 800;
+            text-align: center;
+            margin: 10px 0 20px;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
 
-    .titulo {
-        font-size: 28px;
-        font-weight: 700;
-        color: #6ea8ff;
-        margin-bottom: 12px;
-    }
+        .proposito-longo {
+            font-size: 1.05em;
+            line-height: 1.7;
+            text-align: justify;
+            color: #f0f3ff;
+        }
 
-    .sub {
-        font-size: 18px;
-        opacity: 0.85;
-        margin-bottom: 22px;
-    }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
 
-    /* ================================
-       FRASE CENTRAL
-    =================================*/
-    .frase {
-        font-size: 24px;
-        text-align: center;
-        font-weight: 300;
-        color: #9bc0ff;
-        margin-bottom: 50px;
-        opacity: 0;
-        animation: fraseIn 2s ease forwards .4s;
-    }
+        .item-label {
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5b8fd9;
+            margin-bottom: 6px;
+        }
 
-    @keyframes fraseIn {
-        from { opacity: 0; transform: translateY(18px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
+        .item-text {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #ffffff;
+        }
 
-    /* ================================
-       LISTAS
-    =================================*/
-    ul {
-        margin-top: 15px;
-        margin-bottom: 15px;
-        padding-left: 20px;
-    }
+        .empty {
+            opacity: 0.4;
+            font-style: italic;
+        }
 
-    li {
-        margin-bottom: 10px;
-    }
+        .footer-note {
+            font-size: 0.9em;
+            color: #9fb8ff;
+            margin-top: 10px;
+        }
 
-    /* ================================
-       BOTÃO FINAL
-    =================================*/
-    .btn {
-        display: inline-block;
-        padding: 14px 34px;
-        margin-top: 25px;
-        background: #6ea8ff;
-        color: #0a0e27;
-        font-size: 16px;
-        font-weight: 600;
-        border-radius: 12px;
-        cursor: pointer;
-        text-decoration: none;
-        transition: 0.3s;
-    }
+        .btn-bar {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
 
-    .btn:hover {
-        background: #8bbaff;
-        transform: translateY(-3px);
-    }
+        .btn {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a2b4a;
+            border: none;
+            padding: 12px 28px;
+            font-size: 0.95em;
+            font-weight: 600;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            text-decoration: none;
+        }
 
-</style>
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+        }
 
+        .resumo-frases li {
+            margin-bottom: 6px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .card {
+                padding: 22px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .proposito-curto {
+                font-size: 1.6em;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="header">
+            <h1>Relatório Final do Útero do Propósito</h1>
+            <p>Síntese das respostas gestacionais de propósito</p>
+        </div>
 
-<header>
-    <h1>Relatório Final — Útero do Propósito</h1>
-</header>
+        <!-- DECLARAÇÃO CENTRAL -->
+        <div class="card">
+            <div class="section-title">1. Revelação Central</div>
+            <div id="proposito-curto" class="proposito-curto">PROPÓSITO AINDA NÃO DEFINIDO</div>
+            <p class="proposito-longo" id="proposito-longo">
+                Preencha todas as camadas do Útero do Propósito para que a sua declaração de envio seja revelada aqui.
+            </p>
+            <p class="footer-note">
+                • A frase em destaque é a síntese curta do seu propósito (verbo + pessoas + condição).  
+                • O parágrafo abaixo traz a sua declaração nas suas próprias palavras.
+            </p>
+        </div>
 
-<div class="container">
+        <!-- MAPA EM 7 PONTOS -->
+        <div class="card">
+            <div class="section-title">2. Mapa do Propósito em 7 Pontos</div>
+            <div class="grid">
+                <div>
+                    <div class="item-label">Essência</div>
+                    <div class="item-text" id="essencia"></div>
+                </div>
+                <div>
+                    <div class="item-label">Palavra-Chave de Identidade</div>
+                    <div class="item-text" id="palavra-identidade"></div>
+                </div>
+                <div>
+                    <div class="item-label">Dor que te formou</div>
+                    <div class="item-text" id="dor"></div>
+                </div>
+                <div>
+                    <div class="item-label">Dom / Habilidade Natural</div>
+                    <div class="item-text" id="dom"></div>
+                </div>
+                <div>
+                    <div class="item-label">Causa que te indigna</div>
+                    <div class="item-text" id="causa"></div>
+                </div>
+                <div>
+                    <div class="item-label">Pessoas para quem você foi enviado</div>
+                    <div class="item-text" id="pessoas"></div>
+                </div>
+                <div>
+                    <div class="item-label">Território de Governo</div>
+                    <div class="item-text" id="territorio"></div>
+                </div>
+                <div>
+                    <div class="item-label">Mensagem / Voz</div>
+                    <div class="item-text" id="mensagem"></div>
+                </div>
+            </div>
+        </div>
 
-    <!-- FRASE CENTRAL -->
-    <div class="frase">
-        “O propósito nasceu, foi apresentado, recebeu direção — agora precisa caminhar.”
+        <!-- RESUMO EM 3 FRASES -->
+        <div class="card">
+            <div class="section-title">3. Resumo em 3 Frases</div>
+            <ul class="resumo-frases" id="resumo-frases">
+                <li id="frase1"></li>
+                <li id="frase2"></li>
+                <li id="frase3"></li>
+            </ul>
+            <p class="footer-note">
+                Essas frases foram geradas a partir das suas respostas e podem ser refinadas junto em mentoria.
+            </p>
+        </div>
+
+        <div class="btn-bar">
+            <a href="utero-base.html" class="btn">⬅ Voltar ao Útero do Propósito</a>
+            <button class="btn" onclick="window.print()">🖨 Gerar PDF / Imprimir</button>
+        </div>
     </div>
 
-    <!-- BLOCO 1 -->
-    <div class="bloco">
-        <div class="titulo">Síntese da Gestação Espiritual</div>
-        <div class="sub">O resumo do que Deus gerou dentro de você em cada etapa.</div>
+    <script>
+        function getOrEmpty(key) {
+            const v = localStorage.getItem(key);
+            return v && v.trim().length > 0 ? v.trim() : '';
+        }
 
-        <ul>
-            <li><strong>Concepção:</strong> o propósito foi ativado dentro de você.</li>
-            <li><strong>1º Trimestre:</strong> identidade invisível começou a tomar forma.</li>
-            <li><strong>2º Trimestre:</strong> crescimento, estrutura e primeiros movimentos.</li>
-            <li><strong>3º Trimestre:</strong> maturação, peso e posicionamento final.</li>
-            <li><strong>Parto:</strong> rompimento e manifestação.</li>
-            <li><strong>Pós-Parto:</strong> consolidação, nutrição e direcionamento.</li>
-        </ul>
+        function gerarDeclaracao(res) {
+            let verbo = 'TRANSFORMAR';
+            let substantivo = 'VIDAS';
+            let adjetivo = 'PERDIDAS';
 
-        <p>
-            Cada fase foi necessária.  
-            Cada movimento teve propósito.  
-            Você não está mais no início — você está no envio.
-        </p>
-    </div>
+            const textoBase = (
+                res.concepcao1 + ' ' +
+                res.implantacao1 + ' ' +
+                res.membros1 + ' ' +
+                res.chute1 + ' ' +
+                res.olhos1 + ' ' +
+                res.respiracao2 + ' ' +
+                res.voz1 + ' ' +
+                res.parto1
+            ).toLowerCase();
 
-    <!-- BLOCO 2 -->
-    <div class="bloco">
-        <div class="titulo">Direções Proféticas Para o Caminho</div>
-        <div class="sub">Instruções de alinhamento para o que nasceu.</div>
+            // Verbo principal
+            if (textoBase.includes('libert')) verbo = 'LIBERTAR';
+            else if (textoBase.includes('curar') || textoBase.includes('cura') || textoBase.includes('restaur')) verbo = 'CURAR';
+            else if (textoBase.includes('ensinar') || textoBase.includes('formar') || textoBase.includes('educar')) verbo = 'FORMAR';
+            else if (textoBase.includes('constru') || textoBase.includes('edif')) verbo = 'CONSTRUIR';
+            else if (textoBase.includes('despert') || textoBase.includes('revel')) verbo = 'DESPERTAR';
 
-        <ul>
-            <li><strong>Guarde o ambiente:</strong> o propósito recém-nascido é sensível.</li>
-            <li><strong>Nutra diariamente:</strong> oração, Palavra, silêncio e escuta.</li>
-            <li><strong>Evite contaminações:</strong> lugares e pessoas desalinhadas drenam o propósito.</li>
-            <li><strong>Construa hábitos:</strong> disciplina sustenta aquilo que a revelação inicia.</li>
-            <li><strong>Caminhe com quem gera:</strong> acompanhamento e discipulado aceleram o destino.</li>
-            <li><strong>Obedeça rápido:</strong> cada instrução ativada abre novos ciclos.</li>
-        </ul>
-    </div>
+            // Destinatários
+            if (textoBase.includes('jovem') || textoBase.includes('adolesc')) substantivo = 'JOVENS';
+            else if (textoBase.includes('mulher')) substantivo = 'MULHERES';
+            else if (textoBase.includes('homem') || textoBase.includes('masculino') || textoBase.includes('pai')) substantivo = 'HOMENS';
+            else if (textoBase.includes('líder') || textoBase.includes('lider')) substantivo = 'LÍDERES';
+            else if (textoBase.includes('criança')) substantivo = 'CRIANÇAS';
+            else if (textoBase.includes('empres') || textoBase.includes('empreend') || textoBase.includes('negócio')) substantivo = 'EMPREENDEDORES';
 
-    <!-- BLOCO 3 -->
-    <div class="bloco">
-        <div class="titulo">O Que Deus Está Construindo Agora</div>
-        <div class="sub">Quando o propósito nasce, Deus começa a alinhar os próximos passos.</div>
+            // Condição
+            if (textoBase.includes('ferido') || textoBase.includes('dor') || textoBase.includes('quebrado')) adjetivo = 'FERIDOS';
+            else if (textoBase.includes('preso') || textoBase.includes('aprisionado') || textoBase.includes('cativo')) adjetivo = 'APRISIONADOS';
+            else if (textoBase.includes('perdido') || textoBase.includes('sem rumo')) adjetivo = 'PERDIDOS';
+            else if (textoBase.includes('órfão') || textoBase.includes('abandona')) adjetivo = 'ÓRFÃOS';
 
-        <p>
-            O nascimento não é o fim — é o início oficial do destino.
-            Agora é o tempo de:
-        </p>
+            const fraseCurta = `${verbo} ${substantivo} ${adjetivo}`;
 
-        <ul>
-            <li>construir sua atmosfera espiritual;</li>
-            <li>abrir caminhos para novas conexões;</li>
-            <li>posicionar-se em maturidade;</li>
-            <li>definir metas alinhadas ao propósito;</li>
-            <li>avançar sem hesitação;</li>
-            <li>manifestar o que antes era apenas promessa.</li>
-        </ul>
+            // Declaração longa – preferência para o que a pessoa escreveu em "Eu fui enviado para..."
+            let longa = res.parto1 || '';
+            if (!longa && res.voz1) {
+                longa = res.voz1;
+            }
 
-        <p>
-            O céu te empurra para o futuro — agora você caminha com consciência e direção.
-        </p>
-    </div>
+            return {
+                curta: fraseCurta.toUpperCase(),
+                longa: longa
+            };
+        }
 
-    <!-- BLOCO 4 -->
-    <div class="bloco">
-        <div class="titulo">Sua Missão A Partir de Agora</div>
-        <div class="sub">Aplicação prática e imediata.</div>
+        function preencherCampo(id, valor) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            if (!valor) {
+                el.textContent = 'Ainda não preenchido.';
+                el.classList.add('empty');
+            } else {
+                el.textContent = valor;
+            }
+        }
 
-        <ul>
-            <li>Definir 3 disciplinas espirituais para sustentar o propósito.</li>
-            <li>Identificar 3 ambientes que você deve abandonar.</li>
-            <li>Identificar 3 pessoas-chaves que fazem parte do novo ciclo.</li>
-            <li>Escrever uma frase que resuma seu propósito.</li>
-            <li>Dar um passo prático nas próximas 72 horas.</li>
-        </ul>
+        window.onload = function() {
+            // Recuperar respostas principais
+            const respostas = {
+                concepcao1: getOrEmpty('concepcao1'),
+                concepcao2: getOrEmpty('concepcao2'),
+                implantacao1: getOrEmpty('implantacao1'),
+                membros1: getOrEmpty('membros1'),
+                membros2: getOrEmpty('membros2'),
+                chute1: getOrEmpty('chute1'),
+                olhos1: getOrEmpty('olhos1'),
+                respiracao2: getOrEmpty('respiracao2'),
+                voz1: getOrEmpty('voz1'),
+                parto1: getOrEmpty('parto1')
+            };
 
-        <p>
-            Propósito não cresce no campo da intenção — cresce no campo da ação.
-        </p>
-    </div>
+            // 1) Declaração Central
+            const declaracao = gerarDeclaracao(respostas);
+            const curtoEl = document.getElementById('proposito-curto');
+            const longoEl = document.getElementById('proposito-longo');
 
-    <!-- BLOCO 5 -->
-    <div class="bloco">
-        <div class="titulo">Ativação Final</div>
-        <div class="sub">Uma declaração para selar o ciclo do Útero do Propósito.</div>
+            if (respostas.concepcao1 || respostas.implantacao1 || respostas.parto1) {
+                curtoEl.textContent = declaracao.curta;
+                if (declaracao.longa) {
+                    longoEl.textContent = declaracao.longa;
+                } else {
+                    longoEl.textContent = 'Sua declaração longa ainda não foi escrita. Use o campo "Eu fui enviado para..." na Camada 9 para descrevê-la nas suas palavras.';
+                }
+            }
 
-        <p>
-            “Eu reconheço o que Deus gerou dentro de mim.  
-            Eu recebo o nascimento do meu propósito.  
-            Eu assumo a responsabilidade de nutrir, proteger e desenvolver o que nasceu.  
-            Eu caminho agora com direção, consciência e identidade.  
-            Eu manifesto aquilo que o céu confiou às minhas mãos.”
-        </p>
-    </div>
+            // 2) Mapa em 7 pontos
+            preencherCampo('essencia', respostas.concepcao1);
+            preencherCampo('palavra-identidade', respostas.concepcao2);
+            preencherCampo('dor', respostas.implantacao1);
+            preencherCampo('dom', respostas.membros1 || respostas.membros2);
+            preencherCampo('causa', respostas.chute1);
+            preencherCampo('pessoas', respostas.olhos1);
+            preencherCampo('territorio', respostas.respiracao2);
+            preencherCampo('mensagem', respostas.voz1);
 
-</div>
+            // 3) Resumo em 3 frases
+            const f1 = document.getElementById('frase1');
+            const f2 = document.getElementById('frase2');
+            const f3 = document.getElementById('frase3');
 
+            f1.textContent = `• Seu chamado central pode ser resumido em: ${declaracao.curta}.`;
+            f2.textContent = respostas.implantacao1
+                ? `• A dor que mais te formou hoje se torna plataforma de autoridade: ${respostas.implantacao1}`
+                : '• A dor que te formou ainda não foi descrita. Volte à Camada 2 para detalhar isso.';
+            f3.textContent = respostas.parto1
+                ? `• Em suas palavras, você entende que foi enviado para: ${respostas.parto1}`
+                : '• Use a frase "Eu fui enviado para..." na Camada 9 para escrever sua declaração de envio.';
+
+        };
+    </script>
 </body>
 </html>
