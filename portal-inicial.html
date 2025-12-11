@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Inicial — Útero do Propósito</title>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&display=swap');
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: #050714;
+        color: #ffffff;
+        font-family: 'Sora', sans-serif;
+        overflow: hidden;
+    }
+
+    /* ======================================
+       PORTAL CENTRAL (ÚTERO)
+    ====================================== */
+    .portal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        animation: fadeIn 2s ease;
+    }
+
+    .uterus-circle {
+        width: 260px;
+        height: 260px;
+        margin: 0 auto 30px auto;
+        border-radius: 50%;
+        background: radial-gradient(circle at center,
+            rgba(255, 182, 255, 0.35),
+            rgba(110, 168, 255, 0.1),
+            rgba(10, 14, 39, 0.6)
+        );
+        box-shadow: 0 0 40px rgba(255, 130, 255, 0.4);
+        animation: pulse 4.5s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); box-shadow: 0 0 40px rgba(255, 130, 255, 0.4); }
+        50% { transform: scale(1.12); box-shadow: 0 0 80px rgba(255, 130, 255, 0.7); }
+        100% { transform: scale(1); box-shadow: 0 0 40px rgba(255, 130, 255, 0.4); }
+    }
+
+    /* ======================================
+       TEXTO PROFÉTICO
+    ====================================== */
+    .frase {
+        font-size: 22px;
+        font-weight: 300;
+        margin-bottom: 25px;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+        line-height: 1.5;
+        opacity: 0;
+        animation: fraseIn 3.5s ease forwards 1.5s;
+    }
+
+    @keyframes fraseIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ======================================
+       BOTÃO DE ENTRADA
+    ====================================== */
+    .btn {
+        margin-top: 25px;
+        padding: 14px 34px;
+        background: #6ea8ff;
+        color: #050714;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: .5px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: 0.3s;
+        opacity: 0;
+        animation: fraseIn 3.5s ease forwards 2.6s;
+    }
+
+    .btn:hover {
+        background: #8bbaff;
+        transform: translateY(-3px);
+    }
+
+    /* ======================================
+       ANIMAÇÃO DE ENTRADA
+    ====================================== */
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+</style>
+</head>
+<body>
+
+<div class="portal">
+
+    <div class="uterus-circle"></div>
+
+    <div class="frase">
+        “Antes que te formasse no ventre, eu te conheci;  
+        e antes que saísses da madre, te consagrei.”
+    </div>
+
+    <button class="btn" onclick="entrar()">Entrar no Útero do Propósito</button>
+
+</div>
+
+<script>
+function entrar() {
+    window.location.href = "trimestre1.html"; // será criado na próxima camada
+}
+</script>
+
+</body>
+</html>
