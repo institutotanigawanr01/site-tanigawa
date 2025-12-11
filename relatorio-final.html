@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório Final - Útero do Propósito</title>
+    <title>Relatório – Útero do Propósito</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 40px 20px 60px;
         }
@@ -34,8 +34,8 @@
             font-size: 2.6em;
             font-weight: 700;
             color: #d4af37;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.35);
             margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
         }
 
         .header p {
@@ -43,321 +43,345 @@
             color: #5b8fd9;
         }
 
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(212, 175, 55, 0.6);
+            font-size: 0.85em;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #f4d03f;
+            margin-bottom: 16px;
+        }
+
         .card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            padding: 28px 26px;
+            margin-bottom: 24px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            font-size: 1.4em;
+            color: #d4af37;
+            margin-bottom: 8px;
+        }
+
+        .card h3 {
+            font-size: 1.1em;
+            color: #5b8fd9;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+        }
+
+        .card p {
+            font-size: 0.98em;
+            line-height: 1.7;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .card p small {
+            display: block;
+            font-size: 0.82em;
+            opacity: 0.75;
+            margin-top: 4px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1.1fr 1.1fr;
+            gap: 18px;
+            margin-top: 12px;
         }
 
         .section-title {
-            font-size: 1.4em;
-            color: #d4af37;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 1.5em;
+            color: #f4d03f;
+            margin: 26px 0 12px;
         }
 
-        .proposito-curto {
-            font-size: 2.1em;
-            font-weight: 800;
+        .proposito-central {
             text-align: center;
-            margin: 10px 0 20px;
-            color: #ffffff;
-            text-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            padding: 28px 22px 30px;
+            background: radial-gradient(circle at top, rgba(244, 208, 63, 0.18) 0%, rgba(10, 14, 39, 0.2) 52%, rgba(0,0,0,0.5) 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(244, 208, 63, 0.4);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            margin-bottom: 32px;
         }
 
-        .proposito-longo {
-            font-size: 1.05em;
-            line-height: 1.7;
-            text-align: justify;
-            color: #f0f3ff;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 20px;
-        }
-
-        .item-label {
-            font-size: 0.9em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #5b8fd9;
-            margin-bottom: 6px;
-        }
-
-        .item-text {
+        .proposito-central h2 {
             font-size: 1em;
-            line-height: 1.6;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: #f4d03f;
+            margin-bottom: 10px;
+        }
+
+        .proposito-central p {
+            font-size: 1.25em;
+            line-height: 1.8;
+        }
+
+        .proposito-central span {
             color: #ffffff;
+            font-weight: 600;
         }
 
-        .empty {
-            opacity: 0.4;
-            font-style: italic;
+        .sub-label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.16em;
+            color: #5b8fd9;
+            margin-bottom: 4px;
         }
 
-        .footer-note {
-            font-size: 0.9em;
-            color: #9fb8ff;
+        .mapa-rapido-list {
+            list-style: none;
             margin-top: 10px;
         }
 
-        .btn-bar {
-            margin-top: 25px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
+        .mapa-rapido-list li {
+            margin-bottom: 8px;
+            font-size: 0.96em;
+        }
+
+        .mapa-rapido-list strong {
+            color: #f4d03f;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .footer span {
+            color: #f4d03f;
         }
 
         .btn {
+            margin-top: 22px;
             background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
             color: #1a2b4a;
             border: none;
-            padding: 12px 28px;
+            padding: 12px 26px;
             font-size: 0.95em;
             font-weight: 600;
             border-radius: 999px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(212, 175, 55, 0.4);
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+            transform: translateY(-1px);
+            box-shadow: 0 7px 24px rgba(212, 175, 55, 0.6);
         }
 
-        .resumo-frases li {
-            margin-bottom: 6px;
-            line-height: 1.6;
+        .btn:active {
+            transform: translateY(0);
         }
 
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2em;
-            }
-
-            .card {
-                padding: 22px;
-            }
-
-            .grid {
+        @media (max-width: 780px) {
+            .grid-2 {
                 grid-template-columns: 1fr;
             }
 
-            .proposito-curto {
-                font-size: 1.6em;
+            .header h1 {
+                font-size: 2.1em;
+            }
+
+            .proposito-central p {
+                font-size: 1.05em;
+            }
+
+            .container {
+                padding: 28px 16px 40px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Relatório Final do Útero do Propósito</h1>
-            <p>Síntese das respostas gestacionais de propósito</p>
-        </div>
+<div class="container">
 
-        <!-- DECLARAÇÃO CENTRAL -->
+    <div class="header">
+        <div class="tag">Relatório Gestacional de Propósito</div>
+        <h1>Útero do Propósito</h1>
+        <p>Mapa organizado das respostas – 3 trimestres • 9 camadas • 1 propósito central</p>
+    </div>
+
+    <!-- PROPÓSITO CENTRAL -->
+    <div class="proposito-central">
+        <h2>DECLARAÇÃO CENTRAL</h2>
+        <p id="proposito-central-texto">
+            Seu propósito ainda está em processo de formação. Volte e complete a frase da 10ª camada:
+            <span>"Eu fui enviado para..."</span>
+        </p>
+    </div>
+
+    <!-- 1º TRIMESTRE -->
+    <h2 class="section-title">1º Trimestre · Concepção e Identidade</h2>
+
+    <div class="card">
+        <h3>Essência & DNA Espiritual</h3>
+        <p class="sub-label">Camada 1 – Concepção</p>
+        <p id="resumo-essencia"></p>
+        <p><small><strong>Palavra da essência:</strong> <span id="palavra-essencia">—</span></small></p>
+    </div>
+
+    <div class="card">
+        <h3>Dor que te Fixou</h3>
+        <p class="sub-label">Camada 2 – Implantação</p>
+        <p id="resumo-dor"></p>
+        <p><small><strong>Como essa dor te transformou:</strong> <span id="resumo-transformacao"></span></small></p>
+    </div>
+
+    <div class="card">
+        <h3>Primeiro Batimento · Onde você se sente vivo</h3>
+        <p class="sub-label">Camada 3 – Chamado Primário</p>
+        <p id="resumo-batimento"></p>
+    </div>
+
+    <!-- 2º TRIMESTRE -->
+    <h2 class="section-title">2º Trimestre · Dons, Causa e Pessoas</h2>
+
+    <div class="grid-2">
         <div class="card">
-            <div class="section-title">1. Revelação Central</div>
-            <div id="proposito-curto" class="proposito-curto">PROPÓSITO AINDA NÃO DEFINIDO</div>
-            <p class="proposito-longo" id="proposito-longo">
-                Preencha todas as camadas do Útero do Propósito para que a sua declaração de envio seja revelada aqui.
-            </p>
-            <p class="footer-note">
-                • A frase em destaque é a síntese curta do seu propósito (verbo + pessoas + condição).  
-                • O parágrafo abaixo traz a sua declaração nas suas próprias palavras.
-            </p>
+            <h3>Dons Práticos & Habilidades</h3>
+            <p class="sub-label">Camada 4 – Membros</p>
+            <p id="resumo-dons"></p>
         </div>
 
-        <!-- MAPA EM 7 PONTOS -->
         <div class="card">
-            <div class="section-title">2. Mapa do Propósito em 7 Pontos</div>
-            <div class="grid">
-                <div>
-                    <div class="item-label">Essência</div>
-                    <div class="item-text" id="essencia"></div>
-                </div>
-                <div>
-                    <div class="item-label">Palavra-Chave de Identidade</div>
-                    <div class="item-text" id="palavra-identidade"></div>
-                </div>
-                <div>
-                    <div class="item-label">Dor que te formou</div>
-                    <div class="item-text" id="dor"></div>
-                </div>
-                <div>
-                    <div class="item-label">Dom / Habilidade Natural</div>
-                    <div class="item-text" id="dom"></div>
-                </div>
-                <div>
-                    <div class="item-label">Causa que te indigna</div>
-                    <div class="item-text" id="causa"></div>
-                </div>
-                <div>
-                    <div class="item-label">Pessoas para quem você foi enviado</div>
-                    <div class="item-text" id="pessoas"></div>
-                </div>
-                <div>
-                    <div class="item-label">Território de Governo</div>
-                    <div class="item-text" id="territorio"></div>
-                </div>
-                <div>
-                    <div class="item-label">Mensagem / Voz</div>
-                    <div class="item-text" id="mensagem"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- RESUMO EM 3 FRASES -->
-        <div class="card">
-            <div class="section-title">3. Resumo em 3 Frases</div>
-            <ul class="resumo-frases" id="resumo-frases">
-                <li id="frase1"></li>
-                <li id="frase2"></li>
-                <li id="frase3"></li>
-            </ul>
-            <p class="footer-note">
-                Essas frases foram geradas a partir das suas respostas e podem ser refinadas junto em mentoria.
-            </p>
-        </div>
-
-        <div class="btn-bar">
-            <a href="utero-base.html" class="btn">⬅ Voltar ao Útero do Propósito</a>
-            <button class="btn" onclick="window.print()">🖨 Gerar PDF / Imprimir</button>
+            <h3>Indignação Santa & Causa</h3>
+            <p class="sub-label">Camada 5 – Primeiro Chute</p>
+            <p id="resumo-causa"></p>
         </div>
     </div>
 
-    <script>
-        function getOrEmpty(key) {
-            const v = localStorage.getItem(key);
-            return v && v.trim().length > 0 ? v.trim() : '';
+    <div class="card">
+        <h3>Para Quem Você Foi Enviado</h3>
+        <p class="sub-label">Camada 6 – Abertura dos Olhos</p>
+        <p id="resumo-pessoas"></p>
+    </div>
+
+    <!-- 3º TRIMESTRE -->
+    <h2 class="section-title">3º Trimestre · Governo, Mensagem e Nascimento</h2>
+
+    <div class="grid-2">
+        <div class="card">
+            <h3>Território de Governo</h3>
+            <p class="sub-label">Camada 7 – Respiração</p>
+            <p id="resumo-territorio"></p>
+        </div>
+
+        <div class="card">
+            <h3>Mensagem & Legado</h3>
+            <p class="sub-label">Camada 8 – Voz</p>
+            <p id="resumo-mensagem"></p>
+        </div>
+    </div>
+
+    <div class="card">
+        <h3>Trabalho de Parto · Síntese</h3>
+        <p class="sub-label">Camada 9 – Nascimento</p>
+        <p id="resumo-trabalho-parto"></p>
+    </div>
+
+    <!-- MAPA RÁPIDO -->
+    <h2 class="section-title">Mapa Rápido do Propósito</h2>
+
+    <div class="card">
+        <h3>Leitura em poucos segundos</h3>
+        <ul class="mapa-rapido-list">
+            <li><strong>Essência:</strong> <span id="mapa-essencia"></span></li>
+            <li><strong>Pessoas-alvo:</strong> <span id="mapa-pessoas"></span></li>
+            <li><strong>Território de governo:</strong> <span id="mapa-territorio"></span></li>
+        </ul>
+
+        <button class="btn" onclick="window.location.href='utero-base.html'">
+            ↩ Voltar para o Útero do Propósito
+        </button>
+    </div>
+
+    <div class="footer">
+        Este relatório é um <span>rascunho espiritual</span>. Ele não te prende – ele aponta caminhos.<br>
+        A cada nova estação, o Espírito Santo pode aprofundar e refinar o que nasceu aqui.
+    </div>
+</div>
+
+<script>
+    function pegar(campo) {
+        return (localStorage.getItem(campo) || "").trim();
+    }
+
+    function resumo(campo, limite) {
+        let txt = pegar(campo);
+        if (!txt) return "—";
+        if (txt.length <= limite) return txt;
+        // tenta cortar na primeira parada boa
+        const ponto = txt.indexOf('.', limite * 0.6);
+        const corte = ponto > 0 && ponto < limite + 80 ? ponto + 1 : limite;
+        return txt.slice(0, corte).trim() + " (...)";
+    }
+
+    function preencherRelatorio() {
+        // Propósito central – 10ª camada (parto1)
+        const proposito = pegar('parto1');
+        const propositoBox = document.getElementById('proposito-central-texto');
+        if (proposito && proposito.length > 10) {
+            propositoBox.innerHTML =
+                'Eu fui enviado para <span>' + proposito + '</span>';
         }
 
-        function gerarDeclaracao(res) {
-            let verbo = 'TRANSFORMAR';
-            let substantivo = 'VIDAS';
-            let adjetivo = 'PERDIDAS';
+        // 1º trimestre
+        document.getElementById('resumo-essencia').textContent =
+            resumo('concepcao1', 420);
+        document.getElementById('palavra-essencia').textContent =
+            pegar('concepcao2') || 'não definida';
 
-            const textoBase = (
-                res.concepcao1 + ' ' +
-                res.implantacao1 + ' ' +
-                res.membros1 + ' ' +
-                res.chute1 + ' ' +
-                res.olhos1 + ' ' +
-                res.respiracao2 + ' ' +
-                res.voz1 + ' ' +
-                res.parto1
-            ).toLowerCase();
+        document.getElementById('resumo-dor').textContent =
+            resumo('implantacao1', 360);
+        document.getElementById('resumo-transformacao').textContent =
+            resumo('implantacao2', 260);
 
-            // Verbo principal
-            if (textoBase.includes('libert')) verbo = 'LIBERTAR';
-            else if (textoBase.includes('curar') || textoBase.includes('cura') || textoBase.includes('restaur')) verbo = 'CURAR';
-            else if (textoBase.includes('ensinar') || textoBase.includes('formar') || textoBase.includes('educar')) verbo = 'FORMAR';
-            else if (textoBase.includes('constru') || textoBase.includes('edif')) verbo = 'CONSTRUIR';
-            else if (textoBase.includes('despert') || textoBase.includes('revel')) verbo = 'DESPERTAR';
+        document.getElementById('resumo-batimento').textContent =
+            resumo('batimento1', 360);
 
-            // Destinatários
-            if (textoBase.includes('jovem') || textoBase.includes('adolesc')) substantivo = 'JOVENS';
-            else if (textoBase.includes('mulher')) substantivo = 'MULHERES';
-            else if (textoBase.includes('homem') || textoBase.includes('masculino') || textoBase.includes('pai')) substantivo = 'HOMENS';
-            else if (textoBase.includes('líder') || textoBase.includes('lider')) substantivo = 'LÍDERES';
-            else if (textoBase.includes('criança')) substantivo = 'CRIANÇAS';
-            else if (textoBase.includes('empres') || textoBase.includes('empreend') || textoBase.includes('negócio')) substantivo = 'EMPREENDEDORES';
+        // 2º trimestre
+        document.getElementById('resumo-dons').textContent =
+            resumo('membros1', 320);
+        document.getElementById('resumo-causa').textContent =
+            resumo('chute1', 320);
+        document.getElementById('resumo-pessoas').textContent =
+            resumo('olhos1', 380);
 
-            // Condição
-            if (textoBase.includes('ferido') || textoBase.includes('dor') || textoBase.includes('quebrado')) adjetivo = 'FERIDOS';
-            else if (textoBase.includes('preso') || textoBase.includes('aprisionado') || textoBase.includes('cativo')) adjetivo = 'APRISIONADOS';
-            else if (textoBase.includes('perdido') || textoBase.includes('sem rumo')) adjetivo = 'PERDIDOS';
-            else if (textoBase.includes('órfão') || textoBase.includes('abandona')) adjetivo = 'ÓRFÃOS';
+        // 3º trimestre
+        document.getElementById('resumo-territorio').textContent =
+            resumo('respiracao2', 320);
+        document.getElementById('resumo-mensagem').textContent =
+            resumo('voz1', 360);
+        document.getElementById('resumo-trabalho-parto').textContent =
+            resumo('parto2', 320);
 
-            const fraseCurta = `${verbo} ${substantivo} ${adjetivo}`;
+        // mapa rápido
+        document.getElementById('mapa-essencia').textContent =
+            pegar('concepcao2') || 'Essência ainda não declarada';
+        document.getElementById('mapa-pessoas').textContent =
+            resumo('olhos1', 140);
+        document.getElementById('mapa-territorio').textContent =
+            resumo('respiracao2', 140);
+    }
 
-            // Declaração longa – preferência para o que a pessoa escreveu em "Eu fui enviado para..."
-            let longa = res.parto1 || '';
-            if (!longa && res.voz1) {
-                longa = res.voz1;
-            }
-
-            return {
-                curta: fraseCurta.toUpperCase(),
-                longa: longa
-            };
-        }
-
-        function preencherCampo(id, valor) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            if (!valor) {
-                el.textContent = 'Ainda não preenchido.';
-                el.classList.add('empty');
-            } else {
-                el.textContent = valor;
-            }
-        }
-
-        window.onload = function() {
-            // Recuperar respostas principais
-            const respostas = {
-                concepcao1: getOrEmpty('concepcao1'),
-                concepcao2: getOrEmpty('concepcao2'),
-                implantacao1: getOrEmpty('implantacao1'),
-                membros1: getOrEmpty('membros1'),
-                membros2: getOrEmpty('membros2'),
-                chute1: getOrEmpty('chute1'),
-                olhos1: getOrEmpty('olhos1'),
-                respiracao2: getOrEmpty('respiracao2'),
-                voz1: getOrEmpty('voz1'),
-                parto1: getOrEmpty('parto1')
-            };
-
-            // 1) Declaração Central
-            const declaracao = gerarDeclaracao(respostas);
-            const curtoEl = document.getElementById('proposito-curto');
-            const longoEl = document.getElementById('proposito-longo');
-
-            if (respostas.concepcao1 || respostas.implantacao1 || respostas.parto1) {
-                curtoEl.textContent = declaracao.curta;
-                if (declaracao.longa) {
-                    longoEl.textContent = declaracao.longa;
-                } else {
-                    longoEl.textContent = 'Sua declaração longa ainda não foi escrita. Use o campo "Eu fui enviado para..." na Camada 9 para descrevê-la nas suas palavras.';
-                }
-            }
-
-            // 2) Mapa em 7 pontos
-            preencherCampo('essencia', respostas.concepcao1);
-            preencherCampo('palavra-identidade', respostas.concepcao2);
-            preencherCampo('dor', respostas.implantacao1);
-            preencherCampo('dom', respostas.membros1 || respostas.membros2);
-            preencherCampo('causa', respostas.chute1);
-            preencherCampo('pessoas', respostas.olhos1);
-            preencherCampo('territorio', respostas.respiracao2);
-            preencherCampo('mensagem', respostas.voz1);
-
-            // 3) Resumo em 3 frases
-            const f1 = document.getElementById('frase1');
-            const f2 = document.getElementById('frase2');
-            const f3 = document.getElementById('frase3');
-
-            f1.textContent = `• Seu chamado central pode ser resumido em: ${declaracao.curta}.`;
-            f2.textContent = respostas.implantacao1
-                ? `• A dor que mais te formou hoje se torna plataforma de autoridade: ${respostas.implantacao1}`
-                : '• A dor que te formou ainda não foi descrita. Volte à Camada 2 para detalhar isso.';
-            f3.textContent = respostas.parto1
-                ? `• Em suas palavras, você entende que foi enviado para: ${respostas.parto1}`
-                : '• Use a frase "Eu fui enviado para..." na Camada 9 para escrever sua declaração de envio.';
-
-        };
-    </script>
+    window.onload = preencherRelatorio;
+</script>
 </body>
 </html>
