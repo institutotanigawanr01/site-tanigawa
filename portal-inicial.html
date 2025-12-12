@@ -32,11 +32,25 @@
             color: #d4af37;
         }
 
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
         .nav a {
             color: #ffffff;
             text-decoration: none;
-            margin-left: 30px;
             font-size: 0.95em;
+        }
+
+        .btn-entrar {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a2b4a;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-weight: 600;
+            text-decoration: none;
         }
 
         .hero {
@@ -64,7 +78,6 @@
             line-height: 1.6;
         }
 
-        /* BOTÃO GIGANTE */
         .cta-gigante {
             background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
             color: #1a2b4a;
@@ -105,18 +118,14 @@
             margin-bottom: 50px;
         }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            gap: 40px;
-        }
-
         .card {
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 40px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .card h3 {
@@ -162,7 +171,8 @@
             border-radius: 999px;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
+            display: block;
+            text-align: center;
             margin-top: 20px;
         }
 
@@ -175,10 +185,6 @@
                 font-size: 1.4em;
                 padding: 25px 40px;
             }
-
-            .cards {
-                grid-template-columns: 1fr;
-            }
         }
     </style>
 </head>
@@ -186,9 +192,13 @@
     <div class="header">
         <div class="logo">INSTITUTO TANIGAWA</div>
         <div class="nav">
-            <a href="#inicio">Início</a>
-            <a href="#mentorias">Mentorias</a>
-            <a href="#diagnosticos">Diagnósticos</a>
+            <a href="home.html">Início</a>
+            <a href="mentoria.html">Mentorias</a>
+            <a href="devocionais.html">Devocionais</a>
+            <a href="diagnostico-tanigawa-proposito.html">Diagnósticos</a>
+            <a href="sobre.html">Sobre</a>
+            <a href="contato.html">Contato</a>
+            <a href="auth_system.html" class="btn-entrar">ENTRAR</a>
         </div>
     </div>
 
@@ -204,7 +214,6 @@
             ministérios, famílias e empresas.
         </p>
 
-        <!-- BOTÃO GIGANTE -->
         <a href="utero-base.html" class="cta-gigante">
             🤰 INICIAR DIAGNÓSTICO GESTACIONAL
         </a>
@@ -216,32 +225,16 @@
     <div class="diagnosticos" id="diagnosticos">
         <h2>Dois diagnósticos, um movimento: clareza para dentro e para fora.</h2>
         
-        <div class="cards">
-            <!-- CARD 1: PEAD -->
-            <div class="card">
-                <h3>Diagnóstico Tanigawa – Método PEAD</h3>
-                <p>Um raio-X preciso sobre como você funciona, como decide, como reage sob pressão e como se relaciona com pessoas, projetos e ambientes.</p>
-                <ul>
-                    <li>Mapeia padrões de comportamento, força e vulnerabilidades</li>
-                    <li>Ajuda a entender como você influencia e é influenciado</li>
-                    <li>Base para alinhamento de liderança, família e negócios</li>
-                </ul>
-                <p><strong>Tempo médio:</strong> 20-30 minutos</p>
-                <a href="#" class="btn-card">Fazer Diagnóstico PEAD</a>
-            </div>
-
-            <!-- CARD 2: ÚTERO DO PROPÓSITO -->
-            <div class="card">
-                <h3>Diagnóstico de Propósito – Método SYNESIS</h3>
-                <p>10 Portas que atravessam sua essência, dores, dons, batalhas, voz e missão — para revelar com clareza o tema central da sua vida diante de Deus.</p>
-                <ul>
-                    <li>Explora sua história, sua dor transformada e seu chamado</li>
-                    <li>Identifica o povo, território e mensagem da sua missão</li>
-                    <li>Gera um mapa de propósito com plano 30 / 90 / 180 dias</li>
-                </ul>
-                <p><strong>Tempo médio:</strong> 15-25 minutos</p>
-                <a href="utero-base.html" class="btn-card">Fazer Diagnóstico de Propósito</a>
-            </div>
+        <div class="card">
+            <h3>Diagnóstico Tanigawa – Método PEAD</h3>
+            <p>Um raio-X preciso sobre como você funciona, como decide, como reage sob pressão e como se relaciona com pessoas, projetos e ambientes.</p>
+            <ul>
+                <li>Mapeia padrões de comportamento, força e vulnerabilidades</li>
+                <li>Ajuda a entender como você influencia e é influenciado</li>
+                <li>Base para alinhamento de liderança, família e negócios</li>
+            </ul>
+            <p><strong>Tempo médio:</strong> 20-30 minutos</p>
+            <a href="diagnostico-tanigawa-pead.html" class="btn-card">Fazer Diagnóstico PEAD</a>
         </div>
     </div>
 </body>
