@@ -558,15 +558,14 @@
 
     <header id="header">
         <nav>
-            <a href="home.html" class="logo">
+            <a href="portal-inicial.html" class="logo">
                 <div class="logo-icon">IT</div>
                 <span>INSTITUTO TANIGAWA</span>
             </a>
             <ul class="nav-links">
-                <li><a href="home.html">Home</a></li>
+                <li><a href="portal-inicial.html">Início</a></li>
                 <li><a href="mentoria.html">Mentorias</a></li>
                 <li><a href="devocionais.html">Devocionais</a></li>
-                <li><a href="nr-1.html">NR-1</a></li>
                 <li><a href="sobre.html">Sobre</a></li>
                 <li><a href="contato.html" class="active">Contato</a></li>
                 <div id="navAuth">
@@ -595,7 +594,7 @@
                             <div class="contact-icon">📧</div>
                             <div class="contact-detail-content">
                                 <div class="contact-detail-label">Email</div>
-                                <a href="mailto:contato@institutotanigawa.com.br">contato@institutotanigawa.com.br</a>
+                                <a href="/cdn-cgi/l/email-protection#b3d0dcddc7d2c7dcf3daddc0c7dac7c6c7dcc7d2dddad4d2c4d29dd0dcde9dd1c1"><span class="__cf_email__" data-cfemail="3754585943564358775e5944435e434243584356595e505640561954585a195545">[email&#160;protected]</span></a>
                             </div>
                         </li>
                         <li>
@@ -662,7 +661,7 @@
         <p>&copy; 2026 Instituto Tanigawa. Todos os direitos reservados.</p>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Scroll effect no header
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
@@ -766,14 +765,4 @@
                 
             } catch (error) {
                 showFormMessage('❌ Erro ao enviar. Por favor, tente novamente ou use o WhatsApp.', 'error');
-                console.error("Erro no envio do formulário de Contato:", error);
-            }
-
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = 'Enviar mensagem <span>→</span>';
-        });
-
-        document.addEventListener('DOMContentLoaded', updateNavBar);
-    </script>
-</body>
-</html>
+                console.error("Erro no envio do fo

@@ -101,202 +101,206 @@
     }
 
     .brand-label {
-      font-size: 0.8rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
       color: var(--color-text-muted);
     }
 
     .brand-title {
       font-family: "Sora", system-ui, sans-serif;
-      font-size: 1.25rem;
+      font-size: 1.02rem;
       font-weight: 700;
-      background: var(--gradient-primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: var(--color-text);
     }
 
     .admin-chip {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 0 0, rgba(96,165,250,0.45), rgba(15,23,42,0.95));
-      box-shadow: var(--shadow-glow);
+      gap: 14px;
+      background: rgba(15,23,42,0.90);
+      padding: 10px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(148,163,184,0.22);
     }
 
     .admin-info {
       display: flex;
       flex-direction: column;
-      align-items: flex-end;
-      gap: 2px;
+      gap: 0;
     }
 
     .admin-name {
-      font-family: "Sora", system-ui, sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.88rem;
       font-weight: 600;
+      color: var(--color-text);
     }
 
     .admin-role {
-      font-size: 0.75rem;
-      color: var(--color-text-muted);
-    }
-
-    .logout-btn {
-      border: none;
-      outline: none;
-      padding: 8px 16px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #f97373, #fb7185);
-      color: white;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 10px 25px rgba(248,113,113,0.4);
-    }
-
-    .logout-btn:hover {
-      filter: brightness(1.05);
-    }
-
-    .badge-version {
-      margin-top: 8px;
-      margin-left: 4px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.85);
-      border: 1px solid rgba(148,163,184,0.4);
       font-size: 0.72rem;
       color: var(--color-text-muted);
     }
 
-    .badge-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: #22c55e;
-      box-shadow: 0 0 10px rgba(34,197,94,0.8);
+    .logout-btn {
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: rgba(239,68,68,0.16);
+      color: #fca5a5;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background 0.25s;
+    }
+
+    .logout-btn:hover {
+      background: rgba(239,68,68,0.26);
+    }
+
+    .version-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(34,197,94,0.14);
+      border: 1px solid rgba(34,197,94,0.30);
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem;
+      color: #86efac;
+      font-weight: 500;
+      margin-bottom: 24px;
+    }
+
+    .version-badge::before {
+      content: "✓";
+      font-size: 0.85rem;
+    }
+
+    .intro {
+      margin-bottom: 32px;
+    }
+
+    .intro h1 {
+      font-family: "Sora", system-ui, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #cbd5e1, #f1f5f9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .intro p {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      line-height: 1.65;
     }
 
     .section {
-      margin-top: 26px;
+      margin-bottom: 42px;
     }
 
     .section-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
-      padding-inline: 2px;
+      gap: 12px;
+      margin-bottom: 18px;
     }
 
     .section-title {
       font-family: "Sora", system-ui, sans-serif;
-      font-size: 1rem;
+      font-size: 1.32rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
+      color: var(--color-text);
     }
 
     .section-pill {
-      font-size: 0.7rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: rgba(15,23,42,0.9);
-      border: 1px solid rgba(148,163,184,0.35);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(148,163,184,0.12);
+      font-size: 0.72rem;
       color: var(--color-text-muted);
+      border: 1px solid rgba(148,163,184,0.20);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
     }
 
     .card {
-      position: relative;
+      background: var(--color-card);
+      border: 1px solid rgba(148,163,184,0.12);
       border-radius: var(--radius-card);
-      background: radial-gradient(circle at 0 0, rgba(255,255,255,0.04), rgba(15,23,42,0.98));
-      border: 1px solid rgba(148,163,184,0.25);
-      box-shadow: var(--shadow-card);
-      padding: 18px 18px 16px;
+      padding: 20px;
+      transition: all 0.35s;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      gap: 14px;
-      overflow: hidden;
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at 0 0, rgba(129,140,248,0.32), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s ease-out;
-      pointer-events: none;
-    }
-
-    .card:hover::before {
-      opacity: 1;
+    .card:hover {
+      background: var(--color-card-hover);
+      border-color: rgba(148,163,184,0.22);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card);
     }
 
     .card-header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      margin-bottom: 16px;
     }
 
     .card-label {
-      font-size: 0.68rem;
+      font-size: 0.70rem;
       text-transform: uppercase;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       color: var(--color-text-muted);
+      margin-bottom: 6px;
     }
 
     .card-title {
       font-family: "Sora", system-ui, sans-serif;
-      font-size: 1.02rem;
+      font-size: 1.14rem;
       font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 8px;
     }
 
     .card-desc {
-      font-size: 0.82rem;
+      font-size: 0.88rem;
       color: var(--color-text-muted);
-      line-height: 1.4;
+      line-height: 1.55;
     }
 
     .card-footer {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-top: 6px;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 14px;
     }
 
     .card-meta-pill {
-      font-size: 0.7rem;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.45);
+      font-size: 0.72rem;
       color: var(--color-text-muted);
-      background: rgba(15,23,42,0.9);
+      padding: 5px 10px;
+      border-radius: var(--radius-pill);
+      background: rgba(148,163,184,0.08);
+      border: 1px solid rgba(148,163,184,0.14);
     }
 
     .primary-btn {
-      border-radius: 999px;
+      padding: 9px 16px;
+      border-radius: var(--radius-pill);
       border: none;
-      cursor: pointer;
-      padding: 8px 14px;
-      font-size: 0.8rem;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: white;
+      font-size: 0.82rem;
       font-weight: 600;
-      color: #0b1220;
-      background: #f9fafb;
+      cursor: pointer;
+      transition: filter 0.25s;
       box-shadow: 0 10px 25px rgba(15,23,42,0.9);
     }
 
@@ -398,79 +402,54 @@
 
         <div class="admin-chip">
           <div class="admin-info">
-            <div id="adminName" class="admin-name">Admin</div>
+            <div class="admin-name" id="adminName">Carregando...</div>
             <div class="admin-role">Acesso administrativo</div>
           </div>
-          <button id="logoutBtn" class="logout-btn">Sair</button>
+          <button class="logout-btn" onclick="logout()">Sair</button>
         </div>
-      </div>
-
-      <div class="badge-version">
-        <span class="badge-dot"></span>
-        <span>Versão 2026 • DS</span>
       </div>
     </header>
 
-    <!-- LOADER INICIAL -->
-    <div id="adminLoader" class="loader-wrapper">
+    <!-- LOADING STATE -->
+    <div id="loadingState" class="loader-wrapper">
       <div>
         <div class="loader"></div>
-        <div class="loader-text">Validando credenciais administrativas...</div>
+        <p class="loader-text">Carregando painel de governo...</p>
       </div>
     </div>
 
-    <!-- CONTEÚDO PRINCIPAL (oculto até validar admin) -->
-    <section id="adminContent" style="display:none;">
-      <!-- VISÃO GERAL -->
+    <!-- MAIN CONTENT (Hidden até validação) -->
+    <div id="mainContent" style="display: none;">
+      <div class="version-badge">Versão 2026 • DS</div>
+
+      <div class="intro">
+        <h1>Bem-vindo ao Painel de Governo</h1>
+        <p>
+          Acesse os três pilares do ecossistema Tanigawa: Synesis, Sozo e NR-1.
+          Gerencie mentorias, ebooks e livros físicos disponíveis no Instituto.
+        </p>
+      </div>
+
+      <!-- DIAGNÓSTICOS -->
       <section class="section">
         <div class="section-header">
-          <div class="section-title">Visão geral do governo</div>
-          <div class="section-pill">Acesso rápido às principais frentes do Instituto Tanigawa</div>
+          <div class="section-title">Diagnósticos & Fluxos</div>
+          <div class="section-pill">Teste os diagnósticos, valide o motor Synesis, Sozo e NR-1 e verifique a experiência do mentorado.</div>
         </div>
 
         <div class="grid">
-          <!-- Mentorias & Produtos -->
+          <!-- Site principal -->
           <article class="card">
             <div class="card-header">
-              <div class="card-label">Mentorias & Produtos</div>
-              <div class="card-title">Páginas públicas e fluxos do site</div>
+              <div class="card-label">Versão 2026 • DS</div>
+              <div class="card-title">Site do Instituto</div>
               <p class="card-desc">
-                Visualize como Synesis, Sozo e NR-1 estão apresentados no site e teste o funil dos mentorados.
+                Visualize o site público do Instituto Tanigawa com os 3 diagnósticos no ar, atualizado ao vivo para mentorandos.
               </p>
             </div>
             <div class="card-footer">
               <span class="card-meta-pill">Synesis • Sozo • NR-1</span>
-              <button class="primary-btn blue" onclick="window.location.href='mentoria.html'">Ver site</button>
-            </div>
-          </article>
-
-          <!-- Gestão de Produtos -->
-          <article class="card">
-            <div class="card-header">
-              <div class="card-label">Produtos</div>
-              <div class="card-title">Gerenciar Produtos</div>
-              <p class="card-desc">
-                Cadastre, edite e organize cursos, mentorias, ebooks e livros físicos disponíveis no Instituto.
-              </p>
-            </div>
-            <div class="card-footer">
-              <span class="card-meta-pill">CRUD completo</span>
-              <button class="primary-btn purple" onclick="window.location.href='admin-produtos.html'">Abrir gestão</button>
-            </div>
-          </article>
-
-          <!-- Área de membros -->
-          <article class="card">
-            <div class="card-header">
-              <div class="card-label">Experiência do aluno</div>
-              <div class="card-title">Área de Membros</div>
-              <p class="card-desc">
-                Acesse a visão do aluno para validar trilhas, vídeos, progresso e experiências internas.
-              </p>
-            </div>
-            <div class="card-footer">
-              <span class="card-meta-pill">Ambiente do aluno</span>
-              <button class="primary-btn green" onclick="window.location.href='area_membros.html'">Abrir membros</button>
+              <button class="primary-btn" onclick="window.open('https://institutotanigawa.com.br', '_blank')">Ver site</button>
             </div>
           </article>
 
@@ -500,7 +479,7 @@
             </div>
             <div class="card-footer">
               <span class="card-meta-pill">Propósito dominante</span>
-              <button class="primary-btn blue" onclick="window.location.href='diagnostico-tanigawa-proposito.html'">Abrir propósito</button>
+              <button class="primary-btn blue" onclick="window.location.href='utero-base.html'">Abrir propósito</button>
             </div>
           </article>
         </div>
@@ -548,100 +527,62 @@
           <article class="card">
             <div class="card-header">
               <div class="card-label">Conteúdo espiritual</div>
-              <div class="card-title">Devocionais & Conteúdos</div>
+              <div class="card-title">Devocionais</div>
               <p class="card-desc">
-                Revise a página de devocionais, cards e links para garantir ritmo, estética e coerência.
+                Acesse os devocionais publicados, explore trilhas, vídeos, progresso e experiências internas.
               </p>
             </div>
             <div class="card-footer">
-              <span class="card-meta-pill">Alimentação espiritual</span>
-              <button class="primary-btn" onclick="window.location.href='devocionais.html'">Abrir devocionais</button>
+              <span class="card-meta-pill">Ambiente do aluno</span>
+              <button class="primary-btn green" onclick="window.location.href='devocionais.html'">Abrir membros</button>
             </div>
           </article>
 
-          <!-- Contato -->
+          <!-- Admin produtos -->
           <article class="card">
             <div class="card-header">
-              <div class="card-label">Atendimento</div>
-              <div class="card-title">Contato & Suporte</div>
+              <div class="card-label">CRUD completo</div>
+              <div class="card-title">Admin de Produtos</div>
               <p class="card-desc">
-                Teste as mensagens de contato e valide o recebimento no e-mail configurado (SMTP / API).
+                Gerencie mentorias, ebooks e livros físicos disponíveis no Instituto.
               </p>
             </div>
             <div class="card-footer">
-              <span class="card-meta-pill">Canal oficial</span>
-              <button class="primary-btn" onclick="window.location.href='contato.html'">Testar contato</button>
-            </div>
-          </article>
-
-          <!-- NR-1 -->
-          <article class="card">
-            <div class="card-header">
-              <div class="card-label">NR-1 Life Corporate</div>
-              <div class="card-title">NR-1 • Portal Corporativo</div>
-              <p class="card-desc">
-                Acesse a página do projeto NR-1 e confira navegação, CTAs e linguagem para empresas.
-              </p>
-            </div>
-            <div class="card-footer">
-              <span class="card-meta-pill">Projeto corporativo</span>
-              <button class="primary-btn blue" onclick="window.location.href='nr-1.html'">Abrir NR-1</button>
-            </div>
-          </article>
-
-          <!-- Voltar ao site -->
-          <article class="card">
-            <div class="card-header">
-              <div class="card-label">Visão pública</div>
-              <div class="card-title">Voltar ao Site</div>
-              <p class="card-desc">
-                Visualize o site como visitante para checar identidade visual, navegação e chamadas públicas.
-              </p>
-            </div>
-            <div class="card-footer">
-              <span class="card-meta-pill">Home pública</span>
-              <button class="primary-btn" onclick="window.location.href='home.html'">Home pública</button>
+              <span class="card-meta-pill">Gestão</span>
+              <button class="primary-btn purple" onclick="window.location.href='admin-produtos.html'">Abrir gestão</button>
             </div>
           </article>
         </div>
       </section>
-    </section>
+    </div>
   </main>
 
   <script>
-    // Mantém o admin conectado enquanto não clicar em "Sair"
-    function verificarAdmin() {
-      const isAdmin = localStorage.getItem("admin") === "true";
+    // ✅ VALIDAÇÃO DE AUTENTICAÇÃO
+    window.addEventListener('DOMContentLoaded', () => {
+      const isAdmin = sessionStorage.getItem('userType') === 'admin';
+      const adminName = sessionStorage.getItem('userName') || 'Administrador';
 
       if (!isAdmin) {
-        window.location.href = "auth_system.html";
+        // ❌ NÃO É ADMIN: Redireciona para login
+        alert('Acesso negado. Você precisa estar logado como administrador.');
+        window.location.href = 'auth_system.html';
         return;
       }
 
-      const loader = document.getElementById("adminLoader");
-      const content = document.getElementById("adminContent");
-      const nameEl = document.getElementById("adminName");
-
-      if (loader) loader.style.display = "none";
-      if (content) content.style.display = "block";
-
-      // Nome fixo por enquanto – pode futuramente vir do storage
-      nameEl.textContent = "Sergio Tanigawa";
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      // Delay curto só para aparecer o "validando"
-      setTimeout(verificarAdmin, 600);
-
-      const logoutBtn = document.getElementById("logoutBtn");
-      if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => {
-          localStorage.removeItem("admin");
-          localStorage.removeItem("user");
-          window.location.href = "auth_system.html";
-        });
-      }
+      // ✅ É ADMIN: Exibe o painel
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+      document.getElementById('adminName').textContent = adminName;
     });
+
+    // 🚪 LOGOUT
+    function logout() {
+      sessionStorage.clear();
+      localStorage.removeItem('admin');
+      alert('Você saiu do painel administrativo.');
+      window.location.href = 'auth_system.html';
+    }
   </script>
 </body>
 </html>
