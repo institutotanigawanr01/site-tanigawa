@@ -1,0 +1,8 @@
+{
+  "name": "instituto-tanigawa",
+  "version": "1.0.0",
+  "description": "Site oficial do Instituto Tanigawa - Mentoria espiritual e consultoria NR-1",
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  }
+}
