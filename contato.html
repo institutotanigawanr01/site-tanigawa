@@ -760,4 +760,9 @@
                     }
                     this.reset();
                 } else {
-                    throw new Error(`Erro d
+                    throw new Error(`Erro de submissão: Status ${response.status}`);
+                }
+                
+            } catch (error) {
+                showFormMessage('❌ Erro ao enviar. Por favor, tente novamente ou use o WhatsApp.', 'error');
+                console.error("Erro no envio do fo
