@@ -1,0 +1,27 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Mentorado {
+  id                Int      @id @default(autoincrement())
+  nome              String
+  cpf               String   @unique
+  email             String
+  whatsapp          String
+  endereco          String
+  expectativas      String?  @db.Text
+  mentoriaEscolhida String
+  formaPagamento    String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("mentorados")
+}
