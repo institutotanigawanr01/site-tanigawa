@@ -146,6 +146,60 @@
             color: rgba(255, 255, 255, 0.3);
         }
 
+        /* ✅ NOVO: Estado de erro de validação */
+        textarea.invalid {
+            border: 2px solid #fbbf24 !important;
+            background: rgba(251, 191, 36, 0.1) !important;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        /* ✅ NOVO: Mensagem de erro */
+        .error-message {
+            background: rgba(251, 191, 36, 0.15);
+            border: 2px solid #fbbf24;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #fbbf24;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .error-message p {
+            margin: 0;
+            font-size: 1.1em;
+        }
+
+        .error-message small {
+            display: block;
+            margin-top: 8px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .btn {
             background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
             color: #1a2b4a;
@@ -218,12 +272,12 @@
                 font-size: 2em;
             }
             
-            .camada-titulo {
-                font-size: 1.4em;
-            }
-            
             .card {
                 padding: 25px;
+            }
+            
+            .camada-titulo {
+                font-size: 1.4em;
             }
         }
     </style>
@@ -232,118 +286,126 @@
     <div class="container">
         <div class="header">
             <h1>🤰 Útero do Propósito</h1>
-            <p>Diagnóstico Gestacional de Propósito</p>
+            <p>Diagnóstico Gestacional do seu Chamado</p>
         </div>
 
         <div class="progress-bar">
             <div class="progress-fill" id="progress"></div>
         </div>
 
-        <div class="trimestre-label" id="trimestre-label">1º TRIMESTRE: FORMAÇÃO</div>
+        <div class="trimestre-label" id="trimestre-label">1º TRIMESTRE: CONCEPÇÃO</div>
 
-        <!-- CAMADA 1: CONCEPÇÃO -->
-        <div class="card" id="camada1">
-            <div class="camada-titulo">
-                <span class="camada-numero">1</span>
-                <span>CAMADA 1: CONCEPÇÃO</span>
-            </div>
-            <p class="camada-metafora">
-                Metáfora: O espermatozoide encontra o óvulo - seu DNA espiritual único é estabelecido
-            </p>
-
-            <div class="pergunta">
-                <p class="pergunta-label">
-                    <strong>Quando Deus te pensou pela primeira vez, o que Ele viu em você?</strong><br>
-                    Antes de qualquer história, antes de qualquer dor ou conquista, existe uma essência. Descreva quem você É, não o que você faz ou o que viveu.
-                </p>
-                <textarea id="concepcao1" placeholder="Digite sua resposta aqui..."></textarea>
-            </div>
-
-            <div class="pergunta">
-                <p class="pergunta-label">
-                    Se você pudesse se descrever em UMA ÚNICA PALAVRA - a primeira que vier sem pensar - qual seria?
-                </p>
-                <textarea id="concepcao2" placeholder="Uma palavra..."></textarea>
-            </div>
-
-            <div class="pergunta">
-                <p class="pergunta-label">
-                    As pessoas que te amam de verdade (não as que te conhecem superficialmente, mas as que te VÊM) - o que elas diriam sobre sua essência?
-                </p>
-                <textarea id="concepcao3" placeholder="O que elas enxergam em mim..."></textarea>
-            </div>
-
-            <button class="btn" onclick="proximaCamada(2)">Continuar para Camada 2 →</button>
+        <!-- ✅ NOVO: Mensagem de erro global -->
+        <div class="error-message" id="error-message">
+            <p>⚠️ Preenchimento obrigatório. Vai ser prematuro.</p>
+            <small>Complete todos os campos com pelo menos 50 caracteres cada.</small>
         </div>
 
-        <!-- CAMADA 2: IMPLANTAÇÃO -->
-        <div class="card hidden" id="camada2">
-            <div class="camada-titulo">
-                <span class="camada-numero">2</span>
-                <span>CAMADA 2: IMPLANTAÇÃO</span>
-            </div>
-            <p class="camada-metafora">
-                Metáfora: O embrião se fixa no útero através da ruptura - a dor que te fixou e transformou
-            </p>
-
-            <div class="pergunta">
-                <p class="pergunta-label">
-                    <strong>Qual foi a dor mais profunda da sua vida?</strong><br>
-                    Aquela que te marcou de forma irreversível. A que te quebrou. Seja específico - não generalize.
+        <!-- 1º TRIMESTRE -->
+        <div id="trimestre1">
+            <!-- CAMADA 1: CONCEPÇÃO -->
+            <div class="card" id="camada1">
+                <div class="camada-titulo">
+                    <span class="camada-numero">1</span>
+                    <span>CAMADA 1: CONCEPÇÃO</span>
+                </div>
+                <p class="camada-metafora">
+                    Metáfora: O espermatozoide encontra o óvulo - DNA espiritual se forma
                 </p>
-                <textarea id="implantacao1" placeholder="A dor que me quebrou..."></textarea>
+
+                <div class="pergunta">
+                    <p class="pergunta-label">
+                        <strong>Quando você era criança, o que te deixava absolutamente VIVO?</strong><br>
+                        Não pense na resposta "certa" - apenas lembre. O que fazia você esquecer do tempo?
+                    </p>
+                    <textarea id="concepcao1" placeholder="Quando eu era criança..."></textarea>
+                </div>
+
+                <div class="pergunta">
+                    <p class="pergunta-label">
+                        Se você pudesse usar UMA ÚNICA PALAVRA para descrever quem você realmente é (não o que você faz) - qual seria?
+                    </p>
+                    <textarea id="concepcao2" placeholder="Eu sou..."></textarea>
+                </div>
+
+                <div class="pergunta">
+                    <p class="pergunta-label">
+                        Complete a frase: "Eu não consigo ficar em paz quando vejo __________." O que provoca revolta santa em você?
+                    </p>
+                    <textarea id="concepcao3" placeholder="Eu não consigo ficar em paz quando vejo..."></textarea>
+                </div>
+
+                <button class="btn" onclick="proximaCamada(2)">Continuar para Camada 2 →</button>
             </div>
 
-            <div class="pergunta">
-                <p class="pergunta-label">
-                    Como essa dor te TRANSFORMOU? O que você ganhou através dela que não teria de outra forma?
+            <!-- CAMADA 2: IMPLANTAÇÃO -->
+            <div class="card hidden" id="camada2">
+                <div class="camada-titulo">
+                    <span class="camada-numero">2</span>
+                    <span>CAMADA 2: IMPLANTAÇÃO</span>
+                </div>
+                <p class="camada-metafora">
+                    Metáfora: O embrião se fixa no útero - propósito se ancora na dor/experiência
                 </p>
-                <textarea id="implantacao2" placeholder="O que nasceu da dor..."></textarea>
+
+                <div class="pergunta">
+                    <p class="pergunta-label">
+                        <strong>Qual foi a dor mais profunda que você já experimentou?</strong><br>
+                        (Pode ser emocional, espiritual, relacional, física - mas precisa ser verdadeira e profunda)
+                    </p>
+                    <textarea id="implantacao1" placeholder="Minha dor mais profunda foi..."></textarea>
+                </div>
+
+                <div class="pergunta">
+                    <p class="pergunta-label">
+                        O que essa dor te ENSINOU que ninguém mais poderia te ensinar? Como ela te transformou?
+                    </p>
+                    <textarea id="implantacao2" placeholder="Essa dor me ensinou..."></textarea>
+                </div>
+
+                <div class="pergunta">
+                    <p class="pergunta-label">
+                        Se você pudesse POUPAR outras pessoas dessa mesma dor - o que você faria diferente na vida delas?
+                    </p>
+                    <textarea id="implantacao3" placeholder="Eu pouparia outros de..."></textarea>
+                </div>
+
+                <button class="btn" onclick="proximaCamada(3)">Continuar para Camada 3 →</button>
             </div>
 
-            <div class="pergunta">
-                <p class="pergunta-label">
-                    Complete a frase: "Por causa dessa dor, hoje eu consigo ___________ de uma forma que outras pessoas não conseguem."
+            <!-- CAMADA 3: PRIMEIRO BATIMENTO -->
+            <div class="card hidden" id="camada3">
+                <div class="camada-titulo">
+                    <span class="camada-numero">3</span>
+                    <span>CAMADA 3: PRIMEIRO BATIMENTO</span>
+                </div>
+                <p class="camada-metafora">
+                    Metáfora: O coração começa a bater - seus valores centrais (o que te move)
                 </p>
-                <textarea id="implantacao3" placeholder="Hoje eu consigo..."></textarea>
+
+                <div class="pergunta">
+                    <p class="pergunta-label">
+                        <strong>Se você tivesse que escolher 3 valores inegociáveis na sua vida - aqueles pelos quais você morreria - quais seriam?</strong>
+                    </p>
+                    <textarea id="batimento1" placeholder="Meus 3 valores inegociáveis são..."></textarea>
+                </div>
+
+                <div class="pergunta">
+                    <p class="pergunta-label">
+                        Quando você vê alguém vivendo esses mesmos valores na prática, o que você sente?
+                    </p>
+                    <textarea id="batimento2" placeholder="Eu sinto..."></textarea>
+                </div>
+
+                <div class="pergunta">
+                    <p class="pergunta-label">
+                        E quando você vê esses valores sendo pisoteados ou ignorados - o que acontece dentro de você?
+                    </p>
+                    <textarea id="batimento3" placeholder="Quando vejo isso..."></textarea>
+                </div>
+
+                <button class="btn" onclick="finalizarTrimestre1()">Completar 1º Trimestre ✓</button>
             </div>
-
-            <button class="btn" onclick="proximaCamada(3)">Continuar para Camada 3 →</button>
-        </div>
-
-        <!-- CAMADA 3: PRIMEIRO BATIMENTO -->
-        <div class="card hidden" id="camada3">
-            <div class="camada-titulo">
-                <span class="camada-numero">3</span>
-                <span>CAMADA 3: PRIMEIRO BATIMENTO</span>
-            </div>
-            <p class="camada-metafora">
-                Metáfora: O coração começa a bater - o primeiro órgão funcional, o chamado primário
-            </p>
-
-            <div class="pergunta">
-                <p class="pergunta-label">
-                    <strong>O que faz seu coração bater mais forte?</strong><br>
-                    Quando você se sente mais VIVO? Não estou perguntando o que te deixa feliz - estou perguntando o que te faz sentir que você está EXISTINDO plenamente.
-                </p>
-                <textarea id="batimento1" placeholder="Eu me sinto mais vivo quando..."></textarea>
-            </div>
-
-            <div class="pergunta">
-                <p class="pergunta-label">
-                    Se você tivesse apenas 10 anos de vida garantidos, e soubesse disso hoje, como você gastaria esse tempo? Seja brutalmente honesto.
-                </p>
-                <textarea id="batimento2" placeholder="Eu gastaria meu tempo..."></textarea>
-            </div>
-
-            <div class="pergunta">
-                <p class="pergunta-label">
-                    O que você faria mesmo que NINGUÉM te pagasse, ninguém te reconhecesse, e ninguém soubesse que foi você quem fez?
-                </p>
-                <textarea id="batimento3" placeholder="Eu faria..."></textarea>
-            </div>
-
-            <button class="btn" onclick="finalizarTrimestre1()">Completar 1º Trimestre ✓</button>
         </div>
 
         <!-- TRANSIÇÃO 1º TRIMESTRE -->
@@ -371,77 +433,77 @@
                     <span>CAMADA 4: MEMBROS</span>
                 </div>
                 <p class="camada-metafora">
-                    Metáfora: Braços e pernas se formam - capacidade de ação, seus dons práticos
+                    Metáfora: Braços e pernas se formam - seus dons e habilidades práticas
                 </p>
 
                 <div class="pergunta">
                     <p class="pergunta-label">
-                        <strong>O que suas mãos fazem naturalmente, sem esforço?</strong><br>
-                        Que habilidades você tem que parecem fáceis para você, mas você percebe que são difíceis para a maioria das pessoas?
+                        <strong>O que você faz melhor do que a maioria das pessoas?</strong><br>
+                        Não seja modesto - seja honesto. Em que área as pessoas naturalmente pedem sua ajuda?
                     </p>
-                    <textarea id="membros1" placeholder="Minhas mãos fazem naturalmente..."></textarea>
+                    <textarea id="membros1" placeholder="Eu sou excepcionalmente bom em..."></textarea>
                 </div>
 
                 <div class="pergunta">
                     <p class="pergunta-label">
-                        Quando as pessoas pedem sua ajuda, sobre o que elas SEMPRE perguntam? Qual é aquele assunto que você é "o cara/a pessoa" para resolver?
+                        Que tipo de problema você resolve quase sem esforço, enquanto outros lutam com ele?
                     </p>
-                    <textarea id="membros2" placeholder="As pessoas sempre me pedem ajuda com..."></textarea>
+                    <textarea id="membros2" placeholder="Eu resolvo facilmente..."></textarea>
                 </div>
 
                 <div class="pergunta">
                     <p class="pergunta-label">
-                        Se você pudesse fazer UMA COISA pelo resto da vida (e fazer isso muito bem), o que seria? Não pense em dinheiro - pense em expressão.
+                        Se você tivesse recursos ilimitados (tempo, dinheiro, equipe) - qual projeto você iniciaria AMANHÃ?
                     </p>
-                    <textarea id="membros3" placeholder="Eu faria..."></textarea>
+                    <textarea id="membros3" placeholder="Eu iniciaria..."></textarea>
                 </div>
 
                 <button class="btn" onclick="proximaCamada(5)">Continuar para Camada 5 →</button>
             </div>
 
-            <!-- CAMADA 5: PRIMEIRO CHUTE -->
+            <!-- CAMADA 5: CHUTE -->
             <div class="card hidden" id="camada5">
                 <div class="camada-titulo">
                     <span class="camada-numero">5</span>
-                    <span>CAMADA 5: PRIMEIRO CHUTE</span>
+                    <span>CAMADA 5: CHUTE</span>
                 </div>
                 <p class="camada-metafora">
-                    Metáfora: A mãe sente o bebê chutar pela primeira vez - a indignação santa que não pode ser calada
+                    Metáfora: O bebê chuta pela primeira vez - a causa que te move, o que te tira do conforto
                 </p>
 
                 <div class="pergunta">
                     <p class="pergunta-label">
-                        <strong>Contra o que você chuta por dentro?</strong><br>
-                        Que injustiça, que erro, que situação te deixa INDIGNADO de uma forma que você não consegue ignorar? Seja específico.
+                        <strong>Qual injustiça no mundo mais te revolta?</strong><br>
+                        Qual situação, quando você vê ou ouve falar, faz seu sangue ferver?
                     </p>
-                    <textarea id="chute1" placeholder="Eu não consigo aceitar..."></textarea>
+                    <textarea id="chute1" placeholder="A injustiça que mais me revolta é..."></textarea>
                 </div>
 
                 <div class="pergunta">
                     <p class="pergunta-label">
-                        Complete: "Eu não consigo ver ___________ sem querer fazer algo a respeito."
+                        Se você pudesse mudar UMA COISA no mundo através do seu trabalho/ministério - o que seria?
                     </p>
-                    <textarea id="chute2" placeholder="Eu não consigo ver..."></textarea>
+                    <textarea id="chute2" placeholder="Eu mudaria..."></textarea>
                 </div>
 
                 <div class="pergunta">
                     <p class="pergunta-label">
-                        Se você pudesse mudar UMA COISA no mundo (não genericamente, mas algo específico e tangível), o que seria?
+                        Complete: "O mundo seria diferente se mais pessoas entendessem que __________."
                     </p>
-                    <textarea id="chute3" placeholder="Eu mudaria..."></textarea>
+                    <textarea id="chute3" placeholder="O mundo seria diferente se..."></textarea>
                 </div>
 
                 <button class="btn" onclick="proximaCamada(6)">Continuar para Camada 6 →</button>
             </div>
 
-            <!-- CAMADA 6: ABERTURA DOS OLHOS -->
+            <!-- CAMADA 6: OLHOS -->
             <div class="card hidden" id="camada6">
                 <div class="camada-titulo">
                     <span class="camada-numero">6</span>
-                    <span>CAMADA 6: ABERTURA DOS OLHOS</span>
+                    <span>CAMADA 6: OLHOS</span>
                 </div>
                 <p class="camada-metafora">
-                    Metáfora: O bebê abre os olhos no útero e vê luz - discernimento de para quem você foi enviado
+                    Metáfora: Os olhos se abrem (ainda no útero) - quem você enxerga, seu público/destinatários
                 </p>
 
                 <div class="pergunta">
@@ -596,10 +658,31 @@
     </div>
 
     <script>
+        // ✅ VALIDAÇÃO: Mínimo de caracteres por campo
+        const MIN_CARACTERES = 50;
+
+        // ✅ VALIDAÇÃO: Lista de todos os campos obrigatórios (27 campos)
+        const CAMPOS_OBRIGATORIOS = [
+            'concepcao1', 'concepcao2', 'concepcao3',
+            'implantacao1', 'implantacao2', 'implantacao3',
+            'batimento1', 'batimento2', 'batimento3',
+            'membros1', 'membros2', 'membros3',
+            'chute1', 'chute2', 'chute3',
+            'olhos1', 'olhos2', 'olhos3',
+            'respiracao1', 'respiracao2', 'respiracao3',
+            'voz1', 'voz2', 'voz3',
+            'parto1', 'parto2', 'parto3'
+        ];
+
         // Salvar automaticamente
         document.querySelectorAll('textarea').forEach(textarea => {
             textarea.addEventListener('input', function() {
                 localStorage.setItem(this.id, this.value);
+                
+                // ✅ Remove o estado de erro quando começa a digitar
+                if (this.classList.contains('invalid')) {
+                    this.classList.remove('invalid');
+                }
             });
             
             // Carregar valores salvos
@@ -607,7 +690,74 @@
             if (saved) textarea.value = saved;
         });
 
+        // ✅ VALIDAÇÃO: Função para validar campos de uma camada
+        function validarCampos(campoIds) {
+            const errorMessage = document.getElementById('error-message');
+            let todosValidos = true;
+            let primeiroCampoInvalido = null;
+
+            // Remove estados de erro anteriores
+            document.querySelectorAll('textarea.invalid').forEach(t => {
+                t.classList.remove('invalid');
+            });
+
+            campoIds.forEach(campoId => {
+                const campo = document.getElementById(campoId);
+                const valor = (campo.value || '').trim();
+
+                if (valor.length < MIN_CARACTERES) {
+                    campo.classList.add('invalid');
+                    todosValidos = false;
+                    
+                    if (!primeiroCampoInvalido) {
+                        primeiroCampoInvalido = campo;
+                    }
+                }
+            });
+
+            if (!todosValidos) {
+                // Mostra mensagem de erro
+                errorMessage.classList.add('show');
+                
+                // Scroll para o primeiro campo inválido
+                if (primeiroCampoInvalido) {
+                    primeiroCampoInvalido.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                    
+                    // Foca no primeiro campo após scroll
+                    setTimeout(() => {
+                        primeiroCampoInvalido.focus();
+                    }, 500);
+                }
+                
+                // Remove mensagem após 5 segundos
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 5000);
+            }
+
+            return todosValidos;
+        }
+
         function proximaCamada(numero) {
+            // ✅ Define quais campos validar baseado na camada atual
+            let camposParaValidar = [];
+            const camadaAtual = numero - 1;
+            
+            if (camadaAtual === 1) camposParaValidar = ['concepcao1', 'concepcao2', 'concepcao3'];
+            else if (camadaAtual === 2) camposParaValidar = ['implantacao1', 'implantacao2', 'implantacao3'];
+            else if (camadaAtual === 4) camposParaValidar = ['membros1', 'membros2', 'membros3'];
+            else if (camadaAtual === 5) camposParaValidar = ['chute1', 'chute2', 'chute3'];
+            else if (camadaAtual === 7) camposParaValidar = ['respiracao1', 'respiracao2', 'respiracao3'];
+            else if (camadaAtual === 8) camposParaValidar = ['voz1', 'voz2', 'voz3'];
+
+            // ✅ Valida antes de avançar
+            if (camposParaValidar.length > 0 && !validarCampos(camposParaValidar)) {
+                return; // Impede avanço se validação falhar
+            }
+
             document.getElementById(`camada${numero-1}`).classList.add('hidden');
             document.getElementById(`camada${numero}`).classList.remove('hidden');
             document.getElementById(`camada${numero}`).scrollIntoView({ behavior: 'smooth' });
@@ -615,6 +765,11 @@
         }
 
         function finalizarTrimestre1() {
+            // ✅ Valida camada 3 antes de finalizar
+            if (!validarCampos(['batimento1', 'batimento2', 'batimento3'])) {
+                return;
+            }
+
             document.getElementById('camada3').classList.add('hidden');
             document.getElementById('transicao1').classList.remove('hidden');
             document.getElementById('transicao1').scrollIntoView({ behavior: 'smooth' });
@@ -629,6 +784,11 @@
         }
 
         function finalizarTrimestre2() {
+            // ✅ Valida camada 6 antes de finalizar
+            if (!validarCampos(['olhos1', 'olhos2', 'olhos3'])) {
+                return;
+            }
+
             document.getElementById('camada6').classList.add('hidden');
             document.getElementById('transicao2').classList.remove('hidden');
             document.getElementById('transicao2').scrollIntoView({ behavior: 'smooth' });
@@ -648,8 +808,33 @@
         }
 
         function iniciarTrabalhoDeParto() {
+            // ✅ VALIDAÇÃO FINAL: Valida camada 9
+            if (!validarCampos(['parto1', 'parto2', 'parto3'])) {
+                return;
+            }
+
+            // ✅ VALIDAÇÃO CRÍTICA: Verifica TODOS os 27 campos antes de prosseguir
+            if (!validarCampos(CAMPOS_OBRIGATORIOS)) {
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.innerHTML = `
+                    <p>⚠️ Ainda faltam campos para preencher!</p>
+                    <small>Revise todas as camadas e complete os campos em amarelo com pelo menos 50 caracteres.</small>
+                `;
+                errorMessage.classList.add('show');
+                
+                // Scroll para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 7000);
+                
+                return;
+            }
+
             // Salvar que completou
             localStorage.setItem('completou_diagnostico', 'true');
+            
             // Redirecionar para resultado
             window.location.href = 'resultado-proposito.html';
         }

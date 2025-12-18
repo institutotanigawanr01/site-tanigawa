@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dados Insuficientes - Útero do Propósito</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a2b4a 0%, #2d4a7c 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .error-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            border: 2px solid rgba(251, 191, 36, 0.4);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .icon {
+            font-size: 5em;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.8;
+            }
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #fbbf24;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .message {
+            font-size: 1.2em;
+            line-height: 1.8;
+            color: #e2e8f0;
+            margin-bottom: 30px;
+        }
+
+        .stats {
+            background: rgba(251, 191, 36, 0.1);
+            border: 2px solid rgba(251, 191, 36, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+
+        .stat-item {
+            flex: 1;
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: 800;
+            color: #fbbf24;
+        }
+
+        .stat-value.danger {
+            color: #ef4444;
+        }
+
+        .explanation {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #cbd5e1;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border-left: 4px solid #fbbf24;
+            text-align: left;
+        }
+
+        .explanation strong {
+            color: #fbbf24;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a2b4a;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1em;
+            font-weight: 600;
+            border-radius: 999px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .error-card {
+                padding: 35px 25px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .message {
+                font-size: 1.1em;
+            }
+
+            .stats-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-card">
+            <div class="icon">⚠️</div>
+            <h1>Diagnóstico Incompleto</h1>
+            <p class="message">
+                Não foi possível gerar seu relatório porque o diagnóstico está incompleto.
+                <strong>É prematuro tentar nascer agora.</strong>
+            </p>
+
+            <div class="stats" id="stats-container">
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <div class="stat-label">Campos Preenchidos</div>
+                        <div class="stat-value" id="campos-preenchidos">0/27</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Completude</div>
+                        <div class="stat-value danger" id="percentual">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <strong>Por que isso aconteceu?</strong><br><br>
+                Para gerar um diagnóstico preciso e transformador, precisamos que você complete <strong>todos os 27 campos</strong> com reflexões profundas (mínimo 50 caracteres cada).<br><br>
+                Seu propósito merece mais do que respostas superficiais. Cada pergunta foi cuidadosamente elaborada para revelar camadas específicas do seu chamado.
+            </div>
+
+            <div class="btn-group">
+                <a href="utero-base.html" class="btn">
+                    🔄 Continuar de Onde Parei
+                </a>
+                <button class="btn btn-secondary" onclick="limparTudo()">
+                    🗑️ Recomeçar do Zero
+                </button>
+            </div>
+
+            <p style="margin-top: 30px; font-size: 0.9em; color: #94a3b8; font-style: italic;">
+                Lembre-se: Um propósito bem-nascido requer gestação completa.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // Recuperar dados de validação
+            const erroData = localStorage.getItem('erro_validacao');
+            
+            if (erroData) {
+                try {
+                    const dados = JSON.parse(erroData);
+                    
+                    // Atualizar estatísticas
+                    if (dados.camposValidos !== undefined && dados.totalCampos !== undefined) {
+                        document.getElementById('campos-preenchidos').textContent = 
+                            `${dados.camposValidos}/${dados.totalCampos}`;
+                    }
+                    
+                    if (dados.percentual !== undefined) {
+                        const percentualEl = document.getElementById('percentual');
+                        percentualEl.textContent = `${dados.percentual}%`;
+                        
+                        // Ajustar cor baseado no percentual
+                        const perc = parseInt(dados.percentual);
+                        if (perc >= 70) {
+                            percentualEl.classList.remove('danger');
+                            percentualEl.style.color = '#fbbf24';
+                        } else if (perc >= 40) {
+                            percentualEl.classList.remove('danger');
+                            percentualEl.style.color = '#f59e0b';
+                        }
+                    }
+                    
+                    // Limpar dados de erro após uso
+                    localStorage.removeItem('erro_validacao');
+                } catch (e) {
+                    console.error('Erro ao processar dados de validação:', e);
+                }
+            } else {
+                // Se não há dados de erro, exibir valores genéricos
+                calcularEstatisticas();
+            }
+        };
+
+        function calcularEstatisticas() {
+            const MIN_CARACTERES = 50;
+            const CAMPOS_OBRIGATORIOS = [
+                'concepcao1', 'concepcao2', 'concepcao3',
+                'implantacao1', 'implantacao2', 'implantacao3',
+                'batimento1', 'batimento2', 'batimento3',
+                'membros1', 'membros2', 'membros3',
+                'chute1', 'chute2', 'chute3',
+                'olhos1', 'olhos2', 'olhos3',
+                'respiracao1', 'respiracao2', 'respiracao3',
+                'voz1', 'voz2', 'voz3',
+                'parto1', 'parto2', 'parto3'
+            ];
+
+            let camposValidos = 0;
+            CAMPOS_OBRIGATORIOS.forEach(campo => {
+                const valor = (localStorage.getItem(campo) || '').trim();
+                if (valor.length >= MIN_CARACTERES) {
+                    camposValidos++;
+                }
+            });
+
+            const percentual = ((camposValidos / CAMPOS_OBRIGATORIOS.length) * 100).toFixed(0);
+
+            document.getElementById('campos-preenchidos').textContent = 
+                `${camposValidos}/${CAMPOS_OBRIGATORIOS.length}`;
+            
+            const percentualEl = document.getElementById('percentual');
+            percentualEl.textContent = `${percentual}%`;
+            
+            const perc = parseInt(percentual);
+            if (perc >= 70) {
+                percentualEl.classList.remove('danger');
+                percentualEl.style.color = '#fbbf24';
+            } else if (perc >= 40) {
+                percentualEl.classList.remove('danger');
+                percentualEl.style.color = '#f59e0b';
+            }
+        }
+
+        function limparTudo() {
+            if (confirm('Tem certeza que deseja apagar TODAS as suas respostas e recomeçar do zero?')) {
+                const CAMPOS_OBRIGATORIOS = [
+                    'concepcao1', 'concepcao2', 'concepcao3',
+                    'implantacao1', 'implantacao2', 'implantacao3',
+                    'batimento1', 'batimento2', 'batimento3',
+                    'membros1', 'membros2', 'membros3',
+                    'chute1', 'chute2', 'chute3',
+                    'olhos1', 'olhos2', 'olhos3',
+                    'respiracao1', 'respiracao2', 'respiracao3',
+                    'voz1', 'voz2', 'voz3',
+                    'parto1', 'parto2', 'parto3'
+                ];
+
+                // Limpar todos os campos
+                CAMPOS_OBRIGATORIOS.forEach(campo => {
+                    localStorage.removeItem(campo);
+                });
+
+                // Limpar flags de controle
+                localStorage.removeItem('completou_diagnostico');
+                localStorage.removeItem('tema_central');
+                localStorage.removeItem('erro_validacao');
+
+                // Redirecionar para início
+                window.location.href = 'utero-base.html';
+            }
+        }
+    </script>
+</body>
+</html>

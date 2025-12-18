@@ -224,239 +224,219 @@
                 font-size: 1.6em;
             }
         }
-
-        @media print {
-            body {
-                background: white;
-                color: black;
-            }
-            
-            .btn-bar {
-                display: none;
-            }
-            
-            .card {
-                box-shadow: none;
-                border: 1px solid #ccc;
-                page-break-inside: avoid;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📋 Relatório Final - Útero do Propósito</h1>
-            <p>Síntese Personalizada do Seu Diagnóstico Gestacional</p>
+            <h1>📋 Relatório Final</h1>
+            <p>Diagnóstico Completo do Seu Propósito</p>
         </div>
 
-        <!-- DECLARAÇÃO CENTRAL -->
+        <!-- 1. DECLARAÇÃO CENTRAL -->
         <div class="card">
-            <div class="section-title">🎯 1. Revelação Central do Seu Propósito</div>
-            <div id="proposito-curto" class="proposito-curto">PROPÓSITO AINDA NÃO DEFINIDO</div>
-            <div class="proposito-longo" id="proposito-longo">
-                Complete todas as camadas do Útero do Propósito para que sua declaração de envio seja revelada aqui.
-            </div>
-            <p class="footer-note">
-                • A frase em destaque é a síntese do seu propósito (verbo + pessoas + condição)<br>
-                • O parágrafo abaixo é sua declaração nas suas próprias palavras
-            </p>
+            <div class="section-title">Sua Declaração de Propósito</div>
+            <div class="proposito-curto" id="proposito-curto">CARREGANDO...</div>
+            <div class="proposito-longo" id="proposito-longo"></div>
         </div>
 
-        <!-- MAPA EM 8 PONTOS -->
+        <!-- 2. MAPA EM 8 PONTOS -->
         <div class="card">
-            <div class="section-title">🗺️ 2. Mapa do Propósito em 8 Dimensões</div>
+            <div class="section-title">Seu Mapa em 8 Pontos</div>
             <div class="grid">
                 <div>
-                    <div class="item-label">🧬 Essência</div>
-                    <div class="item-text" id="essencia"></div>
+                    <div class="item-label">1. Essência</div>
+                    <div class="item-text" id="essencia">-</div>
                 </div>
                 <div>
-                    <div class="item-label">🔑 Palavra-Chave</div>
-                    <div class="item-text" id="palavra-identidade"></div>
+                    <div class="item-label">2. Identidade</div>
+                    <div class="item-text" id="palavra-identidade">-</div>
                 </div>
                 <div>
-                    <div class="item-label">⚡ Dor que te Forjou</div>
-                    <div class="item-text" id="dor"></div>
+                    <div class="item-label">3. Dor Âncora</div>
+                    <div class="item-text" id="dor">-</div>
                 </div>
                 <div>
-                    <div class="item-label">🎁 Dom Natural</div>
-                    <div class="item-text" id="dom"></div>
+                    <div class="item-label">4. Dom Principal</div>
+                    <div class="item-text" id="dom">-</div>
                 </div>
                 <div>
-                    <div class="item-label">🔥 Causa que te Move</div>
-                    <div class="item-text" id="causa"></div>
+                    <div class="item-label">5. Causa</div>
+                    <div class="item-text" id="causa">-</div>
                 </div>
                 <div>
-                    <div class="item-label">👥 Pessoas-Alvo</div>
-                    <div class="item-text" id="pessoas"></div>
+                    <div class="item-label">6. Pessoas</div>
+                    <div class="item-text" id="pessoas">-</div>
                 </div>
                 <div>
-                    <div class="item-label">🏛️ Território</div>
-                    <div class="item-text" id="territorio"></div>
+                    <div class="item-label">7. Território</div>
+                    <div class="item-text" id="territorio">-</div>
                 </div>
                 <div>
-                    <div class="item-label">📢 Mensagem</div>
-                    <div class="item-text" id="mensagem"></div>
+                    <div class="item-label">8. Mensagem</div>
+                    <div class="item-text" id="mensagem">-</div>
                 </div>
             </div>
         </div>
 
-        <!-- PONTOS FORTES -->
+        <!-- 3. PONTOS FORTES -->
         <div class="card">
-            <div class="section-title">✨ 3. Pontos Fortes Identificados</div>
-            <ul class="lista-pontos" id="pontos-fortes">
-                <li>Analisando suas respostas...</li>
-            </ul>
+            <div class="section-title">Seus Pontos Fortes</div>
+            <ul class="lista-pontos" id="pontos-fortes"></ul>
         </div>
 
-        <!-- PONTOS DE ATENÇÃO -->
+        <!-- 4. PONTOS DE ATENÇÃO -->
         <div class="card">
-            <div class="section-title">⚠️ 4. Pontos de Atenção / Alinhamento</div>
-            <ul class="lista-pontos" id="pontos-atencao">
-                <li>Analisando suas respostas...</li>
-            </ul>
+            <div class="section-title">Pontos de Atenção</div>
+            <ul class="lista-pontos" id="pontos-atencao"></ul>
         </div>
 
-        <!-- PLANO DE AÇÃO -->
+        <!-- 5. PLANO DE AÇÃO -->
         <div class="card">
-            <div class="section-title">🎯 5. Plano de Ação Personalizado</div>
-            <p style="margin-bottom: 20px; color: #9fb8ff;">
-                Baseado no seu propósito revelado, aqui estão os próximos passos práticos:
-            </p>
+            <div class="section-title">Seu Plano de Ação</div>
             <div class="plano-acao">
                 <div class="plano-card">
-                    <h4>📅 Próximos 30 Dias</h4>
+                    <h4>📍 Próximos 30 Dias</h4>
                     <ul id="plano-30"></ul>
                 </div>
                 <div class="plano-card">
-                    <h4>📅 Próximos 90 Dias</h4>
+                    <h4>🎯 Próximos 90 Dias</h4>
                     <ul id="plano-90"></ul>
                 </div>
                 <div class="plano-card">
-                    <h4>📅 Próximos 180 Dias</h4>
+                    <h4>🚀 Próximos 180 Dias</h4>
                     <ul id="plano-180"></ul>
                 </div>
             </div>
         </div>
 
-        <div class="btn-bar">
-            <a href="home.html" class="btn">🏠 Voltar ao Início</a>
-            <button class="btn" onclick="window.print()">🖨️ Gerar PDF</button>
+        <!-- RODAPÉ -->
+        <div class="card">
+            <p class="footer-note">
+                Este relatório foi gerado através do diagnóstico "Útero do Propósito" - 
+                um processo reflexivo profundo de 9 camadas para descobrir seu chamado único.
+            </p>
+            <div class="btn-bar">
+                <a href="utero-base.html" class="btn">🔄 Refazer Diagnóstico</a>
+                <button class="btn" onclick="window.print()">🖨️ Imprimir Relatório</button>
+            </div>
         </div>
     </div>
 
     <script>
-        function getOrEmpty(key) {
-            const v = localStorage.getItem(key);
-            return v && v.trim().length > 0 ? v.trim() : '';
+        // ✅ VALIDAÇÃO: Constantes
+        const MIN_CARACTERES = 50;
+        const CAMPOS_OBRIGATORIOS = [
+            'concepcao1', 'concepcao2', 'concepcao3',
+            'implantacao1', 'implantacao2', 'implantacao3',
+            'batimento1', 'batimento2', 'batimento3',
+            'membros1', 'membros2', 'membros3',
+            'chute1', 'chute2', 'chute3',
+            'olhos1', 'olhos2', 'olhos3',
+            'respiracao1', 'respiracao2', 'respiracao3',
+            'voz1', 'voz2', 'voz3',
+            'parto1', 'parto2', 'parto3'
+        ];
+
+        // ✅ VALIDAÇÃO: Verifica se há dados suficientes
+        function validarDadosSuficientes() {
+            let camposValidos = 0;
+            let totalCaracteres = 0;
+
+            CAMPOS_OBRIGATORIOS.forEach(campo => {
+                const valor = (localStorage.getItem(campo) || '').trim();
+                totalCaracteres += valor.length;
+                
+                if (valor.length >= MIN_CARACTERES) {
+                    camposValidos++;
+                }
+            });
+
+            const percentualValido = (camposValidos / CAMPOS_OBRIGATORIOS.length) * 100;
+            const caracteresMinimos = MIN_CARACTERES * CAMPOS_OBRIGATORIOS.length * 0.7; // 70% do total esperado
+
+            return {
+                valido: percentualValido >= 70 && totalCaracteres >= caracteresMinimos,
+                percentual: percentualValido.toFixed(0),
+                camposValidos: camposValidos,
+                totalCampos: CAMPOS_OBRIGATORIOS.length
+            };
         }
 
-        // ANÁLISE AVANÇADA DE PALAVRAS-CHAVE
-        function analisarTexto(texto) {
-            const t = texto.toLowerCase();
+        function getOrEmpty(key) {
+            return localStorage.getItem(key) || '';
+        }
+
+        function gerarDeclaracao(respostas) {
+            const textoCompleto = Object.values(respostas).join(' ').toLowerCase();
             
-            const padroes = {
-                // Verbos de ação
-                verbos: {
-                    'libertar': ['libert', 'free', 'soltar', 'desacorrent'],
-                    'curar': ['curar', 'cura', 'restaur', 'sarar', 'reden'],
-                    'ensinar': ['ensinar', 'educar', 'formar', 'capacit', 'treinar', 'instruir'],
-                    'construir': ['construir', 'edificar', 'desenvolv', 'criar', 'erguer'],
-                    'despertar': ['despertar', 'acordar', 'revel', 'iluminar', 'conscientiz'],
-                    'guiar': ['guiar', 'conduzir', 'orientar', 'direcionar', 'liderar'],
-                    'transformar': ['transform', 'mudar', 'converter', 'renovar']
-                },
-                
-                // Destinatários
-                destinatarios: {
-                    'jovens': ['jovem', 'jovens', 'adolesc', 'juventude'],
-                    'mulheres': ['mulher', 'mulheres', 'feminino'],
-                    'homens': ['homem', 'homens', 'masculino', 'pai', 'pais'],
-                    'líderes': ['líder', 'líderes', 'lider', 'liderança', 'pastor', 'governo'],
-                    'crianças': ['criança', 'crianças', 'infantil'],
-                    'empresários': ['empresár', 'empreended', 'negócio', 'empresa'],
-                    'famílias': ['família', 'familias', 'casal', 'casais']
-                },
-                
-                // Condições
-                condicoes: {
-                    'feridos': ['ferido', 'machucado', 'quebrado', 'dor', 'trauma'],
-                    'aprisionados': ['preso', 'aprisionado', 'cativo', 'escrav'],
-                    'perdidos': ['perdido', 'sem rumo', 'desorienta', 'confuso'],
-                    'órfãos': ['órfão', 'órfãos', 'abandona', 'rejeitado', 'sozinho'],
-                    'oprimidos': ['oprimido', 'injustiça', 'sofrendo', 'marginaliz']
-                },
-                
-                // Pontos fortes
-                forcas: {
-                    'discernimento': ['discern', 'perceb', 'enxergo', 'vejo', 'sinto'],
-                    'empatia': ['empatia', 'compaixão', 'sinto a dor', 'entendo'],
-                    'clareza': ['claro', 'clareza', 'objetivo', 'direto', 'preciso'],
-                    'persistência': ['persist', 'não desist', 'continuo', 'insist'],
-                    'sabedoria': ['sabedor', 'sábio', 'entendo profund', 'compreendo'],
-                    'coragem': ['coraj', 'enfrento', 'não tenho medo', 'ousad']
-                }
-            };
-            
-            const resultados = {
+            // Análise semântica
+            const analise = {
                 verbos: [],
                 destinatarios: [],
                 condicoes: [],
                 forcas: []
             };
-            
-            // Detectar padrões
-            for (const [categoria, subcategorias] of Object.entries(padroes)) {
-                for (const [nome, keywords] of Object.entries(subcategorias)) {
-                    for (const keyword of keywords) {
-                        if (t.includes(keyword)) {
-                            if (!resultados[categoria].includes(nome)) {
-                                resultados[categoria].push(nome);
-                            }
-                        }
-                    }
-                }
-            }
-            
-            return resultados;
-        }
 
-        function gerarDeclaracao(respostas) {
-            // Juntar todas as respostas
-            const textoCompleto = Object.values(respostas).join(' ');
-            const analise = analisarTexto(textoCompleto);
+            // Detectar padrões
+            const padroes = {
+                verbos: {
+                    'libertar': /libert|free|livr/gi,
+                    'curar': /curar|cura|restaur|sarar/gi,
+                    'ensinar': /ensinar|educar|formar|treinar/gi,
+                    'construir': /construir|edificar|criar|fundar/gi,
+                    'transformar': /transform|mudar|converter/gi
+                },
+                dest: {
+                    'jovens': /jovem|adolescent/gi,
+                    'mulheres': /mulher/gi,
+                    'homens': /homem|pai/gi,
+                    'líderes': /líder|lider|pastor/gi,
+                    'crianças': /criança/gi,
+                    'famílias': /família/gi
+                },
+                cond: {
+                    'feridos': /ferido|dor|trauma/gi,
+                    'perdidos': /perdido|confuso/gi,
+                    'aprisionados': /preso|cativo/gi
+                }
+            };
+
+            // Contar ocorrências
+            Object.keys(padroes.verbos).forEach(v => {
+                const matches = textoCompleto.match(padroes.verbos[v]);
+                if (matches && matches.length > 0) analise.verbos.push(v);
+            });
+
+            Object.keys(padroes.dest).forEach(d => {
+                const matches = textoCompleto.match(padroes.dest[d]);
+                if (matches && matches.length > 0) analise.destinatarios.push(d);
+            });
+
+            Object.keys(padroes.cond).forEach(c => {
+                const matches = textoCompleto.match(padroes.cond[c]);
+                if (matches && matches.length > 0) analise.condicoes.push(c);
+            });
+
+            // Gerar declaração curta
+            const verbo = analise.verbos[0] || 'transformar';
+            const dest = analise.destinatarios[0] || 'pessoas';
+            const cond = analise.condicoes[0] || 'perdidas';
             
-            // Escolher verbo dominante
-            let verbo = 'TRANSFORMAR';
-            if (analise.verbos.length > 0) {
-                const verbosMap = {
-                    'libertar': 'LIBERTAR',
-                    'curar': 'CURAR',
-                    'ensinar': 'FORMAR',
-                    'construir': 'CONSTRUIR',
-                    'despertar': 'DESPERTAR',
-                    'guiar': 'GUIAR',
-                    'transformar': 'TRANSFORMAR'
-                };
-                verbo = verbosMap[analise.verbos[0]] || 'TRANSFORMAR';
+            const curta = `${verbo.toUpperCase()} ${dest.toUpperCase()} ${cond.toUpperCase()}`;
+
+            // Gerar declaração longa baseada nas respostas mais significativas
+            let longa = '';
+            if (respostas.parto1 && respostas.parto1.length > 100) {
+                longa = `Você foi chamado para ${verbo} ${dest} que estão ${cond}. `;
             }
-            
-            // Escolher destinatário
-            let destinatario = 'PESSOAS';
-            if (analise.destinatarios.length > 0) {
-                destinatario = analise.destinatarios[0].toUpperCase();
+            if (respostas.voz1 && respostas.voz1.length > 50) {
+                longa += `Sua mensagem central ressoa com a necessidade de restauração e transformação genuína. `;
             }
-            
-            // Escolher condição
-            let condicao = 'PERDIDAS';
-            if (analise.condicoes.length > 0) {
-                condicao = analise.condicoes[0].toUpperCase();
+            if (respostas.membros1 && respostas.membros1.length > 50) {
+                longa += `Seus dons práticos são ferramentas estratégicas para cumprir este propósito.`;
             }
-            
-            const curta = `${verbo} ${destinatario} ${condicao}`;
-            const longa = respostas.parto1 || respostas.voz1 || respostas.batimento3 || '';
-            
+
             return {
                 curta: curta,
                 longa: longa,
@@ -466,26 +446,6 @@
 
         function gerarPontosFortes(analise, respostas) {
             const pontos = [];
-            
-            // Baseado em palavras-chave de força
-            if (analise.forcas.includes('discernimento')) {
-                pontos.push('Capacidade aguçada de discernimento e percepção espiritual');
-            }
-            if (analise.forcas.includes('empatia')) {
-                pontos.push('Empatia profunda e capacidade de se conectar com a dor alheia');
-            }
-            if (analise.forcas.includes('clareza')) {
-                pontos.push('Clareza de pensamento e objetividade estratégica');
-            }
-            if (analise.forcas.includes('persistência')) {
-                pontos.push('Persistência e resiliência diante de adversidades');
-            }
-            if (analise.forcas.includes('sabedoria')) {
-                pontos.push('Sabedoria e maturidade espiritual');
-            }
-            if (analise.forcas.includes('coragem')) {
-                pontos.push('Coragem para enfrentar desafios e confrontar verdades difíceis');
-            }
             
             // Baseado em comprimento e profundidade das respostas
             const respostasLongas = Object.values(respostas).filter(r => r.length > 200).length;
@@ -502,6 +462,16 @@
             if (respostas.parto1 && respostas.parto1.length > 100) {
                 pontos.push('Clareza e convicção sobre seu propósito de vida');
             }
+
+            // Baseado em dons práticos
+            if (respostas.membros1 && respostas.membros1.length > 80) {
+                pontos.push('Consciência clara de seus dons e habilidades naturais');
+            }
+
+            // Baseado em identificação de destinatários
+            if (respostas.olhos1 && respostas.olhos1.length > 80) {
+                pontos.push('Compaixão específica e direcionada para seu público-alvo');
+            }
             
             return pontos.length > 0 ? pontos : ['Sensibilidade e busca genuína por propósito'];
         }
@@ -509,7 +479,6 @@
         function gerarPontosAtencao(analise, respostas) {
             const pontos = [];
             
-            // Detectar padrões de atenção
             const textoCompleto = Object.values(respostas).join(' ').toLowerCase();
             
             if (textoCompleto.includes('sozinho') || textoCompleto.includes('carregar tudo')) {
@@ -522,10 +491,6 @@
             
             if (textoCompleto.includes('medo') || textoCompleto.includes('insegur')) {
                 pontos.push('Trabalhe questões de medo e insegurança que podem limitar seu alcance');
-            }
-            
-            if (analise.verbos.length > 3) {
-                pontos.push('Foque em 1-2 expressões principais do seu propósito para evitar dispersão');
             }
             
             if (!respostas.parto1 || respostas.parto1.length < 50) {
@@ -572,7 +537,6 @@
                 el.textContent = 'Ainda não preenchido.';
                 el.classList.add('empty');
             } else {
-                // Se resumir e texto for muito longo
                 if (resumir && valor.length > 150) {
                     el.textContent = valor.substring(0, 147) + '...';
                 } else {
@@ -582,7 +546,22 @@
         }
 
         window.onload = function() {
-            // Recuperar todas as respostas
+            // ✅ VALIDAÇÃO CRÍTICA: Verifica dados antes de renderizar
+            const validacao = validarDadosSuficientes();
+            
+            if (!validacao.valido) {
+                // ✅ REDIRECIONA PARA TELA DE ERRO
+                localStorage.setItem('erro_validacao', JSON.stringify({
+                    percentual: validacao.percentual,
+                    camposValidos: validacao.camposValidos,
+                    totalCampos: validacao.totalCampos,
+                    origem: 'relatorio-final'
+                }));
+                window.location.href = 'erro-diagnostico.html';
+                return;
+            }
+
+            // ✅ CONTINUA COM GERAÇÃO NORMAL DO RELATÓRIO
             const respostas = {
                 concepcao1: getOrEmpty('concepcao1'),
                 concepcao2: getOrEmpty('concepcao2'),

@@ -73,15 +73,85 @@
         </div>
     </div>
     <script>
+        // ✅ VALIDAÇÃO: Mínimo de caracteres e campos obrigatórios
+        const MIN_CARACTERES = 50;
+        const CAMPOS_OBRIGATORIOS = [
+            'concepcao1', 'concepcao2', 'concepcao3',
+            'implantacao1', 'implantacao2', 'implantacao3',
+            'batimento1', 'batimento2', 'batimento3',
+            'membros1', 'membros2', 'membros3',
+            'chute1', 'chute2', 'chute3',
+            'olhos1', 'olhos2', 'olhos3',
+            'respiracao1', 'respiracao2', 'respiracao3',
+            'voz1', 'voz2', 'voz3',
+            'parto1', 'parto2', 'parto3'
+        ];
+
+        // ✅ VALIDAÇÃO: Verifica se há dados suficientes
+        function validarDadosSuficientes() {
+            let camposValidos = 0;
+            let totalCaracteres = 0;
+
+            CAMPOS_OBRIGATORIOS.forEach(campo => {
+                const valor = (localStorage.getItem(campo) || '').trim();
+                totalCaracteres += valor.length;
+                
+                if (valor.length >= MIN_CARACTERES) {
+                    camposValidos++;
+                }
+            });
+
+            // ✅ CRITÉRIO: Pelo menos 80% dos campos preenchidos E total mínimo de caracteres
+            const percentualValido = (camposValidos / CAMPOS_OBRIGATORIOS.length) * 100;
+            const caracteresMinimos = MIN_CARACTERES * CAMPOS_OBRIGATORIOS.length * 0.8; // 80% do total esperado
+
+            return {
+                valido: percentualValido >= 80 && totalCaracteres >= caracteresMinimos,
+                percentual: percentualValido.toFixed(0),
+                camposValidos: camposValidos,
+                totalCampos: CAMPOS_OBRIGATORIOS.length,
+                totalCaracteres: totalCaracteres
+            };
+        }
+
         function analisar() {
-            const r = {}, c = ['concepcao1','concepcao2','concepcao3','implantacao1','implantacao2','implantacao3','batimento1','batimento2','batimento3','membros1','membros2','membros3','chute1','chute2','chute3','olhos1','olhos2','olhos3','respiracao1','respiracao2','respiracao3','voz1','voz2','voz3','parto1','parto2','parto3'];
+            const r = {}, c = CAMPOS_OBRIGATORIOS;
             c.forEach(k => r[k] = (localStorage.getItem(k) || '').trim());
             const t = Object.values(r).join(' ').toLowerCase();
+            
+            // ✅ PROTEÇÃO: Se não há texto suficiente, retorna null
+            if (t.length < 500) {
+                return null;
+            }
+            
             const p = {
-                verbos: {'LIBERTAR':['libert','free'],'CURAR':['curar','cura','restaur'],'FORMAR':['ensinar','educar','formar'],'CONSTRUIR':['construir','edificar'],'DESPERTAR':['despertar','revel'],'GUIAR':['guiar','liderar'],'TRANSFORMAR':['transform']},
-                dest: {'JOVENS':['jovem'],'MULHERES':['mulher'],'HOMENS':['homem','pai'],'LÍDERES':['líder','lider','pastor'],'CRIANÇAS':['criança'],'EMPRESÁRIOS':['empresár','empreend'],'FAMÍLIAS':['família']},
-                cond: {'FERIDOS':['ferido','dor','trauma'],'APRISIONADOS':['preso','cativo'],'PERDIDOS':['perdido','confuso'],'ÓRFÃOS':['órfão','abandon'],'OPRIMIDOS':['oprimido']}
+                verbos: {
+                    'LIBERTAR':['libert','free','livr'],
+                    'CURAR':['curar','cura','restaur','sarar'],
+                    'FORMAR':['ensinar','educar','formar','treinar'],
+                    'CONSTRUIR':['construir','edificar','criar','fundar'],
+                    'DESPERTAR':['despertar','revel','acordar'],
+                    'GUIAR':['guiar','liderar','conduzir','orientar'],
+                    'TRANSFORMAR':['transform','mudar','converter']
+                },
+                dest: {
+                    'JOVENS':['jovem','adolescent','juventude'],
+                    'MULHERES':['mulher','feminino'],
+                    'HOMENS':['homem','masculino','pai'],
+                    'LÍDERES':['líder','lider','pastor','gestor'],
+                    'CRIANÇAS':['criança','infantil','pequeno'],
+                    'EMPRESÁRIOS':['empresár','empreend','negócio'],
+                    'FAMÍLIAS':['família','casal','lar']
+                },
+                cond: {
+                    'FERIDOS':['ferido','dor','trauma','machucado'],
+                    'APRISIONADOS':['preso','cativo','escrav'],
+                    'PERDIDOS':['perdido','confuso','sem rumo'],
+                    'ÓRFÃOS':['órfão','abandon','desampar'],
+                    'OPRIMIDOS':['oprimido','injustiça','sofr']
+                }
             };
+            
             function calc(cat) {
                 const res = {};
                 for(const [n,pl] of Object.entries(p[cat])) {
@@ -94,6 +164,7 @@
                 }
                 return res;
             }
+            
             function dom(pesos) {
                 let max=0, d=null;
                 for(const [n,pe] of Object.entries(pesos)) {
@@ -101,13 +172,50 @@
                 }
                 return d;
             }
-            const v = dom(calc('verbos')) || 'TRANSFORMAR';
-            const d = dom(calc('dest')) || 'PESSOAS';
-            const co = dom(calc('cond')) || 'PERDIDAS';
-            return `${v} ${d} ${co}`;
+            
+            const v = dom(calc('verbos'));
+            const d = dom(calc('dest'));
+            const co = dom(calc('cond'));
+            
+            // ✅ PROTEÇÃO: Se não encontrou nenhum padrão dominante, retorna null
+            if (!v && !d && !co) {
+                return null;
+            }
+            
+            // ✅ USA FALLBACK APENAS QUANDO PELO MENOS 1 PADRÃO FOI DETECTADO
+            return `${v || 'TRANSFORMAR'} ${d || 'PESSOAS'} ${co || 'PERDIDAS'}`;
         }
+
         window.onload = () => {
+            // ✅ VALIDAÇÃO CRÍTICA: Verifica dados antes de processar
+            const validacao = validarDadosSuficientes();
+            
+            if (!validacao.valido) {
+                // ✅ REDIRECIONA PARA TELA DE ERRO
+                localStorage.setItem('erro_validacao', JSON.stringify({
+                    percentual: validacao.percentual,
+                    camposValidos: validacao.camposValidos,
+                    totalCampos: validacao.totalCampos,
+                    origem: 'resultado-proposito'
+                }));
+                window.location.href = 'erro-diagnostico.html';
+                return;
+            }
+
+            // ✅ Tenta analisar
             const prop = analisar();
+            
+            if (!prop) {
+                // ✅ Se análise falhou mesmo com validação, redireciona
+                localStorage.setItem('erro_validacao', JSON.stringify({
+                    tipo: 'analise_falhou',
+                    origem: 'resultado-proposito'
+                }));
+                window.location.href = 'erro-diagnostico.html';
+                return;
+            }
+            
+            // ✅ Sucesso: Exibe o resultado
             document.getElementById('proposito-principal').textContent = prop;
             localStorage.setItem('tema_central', prop);
         };
