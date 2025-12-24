@@ -72,18 +72,6 @@
             line-height: 1.3;
         }
 
-        .proposito-longo {
-            font-size: 1.05em;
-            line-height: 1.8;
-            text-align: justify;
-            color: #f0f3ff;
-            margin-top: 20px;
-            padding: 20px;
-            background: rgba(91, 143, 217, 0.1);
-            border-radius: 10px;
-            border-left: 4px solid #d4af37;
-        }
-
         .grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -106,45 +94,6 @@
             padding: 10px;
             background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
-        }
-
-        .empty {
-            opacity: 0.4;
-            font-style: italic;
-        }
-
-        .footer-note {
-            font-size: 0.9em;
-            color: #9fb8ff;
-            margin-top: 15px;
-            font-style: italic;
-        }
-
-        .btn-bar {
-            margin-top: 25px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .btn {
-            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
-            color: #1a2b4a;
-            border: none;
-            padding: 12px 28px;
-            font-size: 0.95em;
-            font-weight: 600;
-            border-radius: 999px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
         }
 
         .lista-pontos {
@@ -207,6 +156,38 @@
             color: #5b8fd9;
         }
 
+        .btn-bar {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a2b4a;
+            border: none;
+            padding: 12px 28px;
+            font-size: 0.95em;
+            font-weight: 600;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .btn-bar { display: none; }
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2em;
@@ -233,14 +214,13 @@
             <p>Diagnóstico Profundo do Seu Propósito - Todas as 9 Camadas</p>
         </div>
 
-        <!-- 1. DECLARAÇÃO CENTRAL -->
+        <!-- DECLARAÇÃO CENTRAL -->
         <div class="card">
             <div class="section-title">Sua Declaração de Propósito</div>
             <div class="proposito-curto" id="proposito-curto">CARREGANDO...</div>
-            <div class="proposito-longo" id="proposito-longo"></div>
         </div>
 
-        <!-- 2. MAPA EM 8 PONTOS -->
+        <!-- MAPA EM 8 PONTOS (COMPLETO) -->
         <div class="card">
             <div class="section-title">Seu Mapa em 8 Pontos</div>
             <div class="grid">
@@ -279,19 +259,19 @@
             </div>
         </div>
 
-        <!-- 3. PONTOS FORTES -->
+        <!-- PONTOS FORTES -->
         <div class="card">
             <div class="section-title">Seus Pontos Fortes</div>
             <ul class="lista-pontos" id="pontos-fortes"></ul>
         </div>
 
-        <!-- 4. PONTOS DE ATENÇÃO -->
+        <!-- PONTOS DE ATENÇÃO -->
         <div class="card">
             <div class="section-title">Pontos de Atenção</div>
             <ul class="lista-pontos" id="pontos-atencao"></ul>
         </div>
 
-        <!-- 5. PLANO DE AÇÃO -->
+        <!-- PLANO DE AÇÃO -->
         <div class="card">
             <div class="section-title">Seu Plano de Ação</div>
             <div class="plano-acao">
@@ -312,7 +292,7 @@
 
         <!-- RODAPÉ -->
         <div class="card">
-            <p class="footer-note">
+            <p style="text-align: center; font-size: 0.9em; color: #94a3b8; margin-bottom: 20px; font-style: italic;">
                 Este relatório foi gerado através do diagnóstico "Útero do Propósito" - 
                 um processo reflexivo profundo de 9 camadas para descobrir seu chamado único.
             </p>
@@ -325,7 +305,6 @@
     </div>
 
     <script>
-        // ✅ VALIDAÇÃO: Constantes
         const MIN_CARACTERES = 50;
         const CAMPOS_OBRIGATORIOS = [
             'concepcao1', 'concepcao2', 'concepcao3',
@@ -339,7 +318,6 @@
             'parto1', 'parto2', 'parto3'
         ];
 
-        // ✅ VALIDAÇÃO: Verifica se há dados suficientes
         function validarDadosSuficientes() {
             let camposValidos = 0;
             let totalCaracteres = 0;
@@ -354,7 +332,7 @@
             });
 
             const percentualValido = (camposValidos / CAMPOS_OBRIGATORIOS.length) * 100;
-            const caracteresMinimos = MIN_CARACTERES * CAMPOS_OBRIGATORIOS.length * 0.7; // 70% do total esperado
+            const caracteresMinimos = MIN_CARACTERES * CAMPOS_OBRIGATORIOS.length * 0.7;
 
             return {
                 valido: percentualValido >= 70 && totalCaracteres >= caracteresMinimos,
@@ -364,279 +342,229 @@
             };
         }
 
-        function getOrEmpty(key) {
-            return localStorage.getItem(key) || '';
-        }
-
-        function gerarDeclaracao(respostas) {
+        // 💪 GERAR PONTOS FORTES PERSONALIZADOS
+        function gerarPontosFortes(respostas) {
+            const pontos = [];
             const textoCompleto = Object.values(respostas).join(' ').toLowerCase();
             
-            // Análise semântica
-            const analise = {
-                verbos: [],
-                destinatarios: [],
-                condicoes: [],
-                forcas: []
-            };
-
-            // Detectar padrões
-            const padroes = {
-                verbos: {
-                    'libertar': /libert|free|livr/gi,
-                    'curar': /curar|cura|restaur|sarar/gi,
-                    'ensinar': /ensinar|educar|formar|treinar/gi,
-                    'construir': /construir|edificar|criar|fundar/gi,
-                    'transformar': /transform|mudar|converter/gi
-                },
-                dest: {
-                    'jovens': /jovem|adolescent/gi,
-                    'mulheres': /mulher/gi,
-                    'homens': /homem|pai/gi,
-                    'líderes': /líder|lider|pastor/gi,
-                    'crianças': /criança/gi,
-                    'famílias': /família/gi
-                },
-                cond: {
-                    'feridos': /ferido|dor|trauma/gi,
-                    'perdidos': /perdido|confuso/gi,
-                    'aprisionados': /preso|cativo/gi
-                }
-            };
-
-            // Contar ocorrências
-            Object.keys(padroes.verbos).forEach(v => {
-                const matches = textoCompleto.match(padroes.verbos[v]);
-                if (matches && matches.length > 0) analise.verbos.push(v);
-            });
-
-            Object.keys(padroes.dest).forEach(d => {
-                const matches = textoCompleto.match(padroes.dest[d]);
-                if (matches && matches.length > 0) analise.destinatarios.push(d);
-            });
-
-            Object.keys(padroes.cond).forEach(c => {
-                const matches = textoCompleto.match(padroes.cond[c]);
-                if (matches && matches.length > 0) analise.condicoes.push(c);
-            });
-
-            // Gerar declaração curta
-            const verbo = analise.verbos[0] || 'transformar';
-            const dest = analise.destinatarios[0] || 'pessoas';
-            const cond = analise.condicoes[0] || 'perdidas';
+            const dorLength = (respostas.implantacao1 || '').length;
+            const dorTransformadaLength = (respostas.implantacao2 || '').length;
             
-            const curta = `${verbo.toUpperCase()} ${dest.toUpperCase()} ${cond.toUpperCase()}`;
-
-            // Gerar declaração longa baseada nas respostas mais significativas
-            let longa = '';
-            if (respostas.parto1 && respostas.parto1.length > 100) {
-                longa = `Você foi chamado para ${verbo} ${dest} que estão ${cond}. `;
+            if (dorLength > 150 && dorTransformadaLength > 150) {
+                pontos.push('Transformou dor profunda em autoridade e compaixão genuína pelos que sofrem similarmente');
             }
-            if (respostas.voz1 && respostas.voz1.length > 50) {
-                longa += `Sua mensagem central ressoa com a necessidade de restauração e transformação genuína. `;
-            }
-            if (respostas.membros1 && respostas.membros1.length > 50) {
-                longa += `Seus dons práticos são ferramentas estratégicas para cumprir este propósito.`;
-            }
-
-            return {
-                curta: curta,
-                longa: longa,
-                analise: analise
-            };
-        }
-
-        function gerarPontosFortes(analise, respostas) {
-            const pontos = [];
             
-            // Baseado em comprimento e profundidade das respostas
+            if (textoCompleto.includes('ouvir') || textoCompleto.includes('escuta') || 
+                textoCompleto.includes('empatia') || textoCompleto.includes('acolh')) {
+                pontos.push('Capacidade excepcional de escuta empática e conexão genuína com as pessoas');
+            }
+            
+            if ((respostas.parto1 || '').length > 150) {
+                pontos.push('Clareza excepcional sobre seu chamado e convicção inabalável no propósito');
+            }
+            
+            if ((respostas.membros1 || '').length > 150 || (respostas.membros2 || '').length > 150) {
+                pontos.push('Consciência aguçada dos próprios dons e habilidade de aplicá-los estrategicamente');
+            }
+            
+            if ((respostas.olhos1 || '').length > 100) {
+                pontos.push('Compaixão específica e direcionada - enxerga claramente quem precisa ser alcançado');
+            }
+            
+            if ((respostas.chute1 || '').length > 100 || textoCompleto.includes('injustiça') || 
+                textoCompleto.includes('revolta')) {
+                pontos.push('Indignação santa que impulsiona ação - não consegue ficar passivo diante da injustiça');
+            }
+            
+            if ((respostas.voz1 || '').length > 100) {
+                pontos.push('Mensagem clara e urgente que precisa ser comunicada ao mundo');
+            }
+            
             const respostasLongas = Object.values(respostas).filter(r => r.length > 200).length;
             if (respostasLongas >= 5) {
-                pontos.push('Capacidade de reflexão profunda e autoconhecimento desenvolvido');
+                pontos.push('Capacidade rara de reflexão profunda e autoconhecimento desenvolvido');
             }
-            
-            // Baseado em dor transformada
-            if (respostas.implantacao2 && respostas.implantacao2.length > 50) {
-                pontos.push('Habilidade de transformar dor em propósito e autoridade');
-            }
-            
-            // Baseado em clareza de chamado
-            if (respostas.parto1 && respostas.parto1.length > 100) {
-                pontos.push('Clareza e convicção sobre seu propósito de vida');
-            }
-
-            // Baseado em dons práticos
-            if (respostas.membros1 && respostas.membros1.length > 80) {
-                pontos.push('Consciência clara de seus dons e habilidades naturais');
-            }
-
-            // Baseado em identificação de destinatários
-            if (respostas.olhos1 && respostas.olhos1.length > 80) {
-                pontos.push('Compaixão específica e direcionada para seu público-alvo');
-            }
-            
-            return pontos.length > 0 ? pontos : ['Sensibilidade e busca genuína por propósito'];
-        }
-
-        function gerarPontosAtencao(analise, respostas) {
-            const pontos = [];
-            
-            const textoCompleto = Object.values(respostas).join(' ').toLowerCase();
-            
-            if (textoCompleto.includes('sozinho') || textoCompleto.includes('carregar tudo')) {
-                pontos.push('Cuidado com a tendência de carregar responsabilidades sozinho - aprenda a delegar');
-            }
-            
-            if (textoCompleto.includes('cansaço') || textoCompleto.includes('exaust')) {
-                pontos.push('Pratique descanso estratégico para sustentar seu chamado a longo prazo');
-            }
-            
-            if (textoCompleto.includes('medo') || textoCompleto.includes('insegur')) {
-                pontos.push('Trabalhe questões de medo e insegurança que podem limitar seu alcance');
-            }
-            
-            if (!respostas.parto1 || respostas.parto1.length < 50) {
-                pontos.push('Busque maior clareza na sua declaração de envio através de mentoria');
-            }
-            
-            // Sempre incluir
-            pontos.push('Mantenha alinhamento entre o que você fala e o que você vive');
-            pontos.push('Desenvolva estruturas que permitam escalar seu impacto');
             
             return pontos;
         }
 
-        function gerarPlanoAcao(declaracao, analise) {
-            const plano = {
-                dias30: [],
-                dias90: [],
-                dias180: []
-            };
+        // ⚠️ GERAR PONTOS DE ATENÇÃO PERSONALIZADOS
+        function gerarPontosAtencao(respostas) {
+            const pontos = [];
+            const textoCompleto = Object.values(respostas).join(' ').toLowerCase();
             
-            // 30 dias - Primeiros passos
-            plano.dias30.push('Identificar 3 ambientes imediatos onde seu propósito já pode ser praticado');
-            plano.dias30.push(`Assumir pequenas ações diárias coerentes com "${declaracao.curta}"`);
-            plano.dias30.push('Remover 2-3 distrações que roubam energia do seu chamado');
+            if (textoCompleto.includes('sozinho') || textoCompleto.includes('carregar tudo') || 
+                textoCompleto.includes('só eu')) {
+                pontos.push('Cuidado com a tendência de carregar responsabilidades sozinho - aprenda a delegar e empoderar outros');
+            }
             
-            // 90 dias - Construção de ritmo
-            plano.dias90.push('Mapear relacionamentos estratégicos para sua missão');
-            plano.dias90.push('Iniciar um projeto piloto diretamente ligado ao seu propósito');
+            if (textoCompleto.includes('cansaço') || textoCompleto.includes('exaust') || 
+                textoCompleto.includes('burn')) {
+                pontos.push('Pratique descanso estratégico e ritmos sustentáveis - seu chamado é uma maratona, não um sprint');
+            }
+            
+            if (textoCompleto.includes('medo') || textoCompleto.includes('insegur') || 
+                textoCompleto.includes('não sou')) {
+                pontos.push('Trabalhe questões de medo e insegurança que podem limitar seu alcance - você é mais capaz do que imagina');
+            }
+            
+            if (textoCompleto.includes('perfeccion') || textoCompleto.includes('nunca bom o suficiente')) {
+                pontos.push('Liberte-se do perfeccionismo paralisante - feito é melhor que perfeito quando se trata de propósito');
+            }
+            
+            if (!respostas.parto1 || respostas.parto1.length < 50) {
+                pontos.push('Busque maior clareza na sua declaração de envio através de mentoria e discernimento espiritual');
+            }
+            
+            pontos.push('Mantenha alinhamento entre o que você fala e o que você vive - integridade é seu maior ativo');
+            pontos.push('Desenvolva estruturas e sistemas que permitam escalar seu impacto além de você mesmo');
+            
+            return pontos;
+        }
+
+        // 🎯 GERAR PLANO DE AÇÃO PERSONALIZADO
+        function gerarPlanoAcao(respostas) {
+            const plano = { dias30: [], dias90: [], dias180: [] };
+            const textoCompleto = Object.values(respostas).join(' ').toLowerCase();
+            
+            const territorio = (respostas.respiracao2 || '').toLowerCase();
+            const pessoas = (respostas.olhos1 || '').toLowerCase();
+            const dom = (respostas.membros1 || '').toLowerCase();
+            
+            // 30 DIAS
+            if (territorio.includes('empresa') || territorio.includes('corporat') || territorio.includes('negócio')) {
+                plano.dias30.push('Identificar 3 situações no ambiente corporativo para aplicar seu propósito esta semana');
+            } else if (territorio.includes('igreja') || territorio.includes('ministério')) {
+                plano.dias30.push('Mapear 3 oportunidades imediatas no contexto ministerial para viver seu chamado');
+            } else if (territorio.includes('escola') || territorio.includes('educaç')) {
+                plano.dias30.push('Identificar 3 momentos no ambiente educacional para expressar seu propósito');
+            } else {
+                plano.dias30.push('Identificar 3 ambientes imediatos onde seu propósito pode ser praticado');
+            }
+            
+            if (pessoas.includes('jovem') || pessoas.includes('adolescent')) {
+                plano.dias30.push('Conectar-se intencionalmente com 3 jovens que se encaixam no perfil que você enxerga');
+            } else if (pessoas.includes('mulher') || pessoas.includes('feminino')) {
+                plano.dias30.push('Iniciar conversas genuínas com 3 mulheres que precisam do que você tem a oferecer');
+            } else if (pessoas.includes('líder') || pessoas.includes('pastor')) {
+                plano.dias30.push('Agendar cafés estratégicos com 3 líderes alinhados ao seu propósito');
+            } else {
+                plano.dias30.push('Identificar e se aproximar de 3 pessoas específicas que você foi chamado a servir');
+            }
+            
+            plano.dias30.push('Remover 2-3 distrações específicas que roubam energia do seu chamado');
+            
+            // 90 DIAS
+            if (dom.includes('ensinar') || dom.includes('educar') || dom.includes('treinar')) {
+                plano.dias90.push('Estruturar e ministrar seu primeiro treinamento/workshop alinhado ao propósito');
+            } else if (dom.includes('escrever') || dom.includes('comunicar')) {
+                plano.dias90.push('Iniciar produção de conteúdo regular (blog/vídeos) sobre seu chamado');
+            } else if (dom.includes('ouvir') || dom.includes('aconselh') || dom.includes('mentor')) {
+                plano.dias90.push('Estabelecer processo de mentoria com 2-3 pessoas do seu público-alvo');
+            } else {
+                plano.dias90.push('Iniciar projeto piloto diretamente ligado ao seu propósito');
+            }
+            
+            plano.dias90.push('Mapear e cultivar 5 relacionamentos estratégicos para sua missão');
             plano.dias90.push('Estabelecer hábitos diários que reforcem seus valores centrais');
             
-            // 180 dias - Estrutura e expansão
-            plano.dias180.push('Criar uma estrutura contínua de impacto conforme sua esfera de influência');
-            plano.dias180.push('Expandir seu alcance para novos territórios (digitais ou físicos)');
-            plano.dias180.push('Ajustar seu ritmo interno para sustentar sua missão nos próximos anos');
+            // 180 DIAS
+            if (textoCompleto.includes('escalar') || textoCompleto.includes('multiplicar')) {
+                plano.dias180.push('Criar estrutura de multiplicação para expandir impacto além de você');
+            } else {
+                plano.dias180.push('Desenvolver estrutura contínua de impacto conforme sua esfera de influência');
+            }
+            
+            if (textoCompleto.includes('digital') || textoCompleto.includes('online') || textoCompleto.includes('redes')) {
+                plano.dias180.push('Expandir alcance para territórios digitais estratégicos');
+            } else {
+                plano.dias180.push('Expandir alcance para novos territórios físicos ou relacionais');
+            }
+            
+            plano.dias180.push('Avaliar e ajustar ritmo pessoal para sustentar missão nos próximos 5 anos');
             
             return plano;
         }
 
-        function preencherCampo(id, valor, resumir = false) {
+        function preencherCampo(id, valor) {
             const el = document.getElementById(id);
             if (!el) return;
             
+            // ✅ SEM RESUMO - Mostra COMPLETO
             if (!valor || valor.length < 5) {
                 el.textContent = 'Ainda não preenchido.';
-                el.classList.add('empty');
+                el.style.opacity = '0.5';
             } else {
-                if (resumir && valor.length > 150) {
-                    el.textContent = valor.substring(0, 147) + '...';
-                } else {
-                    el.textContent = valor;
-                }
+                el.textContent = valor;  // ✅ TEXTO COMPLETO
             }
         }
 
         window.onload = function() {
-            // ✅ VALIDAÇÃO CRÍTICA: Verifica dados antes de renderizar
             const validacao = validarDadosSuficientes();
             
             if (!validacao.valido) {
-                // ✅ REDIRECIONA PARA TELA DE ERRO
                 localStorage.setItem('erro_validacao', JSON.stringify({
                     percentual: validacao.percentual,
                     camposValidos: validacao.camposValidos,
                     totalCampos: validacao.totalCampos,
-                    origem: 'relatorio-final'
+                    origem: 'relatorio-completo'
                 }));
                 window.location.href = 'erro-diagnostico.html';
                 return;
             }
 
-            // ✅ CONTINUA COM GERAÇÃO NORMAL DO RELATÓRIO
-            const respostas = {
-                concepcao1: getOrEmpty('concepcao1'),
-                concepcao2: getOrEmpty('concepcao2'),
-                concepcao3: getOrEmpty('concepcao3'),
-                implantacao1: getOrEmpty('implantacao1'),
-                implantacao2: getOrEmpty('implantacao2'),
-                implantacao3: getOrEmpty('implantacao3'),
-                batimento1: getOrEmpty('batimento1'),
-                batimento2: getOrEmpty('batimento2'),
-                batimento3: getOrEmpty('batimento3'),
-                membros1: getOrEmpty('membros1'),
-                membros2: getOrEmpty('membros2'),
-                membros3: getOrEmpty('membros3'),
-                chute1: getOrEmpty('chute1'),
-                chute2: getOrEmpty('chute2'),
-                chute3: getOrEmpty('chute3'),
-                olhos1: getOrEmpty('olhos1'),
-                olhos2: getOrEmpty('olhos2'),
-                olhos3: getOrEmpty('olhos3'),
-                respiracao1: getOrEmpty('respiracao1'),
-                respiracao2: getOrEmpty('respiracao2'),
-                respiracao3: getOrEmpty('respiracao3'),
-                voz1: getOrEmpty('voz1'),
-                voz2: getOrEmpty('voz2'),
-                voz3: getOrEmpty('voz3'),
-                parto1: getOrEmpty('parto1'),
-                parto2: getOrEmpty('parto2'),
-                parto3: getOrEmpty('parto3')
-            };
+            const respostas = {};
+            CAMPOS_OBRIGATORIOS.forEach(campo => {
+                respostas[campo] = localStorage.getItem(campo) || '';
+            });
 
-            // Gerar declaração e análise
-            const declaracao = gerarDeclaracao(respostas);
-            
-            // 1) Declaração Central
-            document.getElementById('proposito-curto').textContent = declaracao.curta;
-            if (declaracao.longa) {
-                document.getElementById('proposito-longo').textContent = declaracao.longa;
+            // Propósito
+            const propositoStr = localStorage.getItem('proposito_inteligente');
+            if (propositoStr) {
+                try {
+                    const proposito = JSON.parse(propositoStr);
+                    document.getElementById('proposito-curto').textContent = proposito.frase;
+                } catch (e) {
+                    const tema = localStorage.getItem('tema_central') || 'Propósito não identificado';
+                    document.getElementById('proposito-curto').textContent = tema;
+                }
+            } else {
+                const tema = localStorage.getItem('tema_central') || 'Propósito não identificado';
+                document.getElementById('proposito-curto').textContent = tema;
             }
 
-            // 2) Mapa em 8 pontos
-            preencherCampo('essencia', respostas.concepcao1, true);
+            // Mapa em 8 pontos (COMPLETO - SEM RESUMO)
+            preencherCampo('essencia', respostas.concepcao1);
             preencherCampo('palavra-identidade', respostas.concepcao2);
-            preencherCampo('dor', respostas.implantacao1, true);
-            preencherCampo('dom', respostas.membros1 || respostas.membros2, true);
-            preencherCampo('causa', respostas.chute1, true);
-            preencherCampo('pessoas', respostas.olhos1, true);
-            preencherCampo('territorio', respostas.respiracao2, true);
-            preencherCampo('mensagem', respostas.voz1, true);
+            preencherCampo('dor', respostas.implantacao1);
+            preencherCampo('dom', respostas.membros1 || respostas.membros2);
+            preencherCampo('causa', respostas.chute1);
+            preencherCampo('pessoas', respostas.olhos1);
+            preencherCampo('territorio', respostas.respiracao2);
+            preencherCampo('mensagem', respostas.voz1);
 
-            // 3) Pontos Fortes
-            const pontosFortes = gerarPontosFortes(declaracao.analise, respostas);
+            // Pontos Fortes PERSONALIZADOS
+            const pontosFortes = gerarPontosFortes(respostas);
             const listaFortes = document.getElementById('pontos-fortes');
-            listaFortes.innerHTML = '';
             pontosFortes.forEach(ponto => {
                 const li = document.createElement('li');
                 li.textContent = ponto;
                 listaFortes.appendChild(li);
             });
 
-            // 4) Pontos de Atenção
-            const pontosAtencao = gerarPontosAtencao(declaracao.analise, respostas);
+            // Pontos de Atenção PERSONALIZADOS
+            const pontosAtencao = gerarPontosAtencao(respostas);
             const listaAtencao = document.getElementById('pontos-atencao');
-            listaAtencao.innerHTML = '';
             pontosAtencao.forEach(ponto => {
                 const li = document.createElement('li');
                 li.textContent = ponto;
                 listaAtencao.appendChild(li);
             });
 
-            // 5) Plano de Ação
-            const plano = gerarPlanoAcao(declaracao, declaracao.analise);
+            // Plano de Ação PERSONALIZADO
+            const plano = gerarPlanoAcao(respostas);
             
             const plano30 = document.getElementById('plano-30');
-            plano30.innerHTML = '';
             plano.dias30.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item;
@@ -644,7 +572,6 @@
             });
             
             const plano90 = document.getElementById('plano-90');
-            plano90.innerHTML = '';
             plano.dias90.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item;
@@ -652,7 +579,6 @@
             });
             
             const plano180 = document.getElementById('plano-180');
-            plano180.innerHTML = '';
             plano.dias180.forEach(item => {
                 const li = document.createElement('li');
                 li.textContent = item;

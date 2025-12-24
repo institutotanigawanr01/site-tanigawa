@@ -272,7 +272,7 @@
 
         <!-- TOP 3 PONTOS FORTES -->
         <div class="card">
-            <div class="section-title">💪 Seus 3 Maiores Pontos Fortes</div>
+            <div class="section-title">💪 Seus Maiores Pontos Fortes</div>
             <ul class="lista-pontos" id="pontos-fortes"></ul>
         </div>
 
@@ -336,12 +336,166 @@
             };
         }
 
-        function resumir(texto, maxCaracteres = 80) {
+        // 🧠 RESUMO INTELIGENTE - Preserva essência, completa frases
+        function resumirInteligente(texto, maxCaracteres = 150) {
             if (!texto || texto.length <= maxCaracteres) return texto;
-            return texto.substring(0, maxCaracteres - 3).trim() + '...';
+            
+            // Divide em frases
+            const frases = texto.split(/[.!?]+/).filter(f => f.trim().length > 0);
+            
+            let resumo = '';
+            for (const frase of frases) {
+                const fraseLimpa = frase.trim();
+                if ((resumo + fraseLimpa).length <= maxCaracteres - 3) {
+                    resumo += (resumo ? '. ' : '') + fraseLimpa;
+                } else {
+                    break;
+                }
+            }
+            
+            // Se conseguiu pelo menos 1 frase completa, retorna
+            if (resumo.length > 50) {
+                return resumo + '.';
+            }
+            
+            // Senão, corta em palavra completa
+            const palavras = texto.split(' ');
+            resumo = '';
+            for (const palavra of palavras) {
+                if ((resumo + palavra).length <= maxCaracteres - 3) {
+                    resumo += (resumo ? ' ' : '') + palavra;
+                } else {
+                    break;
+                }
+            }
+            
+            return resumo + '...';
         }
 
-        function preencherCampo(id, valor, resumo = true) {
+        // 💪 GERAR PONTOS FORTES PERSONALIZADOS
+        function gerarPontosFortes(respostas) {
+            const pontos = [];
+            const textoCompleto = Object.values(respostas).join(' ').toLowerCase();
+            
+            // BASEADO EM DOR TRANSFORMADA
+            const dorLength = (respostas.implantacao1 || '').length;
+            const dorTransformadaLength = (respostas.implantacao2 || '').length;
+            
+            if (dorLength > 150 && dorTransformadaLength > 150) {
+                pontos.push('Transformou dor profunda em autoridade e compaixão genuína pelos que sofrem similarmente');
+            }
+            
+            // BASEADO EM EMPATIA/ESCUTA
+            if (textoCompleto.includes('ouvir') || textoCompleto.includes('escuta') || 
+                textoCompleto.includes('empatia') || textoCompleto.includes('acolh')) {
+                pontos.push('Capacidade excepcional de escuta empática e conexão genuína com as pessoas');
+            }
+            
+            // BASEADO EM CLAREZA DE CHAMADO
+            if ((respostas.parto1 || '').length > 150) {
+                pontos.push('Clareza excepcional sobre seu chamado e convicção inabalável no propósito');
+            }
+            
+            // BASEADO EM DONS PRÁTICOS
+            if ((respostas.membros1 || '').length > 150 || (respostas.membros2 || '').length > 150) {
+                pontos.push('Consciência aguçada dos próprios dons e habilidade de aplicá-los estrategicamente');
+            }
+            
+            // BASEADO EM COMPAIXÃO ESPECÍFICA
+            if ((respostas.olhos1 || '').length > 100) {
+                pontos.push('Compaixão específica e direcionada - enxerga claramente quem precisa ser alcançado');
+            }
+            
+            // BASEADO EM INDIGNAÇÃO SANTA
+            if ((respostas.chute1 || '').length > 100 || textoCompleto.includes('injustiça') || 
+                textoCompleto.includes('revolta')) {
+                pontos.push('Indignação santa que impulsiona ação - não consegue ficar passivo diante da injustiça');
+            }
+            
+            // BASEADO EM MENSAGEM CLARA
+            if ((respostas.voz1 || '').length > 100) {
+                pontos.push('Mensagem clara e urgente que precisa ser comunicada ao mundo');
+            }
+            
+            // BASEADO EM PROFUNDIDADE DE REFLEXÃO
+            const respostasLongas = Object.values(respostas).filter(r => r.length > 200).length;
+            if (respostasLongas >= 5) {
+                pontos.push('Capacidade rara de reflexão profunda e autoconhecimento desenvolvido');
+            }
+            
+            // Retorna até 5 pontos mais relevantes
+            return pontos.slice(0, 5);
+        }
+
+        // 🎯 GERAR PLANO DE AÇÃO PERSONALIZADO
+        function gerarPlanoAcao(respostas) {
+            const plano = { dias30: [], dias90: [], dias180: [] };
+            const textoCompleto = Object.values(respostas).join(' ').toLowerCase();
+            
+            // 30 DIAS - Baseado no território e pessoas
+            const territorio = (respostas.respiracao2 || '').toLowerCase();
+            const pessoas = (respostas.olhos1 || '').toLowerCase();
+            const dom = (respostas.membros1 || '').toLowerCase();
+            
+            // Identifica contexto de atuação
+            if (territorio.includes('empresa') || territorio.includes('corporat') || territorio.includes('negócio')) {
+                plano.dias30.push('Identificar 3 situações no ambiente corporativo para aplicar seu propósito esta semana');
+            } else if (territorio.includes('igreja') || territorio.includes('ministério')) {
+                plano.dias30.push('Mapear 3 oportunidades imediatas no contexto ministerial para viver seu chamado');
+            } else if (territorio.includes('escola') || territorio.includes('educaç')) {
+                plano.dias30.push('Identificar 3 momentos no ambiente educacional para expressar seu propósito');
+            } else {
+                plano.dias30.push('Identificar 3 ambientes imediatos onde seu propósito pode ser praticado');
+            }
+            
+            // Baseado nas pessoas que enxerga
+            if (pessoas.includes('jovem') || pessoas.includes('adolescent')) {
+                plano.dias30.push('Conectar-se intencionalmente com 3 jovens que se encaixam no perfil que você enxerga');
+            } else if (pessoas.includes('mulher') || pessoas.includes('feminino')) {
+                plano.dias30.push('Iniciar conversas genuínas com 3 mulheres que precisam do que você tem a oferecer');
+            } else if (pessoas.includes('líder') || pessoas.includes('pastor')) {
+                plano.dias30.push('Agendar cafés estratégicos com 3 líderes alinhados ao seu propósito');
+            } else {
+                plano.dias30.push('Identificar e se aproximar de 3 pessoas específicas que você foi chamado a servir');
+            }
+            
+            plano.dias30.push('Remover 2-3 distrações específicas que roubam energia do seu chamado');
+            
+            // 90 DIAS - Baseado em dons e causa
+            const causa = (respostas.chute1 || '').toLowerCase();
+            
+            if (dom.includes('ensinar') || dom.includes('educar') || dom.includes('treinar')) {
+                plano.dias90.push('Estruturar e ministrar seu primeiro treinamento/workshop alinhado ao propósito');
+            } else if (dom.includes('escrever') || dom.includes('comunicar')) {
+                plano.dias90.push('Iniciar produção de conteúdo regular (blog/vídeos) sobre seu chamado');
+            } else if (dom.includes('ouvir') || dom.includes('aconselh') || dom.includes('mentor')) {
+                plano.dias90.push('Estabelecer processo de mentoria com 2-3 pessoas do seu público-alvo');
+            } else {
+                plano.dias90.push('Iniciar projeto piloto diretamente ligado ao seu propósito');
+            }
+            
+            plano.dias90.push('Mapear e cultivar 5 relacionamentos estratégicos para sua missão');
+            plano.dias90.push('Estabelecer hábitos diários que reforcem seus valores centrais');
+            
+            // 180 DIAS - Baseado em território e escala
+            if (textoCompleto.includes('escalar') || textoCompleto.includes('multiplicar')) {
+                plano.dias180.push('Criar estrutura de multiplicação para expandir impacto além de você');
+            } else {
+                plano.dias180.push('Desenvolver estrutura contínua de impacto conforme sua esfera de influência');
+            }
+            
+            if (textoCompleto.includes('digital') || textoCompleto.includes('online') || textoCompleto.includes('redes')) {
+                plano.dias180.push('Expandir alcance para territórios digitais estratégicos');
+            } else {
+                plano.dias180.push('Expandir alcance para novos territórios físicos ou relacionais');
+            }
+            
+            plano.dias180.push('Avaliar e ajustar ritmo pessoal para sustentar missão nos próximos 5 anos');
+            
+            return plano;
+        }
+
+        function preencherCampo(id, valor) {
             const el = document.getElementById(id);
             if (!el) return;
             
@@ -349,7 +503,7 @@
                 el.textContent = 'Não preenchido';
                 el.style.opacity = '0.5';
             } else {
-                el.textContent = resumo ? resumir(valor) : valor;
+                el.textContent = resumirInteligente(valor, 150);
             }
         }
 
@@ -367,6 +521,12 @@
                 return;
             }
 
+            // Recuperar respostas
+            const respostas = {};
+            CAMPOS_OBRIGATORIOS.forEach(campo => {
+                respostas[campo] = localStorage.getItem(campo) || '';
+            });
+
             // Propósito principal
             const propositoStr = localStorage.getItem('proposito_inteligente');
             if (propositoStr) {
@@ -382,23 +542,18 @@
                 document.getElementById('proposito-principal').textContent = tema;
             }
 
-            // Mapa em 8 pontos (resumido)
-            preencherCampo('essencia', localStorage.getItem('concepcao1'));
-            preencherCampo('identidade', localStorage.getItem('concepcao2'));
-            preencherCampo('dor', localStorage.getItem('implantacao1'));
-            preencherCampo('dom', localStorage.getItem('membros1') || localStorage.getItem('membros2'));
-            preencherCampo('causa', localStorage.getItem('chute1'));
-            preencherCampo('pessoas', localStorage.getItem('olhos1'));
-            preencherCampo('territorio', localStorage.getItem('respiracao2'));
-            preencherCampo('mensagem', localStorage.getItem('voz1'));
+            // Mapa em 8 pontos (resumido INTELIGENTE)
+            preencherCampo('essencia', respostas.concepcao1);
+            preencherCampo('identidade', respostas.concepcao2);
+            preencherCampo('dor', respostas.implantacao1);
+            preencherCampo('dom', respostas.membros1 || respostas.membros2);
+            preencherCampo('causa', respostas.chute1);
+            preencherCampo('pessoas', respostas.olhos1);
+            preencherCampo('territorio', respostas.respiracao2);
+            preencherCampo('mensagem', respostas.voz1);
 
-            // Top 3 Pontos Fortes
-            const pontosFortes = [
-                'Capacidade de reflexão profunda e autoconhecimento desenvolvido',
-                'Clareza sobre seu propósito e chamado de vida',
-                'Sensibilidade para identificar dor alheia e transformá-la em ação'
-            ];
-            
+            // Pontos Fortes PERSONALIZADOS
+            const pontosFortes = gerarPontosFortes(respostas);
             const listaFortes = document.getElementById('pontos-fortes');
             pontosFortes.forEach(ponto => {
                 const li = document.createElement('li');
@@ -406,25 +561,9 @@
                 listaFortes.appendChild(li);
             });
 
-            // Plano de Ação
-            const plano = {
-                dias30: [
-                    'Identificar 3 ambientes para praticar seu propósito',
-                    'Assumir ações diárias alinhadas ao seu chamado',
-                    'Remover 2-3 distrações que roubam energia'
-                ],
-                dias90: [
-                    'Mapear relacionamentos estratégicos',
-                    'Iniciar projeto piloto ligado ao propósito',
-                    'Estabelecer hábitos que reforcem valores centrais'
-                ],
-                dias180: [
-                    'Criar estrutura contínua de impacto',
-                    'Expandir alcance para novos territórios',
-                    'Ajustar ritmo para sustentar missão'
-                ]
-            };
-
+            // Plano de Ação PERSONALIZADO
+            const plano = gerarPlanoAcao(respostas);
+            
             const plano30 = document.getElementById('plano-30');
             plano.dias30.forEach(item => {
                 const li = document.createElement('li');
