@@ -68,12 +68,13 @@
             <div class="celebracao">🎉</div>
             <h1>SEU PROPÓSITO NASCEU!</h1>
             <div class="proposito" id="proposito-principal">ANALISANDO...</div>
-            <a href="relatorio-final.html" class="btn">📋 Ver Relatório Completo</a>
+            <a href="relatorio-executivo.html" class="btn">📄 Ver Relatório Executivo</a>
+            <a href="relatorio-completo.html" class="btn">📋 Ver Relatório Completo</a>
             <a href="utero-base.html" class="btn">🔄 Refazer</a>
         </div>
     </div>
     <script>
-        // ✅ VALIDAÇÃO: Mínimo de caracteres e campos obrigatórios
+        // ✅ VALIDAÇÃO: Constantes
         const MIN_CARACTERES = 50;
         const CAMPOS_OBRIGATORIOS = [
             'concepcao1', 'concepcao2', 'concepcao3',
@@ -87,7 +88,6 @@
             'parto1', 'parto2', 'parto3'
         ];
 
-        // ✅ VALIDAÇÃO: Verifica se há dados suficientes
         function validarDadosSuficientes() {
             let camposValidos = 0;
             let totalCaracteres = 0;
@@ -101,9 +101,8 @@
                 }
             });
 
-            // ✅ CRITÉRIO: Pelo menos 80% dos campos preenchidos E total mínimo de caracteres
             const percentualValido = (camposValidos / CAMPOS_OBRIGATORIOS.length) * 100;
-            const caracteresMinimos = MIN_CARACTERES * CAMPOS_OBRIGATORIOS.length * 0.8; // 80% do total esperado
+            const caracteresMinimos = MIN_CARACTERES * CAMPOS_OBRIGATORIOS.length * 0.8;
 
             return {
                 valido: percentualValido >= 80 && totalCaracteres >= caracteresMinimos,
@@ -114,84 +113,195 @@
             };
         }
 
-        function analisar() {
-            const r = {}, c = CAMPOS_OBRIGATORIOS;
-            c.forEach(k => r[k] = (localStorage.getItem(k) || '').trim());
-            const t = Object.values(r).join(' ').toLowerCase();
-            
-            // ✅ PROTEÇÃO: Se não há texto suficiente, retorna null
-            if (t.length < 500) {
-                return null;
+        // 🧠 MOTOR DE SÍNTESE INTELIGENTE
+        class MotorSintese {
+            constructor(respostas) {
+                this.respostas = respostas;
+                this.textoCompleto = Object.values(respostas).join(' ').toLowerCase();
+                this.analise = {
+                    verbos: [],
+                    destinatarios: [],
+                    condicoes: [],
+                    meios: []
+                };
             }
-            
-            const p = {
-                verbos: {
-                    'LIBERTAR':['libert','free','livr'],
-                    'CURAR':['curar','cura','restaur','sarar'],
-                    'FORMAR':['ensinar','educar','formar','treinar'],
-                    'CONSTRUIR':['construir','edificar','criar','fundar'],
-                    'DESPERTAR':['despertar','revel','acordar'],
-                    'GUIAR':['guiar','liderar','conduzir','orientar'],
-                    'TRANSFORMAR':['transform','mudar','converter']
-                },
-                dest: {
-                    'JOVENS':['jovem','adolescent','juventude'],
-                    'MULHERES':['mulher','feminino'],
-                    'HOMENS':['homem','masculino','pai'],
-                    'LÍDERES':['líder','lider','pastor','gestor'],
-                    'CRIANÇAS':['criança','infantil','pequeno'],
-                    'EMPRESÁRIOS':['empresár','empreend','negócio'],
-                    'FAMÍLIAS':['família','casal','lar']
-                },
-                cond: {
-                    'FERIDOS':['ferido','dor','trauma','machucado'],
-                    'APRISIONADOS':['preso','cativo','escrav'],
-                    'PERDIDOS':['perdido','confuso','sem rumo'],
-                    'ÓRFÃOS':['órfão','abandon','desampar'],
-                    'OPRIMIDOS':['oprimido','injustiça','sofr']
+
+            analisarPadroes() {
+                const padroes = {
+                    verbos: {
+                        'libertar': /libert|free|livr|soltar/gi,
+                        'curar': /curar|cura|restaur|sarar|recuper/gi,
+                        'revelar': /revel|mostrar|manifest|descob/gi,
+                        'formar': /formar|ensinar|educar|treinar|capacit/gi,
+                        'equipar': /equipar|prepar|habilit/gi,
+                        'construir': /construir|edificar|criar|fundar/gi,
+                        'despertar': /despertar|acord|ativar/gi,
+                        'guiar': /guiar|liderar|conduzir|orientar|direcion/gi,
+                        'transformar': /transform|mudar|converter/gi,
+                        'restaurar': /restaur|renov|reconst/gi
+                    },
+                    destinatarios: {
+                        'jovens': /jovem|juventude|adolescent/gi,
+                        'mulheres': /mulher|feminino|damas/gi,
+                        'homens': /homem|masculino|pais/gi,
+                        'líderes': /líder|lider|pastor|gestor|diretor/gi,
+                        'crianças': /criança|infantil|pequeno/gi,
+                        'empresários': /empresár|empreend|negócio|executiv/gi,
+                        'famílias': /família|casal|lar|matrimon/gi,
+                        'pessoas': /pessoa|gente|indivíduo/gi
+                    },
+                    condicoes: {
+                        'feridos': /ferido|machucado|dor|trauma|sofr/gi,
+                        'aprisionados': /preso|cativo|escrav/gi,
+                        'perdidos': /perdido|confuso|sem rumo/gi,
+                        'inseguros': /insegur|medo|receio|temor|dúvida/gi,
+                        'quebrados': /quebr|destr|arrasad/gi,
+                        'vazios': /vazio|oco|sem propósit/gi
+                    },
+                    meios: {
+                        'mentoria': /mentor|acompanh|discipulad/gi,
+                        'ensino': /ensin|aula|palestr|treinament/gi,
+                        'escuta': /escuta|ouvir|ouvinte/gi,
+                        'palavra': /palavra|mensagem|pregaç/gi,
+                        'exemplo': /exemplo|model|referênci/gi
+                    }
+                };
+
+                for (const [categoria, items] of Object.entries(padroes)) {
+                    const scores = {};
+                    for (const [palavra, regex] of Object.entries(items)) {
+                        const matches = this.textoCompleto.match(regex);
+                        if (matches) {
+                            scores[palavra] = matches.length;
+                        }
+                    }
+                    const sorted = Object.entries(scores)
+                        .sort((a, b) => b[1] - a[1])
+                        .map(([palavra]) => palavra);
+                    
+                    this.analise[categoria] = sorted;
                 }
-            };
-            
-            function calc(cat) {
-                const res = {};
-                for(const [n,pl] of Object.entries(p[cat])) {
-                    let peso = 0;
-                    pl.forEach(pal => {
-                        const m = t.match(new RegExp(pal,'gi'));
-                        if(m) peso += m.length;
-                    });
-                    res[n] = peso;
+
+                return this.analise;
+            }
+
+            selecionarTemplate() {
+                const templates = [
+                    {
+                        id: 'revelar_identidade',
+                        patterns: ['revelar', 'mostrar', 'manifestar'],
+                        structure: (v, d, c) => `Revelar aos ${d} ${c} seu verdadeiro valor e identidade`,
+                    },
+                    {
+                        id: 'libertar_de_para',
+                        patterns: ['libertar', 'livrar', 'soltar'],
+                        structure: (v, d, c) => `Libertar ${d} ${c} para uma vida de propósito`,
+                    },
+                    {
+                        id: 'equipar_governo',
+                        patterns: ['equipar', 'preparar', 'formar'],
+                        structure: (v, d, c) => `Equipar ${d} a viverem seu chamado com excelência`,
+                    },
+                    {
+                        id: 'despertar_chamado',
+                        patterns: ['despertar', 'acordar', 'ativar'],
+                        structure: (v, d, c) => `Despertar em ${d} o chamado que transforma gerações`,
+                    },
+                    {
+                        id: 'transformar_atraves',
+                        patterns: ['transformar', 'mudar', 'converter'],
+                        structure: (v, d, c) => `Transformar ${d} ${c} em agentes de mudança`,
+                    },
+                    {
+                        id: 'guiar_territorio',
+                        patterns: ['guiar', 'liderar', 'conduzir'],
+                        structure: (v, d, c) => `Guiar ${d} a descobrirem seu território de impacto`,
+                    },
+                    {
+                        id: 'restaurar_completo',
+                        patterns: ['restaurar', 'curar', 'sarar'],
+                        structure: (v, d, c) => `Restaurar ${d} ${c} à sua identidade original`,
+                    }
+                ];
+
+                const verbo = this.analise.verbos[0];
+                
+                for (const template of templates) {
+                    if (template.patterns.includes(verbo)) {
+                        return template;
+                    }
                 }
-                return res;
+
+                return {
+                    id: 'generico',
+                    structure: (v, d, c) => {
+                        const parts = [];
+                        if (v) parts.push(this.capitalize(v));
+                        if (d) parts.push(d);
+                        if (c) parts.push(c);
+                        return parts.join(' ') + ' para transformação genuína';
+                    }
+                };
             }
-            
-            function dom(pesos) {
-                let max=0, d=null;
-                for(const [n,pe] of Object.entries(pesos)) {
-                    if(pe>max) { max=pe; d=n; }
+
+            gerarFraseInteligente() {
+                this.analisarPadroes();
+
+                if (this.textoCompleto.length < 500) {
+                    return null;
                 }
-                return d;
+
+                const temPadroes = Object.values(this.analise).some(arr => arr.length > 0);
+                if (!temPadroes) {
+                    return null;
+                }
+
+                const template = this.selecionarTemplate();
+                const verbo = this.analise.verbos[0];
+                const dest = this.analise.destinatarios[0] || 'pessoas';
+                const cond = this.formatarCondicao(this.analise.condicoes[0]);
+
+                let frase = template.structure(verbo, dest, cond);
+                frase = this.limparFrase(frase);
+                frase = this.capitalize(frase);
+
+                return {
+                    frase: frase,
+                    componentes: { verbo, dest, cond },
+                    template: template.id
+                };
             }
-            
-            const v = dom(calc('verbos'));
-            const d = dom(calc('dest'));
-            const co = dom(calc('cond'));
-            
-            // ✅ PROTEÇÃO: Se não encontrou nenhum padrão dominante, retorna null
-            if (!v && !d && !co) {
-                return null;
+
+            formatarCondicao(condicao) {
+                if (!condicao) return '';
+                const mapa = {
+                    'feridos': 'feridos pela vida',
+                    'aprisionados': 'presos ao medo',
+                    'perdidos': 'sem direção clara',
+                    'inseguros': 'que duvidam de si',
+                    'quebrados': 'emocionalmente quebrados',
+                    'vazios': 'que buscam propósito'
+                };
+                return mapa[condicao] || condicao;
             }
-            
-            // ✅ USA FALLBACK APENAS QUANDO PELO MENOS 1 PADRÃO FOI DETECTADO
-            return `${v || 'TRANSFORMAR'} ${d || 'PESSOAS'} ${co || 'PERDIDAS'}`;
+
+            limparFrase(frase) {
+                frase = frase.replace(/\s+/g, ' ');
+                frase = frase.replace(/\s+(da|de|do)\s+undefined/gi, '');
+                frase = frase.replace(/undefined/gi, '');
+                return frase.trim();
+            }
+
+            capitalize(str) {
+                if (!str) return '';
+                return str.charAt(0).toUpperCase() + str.slice(1);
+            }
         }
 
         window.onload = () => {
-            // ✅ VALIDAÇÃO CRÍTICA: Verifica dados antes de processar
             const validacao = validarDadosSuficientes();
             
             if (!validacao.valido) {
-                // ✅ REDIRECIONA PARA TELA DE ERRO
                 localStorage.setItem('erro_validacao', JSON.stringify({
                     percentual: validacao.percentual,
                     camposValidos: validacao.camposValidos,
@@ -202,11 +312,15 @@
                 return;
             }
 
-            // ✅ Tenta analisar
-            const prop = analisar();
+            const respostas = {};
+            CAMPOS_OBRIGATORIOS.forEach(campo => {
+                respostas[campo] = localStorage.getItem(campo) || '';
+            });
+
+            const motor = new MotorSintese(respostas);
+            const resultado = motor.gerarFraseInteligente();
             
-            if (!prop) {
-                // ✅ Se análise falhou mesmo com validação, redireciona
+            if (!resultado) {
                 localStorage.setItem('erro_validacao', JSON.stringify({
                     tipo: 'analise_falhou',
                     origem: 'resultado-proposito'
@@ -214,10 +328,10 @@
                 window.location.href = 'erro-diagnostico.html';
                 return;
             }
-            
-            // ✅ Sucesso: Exibe o resultado
-            document.getElementById('proposito-principal').textContent = prop;
-            localStorage.setItem('tema_central', prop);
+
+            document.getElementById('proposito-principal').textContent = resultado.frase;
+            localStorage.setItem('proposito_inteligente', JSON.stringify(resultado));
+            localStorage.setItem('tema_central', resultado.frase);
         };
     </script>
 </body>

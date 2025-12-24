@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório Executivo - Útero do Propósito</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a2b4a 0%, #2d4a7c 100%);
+            min-height: 100vh;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+
+        .header .subtitle {
+            font-size: 1em;
+            color: #5b8fd9;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.1em;
+            color: #d4af37;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .proposito-principal {
+            font-size: 2em;
+            font-weight: 800;
+            text-align: center;
+            margin: 20px 0;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            line-height: 1.4;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-item {
+            background: rgba(91, 143, 217, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #d4af37;
+        }
+
+        .grid-label {
+            font-size: 0.85em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #5b8fd9;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .grid-text {
+            font-size: 0.95em;
+            line-height: 1.5;
+            color: #f0f3ff;
+        }
+
+        .lista-pontos {
+            list-style: none;
+            padding: 0;
+        }
+
+        .lista-pontos li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .lista-pontos li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #d4af37;
+            font-weight: bold;
+        }
+
+        .plano-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .plano-card {
+            background: rgba(91, 143, 217, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #d4af37;
+        }
+
+        .plano-card h4 {
+            color: #d4af37;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .plano-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .plano-card li {
+            margin-bottom: 8px;
+            padding-left: 15px;
+            position: relative;
+            font-size: 0.85em;
+            line-height: 1.4;
+        }
+
+        .plano-card li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #5b8fd9;
+        }
+
+        .btn-bar {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #1a2b4a;
+            border: none;
+            padding: 12px 28px;
+            font-size: 0.95em;
+            font-weight: 600;
+            border-radius: 999px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(212, 175, 55, 0.5);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.85em;
+            color: #94a3b8;
+            margin-top: 30px;
+            font-style: italic;
+        }
+
+        @media print {
+            body { background: white; color: black; }
+            .btn-bar { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .plano-grid {
+                grid-template-columns: 1fr;
+            }
+            .proposito-principal {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📄 Relatório Executivo</h1>
+            <p class="subtitle">Útero do Propósito - Síntese Estratégica</p>
+        </div>
+
+        <!-- PROPÓSITO CENTRAL -->
+        <div class="card">
+            <div class="section-title">🎯 Seu Propósito em Uma Frase</div>
+            <div class="proposito-principal" id="proposito-principal">CARREGANDO...</div>
+        </div>
+
+        <!-- MAPA EM 8 PONTOS (RESUMIDO) -->
+        <div class="card">
+            <div class="section-title">🗺️ Mapa em 8 Pontos (Resumo)</div>
+            <div class="grid-2">
+                <div class="grid-item">
+                    <div class="grid-label">1. Essência</div>
+                    <div class="grid-text" id="essencia">-</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-label">2. Identidade</div>
+                    <div class="grid-text" id="identidade">-</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-label">3. Dor Âncora</div>
+                    <div class="grid-text" id="dor">-</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-label">4. Dom Principal</div>
+                    <div class="grid-text" id="dom">-</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-label">5. Causa</div>
+                    <div class="grid-text" id="causa">-</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-label">6. Pessoas</div>
+                    <div class="grid-text" id="pessoas">-</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-label">7. Território</div>
+                    <div class="grid-text" id="territorio">-</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-label">8. Mensagem</div>
+                    <div class="grid-text" id="mensagem">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOP 3 PONTOS FORTES -->
+        <div class="card">
+            <div class="section-title">💪 Seus 3 Maiores Pontos Fortes</div>
+            <ul class="lista-pontos" id="pontos-fortes"></ul>
+        </div>
+
+        <!-- PLANO DE AÇÃO -->
+        <div class="card">
+            <div class="section-title">🎯 Plano de Ação - Próximos 180 Dias</div>
+            <div class="plano-grid">
+                <div class="plano-card">
+                    <h4>📍 30 Dias</h4>
+                    <ul id="plano-30"></ul>
+                </div>
+                <div class="plano-card">
+                    <h4>🎯 90 Dias</h4>
+                    <ul id="plano-90"></ul>
+                </div>
+                <div class="plano-card">
+                    <h4>🚀 180 Dias</h4>
+                    <ul id="plano-180"></ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- BOTÕES -->
+        <div class="card">
+            <div class="btn-bar">
+                <button class="btn" onclick="window.print()">🖨️ Imprimir PDF</button>
+                <a href="relatorio-completo.html" class="btn btn-secondary">📋 Ver Relatório Completo</a>
+                <a href="utero-base.html" class="btn btn-secondary">🔄 Refazer</a>
+            </div>
+            <p class="footer-note">
+                Relatório Executivo - Útero do Propósito | Instituto Tanigawa
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const MIN_CARACTERES = 50;
+        const CAMPOS_OBRIGATORIOS = [
+            'concepcao1', 'concepcao2', 'concepcao3',
+            'implantacao1', 'implantacao2', 'implantacao3',
+            'batimento1', 'batimento2', 'batimento3',
+            'membros1', 'membros2', 'membros3',
+            'chute1', 'chute2', 'chute3',
+            'olhos1', 'olhos2', 'olhos3',
+            'respiracao1', 'respiracao2', 'respiracao3',
+            'voz1', 'voz2', 'voz3',
+            'parto1', 'parto2', 'parto3'
+        ];
+
+        function validarDadosSuficientes() {
+            let camposValidos = 0;
+            CAMPOS_OBRIGATORIOS.forEach(campo => {
+                const valor = (localStorage.getItem(campo) || '').trim();
+                if (valor.length >= MIN_CARACTERES) camposValidos++;
+            });
+            const percentualValido = (camposValidos / CAMPOS_OBRIGATORIOS.length) * 100;
+            return {
+                valido: percentualValido >= 70,
+                percentual: percentualValido.toFixed(0),
+                camposValidos
+            };
+        }
+
+        function resumir(texto, maxCaracteres = 80) {
+            if (!texto || texto.length <= maxCaracteres) return texto;
+            return texto.substring(0, maxCaracteres - 3).trim() + '...';
+        }
+
+        function preencherCampo(id, valor, resumo = true) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            
+            if (!valor || valor.length < 5) {
+                el.textContent = 'Não preenchido';
+                el.style.opacity = '0.5';
+            } else {
+                el.textContent = resumo ? resumir(valor) : valor;
+            }
+        }
+
+        window.onload = function() {
+            const validacao = validarDadosSuficientes();
+            
+            if (!validacao.valido) {
+                localStorage.setItem('erro_validacao', JSON.stringify({
+                    percentual: validacao.percentual,
+                    camposValidos: validacao.camposValidos,
+                    totalCampos: CAMPOS_OBRIGATORIOS.length,
+                    origem: 'relatorio-executivo'
+                }));
+                window.location.href = 'erro-diagnostico.html';
+                return;
+            }
+
+            // Propósito principal
+            const propositoStr = localStorage.getItem('proposito_inteligente');
+            if (propositoStr) {
+                try {
+                    const proposito = JSON.parse(propositoStr);
+                    document.getElementById('proposito-principal').textContent = proposito.frase;
+                } catch (e) {
+                    const tema = localStorage.getItem('tema_central') || 'Propósito não identificado';
+                    document.getElementById('proposito-principal').textContent = tema;
+                }
+            } else {
+                const tema = localStorage.getItem('tema_central') || 'Propósito não identificado';
+                document.getElementById('proposito-principal').textContent = tema;
+            }
+
+            // Mapa em 8 pontos (resumido)
+            preencherCampo('essencia', localStorage.getItem('concepcao1'));
+            preencherCampo('identidade', localStorage.getItem('concepcao2'));
+            preencherCampo('dor', localStorage.getItem('implantacao1'));
+            preencherCampo('dom', localStorage.getItem('membros1') || localStorage.getItem('membros2'));
+            preencherCampo('causa', localStorage.getItem('chute1'));
+            preencherCampo('pessoas', localStorage.getItem('olhos1'));
+            preencherCampo('territorio', localStorage.getItem('respiracao2'));
+            preencherCampo('mensagem', localStorage.getItem('voz1'));
+
+            // Top 3 Pontos Fortes
+            const pontosFortes = [
+                'Capacidade de reflexão profunda e autoconhecimento desenvolvido',
+                'Clareza sobre seu propósito e chamado de vida',
+                'Sensibilidade para identificar dor alheia e transformá-la em ação'
+            ];
+            
+            const listaFortes = document.getElementById('pontos-fortes');
+            pontosFortes.forEach(ponto => {
+                const li = document.createElement('li');
+                li.textContent = ponto;
+                listaFortes.appendChild(li);
+            });
+
+            // Plano de Ação
+            const plano = {
+                dias30: [
+                    'Identificar 3 ambientes para praticar seu propósito',
+                    'Assumir ações diárias alinhadas ao seu chamado',
+                    'Remover 2-3 distrações que roubam energia'
+                ],
+                dias90: [
+                    'Mapear relacionamentos estratégicos',
+                    'Iniciar projeto piloto ligado ao propósito',
+                    'Estabelecer hábitos que reforcem valores centrais'
+                ],
+                dias180: [
+                    'Criar estrutura contínua de impacto',
+                    'Expandir alcance para novos territórios',
+                    'Ajustar ritmo para sustentar missão'
+                ]
+            };
+
+            const plano30 = document.getElementById('plano-30');
+            plano.dias30.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                plano30.appendChild(li);
+            });
+
+            const plano90 = document.getElementById('plano-90');
+            plano.dias90.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                plano90.appendChild(li);
+            });
+
+            const plano180 = document.getElementById('plano-180');
+            plano.dias180.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                plano180.appendChild(li);
+            });
+        };
+    </script>
+</body>
+</html>
