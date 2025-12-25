@@ -74,8 +74,19 @@
         </div>
     </div>
     <script>
-        // ✅ VALIDAÇÃO: Constantes
-        const MIN_CARACTERES = 50;
+        // ✅ VALIDAÇÃO INTELIGENTE: Mínimos específicos por campo
+        const MIN_CARACTERES_POR_CAMPO = {
+            'concepcao1': 40, 'concepcao2': 2, 'concepcao3': 10,
+            'implantacao1': 50, 'implantacao2': 50, 'implantacao3': 40,
+            'batimento1': 10, 'batimento2': 20, 'batimento3': 20,
+            'membros1': 40, 'membros2': 25, 'membros3': 40,
+            'chute1': 40, 'chute2': 20, 'chute3': 10,
+            'olhos1': 40, 'olhos2': 30, 'olhos3': 40,
+            'respiracao1': 30, 'respiracao2': 10, 'respiracao3': 10,
+            'voz1': 20, 'voz2': 10, 'voz3': 40,
+            'parto1': 40, 'parto2': 40, 'parto3': 30
+        };
+        
         const CAMPOS_OBRIGATORIOS = [
             'concepcao1', 'concepcao2', 'concepcao3',
             'implantacao1', 'implantacao2', 'implantacao3',
@@ -91,18 +102,22 @@
         function validarDadosSuficientes() {
             let camposValidos = 0;
             let totalCaracteres = 0;
+            let totalCaracteresEsperados = 0;
 
             CAMPOS_OBRIGATORIOS.forEach(campo => {
                 const valor = (localStorage.getItem(campo) || '').trim();
-                totalCaracteres += valor.length;
+                const minimoEspecifico = MIN_CARACTERES_POR_CAMPO[campo] || 50;
                 
-                if (valor.length >= MIN_CARACTERES) {
+                totalCaracteres += valor.length;
+                totalCaracteresEsperados += minimoEspecifico;
+                
+                if (valor.length >= minimoEspecifico) {
                     camposValidos++;
                 }
             });
 
             const percentualValido = (camposValidos / CAMPOS_OBRIGATORIOS.length) * 100;
-            const caracteresMinimos = MIN_CARACTERES * CAMPOS_OBRIGATORIOS.length * 0.8;
+            const caracteresMinimos = totalCaracteresEsperados * 0.8;
 
             return {
                 valido: percentualValido >= 80 && totalCaracteres >= caracteresMinimos,

@@ -658,8 +658,53 @@
     </div>
 
     <script>
-        // ✅ VALIDAÇÃO: Mínimo de caracteres por campo
-        const MIN_CARACTERES = 50;
+        // ✅ VALIDAÇÃO INTELIGENTE: Mínimo de caracteres específico por campo
+        const MIN_CARACTERES_POR_CAMPO = {
+            // 1º TRIMESTRE: CONCEPÇÃO
+            'concepcao1': 40,    // História da infância - narrativa
+            'concepcao2': 2,     // UMA ÚNICA PALAVRA - literal
+            'concepcao3': 10,    // Completar frase - curto
+            
+            // IMPLANTAÇÃO
+            'implantacao1': 50,  // Dor profunda - reflexão profunda
+            'implantacao2': 50,  // O que a dor ensinou - reflexão profunda
+            'implantacao3': 40,  // Como pouparia outros - aplicação
+            
+            // PRIMEIRO BATIMENTO
+            'batimento1': 10,    // 3 valores - lista
+            'batimento2': 20,    // Sentimento quando vê valores - descrição
+            'batimento3': 20,    // Reação quando valores pisoteados - descrição
+            
+            // 2º TRIMESTRE: MEMBROS
+            'membros1': 40,      // O que faz melhor - descrição detalhada
+            'membros2': 25,      // Problema que resolve - descrição
+            'membros3': 40,      // Projeto com recursos ilimitados - visão
+            
+            // CHUTE
+            'chute1': 40,        // Injustiça que revolta - declaração forte
+            'chute2': 20,        // Uma coisa para mudar - declaração
+            'chute3': 10,        // Completar frase - curto
+            
+            // OLHOS
+            'olhos1': 40,        // Quem enxerga - descrição específica
+            'olhos2': 30,        // Rosto que vê - descrição
+            'olhos3': 40,        // Grupo para ver transformado - visão
+            
+            // 3º TRIMESTRE: RESPIRAÇÃO
+            'respiracao1': 30,   // Onde respira sozinho - descrição
+            'respiracao2': 10,   // Território para governar - pode ser curto
+            'respiracao3': 10,   // Completar frase - curto
+            
+            // VOZ
+            'voz1': 20,          // Verdade única - declaração
+            'voz2': 10,          // Título de uma frase - curto
+            'voz3': 40,          // Legado no velório - reflexão profunda
+            
+            // TRABALHO DE PARTO
+            'parto1': 40,        // Eu fui enviado para - declaração de envio
+            'parto2': 40,        // O que precisa nascer - visão
+            'parto3': 30         // Urgência/falta - reflexão
+        };
 
         // ✅ VALIDAÇÃO: Lista de todos os campos obrigatórios (27 campos)
         const CAMPOS_OBRIGATORIOS = [
@@ -704,8 +749,11 @@
             campoIds.forEach(campoId => {
                 const campo = document.getElementById(campoId);
                 const valor = (campo.value || '').trim();
+                
+                // ✅ Usa o mínimo específico do campo
+                const minimoEspecifico = MIN_CARACTERES_POR_CAMPO[campoId] || 50;
 
-                if (valor.length < MIN_CARACTERES) {
+                if (valor.length < minimoEspecifico) {
                     campo.classList.add('invalid');
                     todosValidos = false;
                     
@@ -818,7 +866,7 @@
                 const errorMessage = document.getElementById('error-message');
                 errorMessage.innerHTML = `
                     <p>⚠️ Ainda faltam campos para preencher!</p>
-                    <small>Revise todas as camadas e complete os campos em amarelo com pelo menos 50 caracteres.</small>
+                    <small>Revise todas as camadas e complete os campos em amarelo.</small>
                 `;
                 errorMessage.classList.add('show');
                 
